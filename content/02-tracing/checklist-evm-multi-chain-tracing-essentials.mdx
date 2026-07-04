@@ -1,0 +1,30 @@
+# EVM Multi-Chain Tracing Essentials
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level 2  ·  evm · multi-chain · tracing · explorers · tooling</span>
+
+## Core idea
+The EVM ecosystem is a family of compatible chains sharing the same transaction, address, and tooling formats. A single wallet address exists on every EVM chain simultaneously, and attackers rarely stay on one -- so an investigator must be fluent across all of them and check activity everywhere.
+
+## Components
+Chains to check activity on (at least):
+- Ethereum, BNB Smart Chain, Polygon PoS, Arbitrum One, Optimism, Base, Avalanche C-Chain, zkSync Era, Linea, Polygon zkEVM, Scroll, Blast.
+
+Multi-chain aggregators (query an address across all chains in one view):
+- Arkham, DeBank, Zapper, Zerion.
+
+Tool stack:
+- Explorers -- Etherscan, BscScan, Arbiscan, Optimistic Etherscan, Basescan, Polygonscan.
+- Multi-chain -- Blockscout (open source), Arkham, DeBank, Zerion, Zapper.
+- Tx replay -- Phalcon by BlockSec, Tenderly (visualise every internal call).
+- Decoders -- openchain.xyz signature db, 4byte.directory, abi-decoder tools.
+- Approvals -- Revoke.cash (enumerate and revoke token approvals).
+- Contract intel -- Sourcify, Etherscan verified source, DethCode (vscode.blockscan.com).
+
+## When to use
+At the start of any EVM investigation, and specifically when a wallet looks quiet on Ethereum -- check every other EVM chain before concluding it is inactive.
+
+## Example
+A wallet with almost no Ethereum activity shows the real fund flow on Base and Arbitrum; a DeBank/Arkham multi-chain view surfaces it in a single query.
+
+## Related
+[Reading an EVM Transaction](/kb/00-fundamentals/concept-reading-an-evm-transaction), [EVM Event Logs & Decoding Calldata](/kb/02-tracing/tactic-evm-event-logs-and-decoding-calldata), [Filter-by-Size + Scrape + LLM Summarise](/kb/02-tracing/tactic-filter-by-size-scrape-llm-summarise)

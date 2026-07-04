@@ -1,0 +1,19 @@
+/*
+ * Brand the Nextra docs to the TrxTr4c3r "Terminal" identity: phosphor-green
+ * accent and a void-green background, so /kb reads as the same product as the
+ * landing. Only overrides Nextra's own CSS variables; no layout changes.
+ */
+:root {
+  --nextra-primary-hue: 135deg;
+  --nextra-primary-saturation: 100%;
+  --nextra-primary-lightness: 62%;
+}
+
+html.dark {
+  --nextra-bg: 7 16 11; /* #07100B void */
+}
+
+.dark ::selection {
+  background: #4cff7a;
+  color: #07100b;
+}

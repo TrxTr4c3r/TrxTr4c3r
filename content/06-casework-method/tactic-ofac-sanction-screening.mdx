@@ -1,0 +1,15 @@
+# Screening Addresses Against OFAC Sanctions
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 1  ·  ofac · sanctions · screening · attribution · compliance</span>
+
+## Core idea
+An address may be on a sanctions list. Searching the address in double quotes on Google often returns sanctions-list entries directly, and explorers may show an OFAC block label. A sanctioned counterparty is a strong attribution signal, for example linking an address to a state actor.
+
+## When to use
+When assessing the risk of an address or trying to attribute it, especially if you see large or repeated transfers to one destination.
+
+## Example
+A developer's address sent 17 ETH repeatedly to one address. Googling that address in quotes returned a sanctions-list entry dated 16 October 2019 tying it to North Korea, which the protocol could have found before hiring him.
+
+## Related
+The OxMoon Developer Attribution, [Google Dorking for Attribution](/kb/01-osint/tactic-google-dorking), [Never Trust a Single Source of Attribution](/kb/03-attribution-clustering/principle-multiple-attribution-sources)

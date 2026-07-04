@@ -1,0 +1,18 @@
+# CoinJoin / Mixer Detection
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level reference  ·  blockchain-forensics · mixer · coinjoin · obfuscation</span>
+
+## Core idea
+Identifies equal-value, multi-party transactions or centralised mixing services designed to break the on-chain link between sender and receiver. Detection relies on pattern recognition of output structure.
+
+## When to use
+Transaction outputs show anomalous equal-value, multi-input/multi-output structures signalling deliberate obfuscation.
+
+## Avoid when
+Mixer use alone is not illegal in most jurisdictions, so do not treat it as proof of a crime; however, funds touching a sanctioned mixer trigger strict-liability exposure downstream.
+
+## Example
+A transaction with many equal-value inputs and outputs is flagged as a CoinJoin, and downstream tracing is treated as broken past that point absent other evidence.
+
+## Related
+Taint Analysis, [Transaction Graph Analysis (TGA)](/kb/02-tracing/tactic-transaction-graph-analysis)

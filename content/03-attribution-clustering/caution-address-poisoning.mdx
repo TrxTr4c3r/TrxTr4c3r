@@ -1,0 +1,20 @@
+# Address Poisoning Attack
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`  ·  Level 1  ·  address-poisoning · social-engineering · vanity-address · scam</span>
+
+## Core idea
+Address poisoning is a social-engineering attack that exploits how people copy addresses from their wallet history. The attacker generates a vanity address matching the first and last few characters of an address the victim recently used, then sends a tiny or fake transfer so it appears in the victim's history. Because wallets truncate addresses, the victim may copy the look-alike for their next payment and send funds to the attacker. It needs no direct contact with the victim. Defend against it by verifying the full address every time and sending a test transaction to a freshly verified address rather than copying from history.
+
+## Components
+- Vanity address: a generated address mimicking the first and last characters of a real counterparty.
+- A near-zero or spoofed inbound transfer to plant the look-alike in the victim's transaction history.
+- Reliance on truncated address display and the habit of reusing addresses from history.
+
+## When to use
+As a recognition pattern: when an address has an inbound transfer from an address that resembles a legitimate counterparty but is not identical, suspect poisoning, and check the wider network behind the fake address.
+
+## Example
+Right after a legitimate outbound transfer, a fake inbound transfer arrived from an address sharing the same first (0xE579) and last (0C38) characters. Hovering revealed it was a distinct, spoofed address. Tracing it back led to a wallet labelled fake phishing and an ENS name (iskapa.eth) behind over a thousand such attempts. Losses seen this way have reached 50 million dollars for an individual and 1.6 million for a company.
+
+## Related
+Hover to Highlight Repeated Addresses on Etherscan, Pivoting from On-Chain Labels to Real Identities, ENS Domain

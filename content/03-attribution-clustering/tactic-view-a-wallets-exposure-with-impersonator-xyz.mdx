@@ -1,0 +1,20 @@
+# View a Wallet's Exposure with impersonator.xyz
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  osint · tooling · approvals · victim-exposure · impersonator · drainer-prevention</span>
+
+## Core idea
+Tools like impersonator.xyz let you view a wallet's own perspective on-chain -- what tokens, approvals, and signatures it has been exposed to from someone else's vantage point. This surfaces information hidden in the normal explorer view.
+
+## Components
+- Reveals stale approvals waiting to be drained.
+- Reveals signed but unbroadcast transactions.
+- Surfaces other latent risk indicators from the wallet's own viewpoint.
+
+## When to use
+Both to pre-empt drains (spotting live risk before it is exploited) and to reconstruct what a victim was actually exposed to during an investigation.
+
+## Example
+Viewing a compromised wallet through impersonator.xyz shows a stale unlimited approval and a signed-but-unbroadcast transaction that the normal explorer view hides -- explaining the pending drain vector and guiding remediation.
+
+## Related
+[ERC-20 Approvals -- The Forgotten Attack Surface](/kb/02-tracing/concept-erc-20-approvals-the-forgotten-attack-surface), [OSINT-to-On-Chain Pivots -- Five Shapes](/kb/01-osint/framework-osint-to-on-chain-pivots-five-shapes)

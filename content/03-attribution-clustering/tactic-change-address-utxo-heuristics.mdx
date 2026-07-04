@@ -1,0 +1,18 @@
+# Change-Address Heuristics (UTXO Analysis)
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level reference  ·  blockchain-forensics · utxo · clustering · change-address</span>
+
+## Core idea
+Analyses Unspent Transaction Output structure to distinguish the payment output from the change output returned to the sender, refining clustering accuracy via value and script-type patterns.
+
+## When to use
+Refining CIOH clusters, or when a transaction's true counterparties are ambiguous.
+
+## Avoid when
+Purely probabilistic; label it as inference, not fact, in any report submitted as evidence.
+
+## Example
+Of two outputs, the one matching the sender's script type and returning an odd remainder is inferred to be change and folded into the spender's cluster.
+
+## Related
+[Address Clustering (Common-Input-Ownership Heuristic)](/kb/03-attribution-clustering/tactic-address-clustering-cioh)

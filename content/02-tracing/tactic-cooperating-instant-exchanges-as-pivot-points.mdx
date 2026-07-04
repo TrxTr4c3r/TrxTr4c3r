@@ -1,0 +1,20 @@
+# Cooperating Instant Exchanges as Pivot Points
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  instant-exchanges · changenow · fixedfloat · le-request · pivot · cross-chain</span>
+
+## Core idea
+No-KYC instant swap services usually look like black boxes, but two compliant ones -- ChangeNOW and FixedFloat -- will provide information to law enforcement on properly-formed requests. Treat "the funds went to ChangeNOW" as a pivot opportunity, not a dead end.
+
+## Components
+- Model: the service generates a deposit address on the source chain for each swap; the user sends the source asset to that deposit address; the service forwards the converted asset to the destination address on the target chain. The deposit address is the choke-point.
+- If you can isolate the deposit to one of these services on your trace, a properly-formed LE request can recover the destination address -- effectively re-opening the trace on the other side.
+- For an LE request, document: the deposit address, the timestamp, the input amount, and the on-chain transaction hash.
+
+## When to use
+When a trace reaches a ChangeNOW or FixedFloat deposit address -- capture the choke-point details to enable an LE request rather than abandoning the trace.
+
+## Example
+A trace ends at a ChangeNOW deposit address; documenting the deposit address, timestamp, input amount, and tx hash lets an LE request recover the destination address on the target chain, resuming the trace.
+
+## Related
+[Cross-Chain Obfuscation Categories](/kb/04-laundering-obfuscation/checklist-cross-chain-obfuscation-categories), [Breaking Obfuscation -- Five-Part Strategy](/kb/04-laundering-obfuscation/framework-breaking-obfuscation-five-part-strategy), [Monero Is the Practical Ceiling of On-Chain Attribution](/kb/04-laundering-obfuscation/caution-monero-is-the-practical-ceiling-of-on-chain-attribution)

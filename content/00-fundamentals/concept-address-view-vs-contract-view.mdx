@@ -1,0 +1,21 @@
+# Address View vs Contract View on a Block Explorer
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`  ·  Level 1  ·  etherscan · address · smart-contract · block-explorer</span>
+
+## Core idea
+On Etherscan, an address page and a contract page look similar but show different things. An address (wallet) page shows balances, first and last activity, who funded it, multi-chain holdings, and tabs for transactions, internal transactions, token transfers, and sometimes NFTs. A contract page adds token supply, holders, the deployer and its funding source, and the contract code (readable if verified with a green tick, otherwise only bytecode you must decompile).
+
+## Components
+- Transactions tab: native ETH transfers.
+- Internal transactions tab: transfers started from within a smart contract.
+- Token transfers tab: ERC-20 movements.
+- NFTs tab: non-fungible token trades, when present.
+
+## When to use
+When you land on a page and need to know whether you are looking at a wallet you can trace or a contract whose code and holders you can inspect.
+
+## Example
+Clicking a token link from an address opens the token's contract page, where a verified USDT contract shows code, supply, and top holders, unlike a random unverified token shown only as bytecode.
+
+## Related
+Reading an Ethereum Transaction Page, [Internal Transactions](/kb/00-fundamentals/definition-internal-transaction), Coin vs Token (ETH vs ERC-20)

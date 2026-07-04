@@ -1,0 +1,23 @@
+# Bitcoin UTXO Clustering Heuristics
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level 2  ·  bitcoin · utxo · clustering · heuristics · change-detection · script-types</span>
+
+## Core idea
+Bitcoin's UTXO model differs fundamentally from EVM's account model: an address holds no balance directly -- its balance is the sum of unspent transaction outputs (UTXOs) locked to it. A spend consumes one or more UTXOs in full and creates new outputs plus (usually) a change output. That input/output structure both enables clustering heuristics and forces careful reading of every transaction.
+
+## Components
+- Common-input ownership -- if a transaction has multiple inputs, nearly certainly all are controlled by the same entity (the private keys for each must be held to sign). Applied recursively, this folds thousands of addresses into one cluster; it is the single most powerful Bitcoin heuristic -- and the one most directly defeated by CoinJoin, which bundles inputs from unrelated parties.
+- Change detection (for a 2-output tx, identify which output returns to the sender) -- signals: script-type match (change usually matches the input script type; if inputs are P2WPKH and one output is P2SH, P2SH is likely the payment); round-number payment (payments are often round, change is the remainder); address reuse (an output to a previously-used address is likely the payment, not change); fresh addresses (wallets generate a fresh change address, so freshness is a change signal). No single signal is decisive -- combine several.
+- Peeling chains -- each tx has one input and two outputs: a small "peel" (often an exchange deposit or payment) and a large "continuation" flowing to the next address, repeating. Follow the larger output toward the ultimate destination; when it terminates at a labelled exchange address, that is typically the cash-out.
+- Script-type fingerprinting -- the distribution of script types is a behavioural fingerprint: P2PKH (1...) legacy/older wallets; P2SH (3...) multisig or wrapped segwit; P2WPKH/bech32 (bc1q...) native segwit, modern wallets; P2TR/bech32m (bc1p...) taproot, newest wallets only. Fee-rate habits, nLockTime use, and sequence values add further fingerprint dimensions.
+
+Explorer stack: mempool.space (mempool/fee, taproot detail), blockchair.com (filters, CSV export, multi-coin), blockchain.com (general), oxt.me (UTXO-graph, manual clustering), Arkham (entity labels on BTC), mempool API (JSON for programmatic collection).
+
+## When to use
+When clustering Bitcoin addresses, identifying change to extend a cluster, following a lump-sum distribution, or fingerprinting wallet software.
+
+## Example
+Following a peeling chain: at each hop the ~0.25 BTC output goes to a labelled exchange deposit (a payment) while the ~9+ BTC fresh same-script-type output is the continuation to follow toward the destination.
+
+## Related
+[Post-Mixer Bitcoin Tracing](/kb/02-tracing/tactic-post-mixer-bitcoin-tracing), [Sanctions Screening a Bitcoin Cluster](/kb/06-casework-method/checklist-sanctions-screening-a-bitcoin-cluster), [Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation)

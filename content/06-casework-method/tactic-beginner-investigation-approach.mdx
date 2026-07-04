@@ -1,0 +1,23 @@
+# Beginner Investigation Approach
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level basics  ·  getting-started · documentation · relationship-mapping · opsec · local-first · tooling</span>
+
+## Core idea
+A three-move approach for a first investigation, executable before buying expensive commercial tooling. The difference between "a collection of data" and "a case" is structure captured from the very beginning.
+
+## Components
+1. Start with a seed and record everything from the beginning -- Before opening any tool, create a case folder and a blank note; write down the seed address, where it came from, and what you are trying to establish. Log every tool used, every address looked up, and every screenshot taken with a timestamp.
+2. Query multiple sources at once -- Do not tunnel on a single data point. Cross-reference an address against exchange labels, OSINT databases, forum archives, and clustering data simultaneously rather than switching between tabs and copying addresses by hand, which loses context and wastes time.
+3. Map the relationships as a visual graph -- Investigation is fundamentally about relationships (this address -> that address -> this entity -> this username). Build the map as you go and see it as a visual graph, not a list; reconstructing it at the end leaves you with a pile of disconnected screenshots.
+
+## When to use
+Your first hands-on investigations, or any case where you lack commercial licensing and need a low-cost, structured, court-defensible working method.
+
+## Avoid when
+Uploading sensitive case material to third-party servers. Keep data local -- the recommended starter stack (Spectra runs in-browser querying public and intelligence sources; Obsidian stores notes as plain-text files locally, with Graph View, Canvas, and the free Dataview plugin) sends nothing to a server, which matters for confidential case material from day one.
+
+## Example
+Trace funds and find clusters in Spectra, then log each finding and link entities in Obsidian so the relationships surface in its Graph View -- producing a structured, exportable (Markdown, PDF, or HTML) case file that is auditable.
+
+## Related
+[The 5-Stage Investigation Process](/kb/06-casework-method/workflow-the-5-stage-investigation-process), [Key OSINT Techniques for Crypto Investigators](/kb/01-osint/checklist-key-osint-techniques-for-crypto-investigators), [Crypto Investigation Glossary](/kb/00-fundamentals/definition-crypto-investigation-glossary)

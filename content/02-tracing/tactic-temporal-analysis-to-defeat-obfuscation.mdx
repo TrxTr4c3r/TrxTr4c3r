@@ -1,0 +1,21 @@
+# Temporal Analysis to Defeat Obfuscation
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  obfuscation · temporal-analysis · timing · automation · timezone · attribution</span>
+
+## Core idea
+Fraudsters can randomise the path but cannot easily randomise time. Temporal analysis is one of the most powerful and most overlooked ways to break obfuscation.
+
+## Components
+- Hop timing & burst patterns -- how quickly funds move after the theft and how long between steps. Rapid multi-hop transfers immediately after a compromise indicate automation or drainer-kit execution; long or irregular delays indicate manual intervention.
+- Victim-timeline alignment -- compare attacker timing with the victim's timeline (funds moved 90 seconds after a phishing-link click, a drainer activating exactly when the victim approved a contract). Alignment confirms attribution and reconstructs the narrative.
+- Time-zone inference -- if every significant movement falls in a narrow window (e.g. 01:00-04:00 UTC), that reflects a consistent operational region or shift. Time zones rarely lie.
+- Automation vs manual -- scripted movements have precise, regular timing; manual movements show hesitation, inconsistencies, or pauses during decision-making, letting you classify the actor and infer capability level.
+
+## When to use
+Whenever obfuscation randomises the transaction path -- use timestamps to classify automation vs manual, confirm attribution against the victim timeline, and infer operational geography. Walk timestamps in a history view (e.g. DeBank analysis-mode) to spot post-event bursts and steady inter-hop intervals.
+
+## Example
+Fund movements within 60-90 seconds of the victim's contract approval, with identical gas-price strategies across 14 unrelated victims, most strongly indicate automated drainer-kit execution; movements confined to 01:00-04:00 UTC over six months indicate an Asia-Pacific working-day time-zone signature.
+
+## Related
+[Breaking Obfuscation -- Five-Part Strategy](/kb/04-laundering-obfuscation/framework-breaking-obfuscation-five-part-strategy), [Drainer-Kit & Known-Actor Pattern Recognition](/kb/04-laundering-obfuscation/concept-drainer-kit-and-known-actor-pattern-recognition), [Combined Timelines -- Turning Tracing into Attribution](/kb/03-attribution-clustering/tactic-combined-timelines-turning-tracing-into-attribution)

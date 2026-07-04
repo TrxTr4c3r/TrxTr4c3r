@@ -1,0 +1,15 @@
+# Tornado Cash to RenBTC Cross-Chain Laundering Pattern
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`  ·  Level 1  ·  money-laundering · tornado-cash · renbtc · cross-chain · dprk</span>
+
+## Core idea
+A repeatable laundering topology used to break a trail through a mixer. Funds enter Tornado Cash, are withdrawn commingled, converted to RenBTC, then burnt to mint native Bitcoin in recipient addresses. The value moves several hops along the Bitcoin chain and returns to Ethereum, where the incoming transactions indirectly tie back to the origin. Recognizing the repeated shape lets you stay with funds across the mixer and chains.
+
+## When to use
+When assets disappear into Tornado Cash and you need to maintain the trail by spotting a consistent post-mixer conversion and cross-chain pattern rather than giving up at the mixer.
+
+## Example
+In the OxMoon case, stolen funds from a 17 April governance attack went into Tornado Cash, out via RenBTC to native BTC, across four or five Bitcoin hops, then back to Ethereum where they linked to DPRK-related addresses. The team named this the ERE pattern.
+
+## Related
+The OxMoon Developer Attribution, [Screening Addresses Against OFAC Sanctions](/kb/06-casework-method/tactic-ofac-sanction-screening)

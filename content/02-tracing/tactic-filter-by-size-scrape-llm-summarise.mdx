@@ -1,0 +1,21 @@
+# Filter-by-Size + Scrape + LLM Summarise
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  evm · busy-wallets · scraping · llm · triage · counterparty-analysis</span>
+
+## Core idea
+On a busy wallet, the long tail of dust and low-value interactions buries the signal. Filter counterparties above a size threshold first, scrape the full counterparty list from the explorer, and pass it to an LLM to sum totals and flag patterns -- turning a multi-hour manual read into a minute's work without losing defensibility.
+
+## Components
+1. Filter by size -- isolate counterparties above a threshold (e.g. $100k) before analysing anything.
+2. Scrape -- use a browser-extension data scraper (Instant Data Scraper or equivalent) to extract the full counterparty table from the explorer.
+3. LLM summarise -- pass the scraped values to an LLM to sum totals and flag patterns.
+4. Preserve defensibility -- the raw scraped data is kept for the evidence pack; the LLM output is audit-trail material, not primary evidence.
+
+## When to use
+Whenever a wallet is too busy to read counterparty-by-counterparty manually, especially in counterparty-graph analysis of mint-style-bridge outputs.
+
+## Example
+Analysing mint outputs downstream of a $5.3M exploit: filtering counterparties above $100k, scraping the explorer table, and LLM-summing produced a total of $5,358,060 across connected counterparties -- materially matching the loss, in minutes instead of hours.
+
+## Related
+[Mint-Style Bridges -- Pivot to Counterparty-Graph Analysis](/kb/02-tracing/tactic-mint-style-bridges-pivot-to-counterparty-graph-analysis), [EVM Multi-Chain Tracing Essentials](/kb/02-tracing/checklist-evm-multi-chain-tracing-essentials), Router & Multicall Traffic -- Read Swap Events, Exclude MEV

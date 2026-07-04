@@ -1,0 +1,18 @@
+# Smart Contract / DeFi Protocol Tracing
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level reference  ·  blockchain-forensics · defi · smart-contracts · ethereum · tracing</span>
+
+## Core idea
+Decodes smart-contract interactions (function calls, event logs) on platforms like Ethereum to trace funds through swaps, lending, and liquidity pools where simple wallet-to-wallet tracing breaks down.
+
+## When to use
+Traced funds enter a DeFi protocol (DEX, lending platform, yield aggregator) and simple output-tracing no longer applies.
+
+## Avoid when
+Novel protocols may lack legal precedent for seizure and have no central custodian to serve; seizure may require obtaining private keys directly.
+
+## Example
+Funds swapped through a DEX router are followed by decoding the swap event logs to recover the output token and recipient address.
+
+## Related
+[Cross-Chain / Bridge & Swap Analysis](/kb/02-tracing/tactic-cross-chain-bridge-swap-analysis), [Transaction Graph Analysis (TGA)](/kb/02-tracing/tactic-transaction-graph-analysis)

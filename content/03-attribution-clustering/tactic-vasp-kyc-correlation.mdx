@@ -1,0 +1,18 @@
+# Exchange / VASP KYC Correlation
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level reference  ·  blockchain-forensics · kyc · vasp · attribution · legal-process</span>
+
+## Core idea
+Matches an on-chain cluster's deposit or withdrawal address to a Virtual Asset Service Provider, then uses legal process to obtain KYC records tying the cluster to a real identity. Often the step that unmasks a suspect.
+
+## When to use
+Once clustering narrows the investigation to a specific exchange deposit address.
+
+## Avoid when
+Requires proper legal process (subpoena, warrant, or MLAT for foreign VASPs), and data retention varies by jurisdiction, so act before records age out.
+
+## Example
+A cluster's withdrawals all land at one exchange deposit address; a subpoena (or MLAT for a foreign exchange) returns the KYC identity behind it.
+
+## Related
+[Address Clustering (Common-Input-Ownership Heuristic)](/kb/03-attribution-clustering/tactic-address-clustering-cioh), [Temporal / Timing Correlation Analysis](/kb/02-tracing/tactic-temporal-timing-correlation)

@@ -1,0 +1,30 @@
+# Forensic Method Selection Decision Tree
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`workflow`  ·  Level reference  ·  blockchain-forensics · workflow · method-selection · investigation-process</span>
+
+## Core idea
+A triage workflow that maps what you observe in a case to the right blockchain-analysis methodology, starting from a wallet address, tx hash, or cluster and ending in corroboration and reporting.
+
+## Components
+1. Start: you hold a wallet address, tx hash, or cluster to investigate.
+2. Need to map fund flow across multiple hops? -> Transaction Graph Analysis (TGA).
+3. Need to group multiple addresses into one entity? -> Address Clustering (CIOH), then refine with UTXO / change-address heuristics.
+4. Wallet shows repeated small 'peels' off a large balance? -> Peeling Chain Analysis.
+5. Outputs are equal-value / multi-party structured? -> CoinJoin / Mixer Detection.
+6. Funds vanish on Chain A and reappear (value/timing match) on Chain B? -> Cross-Chain / Bridge & Swap Analysis.
+7. Funds enter a DEX, lending pool, or liquidity contract? -> Smart Contract / DeFi Protocol Tracing.
+8. Need to quantify exposure to sanctioned or criminal funds? -> Taint Analysis.
+9. Cluster traced to an exchange deposit address? -> Exchange / VASP KYC Correlation (issue subpoena or MLAT).
+10. On-chain evidence alone inconclusive? -> Temporal / Timing Correlation with off-chain logs.
+11. Tax-fraud or asset-forfeiture valuation focus? -> start with FIFO; if the subject claims Specific Identification (HIFO/LIFO), demand per-wallet records predating each disposal; no proof means recompute on FIFO.
+12. Suspect operates under a darknet-market persona? -> Darknet Market & OSINT Correlation.
+13. End: compile findings -> corroborate on-chain results with legal process -> prepare report for prosecution, forfeiture, or SAR filing.
+
+## When to use
+At the outset of a crypto investigation and at each new branch, to choose the next methodology from what the data actually shows.
+
+## Example
+Funds vanish on Ethereum and an equal amount appears on Tron minutes later; the tree routes you to Cross-Chain / Bridge & Swap Analysis, then onward to VASP KYC Correlation once a deposit address is identified.
+
+## Related
+[Transaction Graph Analysis (TGA)](/kb/02-tracing/tactic-transaction-graph-analysis), [Address Clustering (Common-Input-Ownership Heuristic)](/kb/03-attribution-clustering/tactic-address-clustering-cioh), Taint Analysis, [Exchange / VASP KYC Correlation](/kb/03-attribution-clustering/tactic-vasp-kyc-correlation), [Crypto Cost-Basis Methods: FIFO vs HIFO vs LIFO](/kb/00-fundamentals/concept-crypto-cost-basis-methods)

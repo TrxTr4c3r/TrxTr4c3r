@@ -1,0 +1,18 @@
+# Address Clustering (Common-Input-Ownership Heuristic)
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level reference  ·  blockchain-forensics · clustering · attribution · utxo</span>
+
+## Core idea
+Groups addresses likely controlled by one entity based on shared transaction inputs, since multi-input spends imply common private-key control. Extended with change-address heuristics to grow the cluster.
+
+## When to use
+Moving from individual addresses to identifying a single wallet, entity, or exchange controlling many addresses.
+
+## Avoid when
+Heuristic, not definitive; CoinJoin and shared-wallet services can produce false clusters. State the confidence level in reports.
+
+## Example
+Several addresses used together as inputs in one transaction are attributed to the same controller and merged into a single entity cluster, then refined with change-address analysis.
+
+## Related
+[Change-Address Heuristics (UTXO Analysis)](/kb/03-attribution-clustering/tactic-change-address-utxo-heuristics), [Transaction Graph Analysis (TGA)](/kb/02-tracing/tactic-transaction-graph-analysis), [Exchange / VASP KYC Correlation](/kb/03-attribution-clustering/tactic-vasp-kyc-correlation)

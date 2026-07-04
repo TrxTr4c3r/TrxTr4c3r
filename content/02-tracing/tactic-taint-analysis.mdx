@@ -1,0 +1,18 @@
+# Taint Analysis (Taint Tracing)
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level reference  ·  blockchain-forensics · taint · sanctions · exposure · sar</span>
+
+## Core idea
+Calculates the percentage of tainted, illicit-origin funds present in downstream addresses using FIFO, poison, or proportional-haircut models. Quantifies exposure to sanctioned or criminal funds.
+
+## When to use
+Determining whether a receiving wallet (e.g., an exchange deposit address) has meaningful exposure to flagged funds, for SAR filing or seizure justification.
+
+## Avoid when
+There is no universal legal taint threshold; disclose the specific model used to regulators (FinCEN, OFAC) or the court.
+
+## Example
+A deposit address receives funds two hops from a sanctioned mixer; a proportional-haircut model quantifies the tainted fraction to justify a SAR filing.
+
+## Related
+[CoinJoin / Mixer Detection](/kb/02-tracing/tactic-coinjoin-mixer-detection), [Exchange / VASP KYC Correlation](/kb/03-attribution-clustering/tactic-vasp-kyc-correlation)

@@ -1,0 +1,402 @@
+# OSINT Investigator's Toolkit - Full Tool Catalogue
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`  ·  Level reference  ·  osint · tool-directory · reference · blockchain-forensics · catalogue · tracing · bridges · freezing · recovery</span>
+
+## Contents
+
+Jump to a section:
+
+[Blockchain](#blockchain-33-tools) · [Infrastructure](#infrastructure-20-tools) · [Email OSINT](#email-osint-7-tools) · [Username](#username-4-tools) · [Phone OSINT](#phone-osint-5-tools) · [Face Search](#face-search-4-tools) · [Image OSINT](#image-osint-7-tools) · [Geolocation](#geolocation-16-tools) · [Breach & Exposure](#breach--exposure-8-tools) · [Threat Intel](#threat-intel-10-tools) · [Documents & Metadata](#documents--metadata-8-tools) · [Social — Twitter/X](#social--twitterx-3-tools) · [Social — Telegram](#social--telegram-5-tools) · [Social — Discord](#social--discord-2-tools) · [Social — Reddit](#social--reddit-2-tools) · [Social — Instagram/TikTok](#social--instagramtiktok-2-tools) · [Social — Meta](#social--meta-1-tools) · [Social — LinkedIn](#social--linkedin-1-tools) · [Social — General](#social--general-3-tools) · [Darknet](#darknet-4-tools) · [Corporate & Records](#corporate--records-6-tools) · [Search & Dorking](#search--dorking-8-tools) · [Investigator Toolkit](#investigator-toolkit-11-tools) · [Additional Tracing & Attribution Platforms](#additional-tracing--attribution-platforms) · [Cross-Chain Bridge Explorers](#cross-chain-bridge-explorers) · [Instant-Swap / Instant-Exchange Services](#instant-swap--instant-exchange-services) · [Additional Infrastructure & Domain OSINT](#additional-infrastructure--domain-osint) · [Scam & Phishing Databases](#scam--phishing-databases) · [Case Documentation](#case-documentation) · [Freezing, Blacklisting & Recovery](#freezing-blacklisting--recovery) · [The three-piece investigator workflow (framing)](#the-three-piece-investigator-workflow-framing)
+
+A curated, field-tested directory of open-source intelligence tools for crypto forensics, digital investigations, and threat hunting. Catalogue version v2026.05; 170 tools across 23 categories (all entries verified 2026-05 unless a note says otherwise).
+
+OPSEC legend: **Safe** = low exposure; **Caution** = the tool transmits/logs your query to a third party (source tag "OPSEC"); **High** = strong exposure (hostile-jurisdiction hosting, contact upload, face search, etc.). Tool inclusion is not endorsement; OPSEC tags are advisory, not guarantees; verify findings independently.
+
+## Blockchain (33 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Arkham Intelligence | Entity-based blockchain intelligence with wallet attribution, alerts, and visual fund-flow. | freemium | Intermediate | Caution | Passive | Web wallet tx | platform.arkhamintelligence.com |  |
+| MetaSleuth | Visual blockchain investigation tool for tracing cross-chain fund flows. | freemium | Intermediate | Caution | Passive | Web wallet tx | metasleuth.io |  |
+| Breadcrumbs | Graph-based transaction visualiser with clustering and tagging. | freemium | Intermediate | Caution | Passive | Web wallet tx | breadcrumbs.app |  |
+| Nansen | On-chain analytics with smart-money wallet labels across major chains. | paid | Advanced | Caution | Passive | Web wallet | nansen.ai |  |
+| MistTrack | AML & address risk scoring from SlowMist; designed for compliance and investigations. | paid | Intermediate | Caution | Passive | Web wallet tx | misttrack.io |  |
+| Chainalysis Reactor | Industry-standard enterprise blockchain investigation platform (LE/compliance). | enterprise | Enterprise | Caution | Passive | Web wallet tx | chainalysis.com |  |
+| TRM Labs | Enterprise crypto risk and investigations platform; growing LE adoption. | enterprise | Enterprise | Caution | Passive | Web wallet tx | trmlabs.com |  |
+| Elliptic Investigator | Enterprise blockchain analytics with strong UK/EU compliance footprint. | enterprise | Enterprise | Caution | Passive | Web wallet tx | elliptic.co |  |
+| GraphSense | Open-source blockchain analytics platform (Iknaio/AIT). Strong alternative to commercial tools. | free | Advanced | Safe | Passive | Self-host wallet tx | graphsense.info |  |
+| Bubblemaps | Visualises token holder clusters — essential for memecoin and rug investigations. | freemium | Beginner | Caution | Passive | Web wallet | bubblemaps.io |  |
+| Dune Analytics | SQL-based on-chain analytics platform with thousands of community dashboards. | freemium | Advanced | Caution | Passive | Web/SQL wallet tx | dune.com |  |
+| Lookonchain | Curated on-chain investigation feed (whales, exploits, suspicious flows). | free | Beginner | Safe | Passive | Web wallet | lookonchain.com |  |
+| Etherscan | Canonical Ethereum explorer; transactions, contracts, tokens, labels. | free | Beginner | Caution | Passive | Web wallet tx | etherscan.io |  |
+| Blockchair | Multi-chain explorer & search engine (BTC, ETH, BCH, LTC and more). | free | Beginner | Caution | Passive | Web wallet tx | blockchair.com |  |
+| OKLink Explorer | Multi-chain explorer with address tagging and tracing tools. | free | Beginner | Caution | Passive | Web wallet tx | oklink.com |  |
+| Solscan | Solana explorer and analytics dashboard. | free | Beginner | Caution | Passive | Web wallet tx | solscan.io |  |
+| Subscan (Polkadot) | Polkadot / Kusama / parachain explorer. | free | Beginner | Caution | Passive | Web wallet tx | subscan.io |  |
+| TronScan | TRON explorer; vital for USDT-TRC20 investigations. | free | Beginner | Caution | Passive | Web wallet tx | tronscan.org |  |
+| Mempool.space | Bitcoin mempool intelligence, fee analytics, and address explorer. | free | Intermediate | Safe | Passive | Web wallet tx | mempool.space |  |
+| Whale Alert | Tracks large on-chain transactions and exchange movements in real time. | free | Beginner | Safe | Passive | Web/Twitter wallet | whale-alert.io |  |
+| Bitquery | Comprehensive on-chain data API and explorer across many blockchains. | freemium | Advanced | Caution | Passive | API/Web wallet tx | bitquery.io |  |
+| DEXTools | Real-time DEX trading data, wallet tracking, and liquidity analysis. | freemium | Beginner | Caution | Passive | Web wallet | dextools.io |  |
+| Tenderly | Smart contract debugger and transaction simulator. | freemium | Advanced | Caution | Passive | Web wallet tx hash | tenderly.co |  |
+| BlockSec Phalcon | Transaction explorer with attack detection and post-exploit analysis. | free | Advanced | Caution | Passive | Web tx wallet | phalcon.blocksec.com |  |
+| GoPlus Security | Token & contract risk API/UI. Useful for fast scam screening. | freemium | Intermediate | Safe | Passive | API/Web wallet | gopluslabs.io |  |
+| Webacy | Wallet risk scoring and threat exposure analysis. | freemium | Beginner | Caution | Passive | Web wallet | webacy.com |  |
+| Chainabuse | Community scam/abuse reports across major chains. | free | Beginner | Safe | Passive | Web wallet | chainabuse.com |  |
+| ScamSniffer | Phishing & scam address tracker across multiple chains. | freemium | Intermediate | Caution | Passive | Web/Extension wallet domain | scamsniffer.io |  |
+| OFAC SDN Search | US Treasury Specially Designated Nationals list — sanctions screening (incl. crypto addresses). | free | Intermediate | Safe | Passive | Web wallet | sanctionssearch.ofac.treas.gov |  |
+| OpenSanctions | Aggregated sanctions, PEP, and watchlist data with crypto address coverage. | free | Intermediate | Safe | Passive | Web/API wallet | opensanctions.org |  |
+| Revoke.cash | Audit and revoke ERC-20/721 approvals. Defensive — use with caution post-incident. | free | Beginner | Caution | Active | Web wallet | revoke.cash |  |
+| Zapper | Portfolio and DeFi position visualiser; useful for mapping interactions. | freemium | Beginner | Caution | Passive | Web wallet | zapper.xyz |  |
+| Blockchain.com Explorer | BTC/ETH explorer for transactions and addresses. | free | Beginner | Caution | Passive | Web wallet tx | blockchain.com |  |
+
+## Infrastructure (20 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Shodan | Search engine for internet-connected devices; surfaces open ports, banners, services. | freemium | Intermediate | Caution | Passive | Web/API ip domain | shodan.io |  |
+| Censys | Internet-wide host and certificate search; mapping exposed assets. | freemium | Intermediate | Caution | Passive | Web/API ip domain hash | search.censys.io |  |
+| FOFA | Chinese internet asset search engine. Often surfaces assets Shodan/Censys miss. | freemium | Intermediate | High | Passive | Web ip domain | en.fofa.info | Hosted in China; OPSEC-sensitive. |
+| ZoomEye | Alternative internet asset search engine. Complementary visibility to Shodan. | freemium | Intermediate | High | Passive | Web ip domain | zoomeye.org | Hosted in China; OPSEC-sensitive. |
+| Criminal IP | Threat-scored IP/asset search engine with risk indicators. | freemium | Intermediate | Caution | Passive | Web/API ip domain | criminalip.io |  |
+| GreyNoise | Distinguishes targeted scans from internet background noise. SOC essential. | freemium | Intermediate | Safe | Passive | Web/API ip | greynoise.io |  |
+| urlscan.io | Sandboxed URL analysis: DOM, screenshot, requests, certs, ASN. Critical tool. | freemium | Beginner | Caution | Passive | Web/API domain | urlscan.io | Public scans are visible to others — use private mode for sensitive cases. |
+| crt.sh | Certificate transparency log search; subdomain enumeration goldmine. | free | Intermediate | Safe | Passive | Web domain | crt.sh |  |
+| SecurityTrails | Historical DNS, subdomains, WHOIS — gold standard for infrastructure pivoting. | freemium | Intermediate | Safe | Passive | Web/API domain ip | securitytrails.com |  |
+| DNSDumpster | Passive DNS recon for subdomain discovery and infrastructure mapping. | free | Beginner | Safe | Passive | Web domain | dnsdumpster.com |  |
+| ViewDNS.info | Multi-tool DNS suite: reverse IP, DNS history, port checks, propagation. | freemium | Beginner | Caution | Passive | Web domain ip | viewdns.info |  |
+| IPinfo | IP geolocation, ASN, ISP, hostname enrichment with API. | freemium | Beginner | Safe | Passive | Web/API ip | ipinfo.io |  |
+| AbuseIPDB | Community-reported IP abuse database with reputation scoring. | freemium | Beginner | Safe | Passive | Web/API ip | abuseipdb.com |  |
+| RIPE / ARIN / APNIC / LACNIC / AFRINIC | Regional internet registries for IP allocation and registrant lookup. | free | Beginner | Safe | Passive | Web WHOIS ip | iana.org |  |
+| Netcraft Site Report | Site profiling: hosting, tech stack, history, phishing/malware flags. | free | Beginner | Caution | Passive | Web domain | sitereport.netcraft.com |  |
+| SpiderFoot | Automated OSINT recon and attack surface mapping from many sources. | freemium | Intermediate | Caution | Active | Python/Self-host domain ip email | spiderfoot.net |  |
+| Maltego | Visual link analysis platform with transforms for entity mapping. | freemium | Advanced | Caution | Passive | Desktop domain ip email | maltego.com |  |
+| theHarvester | Email/subdomain/host collection from public sources (CLI). | free | Intermediate | Caution | Active | Python CLI domain | github.com |  |
+| Amass | OWASP attack surface mapping & external asset discovery. | free | Advanced | Caution | Active | CLI domain | github.com |  |
+| ProjectDiscovery Suite | subfinder, httpx, katana, nuclei — modern recon CLI toolkit. | free | Advanced | Caution | Active | CLI domain ip | projectdiscovery.io |  |
+
+## Email OSINT (7 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Hunter.io | Email-finding service: domain to verified addresses, with role/firm metadata. | freemium | Beginner | Caution | Passive | Web/API email domain | hunter.io |  |
+| Epieos | Email/phone reverse lookup; pulls Google services, Skype, recovery hints. | freemium | Beginner | Caution | Passive | Web email phone | epieos.com |  |
+| EmailRep.io | Email reputation & risk lookup. Reveals known leaks, services seen, suspicious profile. | freemium | Beginner | Safe | Passive | Web/API email | emailrep.io |  |
+| Holehe | CLI: checks if an email is used on 120+ sites without alerting the user. | free | Intermediate | Caution | Passive | Python CLI email | github.com |  |
+| Mosint | Automated email OSINT framework chaining many sources. | free | Intermediate | Caution | Passive | Go CLI email | github.com |  |
+| Castrick Clues | Combined identifier lookup (email, phone, username) with helpful pivots. | free | Beginner | Safe | Passive | Web email phone username | castrickclues.com |  |
+| EmailHippo | Email validation and risk scoring. | freemium | Beginner | Safe | Passive | Web/API email | tools.emailhippo.com |  |
+
+## Username (4 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| WhatsMyName | Up-to-date username discovery across hundreds of sites. Modern Sherlock alternative. | free | Beginner | Caution | Passive | Web/JSON username | whatsmyname.app |  |
+| Sherlock | CLI username search across many platforms. Stale on newer sites — pair with WhatsMyName. | free | Intermediate | Caution | Passive | Python CLI username | github.com |  |
+| Maigret | Username search with profile parsing; more sources than Sherlock. | free | Intermediate | Caution | Passive | Python CLI username | github.com |  |
+| Namechk | Username availability across many platforms. | free | Beginner | Safe | Passive | Web username | namechk.com |  |
+
+## Phone OSINT (5 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| PhoneInfoga | Phone-number recon: format, carrier, footprint across OSINT sources. | free | Intermediate | Caution | Passive | Go CLI phone | github.com |  |
+| Truecaller | Crowdsourced caller-ID and reverse phone lookup. OPSEC warning: app uploads your contacts. | freemium | Beginner | High | Passive | Mobile/Web phone | truecaller.com | App uploads your address book by default. Use only on a burner identity. |
+| NumLookup | Web-based reverse phone lookup with CNAM/carrier info. | free | Beginner | Safe | Passive | Web phone | numlookup.com |  |
+| Sync.Me | Reverse lookup and spam-id services for phone numbers. | freemium | Beginner | Caution | Passive | Web/Mobile phone | sync.me |  |
+| IPQualityScore | Phone/IP/email fraud scoring with risk indicators. | freemium | Intermediate | Safe | Passive | Web/API phone ip email | ipqualityscore.com |  |
+
+## Face Search (4 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| PimEyes | Facial-recognition search across public web. Powerful and ethically fraught — use responsibly. | paid | Advanced | High | Passive | Web image | pimeyes.com | Ethically sensitive. Subject consent and jurisdiction matter. |
+| FaceCheck.ID | Aggressive face search engine; often finds matches PimEyes misses. | freemium | Advanced | High | Passive | Web image | facecheck.id |  |
+| Search4Faces | Face search optimised for VK and Eastern European sites. | freemium | Advanced | High | Passive | Web image | search4faces.com |  |
+| OSINT.Industries | Real-time identity enrichment across many platforms. Strong phone/email/username modules. | paid | Intermediate | Caution | Passive | Web email phone username | osint.industries |  |
+
+## Image OSINT (7 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| InVID/WeVerify | Industry standard verification toolkit: keyframes, magnifier, metadata, reverse-image. | free | Intermediate | Safe | Passive | Browser extension image | weverify.eu |  |
+| Forensically | Web image forensics: ELA, clone detection, noise/metadata analysis. | free | Intermediate | Safe | Passive | Web image | 29a.ch |  |
+| Google Lens / Reverse Image | Broad reverse-image search; strongest for objects and recent web content. | free | Beginner | Caution | Passive | Web image | images.google.com |  |
+| Yandex Images | Best reverse-image engine for faces and Eastern-European content. OPSEC-sensitive. | free | Intermediate | High | Passive | Web image | yandex.com | Russian infrastructure; consider a clean browser profile. |
+| TinEye | Image-origin and duplicate finder. Strongest 'oldest seen' pivot. | freemium | Beginner | Safe | Passive | Web image | tineye.com |  |
+| Bing Visual Search | Microsoft's reverse image search; strong for landmarks and products. | free | Beginner | Caution | Passive | Web image | bing.com |  |
+| Aperisolve | Layered steganography analysis: zsteg, steghide, exiftool, binwalk in one. | free | Intermediate | Caution | Passive | Web image | aperisolve.com |  |
+
+## Geolocation (16 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| GeoSpy.ai | AI-powered photo geolocation. 2025-26 game-changer; verify with shadow/weather data. | freemium | Intermediate | Caution | Passive | Web image | geospy.ai |  |
+| Picarta.ai | Neural-network image geolocation; complementary to GeoSpy. | freemium | Intermediate | Caution | Passive | Web/API image | picarta.ai |  |
+| Google Earth Pro | High-res satellite imagery, 3D terrain, historical layers. | free | Intermediate | Safe | Passive | Desktop | google.com |  |
+| Sentinel Hub Playground | Free Copernicus Sentinel satellite imagery, often more recent than Google. | free | Intermediate | Safe | Passive | Web | sentinel-hub.com |  |
+| Mapillary | Crowdsourced street-level imagery, useful where Street View is limited. | free | Intermediate | Caution | Passive | Web | mapillary.com |  |
+| OpenStreetMap + Overpass Turbo | Query OSM data for specific features (e.g. churches with red roofs in 2km). | free | Advanced | Safe | Passive | Web | overpass-turbo.eu |  |
+| SunCalc | Sun/shadow position calculator for verifying photo timestamps. | free | Intermediate | Safe | Passive | Web | suncalc.org |  |
+| Shadow Finder (Bellingcat) | Automated shadow-to-time geolocation analysis. | free | Intermediate | Safe | Passive | Web image | shadowfinder.streamlit.app |  |
+| Ventusky | Historical weather verification; cross-check claims of rain/wind/temperature. | free | Beginner | Safe | Passive | Web | ventusky.com |  |
+| ADSBexchange | Unfiltered ADS-B flight tracking; does not block 'blocked' tail numbers. | freemium | Intermediate | Safe | Passive | Web | adsbexchange.com |  |
+| FlightRadar24 | Mainstream flight tracking with strong historical playback. | freemium | Beginner | Caution | Passive | Web | flightradar24.com |  |
+| MarineTraffic | Vessel tracking with AIS data and port-call history. | freemium | Beginner | Caution | Passive | Web | marinetraffic.com |  |
+| VesselFinder | Alternative maritime tracker; sometimes covers vessels MarineTraffic misses. | freemium | Beginner | Caution | Passive | Web | vesselfinder.com |  |
+| Strava Heatmap | Global activity heatmap. Famously useful for sensitive-site discovery. | free | Intermediate | Safe | Passive | Web | strava.com |  |
+| WiGLE.net | Crowdsourced Wi-Fi network database; geolocate by SSID/BSSID. | freemium | Intermediate | Safe | Passive | Web/API | wigle.net |  |
+| Wikimapia | Collaborative map annotations. Coverage uneven but unique. | free | Beginner | Safe | Passive | Web | wikimapia.org |  |
+
+## Breach & Exposure (8 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Have I Been Pwned | Authoritative breach database for email/phone with notifications. | freemium | Beginner | Safe | Passive | Web/API email phone | haveibeenpwned.com |  |
+| DeHashed | Large searchable breach DB. Investigator-favourite, paid tiers. | paid | Advanced | Caution | Passive | Web/API email phone username | dehashed.com |  |
+| Snusbase | Searchable breach data and paste sites. | paid | Advanced | Caution | Passive | Web email username ip | snusbase.com |  |
+| LeakCheck.io | Modern, fast breach search alternative to DeHashed. | paid | Intermediate | Caution | Passive | Web/API email username phone | leakcheck.io |  |
+| Leak-Lookup | Competitor to DeHashed; different coverage. Use both. | freemium | Intermediate | Caution | Passive | Web email username | leak-lookup.com |  |
+| Intelligence X | Archive + search engine for leaks, pastes, darknet, and historical content. | freemium | Intermediate | Caution | Passive | Web email domain phone | intelx.io |  |
+| HudsonRock Cavalier | Stealer-log intel. The 2024-26 evolution of breach data — essential. | freemium | Advanced | Caution | Passive | Web/API email domain username | hudsonrock.com |  |
+| Constella Intelligence | Enterprise identity exposure intel; used by enterprise IR teams. | enterprise | Enterprise | Safe | Passive | Web email username phone | constellaintelligence.com |  |
+
+## Threat Intel (10 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| VirusTotal | Aggregated malware/URL/IP/hash intelligence across 70+ engines. | freemium | Beginner | Caution | Passive | Web/API domain ip hash | virustotal.com | Uploads become visible to VT community/customers. |
+| AlienVault OTX | Open Threat Exchange: pulses, IOCs, passive DNS. | free | Beginner | Safe | Passive | Web/API domain ip hash | otx.alienvault.com |  |
+| MISP | Open-source threat intelligence platform — self-hosted IOC sharing. | free | Advanced | Safe | Passive | Self-host domain ip hash | misp-project.org |  |
+| Abuse.ch (URLhaus, ThreatFox, MalwareBazaar, FeodoTracker) | Industry-essential malware/phishing/IOC feeds. | free | Intermediate | Safe | Passive | Web/API domain ip hash | abuse.ch |  |
+| Pulsedive | Threat intelligence search and enrichment. | freemium | Intermediate | Safe | Passive | Web/API domain ip hash | pulsedive.com |  |
+| ThreatMiner | Free threat-intel search with passive DNS and malware context. | free | Intermediate | Safe | Passive | Web domain ip hash | threatminer.org |  |
+| Hybrid Analysis | CrowdStrike-backed public malware sandbox. | freemium | Intermediate | Caution | Passive | Web hash domain | hybrid-analysis.com |  |
+| Joe Sandbox | Deep malware sandbox with strong reporting (community + paid). | freemium | Advanced | Caution | Passive | Web hash | joesandbox.com |  |
+| ANY.RUN | Interactive malware sandbox — you drive the VM in-browser. | freemium | Advanced | Caution | Active | Web hash domain | app.any.run |  |
+| MS Defender Threat Intelligence | Formerly RiskIQ PassiveTotal — passive DNS, WHOIS history, crawled web. | freemium | Advanced | Safe | Passive | Web/API domain ip | ti.defender.microsoft.com |  |
+
+## Documents & Metadata (8 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| ExifTool | The standard CLI for reading/writing metadata across images, docs, files. | free | Intermediate | Safe | Passive | CLI image hash | exiftool.org |  |
+| Metagoofil | Scrape and extract metadata from documents hosted on a target domain. | free | Intermediate | Caution | Active | Python CLI domain | github.com |  |
+| MAT2 | Metadata anonymisation — strip identifying data before publishing files. | free | Intermediate | Safe | Passive | CLI | 0xacab.org |  |
+| pdfid / pdf-parser | Inspect PDF structure: scripts, embedded objects, suspicious elements. | free | Advanced | Safe | Passive | Python CLI hash | blog.didierstevens.com |  |
+| Tesseract OCR | Open-source OCR engine for images and scanned PDFs. | free | Intermediate | Safe | Passive | CLI image | github.com |  |
+| OCRmyPDF | Adds a searchable OCR text layer to scanned PDFs. | free | Intermediate | Safe | Passive | Python CLI | github.com |  |
+| Tabula | Extract tables from PDFs into CSV/Excel. | free | Beginner | Safe | Passive | Desktop | tabula.technology |  |
+| MediaInfo | Detailed metadata for audio and video files. | free | Beginner | Safe | Passive | Desktop/CLI | mediaarea.net |  |
+
+## Social — Twitter/X (3 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Twitter/X Advanced Search | Operators for from/to/since/until, language, geocode, exact phrases. | free | Beginner | Caution | Passive | Web username | twitter.com |  |
+| Memory.lol | Historical handle to user ID mapping; recover renamed/deleted accounts. | free | Intermediate | Safe | Passive | Web username | memory.lol |  |
+| Communalytic | Academic-grade Twitter/X (and Reddit, Telegram) community analysis. | freemium | Advanced | Safe | Passive | Web | communalytic.org |  |
+
+## Social — Telegram (5 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| TGStat | Telegram channel analytics, search, and trend tracking. | freemium | Intermediate | Caution | Passive | Web username | tgstat.com |  |
+| Telegago (CSE) | Google Custom Search Engine focused on indexed Telegram content. | free | Beginner | Safe | Passive | Web | cse.google.com |  |
+| Lyzem | Telegram public channel/message search engine. | free | Beginner | Caution | Passive | Web | lyzem.com |  |
+| Telemetr.io | Channel statistics, audience overlap, growth tracking. | freemium | Intermediate | Caution | Passive | Web | telemetr.io |  |
+| Telepathy | CLI for archival, scraping, and analysis of public Telegram channels. | free | Advanced | Caution | Active | Python CLI username | github.com | Active scraping; use a sock-puppet Telegram account. |
+
+## Social — Discord (2 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Discord.id | Discord user ID lookup and timestamp inference. | free | Beginner | Safe | Passive | Web username | discord.id |  |
+| DISBOARD | Public Discord server directory with search. | free | Beginner | Safe | Passive | Web | disboard.org |  |
+
+## Social — Reddit (2 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Camas (Reddit) | Recover deleted Reddit posts/comments via Pushshift-style archives. | free | Beginner | Safe | Passive | Web username | camas.unddit.com |  |
+| Redective | Reddit user analytics: subreddit activity, posting patterns. | free | Beginner | Safe | Passive | Web username | redective.com |  |
+
+## Social — Instagram/TikTok (2 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Imginn | Browse public Instagram profiles without an account; story/post archive. | free | Beginner | Caution | Passive | Web username | imginn.com |  |
+| Picuki | Anonymous Instagram viewer and search. | free | Beginner | Caution | Passive | Web username | picuki.com |  |
+
+## Social — Meta (1 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| WhoPostedWhat | Date-bounded Facebook keyword search via Graph search techniques. | free | Intermediate | Caution | Passive | Web | whopostedwhat.com | Coverage degraded since Graph search removals. |
+
+## Social — LinkedIn (1 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Crosslinked | Generate LinkedIn employee permutations for further enumeration. | free | Intermediate | High | Active | Python CLI domain | github.com | Uses Google scraping — burn account required. |
+
+## Social — General (3 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Shadow Dragon | Enterprise OSINT platform for digital investigations. | paid | Intermediate | Caution | Passive | Web email phone username | shadowdragon.io |  |
+| Shadow Dragon FREE Tools | Free supplementary OSINT tools from Shadow Dragon. | free | Beginner | Safe | Passive | Web | shadowdragon.io |  |
+| Social Searcher | Real-time multi-platform social search for keywords and mentions. | freemium | Beginner | Caution | Passive | Web username | social-searcher.com |  |
+
+## Darknet (4 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Ahmia | Clearnet search engine for .onion sites; safe research entry point. | free | Beginner | Caution | Passive | Web | ahmia.fi |  |
+| Tor Metrics | Official Tor network statistics: relays, exits, bandwidth. | free | Intermediate | Safe | Passive | Web | metrics.torproject.org |  |
+| Onion.live | Onion service directory with uptime tracking. | free | Intermediate | Caution | Passive | Web | onion.live |  |
+| Hunchly | Forensic web-capture browser tool with chain-of-custody. Strong for darknet investigations. | paid | Intermediate | Safe | Passive | Desktop | hunch.ly |  |
+
+## Corporate & Records (6 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| OpenCorporates | Largest open database of corporate entities globally. | freemium | Beginner | Safe | Passive | Web/API | opencorporates.com |  |
+| SEC EDGAR | US public company filings — primary source for listed-entity research. | free | Intermediate | Safe | Passive | Web | sec.gov |  |
+| Companies House (UK) | UK official company registry with full filing history. | free | Beginner | Safe | Passive | Web/API | find-and-update.company-information.service.gov.uk |  |
+| GLEIF (LEI Search) | Global Legal Entity Identifier search — links companies across jurisdictions. | free | Intermediate | Safe | Passive | Web | search.gleif.org |  |
+| ICIJ Offshore Leaks DB | Panama/Pandora/Paradise Papers searchable database. | free | Intermediate | Safe | Passive | Web | offshoreleaks.icij.org |  |
+| OpenSanctions (Corporate) | Sanctions, PEPs, watchlists — aggregated and queryable. | free | Intermediate | Safe | Passive | Web/API | opensanctions.org |  |
+
+## Search & Dorking (8 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Google Hacking Database | Canonical Google dork repository. Many dorks are stale — verify before relying. | free | Beginner | Caution | Passive | Web | exploit-db.com |  |
+| DorkSearch | Web app to construct Google dorks with suggestions. | free | Beginner | Caution | Passive | Web | dorksearch.com |  |
+| Marginalia Search | Non-SEO indie web search; surfaces content Google buries. | free | Beginner | Safe | Passive | Web | search.marginalia.nu |  |
+| Wayback Machine | Internet Archive — historical snapshots of websites. | free | Beginner | Safe | Passive | Web domain | web.archive.org |  |
+| Archive.today | On-demand archival of pages; bypasses some paywalls and JS. | free | Beginner | Safe | Passive | Web domain | archive.ph |  |
+| GDELT Project | Global event/news/tone analytics across thousands of sources. | free | Advanced | Safe | Passive | Web/API | gdeltproject.org |  |
+| Wayback Google Analytics | Bellingcat tool — pulls historical GA/GTM IDs from Wayback to pivot to other sites. | free | Intermediate | Safe | Passive | Python CLI domain | github.com |  |
+| AnalyzeID | Pivot on GA/AdSense IDs, WHOIS, registrant emails across sites. | freemium | Beginner | Caution | Passive | Web domain | analyzeid.com |  |
+
+## Investigator Toolkit (11 tools)
+
+| Tool | Description | Cost | Skill | OPSEC | Mode | Accepts | Website | Notes |
+|---|---|---|---|---|---|---|---|---|
+| Tor Browser | Anonymity browser; baseline OPSEC tool for sensitive research. | free | Beginner | Safe | Passive | Desktop | torproject.org |  |
+| Whonix | VM-based OPSEC environment forcing all traffic through Tor. | free | Advanced | Safe | Passive | VM | whonix.org |  |
+| Tails | Amnesic live OS routing all traffic through Tor. Strong baseline OPSEC. | free | Advanced | Safe | Passive | Live OS | tails.boum.org |  |
+| Tracelabs OSINT VM | Curated OSINT VM (the modern successor to Buscador). | free | Intermediate | Safe | Passive | VM | tracelabs.org |  |
+| EFF Cover Your Tracks | Browser fingerprinting test — verify your OPSEC browser is uniqueness-resistant. | free | Beginner | Safe | Passive | Web | coveryourtracks.eff.org |  |
+| OSINT Framework | Massive curated directory of OSINT resources by category. | free | Beginner | Safe | Passive | Web directory | osintframework.com |  |
+| Scrapy | Python framework for building scalable web scrapers. | free | Advanced | Caution | Active | Python framework | scrapy.org |  |
+| Playwright | Modern browser automation — replaces Selenium for most use cases. | free | Intermediate | Caution | Active | Library | playwright.dev |  |
+| Beautiful Soup | Python HTML parser; building block for custom scrapers. | free | Intermediate | Safe | Passive | Python library | crummy.com |  |
+| Apify | Cloud scraping/automation platform with prebuilt actors for many sites. | freemium | Intermediate | Caution | Active | Cloud | apify.com |  |
+| IOC Web Scraper | Intelligence on Chain's open-source scraping framework — links & images. | free | Advanced | Caution | Active | Python framework domain | github.com |  |
+
+---
+
+# Consolidated additions
+
+*Merged from the BlockchainUnmasked article "The Investigator's Stack: The Tools Every Team Should Know" (2026-06). These extend the catalogue above with tracers, bridge/swap explorers, scam databases, and a Freezing/Recovery category the base catalogue did not cover. Lighter column schema (no OPSEC/Skill ratings invented for these entries).*
+
+## Additional Tracing & Attribution Platforms
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| Global Ledger | Proprietary tracer with strong datasets & attribution | paid | globalledger.io | Praised for clean UI, node customization, color-coding (graph readability) |
+| CipherOwl | Tracer that adds counterparties directly onto the graph | paid | cipherowl.ai | Paste a node and it auto-connects to others on the canvas |
+| Crystal Intelligence | Institutional analytics | enterprise | crystalintelligence.com | Cross-chain coverage, behavioral typologies |
+| Merkle Science | Institutional analytics | enterprise | merklescience.com | Cross-chain coverage, behavioral typologies |
+| Nominis | Proactive entity tagging/labelling | freemium/paid | nominis.io | "Shadow Intelligence" links Web3->Web2 footprints; depth on terrorism data |
+
+## Cross-Chain Bridge Explorers
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| Range Cross-Chain Explorer | Single view across many bridges | freemium | range.org | Stitch a source-chain tx to its destination leg |
+| Bridge Explorer (unbridge) | Free multi-bridge correlation | free | unbridge.xyz | |
+| Wormholescan | Wormhole bridge explorer | free | wormholescan.io | |
+| LayerZeroScan | LayerZero messaging explorer | free | layerzeroscan.com | |
+| deBridge Explorer | deBridge transfers | free | explorer.debridge.finance | |
+| THORChain / Runescan | THORChain swaps | free | thorchain.net / runescan.io | |
+| Mayan Explorer | Mayan cross-chain swaps | free | explorer.mayan.finance | |
+| Allbridge | Allbridge transfers | free | allbridge.io | |
+
+*~80-90% of bridge use is ordinary infrastructure, not obfuscation. Most bridges maintain their own dedicated explorer -- search the bridge name.*
+
+## Instant-Swap / Instant-Exchange Services
+
+*Increasingly an obfuscation layer of choice; several are cooperative with investigators and LE. See "Cooperating Instant Exchanges as Pivot Points" (02-tracing).*
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| FixedFloat | No-account instant swap | open | fixedfloat.com | Common obfuscation hop |
+| ChangeNOW | Instant swap | open | changenow.io | Cooperative in many cases |
+| Changelly | Instant swap | open | changelly.com | |
+| SimpleSwap | Instant swap | open | simpleswap.io | |
+
+## Additional Infrastructure & Domain OSINT
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| Silent Push | Domain/infrastructure intelligence | freemium | silentpush.com | |
+| DomainTools | WHOIS, historical & reverse WHOIS | paid | domaintools.com | |
+| WhoisXML API | WHOIS/DNS data via API | freemium | whoisxmlapi.com | |
+| Netlas | Internet asset scan engine | freemium | netlas.io | Second pass when Shodan/Censys come up short |
+| Validin | Pivot on favicon/CSS/HTML hashes, TLS/JARM, HTTP banners, passive DNS to cluster domains | freemium | validin.com | Favorite for infra clustering; one reused favicon can crack a phishing network |
+| BuiltWith | Tech-stack & analytics-ID fingerprinting | freemium | builtwith.com | Surfaces GA/tracking IDs operators forget to scrub |
+| Wappalyzer | Tech-stack detection | freemium | wappalyzer.com | |
+
+## Scam & Phishing Databases
+
+*Cross-reference artifacts against reported data. (Chainabuse, ScamSniffer, and URLhaus already appear in the catalogue above.)*
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| GASO (Global Anti-Scam Org) | Reported scam domains & infrastructure | free | globalantiscam.org | |
+| PhishDestroy | Phishing & wallet-drainer intelligence | free | phishdestroy.io | |
+| CryptoScamDB | Crypto scam address/domain database | free | cryptoscamdb.org | |
+| ScamAdviser | Website trust / scam scoring | free | scamadviser.com | |
+| PhishTank | Community phishing URL database | free | phishtank.org | |
+| OpenPhish | Phishing feed | freemium | openphish.com | |
+
+## Case Documentation
+
+*(Hunchly and Maltego already appear in the catalogue above.)*
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| Obsidian | Local-first linked-markdown case notes | free | obsidian.md | See "Obsidian Case-Management Workflow" (06-casework-method) |
+| Notion | Structured case notes / collaboration | freemium | notion.com | Cloud-hosted -- mind OPSEC for sensitive cases |
+
+## Freezing, Blacklisting & Recovery
+
+*Investigators/LE drive the reporting, blacklisting, and freezing half (in partnership with LE); recovery sits with LE and specialist firms. Freezes are actioned at law-enforcement request.*
+
+| Tool / Channel | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| Tether (USDT issuer freeze) | Token-level freeze of USDT | LE request | tether.to | Route the request to the issuer directly or via the right intermediary |
+| Circle (USDC issuer freeze) | Token-level freeze of USDC | LE request | circle.com | |
+| T3 Financial Crime Unit (T3 FCU) | Tether/TRON/TRM initiative; freezes illicit USDT-on-TRON, often within 24h | LE request | t3fcu.org | T3+ brings exchanges into real-time coordination; the channel for USDT-on-TRON |
+| TRM Beacon Network | Real-time network to coordinate freezing stolen funds during a live incident | free for verified LE & exchanges | trmlabs.com | Speed-oriented |
+| Exchange LE portals | Dedicated law-enforcement request channels at major exchanges | verified LE | -- | Learn each exchange's "front door" |
+| MistTrack stablecoin blacklist lookup | Check whether an address is already frozen/blacklisted | free | misttrack.io | Quick pre-check before chasing |
+| Deconflict | Tells you whether another agency is already working the wallet/case | verified LE only | deconflict.com | Avoids duplicated effort / colliding with a live op |
+| Kodex | Secure, auditable data requests from agencies to exchanges/institutions | verified LE / institutions | kodexglobal.com | |
+| Asset Reality | Specialist asset recovery & management | firm | assetreality.com | Recovery-side |
+| DigitalMint | Recovery / ransom-settlement services | firm | digitalmint.io | Recovery-side |
+
+## The three-piece investigator workflow (framing)
+
+Every investigation breaks into three pieces (per the stack article):
+
+1. **Investigation & Tracing** -- heavyweights (TRM, Chainalysis, Elliptic) + next-tier tracers (Global Ledger, CipherOwl, MistTrack) + freemium graphs (Breadcrumbs, MetaSleuth) + free attribution/clustering (Arkham, Bubblemaps) + base-layer explorers (Etherscan, OKLink, mempool.space). Bridges/swaps via dedicated + aggregate explorers; instant-swaps often need temporal+amount matching or direct outreach.
+2. **Identification & OSINT** -- the hardest half: link on-chain address -> entity -> real person (Web3 -> Web2). Exchange KYC is the gold standard but LE-gated. When it is not available, pivot via domain/infra intel (Validin, Silent Push, Shodan/Censys, crt.sh), tech-stack IDs (BuiltWith/Wappalyzer), person pivots (Epieos, OSINT Industries, Holehe), and scam DBs; preserve with Wayback/archive.today. Document everything (Obsidian/Notion/Hunchly/Maltego).
+3. **Freezing, Blacklisting & Recovery** -- report/blacklist/flag wallets so institutions can freeze; issuer freezes (Tether/Circle), T3 FCU, TRM Beacon; LE-only coordination via Deconflict/Kodex; recovery via Asset Reality/DigitalMint.
+
+## Related
+Use a Suite of Tools, Not One, PI Response Priority: Freeze, Monitor, Predict, OSINT, [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Obsidian Case-Management Workflow](/kb/06-casework-method/tactic-obsidian-case-management-workflow)

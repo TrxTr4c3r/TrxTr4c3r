@@ -1,0 +1,25 @@
+# Case: Tornado Cash Round-Trip Resolved by Address Reuse
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`example`  ·  Level 2  ·  case-study · tornado-cash · mixers · behavioural-matching · address-reuse · attribution</span>
+
+## Core idea
+A real IOC engagement: a victim gave his private key to a brand-new trading bot to run automated trades, then forgot. Months later he bought ~$10k of crypto and it was immediately moved without permission -- the bot operator had been sitting on the key waiting for value. The mixer was never broken cryptographically; the actor's reuse of the destination address was the broken link. This is the central reflex of post-mixer tracing.
+
+## Components
+Walking the trace:
+- A. Read the headline: the majority of stolen assets go directly to a Crypto.com deposit address -- the "easy" flow, recoverable via the exchange's compliance team with a properly-formed LE request. A meaningful residue takes a different path.
+- B. Expand wallet 0x782f9 -> reveals the next hop 0x3b4D3 (the mixer entry point).
+- C. Expand 0x3b4D3 -> a red output is the Tornado Cash deposit; full deposit wallet 0x3b4d302ae0680ed226f0a487baf13077efc26a1f. This is the input-side boundary -- the on-chain trace is broken by the mixer here.
+- D. Pivot to the withdrawal side: wallet 0x4E5F shows a cluster of Tornado Cash withdrawals; full withdrawal wallet 0x4e5f1bd7ec784b3da927f0d1d7baf004c2fc8d99. This is the output-side boundary.
+- E. The punchline: the withdrawal wallet sends funds onward to the same Crypto.com deposit address that received the direct-route portion in step A. Both legs resolve at the same exchange identity -- the actor's behaviour gave them away.
+
+The IOC Tornado-Cash-Demixer (github.com/IOCOfficial/Tornado-Cash-Demixer) systematically tests deposit-to-withdrawal pairing hypotheses inside Tornado Cash using timing, amount, and behavioural patterns. It does NOT break Tornado's cryptography -- it surfaces the pairings the actor's own behaviour gives away.
+
+## When to use
+Whenever a trace reaches a privacy-mixer boundary -- do not trace through the mix; trace to the mix, identify the deposit, independently identify withdrawals, and check whether a behavioural signature (same exchange identity, cash-out preference, timing) holds. If it holds, attribution is defensible; if not, document the gap honestly and continue with OSINT.
+
+## Example
+Both the direct path and the Tornado Cash withdrawal path funnel into the same Crypto.com deposit address -- a behavioural fingerprint that survives the mix -- making the deposit/withdrawal pairing defensible without reversing any cryptography.
+
+## Related
+[Post-Mixer Bitcoin Tracing](/kb/02-tracing/tactic-post-mixer-bitcoin-tracing), [Drainer-Kit & Known-Actor Pattern Recognition](/kb/04-laundering-obfuscation/concept-drainer-kit-and-known-actor-pattern-recognition), [Temporal Analysis to Defeat Obfuscation](/kb/02-tracing/tactic-temporal-analysis-to-defeat-obfuscation)

@@ -1,0 +1,23 @@
+# EVM Proxies -- Read the Right Source
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`  ·  Level 2  ·  evm · proxies · eip-1967 · eip-2535 · eip-1167 · smart-contracts</span>
+
+## Core idea
+Most production contracts are upgradeable proxies, so when you read an address on Etherscan you may be reading the proxy source rather than the implementation. Missing this layer leads to wrong findings about what a contract actually does.
+
+## Components
+- EIP-1967 proxies -- implementation pointer stored at a fixed storage slot; Etherscan usually resolves automatically, showing both proxy and implementation.
+- Diamond pattern (EIP-2535) -- multiple "facets" implement different functions; inspect via the `facets()` view function.
+- Minimal proxies (EIP-1167 clones) -- 45-byte bytecode pointing at a shared implementation; read the implementation for behaviour.
+
+## When to use
+Whenever analysing what a contract does before drawing a conclusion -- always verify whether the address is a proxy and locate the real implementation.
+
+## Avoid when
+Do not state findings about a contract's behaviour from proxy source alone; read the implementation (or facets) or your conclusion may be wrong.
+
+## Example
+An address appears benign on Etherscan, but it is an EIP-1967 proxy whose implementation holds the actual drainer logic -- only reading the implementation reveals it.
+
+## Related
+[EVM Event Logs & Decoding Calldata](/kb/02-tracing/tactic-evm-event-logs-and-decoding-calldata), [Reading an EVM Transaction](/kb/00-fundamentals/concept-reading-an-evm-transaction), [ERC-20 Approvals -- The Forgotten Attack Surface](/kb/02-tracing/concept-erc-20-approvals-the-forgotten-attack-surface)

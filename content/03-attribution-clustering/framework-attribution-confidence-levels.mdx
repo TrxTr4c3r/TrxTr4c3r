@@ -1,0 +1,24 @@
+# Attribution Confidence Levels
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`  ·  Level 1  ·  attribution · confidence · evidence · reporting · blockchain</span>
+
+## Core idea
+A four-tier scale for rating how strongly an address is attributed to an entity, ranging from Confirmed down to Possible. It governs what may be reported as attribution and what must not.
+
+## Components
+- Confirmed -- KYC record or first-party admission.
+- High confidence -- multiple independent sources.
+- Probable -- single strong indicator.
+- Possible -- circumstantial; do not publish as attribution.
+
+## When to use
+When labelling and reporting the strength of any address-to-entity attribution.
+
+## Avoid when
+Never publish possible-level (circumstantial) attribution as though it were confirmed.
+
+## Example
+A wallet linked to an entity only by a shared counterparty rates "Possible" and must not be published as attribution; a KYC record from an exchange rates "Confirmed."
+
+## Related
+[Crypto Address Attribution Process](/kb/03-attribution-clustering/workflow-crypto-address-attribution-process), [Source Reliability Grading (NATO STANAG 2511)](/kb/01-osint/framework-source-reliability-grading-nato-stanag-2511), [Court-Tested Attribution Evidence Types](/kb/05-evidence-legal/framework-court-tested-attribution-evidence-types)

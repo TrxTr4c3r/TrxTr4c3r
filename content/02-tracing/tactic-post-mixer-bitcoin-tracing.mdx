@@ -1,0 +1,20 @@
+# Post-Mixer Bitcoin Tracing
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  bitcoin · mixers · coinjoin · behavioural-matching · tracing</span>
+
+## Core idea
+The heuristic against Bitcoin mixers is not to "un-mix" individual coins -- that is generally infeasible when the protocol is used correctly. Instead, recognise the mixing pattern, annotate the obfuscation gap, and resume tracing on the withdrawal side using behavioural matching.
+
+## Components
+- Do not attempt to un-mix; trace to the mix, mark the boundary, then independently pick up the withdrawal side.
+- Behavioural matching signals on the withdrawal side: timing, amounts, script-type fingerprint, and onward counterparties.
+- Mixer-enforcement landscape (patterns persist on-chain even after takedowns): Wasabi Wallet (CoinJoin, zkSNACKs-coordinated, coordinator shut down 2024 but patterns remain distinctive); Samourai Wallet (Whirlpool, seized and operators charged April 2024); ChipMixer (custodial, seized March 2023); Bitcoin Fog (operator Sterlingov convicted 2024).
+
+## When to use
+When a Bitcoin trace reaches a mixer/CoinJoin boundary and you must decide how to continue rather than declaring the trace dead.
+
+## Example
+Funds enter a CoinJoin; rather than un-mixing, you annotate the gap and match withdrawals on the other side by timing, amount, and script-type fingerprint -- resuming the trace toward the cash-out.
+
+## Related
+[Bitcoin UTXO Clustering Heuristics](/kb/03-attribution-clustering/checklist-bitcoin-utxo-clustering-heuristics), [Case: Tornado Cash Round-Trip Resolved by Address Reuse](/kb/04-laundering-obfuscation/example-case-tornado-cash-round-trip-resolved-by-address-reuse), [Temporal Analysis to Defeat Obfuscation](/kb/02-tracing/tactic-temporal-analysis-to-defeat-obfuscation)

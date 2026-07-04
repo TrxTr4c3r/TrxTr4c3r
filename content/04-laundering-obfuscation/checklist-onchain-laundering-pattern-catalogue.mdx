@@ -1,0 +1,31 @@
+# On-Chain Laundering Pattern Catalogue
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level reference  ·  money-laundering · on-chain-patterns · detection · transaction-shapes · checklist</span>
+
+## Core idea
+A recognition index of the transaction-graph shapes that signal laundering, each with what it looks like and what it usually signals, plus a quick pattern-to-method map. Use it to name what you are seeing and jump to the likely typology.
+
+## Components
+- Fan-Out -- one wallet sends to many wallets in a short window -> distribution/structuring ahead of cash-out, or spreading stolen funds.
+- Fan-In (Consolidation) -- many wallets send into one wallet -> aggregating mule or victim proceeds before a large cash-out.
+- Gather-Scatter -- fan-in then fan-out with near-zero balance retained -> deliberate layering to sever depositor-recipient links.
+- Peeling Chain -- a decreasing balance passed hop-to-hop, splitting a small amount each step -> sequential (often automated) laundering of one large sum.
+- Rapid Pass-Through ('Hot Potato') -- funds arrive and leave within minutes/hours, never held -> single-purpose hop wallet.
+- Equal-Value Multi-Input/Output -- several matching round-value inputs and outputs in one tx -> CoinJoin or centralised mixing signature.
+- Round-Trip / Boomerang -- funds eventually return to the originating wallet/cluster -> wash trading, test transactions, or self-dealing.
+- Star / Hub Topology -- one central wallet connects to many otherwise-unconnected spokes -> mixing, distribution, or mule-payment hub.
+- Cross-Chain Disappear/Reappear -- funds leave one chain, matching value/timing on another -> bridge/swap chain hopping.
+- Dormancy-Then-Burst -- long-held funds suddenly transact -> time-delay laundering (still worth flagging).
+- Structuring Micro-Amounts -- many similar sub-threshold sends from one cluster -> smurfing.
+- Fresh Wallet, Large Inbound -- a no-history wallet suddenly receives a large sum -> possible new mule, hop, or cash-out address.
+- Timing Lockstep -- unrelated wallets transact at near-identical times repeatedly -> common control or an automated laundering script/bot.
+- Quick map (pattern -> likely method): Fan-Out -> structuring/distribution; Fan-In -> consolidation of mule/victim proceeds; Gather-Scatter -> layering; Peeling Chain -> sequential laundering; Equal-Value Multi-I/O -> mixing/CoinJoin; Cross-Chain Disappear/Reappear -> chain hopping; Round-Trip -> wash trading; Star/Hub -> mixing/mule hub; Dormancy-Then-Burst -> time-delay; Rapid Pass-Through -> hop wallet in a peel/gather-scatter; Structuring Micro-Amounts -> smurfing; Fresh Wallet Large Inbound -> new mule/hop; Timing Lockstep -> bot or single-actor control.
+
+## When to use
+While reading a transaction graph and needing to name the shape you see and jump to the likely laundering method behind it.
+
+## Example
+You see one central wallet with many unconnected spokes and no other activity -- a Star/Hub topology -- pointing to a mixing or mule-payment hub.
+
+## Related
+[Peel Chain](/kb/04-laundering-obfuscation/concept-peel-chain), [Gather-Scatter](/kb/04-laundering-obfuscation/concept-gather-scatter), [Mixing / Tumbling (CoinJoin)](/kb/04-laundering-obfuscation/concept-mixing-tumbling), [Chain Hopping / Cross-Chain Bridging](/kb/04-laundering-obfuscation/concept-chain-hopping), [Structuring / Smurfing](/kb/04-laundering-obfuscation/concept-structuring-smurfing), [Dormancy / Time-Delay Laundering](/kb/04-laundering-obfuscation/concept-dormancy-time-delay-laundering), [Wash Trading (incl. NFTs)](/kb/04-laundering-obfuscation/concept-wash-trading)

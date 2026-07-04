@@ -1,0 +1,18 @@
+# Peeling Chain Analysis
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level reference  ·  blockchain-forensics · peel-chain · layering · ransomware</span>
+
+## Core idea
+Identifies a laundering pattern where a large balance is repeatedly split into a small peel that is spent and a larger remainder sent to a new address. Common after ransomware or scam payouts.
+
+## When to use
+Funds show a linear chain of decreasing balances across sequential single-output transactions.
+
+## Avoid when
+Strong but circumstantial evidence of a single controlling actor; not conclusive attribution on its own.
+
+## Example
+A ransomware payout moves through dozens of hops, each peeling a few coins to an exchange while the bulk continues to a fresh address.
+
+## Related
+[Transaction Graph Analysis (TGA)](/kb/02-tracing/tactic-transaction-graph-analysis), Taint Analysis, [Forensic Method Selection Decision Tree](/kb/02-tracing/workflow-forensic-method-decision-tree)

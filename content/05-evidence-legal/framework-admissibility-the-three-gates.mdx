@@ -1,0 +1,20 @@
+# Admissibility -- The Three Gates
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`  ·  Level 2  ·  admissibility · evidence · chain-of-custody · legal · hashing</span>
+
+## Core idea
+Whether evidence is admissible generally depends on three questions. Chain-of-custody failures most commonly defeat the authenticity and reliability gates -- and hashing plus timestamping plus a contemporaneous log plus minimum handlers defends all three.
+
+## Components
+- Relevance -- does it help establish a fact in issue?
+- Authenticity -- can you prove it is what you say it is?
+- Reliability -- is the method of collection trustworthy?
+
+## When to use
+When preparing an evidence pack or assessing whether a preserved artefact will survive challenge in a legal or regulatory setting.
+
+## Example
+A screenshot with a SHA-256 hash logged at capture, an OpenTimestamps commitment, and a contemporaneous custody log passes authenticity and reliability; its relevance is established by tying it to a fact in issue (e.g. the exact deposit address that received stolen funds).
+
+## Related
+[Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Custody Log -- The Six Questions](/kb/05-evidence-legal/checklist-custody-log-the-six-questions), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type)

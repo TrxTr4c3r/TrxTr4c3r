@@ -1,0 +1,15 @@
+export default {
+  "index": "Overview",
+  "concept-impact-of-mixers-on-financial-institutions": "Impact of Mixers on Financial Institutions and the Ecosystem",
+  "concept-mixer-legal-regulatory-landscape": "Legal and Regulatory Landscape for Mixers",
+  "concept-types-of-mixers-and-tumblers": "Types of Mixers and Tumblers",
+  "concept-why-mixers-are-used": "Why People Use Mixers and Tumblers",
+  "definition-mixers-and-tumblers": "Mixers and Tumblers",
+  "principle-mixers-reduce-visibility-not-traceability": "Mixers Make Funds Harder to Find, Not Invisible",
+  "framework-what-mixers-hide-how-analysis-uncovers": "What Mixers Hide and How Blockchain Analysis Uncovers It",
+  "workflow-how-mixers-process-funds": "How Mixers Process Funds",
+  "tactic-mixing-obfuscation-techniques": "Mixing Obfuscation Techniques",
+  "checklist-institutional-best-practices-for-mixers": "Best Practices for Institutions Handling Mixer Risk",
+  "checklist-blockchain-analysis-mixing-detection": "How Blockchain Analysis Detects Mixing Activity",
+  "checklist-mixing-activity-red-flags": "Mixing Activity Red Flags",
+}

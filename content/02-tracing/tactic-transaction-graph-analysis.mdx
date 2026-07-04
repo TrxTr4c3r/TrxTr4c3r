@@ -1,0 +1,18 @@
+# Transaction Graph Analysis (TGA)
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level reference  ·  blockchain-forensics · fund-tracing · graph-analysis · layering</span>
+
+## Core idea
+Maps fund flow between addresses as a directed graph, visualising transaction paths across hops. Reveals layering and consolidation points and forms the backbone of most blockchain investigations.
+
+## When to use
+Initial mapping of any wallet-to-wallet movement; tracing proceeds from a hack, theft, or ransomware payment.
+
+## Avoid when
+Graph output alone is not proof of control; corroborate with off-chain evidence before asserting ownership in court.
+
+## Example
+Starting from a ransomware payout address, build the directed graph of outgoing transactions to spot where funds fan out (layering) and later re-consolidate before cash-out.
+
+## Related
+[Address Clustering (Common-Input-Ownership Heuristic)](/kb/03-attribution-clustering/tactic-address-clustering-cioh), [Peeling Chain Analysis](/kb/02-tracing/tactic-peeling-chain-analysis), [Forensic Method Selection Decision Tree](/kb/02-tracing/workflow-forensic-method-decision-tree)

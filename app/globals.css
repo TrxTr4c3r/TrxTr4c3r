@@ -1,0 +1,17 @@
+/*
+ * Global styles. Both the landing (/) and the docs (/kb) render dark, so the
+ * page canvas is void-black with no body margin. Without this, the UA default
+ * body margin (preflight is off) shows as a light "belt" around the landing.
+ */
+:root {
+  color-scheme: dark;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #07100b;
+}
+html {
+  scroll-behavior: smooth;
+}

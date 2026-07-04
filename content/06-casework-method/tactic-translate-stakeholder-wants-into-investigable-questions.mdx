@@ -1,0 +1,21 @@
+# Translate Stakeholder Wants into Investigable Questions
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  investigation-design · scoping · objectives · defensibility · intake</span>
+
+## Core idea
+Stakeholder wants are usually emotional, broad, or unrealistic -- especially after loss. The investigator's job is to convert each vague want into a specific, scoped, testable question that can be executed and delivered. The first deliverable is not a report but the written objective the client signs off on; everything else is measured against it.
+
+## Components
+- "Find everything about this wallet" -> ask: wallet type (EOA/multisig/contract/custodial deposit)? behavioural patterns (times, frequency, gas habits)? entities it interacts with (DEXes/bridges/CEXes/clusters)? attribution clues (ENS, airdrop claims, socially-linked counterparties)?
+- "Tell us who did this" -> ask: what OSINT indicators could identify the actor? what behavioural signatures match known threat actors? where are the KYC choke points? (reframes without overpromising)
+- "Trace all their funds everywhere" -> bound it: which chains (explicit list)? time window? value threshold (ignore dust below $X)? hop depth before stopping? what counts as a relevant endpoint (CEX deposit, mixer ingress, sanctioned address)?
+- "Shut this down" -> ask: what platform/service can act (exchange, registrar, hosting, ISP)? what evidence triggers that action? what risk indicators justify it?
+
+## When to use
+At intake, whenever a client presents an emotional or open-ended brief; use before scoping so the investigation has a concrete end-point.
+
+## Example
+"Our wallet got drained -- find who did it" becomes: for tx 0x..., identify any CEX deposit address that received proceeds within 30 days across Ethereum, BSC, Polygon, Arbitrum, Optimism and Base; report addresses, amounts, timestamps; attribute where KYC-linkable evidence exists.
+
+## Related
+[Five Investigation Goal Types](/kb/06-casework-method/framework-five-investigation-goal-types), [Intake Triage Checklist](/kb/06-casework-method/checklist-intake-triage-checklist), [Five Intake Red Flags](/kb/06-casework-method/checklist-five-intake-red-flags)

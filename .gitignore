@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+next-env.d.ts
+
+# misc
+.DS_Store
+*.log
+.env*.local
+.vercel
+
+# local build/preview artifacts
+/preview/
+/buildlog.txt
+/servelog.txt
+
+# workspace routing doc (local only; not part of the published site)
+/CONTEXT.md

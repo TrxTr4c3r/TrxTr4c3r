@@ -1,0 +1,17 @@
+export default {
+  "index": "Overview",
+  "concept-wallet-clustering-and-heuristics": "Wallet Clustering and Heuristics",
+  "principle-multiple-attribution-sources": "Never Trust a Single Source of Attribution",
+  "framework-attribution-confidence-levels": "Attribution Confidence Levels",
+  "workflow-crypto-address-attribution-process": "Crypto Address Attribution Process",
+  "tactic-address-clustering-cioh": "Address Clustering (Common-Input-Ownership Heuristic)",
+  "tactic-arkham-attribution-visualizer": "Arkham for Attribution and Visualization",
+  "tactic-change-address-utxo-heuristics": "Change-Address Heuristics (UTXO Analysis)",
+  "tactic-combined-timelines-turning-tracing-into-attribution": "Combined Timelines -- Turning Tracing into Attribution",
+  "tactic-vasp-kyc-correlation": "Exchange / VASP KYC Correlation",
+  "tactic-view-a-wallets-exposure-with-impersonator-xyz": "View a Wallet's Exposure with impersonator.xyz",
+  "checklist-advanced-attribution-techniques": "Advanced Attribution Techniques",
+  "checklist-bitcoin-utxo-clustering-heuristics": "Bitcoin UTXO Clustering Heuristics",
+  "caution-address-poisoning": "Address Poisoning Attack",
+  "caution-confirmation-bias-misleading-data": "Confirmation Bias and Misleading On-Chain Data",
+}

@@ -1,0 +1,22 @@
+# Google Dorking for Attribution
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 1  ·  osint · google-dorking · search-operators · attribution</span>
+
+## Core idea
+Targeted Google queries surface specific data that plain searches bury. Wrap a term in double quotes for an exact-match search, use site: to restrict to one platform, and use filetype filters to find an address inside a PDF or similar. A time filter lets you find the earliest mention of something on the web.
+
+## Components
+- Double quotes: exact-match only, for example searching a full address or an .eth name in quotes.
+- site:x.com (or another domain): restrict results to one platform.
+- filetype or file filters: find a crypto address inside a specific document type.
+- Time filter: locate the first ever mention of a term.
+- Watch for Google silently rewriting your query to a more common term, then force it back to your exact query.
+
+## When to use
+When you have a distinctive string (address, ENS name, username, project name) and want every page that mentions it, or the first time it appeared.
+
+## Example
+Searching a sanctioned address in double quotes returned the official sanctions-list entry. Searching an .eth name in quotes narrowed results from many to just two relevant pages.
+
+## Related
+[Silk Road and the Altoid Google Dork](/kb/01-osint/example-silk-road-altoid-google-dork), Pivoting from On-Chain Labels to Real Identities, [Screening Addresses Against OFAC Sanctions](/kb/06-casework-method/tactic-ofac-sanction-screening)

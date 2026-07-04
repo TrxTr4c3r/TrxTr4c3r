@@ -1,0 +1,18 @@
+# Temporal / Timing Correlation Analysis
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level reference  ·  blockchain-forensics · timing · off-chain · attribution · chain-of-custody</span>
+
+## Core idea
+Correlates transaction timestamps with external events such as login times or exchange session logs to strengthen attribution. Typically combined with subpoenaed off-chain data.
+
+## When to use
+On-chain evidence alone is inconclusive and corroborating off-chain timestamps are available.
+
+## Avoid when
+Requires proper chain-of-custody for off-chain logs; document time-zone and UTC handling carefully or the correlation will not hold up in court.
+
+## Example
+Matching the UTC timestamps of suspect withdrawals to the exchange login/IP session logs obtained by subpoena.
+
+## Related
+[Exchange / VASP KYC Correlation](/kb/03-attribution-clustering/tactic-vasp-kyc-correlation)

@@ -1,0 +1,23 @@
+# On-Chain Obfuscation Categories
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level 2  ·  obfuscation · laundering · mixers · coinjoin · peel-chains · stablecoins · recognition</span>
+
+## Core idea
+Six single-chain obfuscation techniques appear repeatedly across fraud, exploit, and cash-out cases. The mechanisms differ but the behaviours are predictable -- once you know the patterns you can recognise them quickly and start breaking down the obfuscation.
+
+## Components
+- Mixers & CoinJoin -- combine funds from many sources to break the input-output link; includes CoinJoin (Wasabi, Whirlpool, JoinMarket) and custodial mixers. Tracing through the mix is generally not possible; the work happens at the boundaries.
+- Privacy smart contracts -- Tornado Cash, Railgun, zk-based privacy pools use zero-knowledge proofs or privacy pools to sever traceability within a single transaction; quick, cheap, decentralised. Tornado Cash is the most-used; Railgun is its multi-asset successor.
+- Peel chains -- funds sent through a long sequence of wallets in small increments to create a long, noisy chain. Follow the main trunk and ignore the small "change" outputs that never move again.
+- Slicing & consolidation -- two opposite patterns to confuse clustering: slice funds across many small wallets, or consolidate scattered funds into one wallet before cashing out. The combination (slice on entry, consolidate on exit) is often a single actor's signature.
+- Rapid multi-hop / high-frequency routing -- scripted bouncing across protocols/routers in seconds. The tell is the timing fingerprint: sub-minute regularity is human-impossible and points straight at automation.
+- Stablecoin laundering -- moving into USDT/USDC for global liquidity, low slippage, and fast cross-chain mobility, often ending at CEXes or OTC desks. Because Tether and Circle do freeze, timing the cash-out matters to the criminal.
+
+## When to use
+As the recognition reflex before deep tracing -- classify what the attacker is doing so the right counter-technique is applied.
+
+## Example
+0.05 ETH leaves a compromised wallet, then each hop sheds ~10% to a change wallet that never moves again across 38 hops -- the signature of a peel chain; follow the trunk, ignore the peels.
+
+## Related
+[Cross-Chain Obfuscation Categories](/kb/04-laundering-obfuscation/checklist-cross-chain-obfuscation-categories), [Why Threat Actors Obfuscate -- Five Motivations](/kb/04-laundering-obfuscation/framework-why-threat-actors-obfuscate-five-motivations), [Breaking Obfuscation -- Five-Part Strategy](/kb/04-laundering-obfuscation/framework-breaking-obfuscation-five-part-strategy)

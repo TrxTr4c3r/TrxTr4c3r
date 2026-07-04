@@ -1,0 +1,28 @@
+# Off-Chain Behavioral Red-Flag Checklist
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level reference  ·  money-laundering · off-chain · red-flags · kyc · behavioral · checklist</span>
+
+## Core idea
+Behavioural and account-level indicators -- visible off-chain via KYC, logs, and records -- that corroborate suspected laundering when on-chain patterns alone are inconclusive.
+
+## Components
+- Synthetic KYC clusters -- multiple accounts sharing device IDs, phone-number patterns, or registration details despite claiming unrelated identities.
+- New account, immediate large activity -- no organic trading history, then a large deposit or withdrawal.
+- IP / geolocation mismatch -- activity from a location inconsistent with the KYC address on file, or VPN/proxy masking.
+- High-risk jurisdiction exposure -- funds or counterparties tied to FATF grey-list countries or OFAC-sanctioned jurisdictions.
+- Deposit-withdraw cycling -- funds deposited and withdrawn within hours with little or no trading in between.
+- Income / activity mismatch -- volume far exceeds the customer's declared income or stated occupation.
+- Mule recruitment signals -- postings offering pay to 'process transfers' or 'receive and forward' funds.
+- Asset conversion pattern -- proceeds spent on gift cards, luxury goods, or P2P marketplaces immediately after receipt.
+- Incomplete / evasive KYC -- declined or inconsistent source-of-funds documentation, or refusal of enhanced due diligence.
+- Associate / family transfers -- funds moved to relatives or known associates shortly after arrival.
+- Business narrative mismatch -- a purported business account shows stablecoin flow inconsistent with any plausible underlying business.
+
+## When to use
+Corroborating an on-chain laundering suspicion with subpoenaed or platform-held off-chain data before drawing conclusions.
+
+## Example
+A wallet's rapid deposit-withdraw cycling (on-chain) is confirmed as laundering when KYC shows an income/activity mismatch and a VPN-masked login from a sanctioned jurisdiction.
+
+## Related
+[On-Chain Laundering Pattern Catalogue](/kb/04-laundering-obfuscation/checklist-onchain-laundering-pattern-catalogue), [Synthetic / Shell KYC Onboarding](/kb/04-laundering-obfuscation/concept-synthetic-shell-kyc), [Money Mule Networks](/kb/04-laundering-obfuscation/concept-money-mule-networks), Single Indicator Is a Lead, Not Proof

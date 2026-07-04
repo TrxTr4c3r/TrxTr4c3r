@@ -1,0 +1,26 @@
+# Custody Log -- The Six Questions
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level 2  ·  chain-of-custody · evidence-preservation · documentation · admissibility</span>
+
+## Core idea
+A chain-of-custody log is a contemporaneous record answering six questions for every artefact. "Contemporaneous" is the key word: a log reconstructed after the fact is worth much less than one kept in real time.
+
+## Components
+- Who -- collected, received, handled, or transferred it.
+- What -- it is, and what hash uniquely identifies it.
+- When -- at each step, in ISO-8601 with timezone.
+- Where -- it was stored (system, path, encrypted volume).
+- How -- it was collected (tool, version, command or URL).
+- Why -- any transfer or handling step was performed.
+
+## When to use
+For every artefact in an investigation, maintained live as evidence is collected, handled, and transferred.
+
+## Avoid when
+A common defect: a colleague edits a file (e.g. renames it) and re-saves without re-verifying the hash and without noting why -- that break lets opposing counsel attack the evidence's integrity. Every handling step must record who, why, and a re-verified hash.
+
+## Example
+Step: "2026-04-24 14:05:41 UTC - A. Martinez - moved to encrypted volume /Cases/MX-26-001/Evidence/ - hash re-verified, matches" answers who/when/where/how/why with the hash intact.
+
+## Related
+[Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [Admissibility -- The Three Gates](/kb/05-evidence-legal/framework-admissibility-the-three-gates)

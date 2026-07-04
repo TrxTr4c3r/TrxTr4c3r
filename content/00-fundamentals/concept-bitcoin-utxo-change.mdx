@@ -1,0 +1,15 @@
+# Bitcoin UTXO and Change Addresses
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`  ·  Level 1  ·  bitcoin · utxo · change-address · fundamentals</span>
+
+## Core idea
+Bitcoin transactions consume inputs and create outputs. A spend sends value to a recipient, the miner takes a fee, and any remainder returns to the sender as change, often to a different address still controlled by the sender (an unspent transaction output, or UTXO). Reading inputs and outputs correctly is essential to avoid mistaking change for a payment to a third party.
+
+## When to use
+When tracing Bitcoin and you see multiple outputs on a transaction and must decide which is the real payment and which is change back to the sender.
+
+## Example
+Think of a vending machine: you feed in a 10 dollar note from your right pocket (input), buy a sandwich (the spend), and put the change in your left pocket (a different address, still yours). On mempool.space a transaction can show one input, a spend output, a fee, and a change output returning to the sender.
+
+## Related
+EVM Explorers Share a Layout, Non-EVM Do Not
