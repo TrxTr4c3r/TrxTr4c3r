@@ -1,6 +1,7 @@
 export default {
   "index": "Overview",
   "concept-erc-20-approvals-the-forgotten-attack-surface": "ERC-20 Approvals -- The Forgotten Attack Surface",
+  "framework-service-choke-points-what-each-can-give-you": "Service Choke-Points: What Each Service Type Can Give You",
   "workflow-forensic-method-decision-tree": "Forensic Method Selection Decision Tree",
   "workflow-non-explorer-bridge-correlation": "Non-Explorer Bridge Correlation",
   "tactic-coinjoin-mixer-detection": "CoinJoin / Mixer Detection",

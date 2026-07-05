@@ -1,0 +1,37 @@
+# Compelling VASP Disclosure: The Legal-Process Ladder
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`  ·  Level reference  ·  legal-process · vasp · kyc · subpoena · mlat · civil-discovery · law-enforcement · private-investigator · disclosure</span>
+
+## Core idea
+To force an exchange or swap service to hand over the input/output mapping or the KYC identity, you need legal process -- but not necessarily law enforcement. The load-bearing distinction: it must go through legal process, and that process can be criminal (law enforcement) or civil (obtained by the victim's counsel). A private investigator works at internet speed to freeze and preserve; the compelled disclosure itself comes through one of the instruments below.
+
+## Components
+- PI ladder (what a PI can do, lowest to highest power):
+  1. Courtesy / temporary freeze (~2 weeks) on a well-documented compliance email -- discretionary goodwill, not a right (see Freezing Funds with an Exchange Email).
+  2. Order-status / "track your swap" page -- sometimes reveals the destination tx with no process at all.
+  3. Preservation letter -- asks the service to preserve records pending process; stops retention windows aging the data out.
+  4. Voluntary cooperation -- compliant instant swaps (ChangeNOW, FixedFloat) respond to properly-formed requests but gate mapping/identity behind law enforcement; disclosure to a bare PI is rare and shrinking.
+  5. Civil legal process via counsel -- the PI's real route to compelled disclosure (civil instruments below).
+- Criminal (law-enforcement) instruments -- US framing:
+  - Preservation request (18 U.S.C. 2703(f)) -- freezes records for 90 days.
+  - Subpoena (grand-jury / administrative) -- subscriber / basic KYC (name, email, IP, payment).
+  - Court order (18 U.S.C. 2703(d)) -- transaction records and logs (non-content).
+  - Search warrant (probable cause) -- content / full account contents.
+  - MLAT (Mutual Legal Assistance Treaty) -- anything held by a foreign exchange; slow, often months.
+  - Emergency Disclosure Request -- voluntary disclosure in imminent-harm situations, at the service's discretion.
+- Civil instruments (no criminal LE required):
+  - US: a subpoena in civil litigation, often via a "John Doe" suit against the unknown wallet owner; 28 U.S.C. 1782 to obtain US-style discovery in aid of a foreign proceeding.
+  - UK: a Norwich Pharmacal Order or Bankers Trust order compelling a third party (the exchange) to disclose a wrongdoer's identity, frequently paired with a Mareva (freezing) injunction.
+- Why LE still matters: only law enforcement makes a freeze permanent and can reach across borders via MLAT. The PI-speed freeze and preservation buy the time for the paperwork -- criminal or civil -- to catch up.
+
+## When to use
+Once clustering narrows the trace to a specific deposit address at a service and you must obtain the mapping or the KYC identity. Choose the instrument by who you are (PI vs LE), where the service sits (domestic vs foreign), and what you need (subscriber info vs content vs a foreign proceeding).
+
+## Avoid when
+Do not stall waiting on slow process while evidence decays -- freeze and preserve first (retention windows and freeze windows are measured in hours to months; see Time-Decay of Crypto Evidence). And do not shortcut process by pretexting the service; that poisons the result (see Lawful Collection: Pretexting Poisons the Evidence).
+
+## Example
+Stolen ETH lands at a foreign CEX. The PI emails compliance and secures a ~2-week freeze plus a preservation letter; the victim's counsel files a John Doe suit and serves a civil subpoena (or, in the UK, a Norwich Pharmacal order) while law enforcement opens a case and routes an MLAT to make the freeze permanent and pull the KYC identity.
+
+## Related
+[Exchange / VASP KYC Correlation](/kb/03-attribution-clustering/tactic-vasp-kyc-correlation), [Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Service Choke-Points: What Each Service Type Can Give You](/kb/02-tracing/framework-service-choke-points-what-each-can-give-you), [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), PI Response Priority: Freeze, Monitor, Predict, OSINT, [Time-Decay of Crypto Evidence](/kb/05-evidence-legal/caution-time-decay-of-crypto-evidence), [Court-Tested Attribution Evidence Types](/kb/05-evidence-legal/framework-court-tested-attribution-evidence-types), [Lawful Collection: Pretexting Poisons the Evidence](/kb/05-evidence-legal/caution-lawful-collection-pretexting-poisons-evidence)
