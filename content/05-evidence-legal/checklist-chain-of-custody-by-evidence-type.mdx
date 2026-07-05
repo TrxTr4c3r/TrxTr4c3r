@@ -1,24 +1,24 @@
 # Chain of Custody by Evidence Type
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level 2  ·  chain-of-custody · evidence-preservation · tooling · email-headers · archiving</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
 
 ## Core idea
-Different evidence types have different handling specifics, but the principle is constant: collect, preserve, hash, document. Consistency -- not complexity -- is what makes evidence defensible.
+Different evidence types have different handling specifics, but the principle is constant: collect, preserve, hash, document. Consistency, not complexity, is what makes evidence defensible.
 
 ## Components
-- Blockchain data -- capture txids, addresses, and traces from public explorers; screenshots should include full page, URL bar, and system timestamp; export raw JSON from the explorer or an RPC endpoint where possible; hash the files; record block height at fetch time so anyone running a node can verify.
-- Screenshots & web content -- capture full context, do not crop or edit; include URL, date/time, and browser chrome; hash the file; use public archives (Wayback Machine, archive.ph, URLscan.io) in parallel with local captures -- public snapshots are harder to dispute, local captures preserve dynamic content archives miss.
-- Emails -- preserve full headers (not just the body); headers reveal routing, originating IPs, and auth records (SPF, DKIM, DMARC); export as .eml or .msg, hash it, document its source; parse headers with mxtoolbox.com/EmailHeaders.aspx.
-- Messaging platforms (Telegram, Discord, WhatsApp, X) -- screenshots must include username/handle/group identifiers plus visible timestamps; capture profile info (avatar, bio, join date, member lists) as well as chat logs; hash each item; prefer native export features (Telegram JSON, Discord data export, WhatsApp chat export) over screenshots alone.
-- Website & domain intelligence -- save WHOIS, SSL certificate details, hosting data, infrastructure artefacts; export as PDF or save the raw response; hash each record; URLscan.io captures a full behavioural snapshot (requests, contacted domains, screenshot, technologies) in one persistent scan URL.
+- Blockchain data: capture txids, addresses, and traces from public explorers; screenshots should include full page, URL bar, and system timestamp; export raw JSON from the explorer or an RPC endpoint where possible; hash the files; record block height at fetch time so anyone running a node can verify.
+- Screenshots & web content: capture full context, do not crop or edit; include URL, date/time, and browser chrome; hash the file; use public archives (Wayback Machine, archive.ph, URLscan.io) in parallel with local captures, public snapshots are harder to dispute, local captures preserve dynamic content archives miss.
+- Emails: preserve full headers (not just the body); headers reveal routing, originating IPs, and auth records (SPF, DKIM, DMARC); export as .eml or .msg, hash it, document its source; parse headers with mxtoolbox.com/EmailHeaders.aspx.
+- Messaging platforms (Telegram, Discord, WhatsApp, X): screenshots must include username/handle/group identifiers plus visible timestamps; capture profile info (avatar, bio, join date, member lists) as well as chat logs; hash each item; prefer native export features (Telegram JSON, Discord data export, WhatsApp chat export) over screenshots alone.
+- Website & domain intelligence: save WHOIS, SSL certificate details, hosting data, infrastructure artefacts; export as PDF or save the raw response; hash each record; URLscan.io captures a full behavioural snapshot (requests, contacted domains, screenshot, technologies) in one persistent scan URL.
 
 Tooling quick reference:
-- CyberChef (gchq.github.io/CyberChef) -- SHA-256, MD5, and many operations in-browser.
-- mxtoolbox (mxtoolbox.com/EmailHeaders.aspx) -- parse raw email headers.
-- archive.ph -- public web archive (different coverage from Wayback).
-- Wayback Machine (web.archive.org) -- widest-coverage public archive.
-- urlscan.io -- full behavioural capture of a page.
-- OpenTimestamps (opentimestamps.org) -- commit artefact hashes into the Bitcoin blockchain, verifiable by anyone.
+- CyberChef (gchq.github.io/CyberChef): SHA-256, MD5, and many operations in-browser.
+- mxtoolbox (mxtoolbox.com/EmailHeaders.aspx): parse raw email headers.
+- archive.ph: public web archive (different coverage from Wayback).
+- Wayback Machine (web.archive.org): widest-coverage public archive.
+- urlscan.io: full behavioural capture of a page.
+- OpenTimestamps (opentimestamps.org): commit artefact hashes into the Bitcoin blockchain, verifiable by anyone.
 
 ## When to use
 During collection, whenever preserving a specific artefact type for an investigation that may become evidentiary.
@@ -27,4 +27,4 @@ During collection, whenever preserving a specific artefact type for an investiga
 To preserve a phishing site: capture a local full-page screenshot with URL and timestamp, hash it, submit it to archive.ph and urlscan.io in parallel, and log all of it.
 
 ## Related
-[Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [What to Collect -- On-Chain & Off-Chain Evidence](/kb/05-evidence-legal/checklist-what-to-collect-on-chain-and-off-chain-evidence), [Custody Log -- The Six Questions](/kb/05-evidence-legal/checklist-custody-log-the-six-questions)
+[Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [What to Collect: On-Chain & Off-Chain Evidence](/kb/05-evidence-legal/checklist-what-to-collect-on-chain-and-off-chain-evidence), [Custody Log: The Six Questions](/kb/05-evidence-legal/checklist-custody-log-the-six-questions)

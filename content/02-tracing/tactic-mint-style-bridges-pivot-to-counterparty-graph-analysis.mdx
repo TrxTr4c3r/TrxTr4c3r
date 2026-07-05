@@ -1,18 +1,18 @@
-# Mint-Style Bridges -- Pivot to Counterparty-Graph Analysis
+# Mint-Style Bridges: Pivot to Counterparty-Graph Analysis
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  bridges · cross-chain · renbtc · mint-burn · counterparty-analysis · tracing</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
 
 ## Core idea
-Some bridges do not hold a pool and release from it -- they mint fresh wrapped tokens on the destination side, and on redemption they burn tokens while paying out newly-created BTC outputs from a different address set than you would expect. Classic time+value analysis against the expected bridge hot wallet shows nothing, so if you stop there you will wrongly conclude the trace is broken.
+Some bridges do not hold a pool and release from it, they mint fresh wrapped tokens on the destination side, and on redemption they burn tokens while paying out newly-created BTC outputs from a different address set than you would expect. Classic time+value analysis against the expected bridge hot wallet shows nothing, so if you stop there you will wrongly conclude the trace is broken.
 
 ## Components
 - Recognise the trap: RenBTC is the classic example. When RenBTC is redeemed on the EVM side, Ren mints fresh BTC outputs from the protocol's reserve, not from a single known "RenBTC entity" hot wallet. Correlating the ETH-side burn to an expected value/time window against the bridge's known entity cluster yields nothing.
 - The pivot: instead of looking at the bridge entity, look at the minting transaction itself on BTC. Identify which addresses participated in or received from the mint.
-- Then analyse the counterparty graph of the output addresses -- who they transact with, their top inflows and outflows, their high-value links.
+- Then analyse the counterparty graph of the output addresses: who they transact with, their top inflows and outflows, their high-value links.
 - Scale it with filter-by-size + scrape + LLM-summary: on busy wallets you cannot manually read every counterparty; filter (e.g. above $100k), scrape the explorer counterparty table, and LLM-sum totals so a hidden connection jumps out in minutes.
 
 ## When to use
-When time-and-value analysis comes up empty on a bridge you know was used -- check whether the bridge mints, and if so pivot to counterparty-graph analysis on the mint outputs.
+When time-and-value analysis comes up empty on a bridge you know was used, check whether the bridge mints, and if so pivot to counterparty-graph analysis on the mint outputs.
 
 ## Example
 In the $5.3M exploit case, naive time+value against RenBTC's expected entity showed nothing. Pivoting to counterparty-graph analysis on the mint outputs surfaced two high-value EVM endpoints (0x2edE98bc64d90721432aB49B85b0154290fCc187 and 0x7108Dfc09566deA0dE3003cf5C7734b9c457852B); filter+scrape+LLM-sum across connected counterparties totalled $5,358,060, materially matching the loss.

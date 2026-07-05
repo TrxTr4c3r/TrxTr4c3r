@@ -1,16 +1,16 @@
 # Crypto Address Attribution Process
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`workflow`  ·  Level 1  ·  attribution · blockchain · clustering · workflow · kyc</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`workflow`</span>
 
 ## Core idea
 Attribution links a pseudonymous blockchain address to a real-world entity. It is probabilistic, not definitive, but convergent evidence from multiple sources can build a compelling case. A five-step process moves from a seed address to an off-chain identity, with a KYC-verified exchange link as the gold standard.
 
 ## Components
-1. Find the seed address -- from a scam report, exchange record, or off-chain intelligence (from: victim, exchange, leak).
-2. Map transaction graph -- trace all inbound and outbound transactions via a block explorer (tool: Etherscan, Blockchain.com).
-3. Apply clustering heuristics -- group addresses likely controlled by the same entity (tool: Arkham, Chainalysis).
-4. Identify labelled addresses -- look for known exchange deposit addresses at graph edges (tool: Arkham labels, Etherscan tags).
-5. Cross-reference off-chain -- match wallets to social media, forums, GitHub commits (tool: Google dorks, Maltego).
+1. Find the seed address, from a scam report, exchange record, or off-chain intelligence (from: victim, exchange, leak).
+2. Map transaction graph, trace all inbound and outbound transactions via a block explorer (tool: Etherscan, Blockchain.com).
+3. Apply clustering heuristics, group addresses likely controlled by the same entity (tool: Arkham, Chainalysis).
+4. Identify labelled addresses, look for known exchange deposit addresses at graph edges (tool: Arkham labels, Etherscan tags).
+5. Cross-reference off-chain, match wallets to social media, forums, GitHub commits (tool: Google dorks, Maltego).
 
 ## When to use
 When you must connect a wallet to a real-world entity in an investigation and have at least one seed address to start from.

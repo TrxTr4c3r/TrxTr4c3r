@@ -1,19 +1,19 @@
 # Reading an EVM Transaction
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`  ·  Level 1  ·  evm · etherscan · transaction-anatomy · block-explorer · internal-transactions · erc-20 · tracing · workflow</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
 
 ## Core idea
-An EVM transaction has a fixed anatomy, but the native `value` field is rarely the whole story -- most fund movement on EVM is ERC-20 token transfers that appear only in logs, and value transfers triggered inside contract execution (internal transactions) are not top-level and must be derived from traces. Read a transaction page in a consistent order so nothing important is missed, including data hidden below the obvious transfer fields.
+An EVM transaction has a fixed anatomy, but the native `value` field is rarely the whole story, most fund movement on EVM is ERC-20 token transfers that appear only in logs, and value transfers triggered inside contract execution (internal transactions) are not top-level and must be derived from traces. Read a transaction page in a consistent order so nothing important is missed, including data hidden below the obvious transfer fields.
 
 ## Components
 Anatomy of an EVM transaction:
-- from / to -- sending EOA and target address (contract or EOA).
-- value -- native coin transferred (ETH, BNB, MATIC...).
-- input / data -- calldata: the encoded function call and its arguments.
-- gas -- gas limit, price, priority fee.
-- nonce -- sender's transaction counter.
-- logs -- events emitted during execution, indexed and queryable.
-- internal transactions -- value transfers triggered inside contract execution; not first-class transactions, must be derived from traces.
+- from / to: sending EOA and target address (contract or EOA).
+- value: native coin transferred (ETH, BNB, MATIC...).
+- input / data: calldata: the encoded function call and its arguments.
+- gas: gas limit, price, priority fee.
+- nonce: sender's transaction counter.
+- logs: events emitted during execution, indexed and queryable.
+- internal transactions: value transfers triggered inside contract execution; not first-class transactions, must be derived from traces.
 
 Internal transactions specifically: when a contract calls another contract, the resulting value transfer is internal and does not appear as a top-level transaction. Etherscan shows them under the "Internal Txns" tab; Phalcon and Tenderly render the full call tree. Without tracing internals, it is easy to lose native-coin movements routed through contracts.
 
@@ -33,7 +33,7 @@ On every transaction page, especially when a smart-contract interaction is invol
 Do not conclude no funds moved just because the `value` field is zero; ERC-20 movement lives in the logs and native movement can hide in internal transactions.
 
 ## Example
-A tx with `value = 0` still moved 1,000 USDT -- visible only as a Transfer event log emitted by the USDT contract, not in the top-level value field.
+A tx with `value = 0` still moved 1,000 USDT, visible only as a Transfer event log emitted by the USDT contract, not in the top-level value field.
 
 ## Related
-[Address View vs Contract View on a Block Explorer](/kb/00-fundamentals/concept-address-view-vs-contract-view), [Internal Transactions](/kb/00-fundamentals/definition-internal-transaction), [EVM Event Logs & Decoding Calldata](/kb/02-tracing/tactic-evm-event-logs-and-decoding-calldata), [EVM Multi-Chain Tracing Essentials](/kb/02-tracing/checklist-evm-multi-chain-tracing-essentials), Router & Multicall Traffic -- Read Swap Events, Exclude MEV
+[Address View vs Contract View on a Block Explorer](/kb/00-fundamentals/concept-address-view-vs-contract-view), [Internal Transactions](/kb/00-fundamentals/definition-internal-transaction), [EVM Event Logs & Decoding Calldata](/kb/02-tracing/tactic-evm-event-logs-and-decoding-calldata), [EVM Multi-Chain Tracing Essentials](/kb/02-tracing/checklist-evm-multi-chain-tracing-essentials), Router & Multicall Traffic: Read Swap Events, Exclude MEV

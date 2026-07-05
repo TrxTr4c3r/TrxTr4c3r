@@ -1,23 +1,23 @@
 # Surface-Level Fast Wins
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level 2  ·  osint · explorer-metadata · label-databases · scamsniffer · chainabuse · clustering</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
 
 ## Core idea
-Before diving into deep analysis, run the surface checks. They often reveal connections the attacker didn't expect anyone to notice -- sometimes the obfuscation collapses on the first lookup.
+Before diving into deep analysis, run the surface checks. They often reveal connections the attacker didn't expect anyone to notice, sometimes the obfuscation collapses on the first lookup.
 
 ## Components
-- Address clustering with basic heuristics -- repeated funding flows, shared inbound liquidity, sequential wallet creation; even without advanced tooling this can reveal a linked network in minutes.
-- Contract lookups on explorers -- Etherscan and similar often show comments, labels, known associations, contract creator, verified source, or previous interactions; explorer metadata is free context to check first.
-- Quick OSINT pivots -- a wallet may appear in a forum post, GitHub commit, phishing kit, Telegram group, or complaint database; search the address itself and check the obvious places.
-- Compare to known scam patterns -- many scams share identical transaction structures (specific swap sequences, identical approval signatures, repetitive wallet-age profiles); a matching shape accelerates attribution.
-- Public tag & label databases -- Etherscan, ScamSniffer, Chainabuse, and threat-intel hubs maintain large databases of flagged addresses; sometimes the wallet is already known.
-- Common infrastructure & services -- if the actor always cashes out via the same exchange, uses the same stablecoin pool, or the same DEX router, that consistency is itself a pivot point. Look for the repetitions, not just the movement.
+- Address clustering with basic heuristics: repeated funding flows, shared inbound liquidity, sequential wallet creation; even without advanced tooling this can reveal a linked network in minutes.
+- Contract lookups on explorers: Etherscan and similar often show comments, labels, known associations, contract creator, verified source, or previous interactions; explorer metadata is free context to check first.
+- Quick OSINT pivots: a wallet may appear in a forum post, GitHub commit, phishing kit, Telegram group, or complaint database; search the address itself and check the obvious places.
+- Compare to known scam patterns: many scams share identical transaction structures (specific swap sequences, identical approval signatures, repetitive wallet-age profiles); a matching shape accelerates attribution.
+- Public tag & label databases: Etherscan, ScamSniffer, Chainabuse, and threat-intel hubs maintain large databases of flagged addresses; sometimes the wallet is already known.
+- Common infrastructure & services: if the actor always cashes out via the same exchange, uses the same stablecoin pool, or the same DEX router, that consistency is itself a pivot point. Look for the repetitions, not just the movement.
 
 ## When to use
 At the very start of an investigation, before deep analysis, on any new address, contract, or domain.
 
 ## Example
-A partial address 0x89c0...DC24 resolves to the full 0x89c02A80bcCc66899481F656BE0D5aC9bb62Dc24; a single visualisation link then gives the flow graph -- surface-level resolution (partial to full address, then graph view) in two steps.
+A partial address 0x89c0...DC24 resolves to the full 0x89c02A80bcCc66899481F656BE0D5aC9bb62Dc24; a single visualisation link then gives the flow graph, surface-level resolution (partial to full address, then graph view) in two steps.
 
 ## Related
-[Drainer-Kit & Known-Actor Pattern Recognition](/kb/04-laundering-obfuscation/concept-drainer-kit-and-known-actor-pattern-recognition), [Breaking Obfuscation -- Five-Part Strategy](/kb/04-laundering-obfuscation/framework-breaking-obfuscation-five-part-strategy), [OSINT-to-On-Chain Pivots -- Five Shapes](/kb/01-osint/framework-osint-to-on-chain-pivots-five-shapes)
+[Drainer-Kit & Known-Actor Pattern Recognition](/kb/04-laundering-obfuscation/concept-drainer-kit-and-known-actor-pattern-recognition), [Breaking Obfuscation: Five-Part Strategy](/kb/04-laundering-obfuscation/framework-breaking-obfuscation-five-part-strategy), [OSINT-to-On-Chain Pivots: Five Shapes](/kb/01-osint/framework-osint-to-on-chain-pivots-five-shapes)

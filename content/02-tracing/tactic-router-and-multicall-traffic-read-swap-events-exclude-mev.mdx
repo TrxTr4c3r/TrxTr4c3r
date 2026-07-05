@@ -1,14 +1,14 @@
-# Router & Multicall Traffic -- Read Swap Events, Exclude MEV
+# Router & Multicall Traffic: Read Swap Events, Exclude MEV
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  evm · dex · routers · swap-events · mev · tracing</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
 
 ## Core idea
 Most DeFi activity routes through aggregator routers (1inch, 0x, CoW, Uniswap Universal Router), and a single router tx can wrap multiple swaps across several DEXes. Reading the encoded router calldata directly is rarely useful; instead read the emitted Swap events in order, which give the actual token movement cleanly.
 
 ## Components
-- A single tx to a router can bundle multiple swaps -- the encoded router action is complex, so parse the Swap event stream rather than the raw input calldata.
+- A single tx to a router can bundle multiple swaps: the encoded router action is complex, so parse the Swap event stream rather than the raw input calldata.
 - Read Swap events in order to reconstruct the true token movement through the route.
-- MEV exclusion -- when swaps are sandwiched by MEV bots, two extra Swap events bracket the victim's trade; identify and exclude them from attribution of the victim's funds.
+- MEV exclusion: when swaps are sandwiched by MEV bots, two extra Swap events bracket the victim's trade; identify and exclude them from attribution of the victim's funds.
 
 ## When to use
 When a traced transaction hits an aggregator router or contains multicall-style bundled swaps, and when a victim's trade may have been sandwiched.

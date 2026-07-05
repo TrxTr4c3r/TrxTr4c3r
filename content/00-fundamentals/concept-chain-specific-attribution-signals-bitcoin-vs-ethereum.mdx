@@ -1,21 +1,21 @@
 # Chain-Specific Attribution Signals: Bitcoin vs Ethereum
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`  ·  Level 1  ·  attribution · bitcoin · ethereum · utxo · account-model · heuristics</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
 
 ## Core idea
-Bitcoin and Ethereum expose different attribution signals because of their data models. Bitcoin uses the UTXO (Unspent Transaction Output) model -- each transaction consumes previous outputs and creates new ones, and addresses are single-use destinations, creating a natural graph for clustering heuristics. Ethereum uses a persistent account model where addresses are typically reused, making graph analysis simpler, and smart-contract interactions (DeFi swaps, NFT purchases, DAO votes, airdrop claims) link wallets to identities.
+Bitcoin and Ethereum expose different attribution signals because of their data models. Bitcoin uses the UTXO (Unspent Transaction Output) model, each transaction consumes previous outputs and creates new ones, and addresses are single-use destinations, creating a natural graph for clustering heuristics. Ethereum uses a persistent account model where addresses are typically reused, making graph analysis simpler, and smart-contract interactions (DeFi swaps, NFT purchases, DAO votes, airdrop claims) link wallets to identities.
 
 ## Components
 - Bitcoin (UTXO) heuristics:
-  - Common-input ownership -- multiple inputs combined in one transaction are almost certainly controlled by the same entity, enabling clustering of many addresses.
-  - Change address detection -- transactions often return change to a new sender-controlled address, linking additional addresses to the sending cluster.
-  - Peeling chains -- a sequence of one-input / two-output transactions where one output continues forward; often used for layering, and following the larger output leads toward the destination.
+  - Common-input ownership: multiple inputs combined in one transaction are almost certainly controlled by the same entity, enabling clustering of many addresses.
+  - Change address detection: transactions often return change to a new sender-controlled address, linking additional addresses to the sending cluster.
+  - Peeling chains: a sequence of one-input / two-output transactions where one output continues forward; often used for layering, and following the larger output leads toward the destination.
 - Ethereum (account model) signals:
-  - ENS names -- registered names link addresses to social identities.
-  - NFT ownership -- marketplace history links wallets to social accounts.
-  - Contract deployment -- the deployer is permanently recorded on-chain.
-  - Airdrop claims -- many users publicly shared their claiming wallets.
-  - Gas funding -- initial ETH often links back to a CEX withdrawal.
+  - ENS names: registered names link addresses to social identities.
+  - NFT ownership: marketplace history links wallets to social accounts.
+  - Contract deployment: the deployer is permanently recorded on-chain.
+  - Airdrop claims: many users publicly shared their claiming wallets.
+  - Gas funding: initial ETH often links back to a CEX withdrawal.
 
 ## When to use
 When choosing which on-chain heuristics and signals to apply, based on whether the target activity is on Bitcoin (UTXO) or Ethereum (account) chains.

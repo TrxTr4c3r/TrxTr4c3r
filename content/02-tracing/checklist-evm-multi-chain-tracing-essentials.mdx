@@ -1,9 +1,9 @@
 # EVM Multi-Chain Tracing Essentials
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level 2  ·  evm · multi-chain · tracing · explorers · tooling</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
 
 ## Core idea
-The EVM ecosystem is a family of compatible chains sharing the same transaction, address, and tooling formats. A single wallet address exists on every EVM chain simultaneously, and attackers rarely stay on one -- so an investigator must be fluent across all of them and check activity everywhere.
+The EVM ecosystem is a family of compatible chains sharing the same transaction, address, and tooling formats. A single wallet address exists on every EVM chain simultaneously, and attackers rarely stay on one, so an investigator must be fluent across all of them and check activity everywhere.
 
 ## Components
 Chains to check activity on (at least):
@@ -13,15 +13,15 @@ Multi-chain aggregators (query an address across all chains in one view):
 - Arkham, DeBank, Zapper, Zerion.
 
 Tool stack:
-- Explorers -- Etherscan, BscScan, Arbiscan, Optimistic Etherscan, Basescan, Polygonscan.
-- Multi-chain -- Blockscout (open source), Arkham, DeBank, Zerion, Zapper.
-- Tx replay -- Phalcon by BlockSec, Tenderly (visualise every internal call).
-- Decoders -- openchain.xyz signature db, 4byte.directory, abi-decoder tools.
-- Approvals -- Revoke.cash (enumerate and revoke token approvals).
-- Contract intel -- Sourcify, Etherscan verified source, DethCode (vscode.blockscan.com).
+- Explorers: Etherscan, BscScan, Arbiscan, Optimistic Etherscan, Basescan, Polygonscan.
+- Multi-chain: Blockscout (open source), Arkham, DeBank, Zerion, Zapper.
+- Tx replay: Phalcon by BlockSec, Tenderly (visualise every internal call).
+- Decoders: openchain.xyz signature db, 4byte.directory, abi-decoder tools.
+- Approvals: Revoke.cash (enumerate and revoke token approvals).
+- Contract intel: Sourcify, Etherscan verified source, DethCode (vscode.blockscan.com).
 
 ## When to use
-At the start of any EVM investigation, and specifically when a wallet looks quiet on Ethereum -- check every other EVM chain before concluding it is inactive.
+At the start of any EVM investigation, and specifically when a wallet looks quiet on Ethereum, check every other EVM chain before concluding it is inactive.
 
 ## Example
 A wallet with almost no Ethereum activity shows the real fund flow on Base and Arbitrum; a DeBank/Arkham multi-chain view surfaces it in a single query.

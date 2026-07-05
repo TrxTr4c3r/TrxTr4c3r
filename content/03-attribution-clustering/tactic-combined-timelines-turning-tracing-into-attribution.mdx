@@ -1,16 +1,16 @@
-# Combined Timelines -- Turning Tracing into Attribution
+# Combined Timelines: Turning Tracing into Attribution
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  timelines · attribution · defensibility · reporting · automation-vs-manual</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
 
 ## Core idea
-A combined timeline is one of the most powerful tools for making sense of complex cases. The first step is aligning on-chain and off-chain timestamps: when transaction times line up with phishing messages, website deployment dates, login attempts, or victim interactions, events become legible to non-technical decision makers -- and a straight-line trace becomes an attribution narrative.
+A combined timeline is one of the most powerful tools for making sense of complex cases. The first step is aligning on-chain and off-chain timestamps: when transaction times line up with phishing messages, website deployment dates, login attempts, or victim interactions, events become legible to non-technical decision makers, and a straight-line trace becomes an attribution narrative.
 
 ## Components
-- Show sequence, intent, causality -- e.g. T+0 victim approves malicious contract, T+30s drainer triggers withdrawal, T+60s funds hit DEX router, T+90s output token bridged off the source chain. This sequencing shows sophistication and planned execution, transforming isolated transactions into a coherent narrative.
-- Expose contradictions -- if a scammer claims an "accidental" transfer but the timeline shows deliberate preparation and repeated interactions, the claim loses credibility; timelines force the narrative to survive scrutiny or collapse.
-- Distinguish automation from manual -- automated flows move with precision (regular intervals, identical gas strategies, rapid hops); manual actors show pauses, corrections, hesitations. This classification matters for capability assessment.
-- Strengthen reporting -- a combined timeline creates a clear, defensible chain of events that decision-makers, LE, and courts can easily understand.
-- Reduce ambiguity -- when blockchain and OSINT timestamps reinforce each other, ambiguity disappears and the attacker's operational pattern becomes undeniable; that is the standard a serious report should meet.
+- Show sequence, intent, causality: e.g. T+0 victim approves malicious contract, T+30s drainer triggers withdrawal, T+60s funds hit DEX router, T+90s output token bridged off the source chain. This sequencing shows sophistication and planned execution, transforming isolated transactions into a coherent narrative.
+- Expose contradictions: if a scammer claims an "accidental" transfer but the timeline shows deliberate preparation and repeated interactions, the claim loses credibility; timelines force the narrative to survive scrutiny or collapse.
+- Distinguish automation from manual: automated flows move with precision (regular intervals, identical gas strategies, rapid hops); manual actors show pauses, corrections, hesitations. This classification matters for capability assessment.
+- Strengthen reporting: a combined timeline creates a clear, defensible chain of events that decision-makers, LE, and courts can easily understand.
+- Reduce ambiguity: when blockchain and OSINT timestamps reinforce each other, ambiguity disappears and the attacker's operational pattern becomes undeniable; that is the standard a serious report should meet.
 
 ## When to use
 When producing a defensible report that must convince non-technical stakeholders, LE, or a court, and whenever aligning on-chain events with off-chain OSINT artefacts.
@@ -19,4 +19,4 @@ When producing a defensible report that must convince non-technical stakeholders
 Aligning a phishing message timestamp with the victim's contract approval, the drainer withdrawal 30s later, and the bridge-off at T+90s produces a causal narrative that both proves planned execution and rebuts any "accidental transfer" defence.
 
 ## Related
-[OSINT-to-On-Chain Pivots -- Five Shapes](/kb/01-osint/framework-osint-to-on-chain-pivots-five-shapes), [Temporal Analysis to Defeat Obfuscation](/kb/02-tracing/tactic-temporal-analysis-to-defeat-obfuscation), [Breaking Obfuscation -- Five-Part Strategy](/kb/04-laundering-obfuscation/framework-breaking-obfuscation-five-part-strategy)
+[OSINT-to-On-Chain Pivots: Five Shapes](/kb/01-osint/framework-osint-to-on-chain-pivots-five-shapes), [Temporal Analysis to Defeat Obfuscation](/kb/02-tracing/tactic-temporal-analysis-to-defeat-obfuscation), [Breaking Obfuscation: Five-Part Strategy](/kb/04-laundering-obfuscation/framework-breaking-obfuscation-five-part-strategy)

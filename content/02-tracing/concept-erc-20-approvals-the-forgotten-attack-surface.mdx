@@ -1,9 +1,9 @@
-# ERC-20 Approvals -- The Forgotten Attack Surface
+# ERC-20 Approvals: The Forgotten Attack Surface
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`  ·  Level 2  ·  evm · erc-20 · approvals · drainer · victim-remediation · revoke</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
 
 ## Core idea
-An ERC-20 `approve` grants a spender address permission to move tokens. Many scams trick users into granting unlimited approvals, then drain the wallet later -- so the approval, not the drain transaction itself, is often the proximate cause of a theft.
+An ERC-20 `approve` grants a spender address permission to move tokens. Many scams trick users into granting unlimited approvals, then drain the wallet later, so the approval, not the drain transaction itself, is often the proximate cause of a theft.
 
 ## Components
 - When investigating a theft, always check the victim's Approval events in the window before the theft. An approval to an unrecognised address, minutes before a drain, is typically the proximate cause.
@@ -13,7 +13,7 @@ An ERC-20 `approve` grants a spender address permission to move tokens. Many sca
 Early in any theft/drain investigation (before or alongside fund tracing), and during victim remediation to close ongoing exposure.
 
 ## Example
-A victim's wallet shows an Approval event granting unlimited USDT allowance to an unrecognised spender minutes before the drain -- that approval is the proximate cause, and Revoke.cash is used to revoke any remaining live approvals.
+A victim's wallet shows an Approval event granting unlimited USDT allowance to an unrecognised spender minutes before the drain, that approval is the proximate cause, and Revoke.cash is used to revoke any remaining live approvals.
 
 ## Related
-[EVM Event Logs & Decoding Calldata](/kb/02-tracing/tactic-evm-event-logs-and-decoding-calldata), [EVM Proxies -- Read the Right Source](/kb/02-tracing/caution-evm-proxies-read-the-right-source), [View a Wallet's Exposure with impersonator.xyz](/kb/03-attribution-clustering/tactic-view-a-wallets-exposure-with-impersonator-xyz)
+[EVM Event Logs & Decoding Calldata](/kb/02-tracing/tactic-evm-event-logs-and-decoding-calldata), [EVM Proxies: Read the Right Source](/kb/02-tracing/caution-evm-proxies-read-the-right-source), [View a Wallet's Exposure with impersonator.xyz](/kb/03-attribution-clustering/tactic-view-a-wallets-exposure-with-impersonator-xyz)

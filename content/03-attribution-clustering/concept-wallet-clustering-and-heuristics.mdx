@@ -1,18 +1,18 @@
 # Wallet Clustering and Heuristics
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`  ·  Level basics  ·  clustering · heuristics · cioh · change-address · coinjoin · attribution · bitcoin</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
 
 ## Core idea
-Clustering groups multiple addresses likely controlled by the same entity; heuristics are the analytical rules that justify the grouping. It can collapse a subject's many addresses into a single entity, dramatically narrowing the attribution target. The two heuristics that withstand legal scrutiny are the Common Input Ownership Heuristic (CIOH) -- multiple addresses funding one transaction imply a shared controller -- and change address analysis, which identifies the output an address sends change back to itself.
+Clustering groups multiple addresses likely controlled by the same entity; heuristics are the analytical rules that justify the grouping. It can collapse a subject's many addresses into a single entity, dramatically narrowing the attribution target. The two heuristics that withstand legal scrutiny are the Common Input Ownership Heuristic (CIOH), multiple addresses funding one transaction imply a shared controller, and change address analysis, which identifies the output an address sends change back to itself.
 
 ## When to use
 Stage 3 of an investigation, after on-chain tracing, when a subject appears to use many addresses (e.g. 80-200) to layer or obscure activity and you need to establish they are one entity. Address reuse is a strong clustering signal and indicates poor OPSEC on the subject's part.
 
 ## Avoid when
-Do not apply CIOH to CoinJoin transactions -- they deliberately pool inputs from unrelated parties to defeat CIOH, so identify and exclude them or your cluster analysis may be challenged. Change address heuristics depend on wallet-software behaviour, so document your assumptions explicitly and be explicit about confidence ("probable" vs "certain").
+Do not apply CIOH to CoinJoin transactions, they deliberately pool inputs from unrelated parties to defeat CIOH, so identify and exclude them or your cluster analysis may be challenged. Change address heuristics depend on wallet-software behaviour, so document your assumptions explicitly and be explicit about confidence ("probable" vs "certain").
 
 ## Example
-CIOH is the most legally tested heuristic -- cited in the original Bitcoin whitepaper and accepted in United States v. Ulbricht (2015); it was central to the Silk Road prosecution, where clustering revealed many addresses as a single controller.
+CIOH is the most legally tested heuristic, cited in the original Bitcoin whitepaper and accepted in United States v. Ulbricht (2015); it was central to the Silk Road prosecution, where clustering revealed many addresses as a single controller.
 
 ## Related
 [Crypto Investigation Glossary](/kb/00-fundamentals/definition-crypto-investigation-glossary), [The 5-Stage Investigation Process](/kb/06-casework-method/workflow-the-5-stage-investigation-process), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference)

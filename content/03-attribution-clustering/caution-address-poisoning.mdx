@@ -1,6 +1,6 @@
 # Address Poisoning Attack
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`  ·  Level 1  ·  address-poisoning · social-engineering · vanity-address · scam</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`</span>
 
 ## Core idea
 Address poisoning is a social-engineering attack that exploits how people copy addresses from their wallet history. The attacker generates a vanity address matching the first and last few characters of an address the victim recently used, then sends a tiny or fake transfer so it appears in the victim's history. Because wallets truncate addresses, the victim may copy the look-alike for their next payment and send funds to the attacker. It needs no direct contact with the victim. Defend against it by verifying the full address every time and sending a test transaction to a freshly verified address rather than copying from history.

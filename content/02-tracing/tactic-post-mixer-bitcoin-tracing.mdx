@@ -1,9 +1,9 @@
 # Post-Mixer Bitcoin Tracing
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  bitcoin · mixers · coinjoin · behavioural-matching · tracing</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
 
 ## Core idea
-The heuristic against Bitcoin mixers is not to "un-mix" individual coins -- that is generally infeasible when the protocol is used correctly. Instead, recognise the mixing pattern, annotate the obfuscation gap, and resume tracing on the withdrawal side using behavioural matching.
+The heuristic against Bitcoin mixers is not to "un-mix" individual coins, that is generally infeasible when the protocol is used correctly. Instead, recognise the mixing pattern, annotate the obfuscation gap, and resume tracing on the withdrawal side using behavioural matching.
 
 ## Components
 - Do not attempt to un-mix; trace to the mix, mark the boundary, then independently pick up the withdrawal side.
@@ -14,7 +14,7 @@ The heuristic against Bitcoin mixers is not to "un-mix" individual coins -- that
 When a Bitcoin trace reaches a mixer/CoinJoin boundary and you must decide how to continue rather than declaring the trace dead.
 
 ## Example
-Funds enter a CoinJoin; rather than un-mixing, you annotate the gap and match withdrawals on the other side by timing, amount, and script-type fingerprint -- resuming the trace toward the cash-out.
+Funds enter a CoinJoin; rather than un-mixing, you annotate the gap and match withdrawals on the other side by timing, amount, and script-type fingerprint, resuming the trace toward the cash-out.
 
 ## Related
 [Bitcoin UTXO Clustering Heuristics](/kb/03-attribution-clustering/checklist-bitcoin-utxo-clustering-heuristics), [Case: Tornado Cash Round-Trip Resolved by Address Reuse](/kb/04-laundering-obfuscation/example-case-tornado-cash-round-trip-resolved-by-address-reuse), [Temporal Analysis to Defeat Obfuscation](/kb/02-tracing/tactic-temporal-analysis-to-defeat-obfuscation)

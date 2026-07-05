@@ -1,16 +1,16 @@
-# Breaking Obfuscation -- Five-Part Strategy
+# Breaking Obfuscation: Five-Part Strategy
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`  ·  Level 2  ·  obfuscation · strategy · behavioural-analysis · chokepoints · pattern-recognition</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
 
 ## Core idea
-Technical obfuscation makes a trace complicated, but the actor's underlying behaviour is often far more revealing -- criminals reuse tools, workflows, and habits consistently. Don't attack the whole chain at once; adopt a structured approach that segments the work and keeps analysis rigorous.
+Technical obfuscation makes a trace complicated, but the actor's underlying behaviour is often far more revealing, criminals reuse tools, workflows, and habits consistently. Don't attack the whole chain at once; adopt a structured approach that segments the work and keeps analysis rigorous.
 
 ## Components
-1. Segment into logical blocks -- find natural breakpoints (major hops, bridges, exchanges, mixer entries) and treat each segment as its own sub-investigation; this keeps complex cases legible.
-2. Analyse behaviour, not just transactions -- even when movement looks chaotic, criminals repeat favourite tools, workflows, and timings; behaviour is often more consistent than the transaction patterns. Read the actor through the trace.
-3. Cross-source evidence -- combine blockchain data with OSINT, infrastructure clues, social handles, phishing artefacts, or email metadata; this fusion validates or eliminates pathways blockchain alone can't resolve.
-4. Locate the chokepoints -- identify where anonymity weakens or the attacker must touch identifiable services (CEXes, custodial swaps, bridges, mixers); every chokepoint is a chance to regain clarity or to make a properly-formed LE request.
-5. Compare to prior patterns -- threat actors recycle kits, addresses, methods, and operational styles; matching a known cluster can shortcut weeks of tracing.
+1. Segment into logical blocks, find natural breakpoints (major hops, bridges, exchanges, mixer entries) and treat each segment as its own sub-investigation; this keeps complex cases legible.
+2. Analyse behaviour, not just transactions, even when movement looks chaotic, criminals repeat favourite tools, workflows, and timings; behaviour is often more consistent than the transaction patterns. Read the actor through the trace.
+3. Cross-source evidence, combine blockchain data with OSINT, infrastructure clues, social handles, phishing artefacts, or email metadata; this fusion validates or eliminates pathways blockchain alone can't resolve.
+4. Locate the chokepoints, identify where anonymity weakens or the attacker must touch identifiable services (CEXes, custodial swaps, bridges, mixers); every chokepoint is a chance to regain clarity or to make a properly-formed LE request.
+5. Compare to prior patterns, threat actors recycle kits, addresses, methods, and operational styles; matching a known cluster can shortcut weeks of tracing.
 
 ## When to use
 When facing an obfuscated, multi-hop, cross-chain trace that is too large to digest in one pass.
@@ -19,4 +19,4 @@ When facing an obfuscated, multi-hop, cross-chain trace that is too large to dig
 A chaotic multi-hop flow is segmented at its bridge and mixer entries; behavioural reading of the segments plus a chokepoint at a CEX deposit re-opens the trace, and the routing matches a known drainer cluster.
 
 ## Related
-[Temporal Analysis to Defeat Obfuscation](/kb/02-tracing/tactic-temporal-analysis-to-defeat-obfuscation), [Drainer-Kit & Known-Actor Pattern Recognition](/kb/04-laundering-obfuscation/concept-drainer-kit-and-known-actor-pattern-recognition), [Surface-Level Fast Wins](/kb/06-casework-method/checklist-surface-level-fast-wins), [Why Threat Actors Obfuscate -- Five Motivations](/kb/04-laundering-obfuscation/framework-why-threat-actors-obfuscate-five-motivations)
+[Temporal Analysis to Defeat Obfuscation](/kb/02-tracing/tactic-temporal-analysis-to-defeat-obfuscation), [Drainer-Kit & Known-Actor Pattern Recognition](/kb/04-laundering-obfuscation/concept-drainer-kit-and-known-actor-pattern-recognition), [Surface-Level Fast Wins](/kb/06-casework-method/checklist-surface-level-fast-wins), [Why Threat Actors Obfuscate: Five Motivations](/kb/04-laundering-obfuscation/framework-why-threat-actors-obfuscate-five-motivations)

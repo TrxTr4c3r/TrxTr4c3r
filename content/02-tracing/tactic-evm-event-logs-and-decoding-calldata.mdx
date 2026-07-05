@@ -1,16 +1,16 @@
 # EVM Event Logs & Decoding Calldata
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`  ·  Level 2  ·  evm · event-logs · calldata · erc-20 · transfer-event · decoding</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
 
 ## Core idea
 On EVM, event logs are where the money actually moves, and every contract call is prefixed by a 4-byte function selector. Reading the log stream in order (filtered by token contract and recipient) and decoding calldata selectors is how you follow funds precisely.
 
 ## Components
-- Function selector -- every contract call starts with a 4-byte selector: the first 4 bytes of the keccak256 hash of the function signature. The remaining calldata is the ABI-encoded arguments. Example: `0xa9059cbb` = `transfer(address,uint256)`, followed by recipient and amount args.
-- Resolving unknown selectors -- use 4byte.directory or openchain.xyz (crowd-sourced signature databases); if the contract source is verified on Etherscan, the decoded version is available directly.
-- Transfer event (ERC-20) -- the most investigated signal: `Transfer(address indexed from, address indexed to, uint256 value)`, with `topic0 = 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef`. In a Transfer log, topic1 = from, topic2 = to, data = amount.
-- Other critical events -- Swap (Uniswap V2/V3), Deposit/Withdrawal (WETH, lending protocols, bridges), Approval (spending allowance changes).
-- Reading order -- a single transaction can emit dozens of Transfer events from different token contracts; trace funds by reading the log stream in order and filtering by token contract and recipient.
+- Function selector: every contract call starts with a 4-byte selector: the first 4 bytes of the keccak256 hash of the function signature. The remaining calldata is the ABI-encoded arguments. Example: `0xa9059cbb` = `transfer(address,uint256)`, followed by recipient and amount args.
+- Resolving unknown selectors: use 4byte.directory or openchain.xyz (crowd-sourced signature databases); if the contract source is verified on Etherscan, the decoded version is available directly.
+- Transfer event (ERC-20): the most investigated signal: `Transfer(address indexed from, address indexed to, uint256 value)`, with `topic0 = 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef`. In a Transfer log, topic1 = from, topic2 = to, data = amount.
+- Other critical events: Swap (Uniswap V2/V3), Deposit/Withdrawal (WETH, lending protocols, bridges), Approval (spending allowance changes).
+- Reading order: a single transaction can emit dozens of Transfer events from different token contracts; trace funds by reading the log stream in order and filtering by token contract and recipient.
 
 ## When to use
 When following ERC-20 fund movement, decoding an unknown contract call, or identifying who sent/received tokens from a raw log.
@@ -19,4 +19,4 @@ When following ERC-20 fund movement, decoding an unknown contract call, or ident
 A raw USDT log with topic0 = the Transfer signature, topic1 = 0x742d...beb1 (sender), topic2 = 0x28c6...1d60 (recipient), and data ending in `e8d4a51000` decodes to 1,000 USDT sent (USDT has 6 decimals; 0xe8d4a51000 = 1,000 x 10^9 base units).
 
 ## Related
-[Reading an EVM Transaction](/kb/00-fundamentals/concept-reading-an-evm-transaction), Router & Multicall Traffic -- Read Swap Events, Exclude MEV, [EVM Proxies -- Read the Right Source](/kb/02-tracing/caution-evm-proxies-read-the-right-source)
+[Reading an EVM Transaction](/kb/00-fundamentals/concept-reading-an-evm-transaction), Router & Multicall Traffic: Read Swap Events, Exclude MEV, [EVM Proxies: Read the Right Source](/kb/02-tracing/caution-evm-proxies-read-the-right-source)

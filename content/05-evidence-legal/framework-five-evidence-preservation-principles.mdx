@@ -1,22 +1,22 @@
 # Five Evidence Preservation Principles
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`  ·  Level 2  ·  evidence-preservation · chain-of-custody · admissibility · hashing · timestamping</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
 
 ## Core idea
 Evidence must stand up to scrutiny today and years from now. Five principles form the foundation of a defensible investigation: capture the raw factual story before interpreting it, and preserve it so origin, integrity, and method are all provable.
 
 ## Components
-- Traceable -- the origin must never be in question. Record source URL, explorer used, capture tool, operator, and date, contemporaneously. If opposing counsel asks "how did you come by this?", you must have an unambiguous written answer.
-- Unaltered -- what you captured is exactly what you saw. Do not modify, crop, enhance, or edit. A cropped version is a derivative; the unaltered original stays in the evidence pack.
-- Verifiable -- cryptographic hashing, usually SHA-256. Hash every file at the moment of capture (e.g. `shasum -a 256 screenshot.png`); the hash proves nothing changed since collection. CyberChef (gchq.github.io/CyberChef) is a free in-browser hasher when a terminal isn't handy.
-- Reproducible -- any independent analyst can replicate your steps using publicly available tools and reach the same finding. Document tool used, tool version, exact query/URL, explorer block height, time of collection. If a step needs proprietary software the other side can't access, the finding is weaker -- state what was done and why.
-- Timestamped -- every artefact needs a capture timestamp, ideally in multiple forms: local system clock (in the custody log), OS file-creation metadata, a cryptographic timestamp (OpenTimestamps, RFC 3161) for expert-witness cases, and a public archive timestamp (Wayback Machine, archive.ph) for web content.
+- Traceable: the origin must never be in question. Record source URL, explorer used, capture tool, operator, and date, contemporaneously. If opposing counsel asks "how did you come by this?", you must have an unambiguous written answer.
+- Unaltered: what you captured is exactly what you saw. Do not modify, crop, enhance, or edit. A cropped version is a derivative; the unaltered original stays in the evidence pack.
+- Verifiable: cryptographic hashing, usually SHA-256. Hash every file at the moment of capture (e.g. `shasum -a 256 screenshot.png`); the hash proves nothing changed since collection. CyberChef (gchq.github.io/CyberChef) is a free in-browser hasher when a terminal isn't handy.
+- Reproducible: any independent analyst can replicate your steps using publicly available tools and reach the same finding. Document tool used, tool version, exact query/URL, explorer block height, time of collection. If a step needs proprietary software the other side can't access, the finding is weaker, state what was done and why.
+- Timestamped: every artefact needs a capture timestamp, ideally in multiple forms: local system clock (in the custody log), OS file-creation metadata, a cryptographic timestamp (OpenTimestamps, RFC 3161) for expert-witness cases, and a public archive timestamp (Wayback Machine, archive.ph) for web content.
 
 ## When to use
-Whenever collecting any evidence, and always when the output may become evidentiary -- including operational cases that may convert to litigation later.
+Whenever collecting any evidence, and always when the output may become evidentiary, including operational cases that may convert to litigation later.
 
 ## Example
-A screenshot is captured full-page with URL bar visible, hashed with SHA-256 immediately, the hash logged beside it, and an OpenTimestamps commitment submitted -- satisfying all five principles.
+A screenshot is captured full-page with URL bar visible, hashed with SHA-256 immediately, the hash logged beside it, and an OpenTimestamps commitment submitted, satisfying all five principles.
 
 ## Related
-[What to Collect -- On-Chain & Off-Chain Evidence](/kb/05-evidence-legal/checklist-what-to-collect-on-chain-and-off-chain-evidence), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [Custody Log -- The Six Questions](/kb/05-evidence-legal/checklist-custody-log-the-six-questions), [Admissibility -- The Three Gates](/kb/05-evidence-legal/framework-admissibility-the-three-gates)
+[What to Collect: On-Chain & Off-Chain Evidence](/kb/05-evidence-legal/checklist-what-to-collect-on-chain-and-off-chain-evidence), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [Custody Log: The Six Questions](/kb/05-evidence-legal/checklist-custody-log-the-six-questions), [Admissibility: The Three Gates](/kb/05-evidence-legal/framework-admissibility-the-three-gates)

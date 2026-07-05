@@ -1,15 +1,15 @@
 # Drainer-Kit & Known-Actor Pattern Recognition
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`  ·  Level 2  ·  drainer-kits · pattern-recognition · inferno · attribution · cash-out · fingerprints</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
 
 ## Core idea
 Most threat actors don't innovate; they reuse the same tools, workflows, scripts, and operational habits. Once you recognise the pattern, you can often identify the actor or the kit long before the funds hit an exchange.
 
 ## Components
-- Drainer-kit signatures -- transaction fingerprints left by automated scripts. Inferno, Angel, Pink, Monkey, and Venom drainers each leave distinctive patterns in approvals, gas fees, and contract method usage.
-- Repeated routing paths -- actors have preferred DEXes, routers, or aggregators they trust; these choices become reliable identity/affiliation indicators even in seemingly random flows.
-- Mixer interaction styles -- Tornado Cash has common deposit sizes, repetition patterns, and withdrawal-timing behaviours that differ between opportunistic scammers and organised groups; how someone uses the mixer is itself a signature.
-- Cash-out preferences -- some actors always end up on Binance, others prefer OKX, MEXC, KuCoin, or regional exchanges; this often correlates with geography or operational constraints and persists across cases.
+- Drainer-kit signatures: transaction fingerprints left by automated scripts. Inferno, Angel, Pink, Monkey, and Venom drainers each leave distinctive patterns in approvals, gas fees, and contract method usage.
+- Repeated routing paths: actors have preferred DEXes, routers, or aggregators they trust; these choices become reliable identity/affiliation indicators even in seemingly random flows.
+- Mixer interaction styles: Tornado Cash has common deposit sizes, repetition patterns, and withdrawal-timing behaviours that differ between opportunistic scammers and organised groups; how someone uses the mixer is itself a signature.
+- Cash-out preferences: some actors always end up on Binance, others prefer OKX, MEXC, KuCoin, or regional exchanges; this often correlates with geography or operational constraints and persists across cases.
 
 ## When to use
 When comparing a new case to prior patterns, or when trying to attribute an actor before the funds reach an identifiable service.
@@ -18,4 +18,4 @@ When comparing a new case to prior patterns, or when trying to attribute an acto
 Across multiple cases, a malicious contract was deployed from 0x942930bA4FD8d575436E31797cC060799eB6C96c with identical approval method signatures and gas-fee patterns; that dev address feeds the main Inferno Drainer infrastructure at 0x0000db5c8B030ae20308ac975898E09741e70000. The recognisable shape is dev address -> main address -> victim flow, cross-checkable on Arkham for the distribution network.
 
 ## Related
-[Temporal Analysis to Defeat Obfuscation](/kb/02-tracing/tactic-temporal-analysis-to-defeat-obfuscation), [Breaking Obfuscation -- Five-Part Strategy](/kb/04-laundering-obfuscation/framework-breaking-obfuscation-five-part-strategy), [Surface-Level Fast Wins](/kb/06-casework-method/checklist-surface-level-fast-wins)
+[Temporal Analysis to Defeat Obfuscation](/kb/02-tracing/tactic-temporal-analysis-to-defeat-obfuscation), [Breaking Obfuscation: Five-Part Strategy](/kb/04-laundering-obfuscation/framework-breaking-obfuscation-five-part-strategy), [Surface-Level Fast Wins](/kb/06-casework-method/checklist-surface-level-fast-wins)

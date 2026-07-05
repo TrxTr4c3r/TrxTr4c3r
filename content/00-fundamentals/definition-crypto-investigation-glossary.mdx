@@ -1,29 +1,29 @@
 # Crypto Investigation Glossary
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`definition`  ·  Level basics  ·  glossary · definitions · blockchain · wallet · keys · txid · utxo · mempool · clustering · mixing · kyc-aml · osint · chain-of-custody</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`definition`</span>
 
 ## Core idea
 The core vocabulary a crypto investigator must know to read on-chain data and attribute activity. Each term below carries a one-line meaning plus its investigative significance.
 
 ## Components
-- Blockchain -- a database shared across a global network of computers; transactions are bundled into permanent, unalterable "blocks". Public and permanent, so any transaction back to the 2009 genesis block is lookupable.
-- Wallet & Address -- a wallet stores cryptographic keys (not coins); an address is like a bank account number shared to receive funds. One person can control thousands of addresses.
-- Private & Public Keys -- the public key is derived from the private key and generates the address; the private key is the secret that proves ownership and authorises spending. Proving control of a private key (via a seized device or wallet file) is one of the strongest forms of attribution.
-- Transaction Hash (TXID) -- a unique fixed-length identifier for a transaction; changing one character changes the whole hash. Often the investigation's starting point -- look it up on a block explorer to see sender, receiver, amount, timestamp, and block.
-- Block & Block Height -- transactions are grouped into blocks (~10 min on Bitcoin, ~12 sec on Ethereum); block height is the block number (genesis = block 0, Jan 2009; chain now over 890,000 blocks tall). Gives a precise timestamp and block range for any crime.
-- UTXO (Bitcoin) -- Unspent Transaction Outputs; Bitcoin has no accounts, you spend whole outputs and receive change back. UTXO spending patterns are the foundation of clustering analysis.
-- Mempool -- the waiting room of unconfirmed transactions; miners/validators pick which to include, usually by fee. Monitored in time-critical cases to flag or intercept transactions before confirmation.
-- Clustering & Heuristics -- clustering groups addresses likely controlled by one entity; heuristics are the analytical rules used, most notably the Common Input Ownership Heuristic (CIOH).
-- Mixing & Tumbling -- a service that pools, shuffles, and returns funds to break the send-receive link. Not inherently criminal but a red flag that must be disclosed (e.g. Tornado Cash, indicted by the US DOJ in 2023).
-- KYC / AML -- Know Your Customer (regulated exchanges collect ID documents); Anti-Money Laundering (the legal framework requiring institutions to monitor and report suspicious activity). A KYC record at a regulated exchange links a wallet to a real person -- how most crypto criminal identifications are ultimately made.
-- OSINT -- Open Source Intelligence from public sources (forums, social media, WHOIS, code repos, leaks, archives); the bridge between a blockchain address and a real-world identity.
-- Chain of Custody -- the documented, unbroken record of who collected evidence, when, how it was stored, and who accessed it. Requires capturing and cryptographically timestamping evidence (e.g. a SHA-256 hash) at the point of collection.
+- Blockchain: a database shared across a global network of computers; transactions are bundled into permanent, unalterable "blocks". Public and permanent, so any transaction back to the 2009 genesis block is lookupable.
+- Wallet & Address: a wallet stores cryptographic keys (not coins); an address is like a bank account number shared to receive funds. One person can control thousands of addresses.
+- Private & Public Keys: the public key is derived from the private key and generates the address; the private key is the secret that proves ownership and authorises spending. Proving control of a private key (via a seized device or wallet file) is one of the strongest forms of attribution.
+- Transaction Hash (TXID): a unique fixed-length identifier for a transaction; changing one character changes the whole hash. Often the investigation's starting point, look it up on a block explorer to see sender, receiver, amount, timestamp, and block.
+- Block & Block Height: transactions are grouped into blocks (~10 min on Bitcoin, ~12 sec on Ethereum); block height is the block number (genesis = block 0, Jan 2009; chain now over 890,000 blocks tall). Gives a precise timestamp and block range for any crime.
+- UTXO (Bitcoin): Unspent Transaction Outputs; Bitcoin has no accounts, you spend whole outputs and receive change back. UTXO spending patterns are the foundation of clustering analysis.
+- Mempool: the waiting room of unconfirmed transactions; miners/validators pick which to include, usually by fee. Monitored in time-critical cases to flag or intercept transactions before confirmation.
+- Clustering & Heuristics: clustering groups addresses likely controlled by one entity; heuristics are the analytical rules used, most notably the Common Input Ownership Heuristic (CIOH).
+- Mixing & Tumbling: a service that pools, shuffles, and returns funds to break the send-receive link. Not inherently criminal but a red flag that must be disclosed (e.g. Tornado Cash, indicted by the US DOJ in 2023).
+- KYC / AML: Know Your Customer (regulated exchanges collect ID documents); Anti-Money Laundering (the legal framework requiring institutions to monitor and report suspicious activity). A KYC record at a regulated exchange links a wallet to a real person, how most crypto criminal identifications are ultimately made.
+- OSINT: Open Source Intelligence from public sources (forums, social media, WHOIS, code repos, leaks, archives); the bridge between a blockchain address and a real-world identity.
+- Chain of Custody: the documented, unbroken record of who collected evidence, when, how it was stored, and who accessed it. Requires capturing and cryptographically timestamping evidence (e.g. a SHA-256 hash) at the point of collection.
 
 ## When to use
 As a reference when reading a case, a block explorer, or a report and you need the precise meaning and investigative relevance of a core term.
 
 ## Example
-Starting from a victim's screenshot of a transfer, extract the Transaction Hash (TXID) and look it up on a block explorer: the sender, receiver, amount, timestamp, and block height are immediately visible -- several of these glossary terms (TXID, address, block height) put to work in a single lookup.
+Starting from a victim's screenshot of a transfer, extract the Transaction Hash (TXID) and look it up on a block explorer: the sender, receiver, amount, timestamp, and block height are immediately visible, several of these glossary terms (TXID, address, block height) put to work in a single lookup.
 
 ## Related
 [Blockchain Transparency Cuts Both Ways](/kb/00-fundamentals/concept-blockchain-transparency-cuts-both-ways), [The 5-Stage Investigation Process](/kb/06-casework-method/workflow-the-5-stage-investigation-process), [Wallet Clustering and Heuristics](/kb/03-attribution-clustering/concept-wallet-clustering-and-heuristics), [Key OSINT Techniques for Crypto Investigators](/kb/01-osint/checklist-key-osint-techniques-for-crypto-investigators)

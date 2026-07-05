@@ -1,31 +1,31 @@
-# What to Collect -- On-Chain & Off-Chain Evidence
+# What to Collect: On-Chain & Off-Chain Evidence
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level 2  ·  evidence-collection · chain-of-custody · osint · blockchain-forensics · kyc</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
 
 ## Core idea
 Collect the raw factual story the chain is telling before interpreting anything, and pair it with the off-chain evidence that explains the human and technical environment. Blockchain data gives the technical story; off-chain evidence gives the human one.
 
 ## Components
 Blockchain (on-chain anchors):
-- Wallet addresses and identifiers -- who controlled what, and where funds flowed.
-- Transaction hashes (txids) -- immutable records of every movement (timing, amount, sequence).
-- Transaction graphs and fund flows -- how a single tx fits the broader activity pattern.
-- Smart contract interactions -- drainers, malicious approvals, suspicious DeFi calls.
-- Token approvals and signatures -- the ongoing control vector for many thefts.
-- Exchange deposit/withdrawal IDs -- the KYC pivot points.
+- Wallet addresses and identifiers: who controlled what, and where funds flowed.
+- Transaction hashes (txids): immutable records of every movement (timing, amount, sequence).
+- Transaction graphs and fund flows: how a single tx fits the broader activity pattern.
+- Smart contract interactions: drainers, malicious approvals, suspicious DeFi calls.
+- Token approvals and signatures: the ongoing control vector for many thefts.
+- Exchange deposit/withdrawal IDs: the KYC pivot points.
 
 OSINT / off-chain:
-- URLs and website artefacts -- fraudulent DeFi fronts, phishing clones, reused templates.
-- Email metadata and headers -- sender infrastructure, IP paths, spoofing, auth records.
-- Social media and messaging handles (Telegram, Discord, X, WhatsApp) -- often reused across cases.
-- Screenshots, chat logs, platform interactions -- victim journey and behavioural signals.
-- WHOIS, hosting, SSL certs, CDNs -- reveal connections between seemingly separate scams.
+- URLs and website artefacts: fraudulent DeFi fronts, phishing clones, reused templates.
+- Email metadata and headers: sender infrastructure, IP paths, spoofing, auth records.
+- Social media and messaging handles (Telegram, Discord, X, WhatsApp): often reused across cases.
+- Screenshots, chat logs, platform interactions: victim journey and behavioural signals.
+- WHOIS, hosting, SSL certs, CDNs: reveal connections between seemingly separate scams.
 
 ## When to use
 At the collection phase of any crypto/OSINT investigation, before analysis, to build a complete evidentiary base.
 
 ## Example
-In a phishing-drain case, collect the victim's approval events and the drainer contract on-chain, plus the phishing domain's WHOIS/SSL and reused Telegram handle off-chain -- the two sides corroborate each other.
+In a phishing-drain case, collect the victim's approval events and the drainer contract on-chain, plus the phishing domain's WHOIS/SSL and reused Telegram handle off-chain, the two sides corroborate each other.
 
 ## Related
-[Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [OSINT-to-On-Chain Pivots -- Five Shapes](/kb/01-osint/framework-osint-to-on-chain-pivots-five-shapes)
+[Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [OSINT-to-On-Chain Pivots: Five Shapes](/kb/01-osint/framework-osint-to-on-chain-pivots-five-shapes)

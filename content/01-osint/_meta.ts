@@ -3,7 +3,7 @@ export default {
   "concept-passive-vs-active-osint": "Passive vs Active OSINT",
   "definition-what-osint-is": "What OSINT Is",
   "principle-osint-paints-the-jigsaw": "OSINT Paints the Picture on the Transaction Jigsaw",
-  "framework-osint-to-on-chain-pivots-five-shapes": "OSINT-to-On-Chain Pivots -- Five Shapes",
+  "framework-osint-to-on-chain-pivots-five-shapes": "OSINT-to-On-Chain Pivots: Five Shapes",
   "framework-source-reliability-grading-nato-stanag-2511": "Source Reliability Grading (NATO STANAG 2511)",
   "workflow-the-osint-lifecycle": "The OSINT Lifecycle",
   "tactic-darknet-market-osint-correlation": "Darknet Market & OSINT Correlation",

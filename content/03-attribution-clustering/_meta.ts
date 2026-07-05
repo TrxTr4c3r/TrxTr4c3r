@@ -7,7 +7,7 @@ export default {
   "tactic-address-clustering-cioh": "Address Clustering (Common-Input-Ownership Heuristic)",
   "tactic-arkham-attribution-visualizer": "Arkham for Attribution and Visualization",
   "tactic-change-address-utxo-heuristics": "Change-Address Heuristics (UTXO Analysis)",
-  "tactic-combined-timelines-turning-tracing-into-attribution": "Combined Timelines -- Turning Tracing into Attribution",
+  "tactic-combined-timelines-turning-tracing-into-attribution": "Combined Timelines: Turning Tracing into Attribution",
   "tactic-vasp-kyc-correlation": "Exchange / VASP KYC Correlation",
   "tactic-view-a-wallets-exposure-with-impersonator-xyz": "View a Wallet's Exposure with impersonator.xyz",
   "checklist-advanced-attribution-techniques": "Advanced Attribution Techniques",

@@ -1,23 +1,23 @@
 # Service Choke-Points: What Each Service Type Can Give You
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`  ·  Level reference  ·  choke-points · cex · instant-exchanges · bridges · vasp · mapping · kyc · freeze · pivot</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
 
 ## Core idea
-When a trace reaches a third-party service, do not treat "exchanges, bridges, swaps" as one thing. First classify which of three service types it is, because each holds different data and responds differently to a request. Then decide which of three deliverables you actually want. These two axes -- what the service is, and what you need from it -- drive whether you correlate on-chain or pursue legal process.
+When a trace reaches a third-party service, do not treat "exchanges, bridges, swaps" as one thing. First classify which of three service types it is, because each holds different data and responds differently to a request. Then decide which of three deliverables you actually want. These two axes, what the service is, and what you need from it, drive whether you correlate on-chain or pursue legal process.
 
 ## Components
 - Three service types (who even is there to ask):
-  - CEX (Binance, Coinbase, OKEx) -- custodial; holds the KYC identity (the prize); holds the input/output mapping; can freeze. Contact its compliance / LE-liaison team.
-  - No-KYC instant swap (ChangeNOW, FixedFloat) -- custodial only briefly in transit; usually little or no KYC; holds the deposit -> destination mapping that is invisible on-chain (the black box). Contact its compliance team if it has one; the compliant ones respond to law-enforcement requests.
-  - Smart-contract bridge -- often non-custodial with no operator to serve paperwork on at all; recover the input/output link by on-chain correlation, not by a request. Some bridges do have operators/relayers and are increasingly treated as VASPs subject to AML rules, making them viable subpoena targets -- but never assume there is someone to serve.
+  - CEX (Binance, Coinbase, OKEx): custodial; holds the KYC identity (the prize); holds the input/output mapping; can freeze. Contact its compliance / LE-liaison team.
+  - No-KYC instant swap (ChangeNOW, FixedFloat): custodial only briefly in transit; usually little or no KYC; holds the deposit -> destination mapping that is invisible on-chain (the black box). Contact its compliance team if it has one; the compliant ones respond to law-enforcement requests.
+  - Smart-contract bridge: often non-custodial with no operator to serve paperwork on at all; recover the input/output link by on-chain correlation, not by a request. Some bridges do have operators/relayers and are increasingly treated as VASPs subject to AML rules, making them viable subpoena targets, but never assume there is someone to serve.
 - Three things you can try to extract (be precise which one you want):
-  - Mapping -- "which outflow is my money?" De-obfuscation; this is what the swap black box hides.
-  - Identity -- "who owns this account?" KYC; the gold-standard attribution link.
-  - Freeze -- "stop the money before it leaves." Recovery; time-critical, measured in hours.
-- PI shortcut worth trying first: many instant swaps expose a public order-status / "track your swap" page keyed by the deposit address or the order/DepositID, which can reveal the destination transaction with no legal process at all -- collapsing the probabilistic match into a deterministic lookup. It is inconsistent and increasingly locked down, but try it before escalating.
+  - Mapping: "which outflow is my money?" De-obfuscation; this is what the swap black box hides.
+  - Identity: "who owns this account?" KYC; the gold-standard attribution link.
+  - Freeze: "stop the money before it leaves." Recovery; time-critical, measured in hours.
+- PI shortcut worth trying first: many instant swaps expose a public order-status / "track your swap" page keyed by the deposit address or the order/DepositID, which can reveal the destination transaction with no legal process at all: collapsing the probabilistic match into a deterministic lookup. It is inconsistent and increasingly locked down, but try it before escalating.
 
 ## When to use
-The moment a trace reaches any third-party service -- triage what the service is and which deliverable you need, before deciding between on-chain correlation and legal process.
+The moment a trace reaches any third-party service, triage what the service is and which deliverable you need, before deciding between on-chain correlation and legal process.
 
 ## Example
 A trace hits a FixedFloat deposit address (no-KYC swap): try the order-status page for the destination tx; if blocked, capture the deposit address, timestamp, input amount, and tx hash for an LE or civil disclosure request. The same trace later lands at a Binance deposit address (CEX): now the ask shifts to KYC identity plus a freeze, pursued through compliance and legal process.

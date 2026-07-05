@@ -2,7 +2,7 @@ export default {
   "index": "Overview",
   "concept-freezable-vs-non-freezable-assets": "Freezable vs Non-Freezable Crypto Assets",
   "concept-the-scope-triangle": "The Scope Triangle",
-  "principle-case-tractability-when-to-decline": "Case Tractability -- When to Decline",
+  "principle-case-tractability-when-to-decline": "Case Tractability: When to Decline",
   "principle-manage-both-digital-footprints-opsec": "Manage Both Digital Footprints (OPSEC)",
   "framework-five-investigation-goal-types": "Five Investigation Goal Types",
   "framework-five-investigation-output-types": "Five Investigation Output Types",

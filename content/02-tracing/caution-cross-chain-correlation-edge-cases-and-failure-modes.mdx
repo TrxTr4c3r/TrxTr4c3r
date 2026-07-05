@@ -1,25 +1,25 @@
 # Cross-Chain Correlation Edge Cases & Failure Modes
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`  ·  Level 2  ·  bridges · cross-chain · failure-modes · correlation · oracle-slippage</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`</span>
 
 ## Core idea
-Cross-chain correlation can fail or mislead. Naive 1:1 time-and-value matching breaks in several recurring situations, so you must recognise the edge case and adapt the matching method -- and always document the bridge version, contract addresses, and fee model used, because bridges change and the finding must be reproducible against the bridge's state at the time.
+Cross-chain correlation can fail or mislead. Naive 1:1 time-and-value matching breaks in several recurring situations, so you must recognise the edge case and adapt the matching method, and always document the bridge version, contract addresses, and fee model used, because bridges change and the finding must be reproducible against the bridge's state at the time.
 
 ## Components
-- Batched bridge deposits -- some bridges aggregate multiple user deposits into a single destination payout. Match by recipient, not by summed amount.
-- Bridge fails partway -- source-side deposit occurs but the destination mint never happens (bridge down, relayer failure); a refund or manual resolution may follow hours or days later.
-- Intermediary rebalancing -- bridges rebalance liquidity internally, so not every source tx has a clean 1:1 destination pair; look for user-payout events specifically, not bridge-internal transfers.
-- Multiple active bridges with similar fee profiles -- a BTC deposit may match a destination mint on two different bridges; tie-break with exact value matching, unique fee arithmetic, and contract-address attribution.
-- Wrapping ratios and oracle slippage -- some bridges apply dynamic oracle pricing rather than 1:1 wraps; record the oracle rate at the source timestamp when computing expected destination value.
+- Batched bridge deposits: some bridges aggregate multiple user deposits into a single destination payout. Match by recipient, not by summed amount.
+- Bridge fails partway: source-side deposit occurs but the destination mint never happens (bridge down, relayer failure); a refund or manual resolution may follow hours or days later.
+- Intermediary rebalancing: bridges rebalance liquidity internally, so not every source tx has a clean 1:1 destination pair; look for user-payout events specifically, not bridge-internal transfers.
+- Multiple active bridges with similar fee profiles: a BTC deposit may match a destination mint on two different bridges; tie-break with exact value matching, unique fee arithmetic, and contract-address attribution.
+- Wrapping ratios and oracle slippage: some bridges apply dynamic oracle pricing rather than 1:1 wraps; record the oracle rate at the source timestamp when computing expected destination value.
 
 ## When to use
-While performing any cross-chain correlation, especially when an expected match is missing, ambiguous, or split -- reach for the matching edge case before concluding the trace is broken.
+While performing any cross-chain correlation, especially when an expected match is missing, ambiguous, or split, reach for the matching edge case before concluding the trace is broken.
 
 ## Avoid when
 Do not assume a clean 1:1 source-to-destination pairing; batching, rebalancing, failures, and oracle pricing all break naive summed-amount and fixed-ratio matching.
 
 ## Example
-An expected destination payout is missing because the bridge batched several users' deposits into one payout -- re-matching by recipient (not summed amount) recovers the link.
+An expected destination payout is missing because the bridge batched several users' deposits into one payout, re-matching by recipient (not summed amount) recovers the link.
 
 ## Related
-[Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation), [Mint-Style Bridges -- Pivot to Counterparty-Graph Analysis](/kb/02-tracing/tactic-mint-style-bridges-pivot-to-counterparty-graph-analysis)
+[Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation), [Mint-Style Bridges: Pivot to Counterparty-Graph Analysis](/kb/02-tracing/tactic-mint-style-bridges-pivot-to-counterparty-graph-analysis)

@@ -1,23 +1,23 @@
 # Cross-Chain Obfuscation Categories
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level 2  ·  obfuscation · cross-chain · bridges · no-kyc-swaps · cex-pivots · privacy-chains</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
 
 ## Core idea
-Cross-chain is now one of the most common obfuscation tactics because it increases complexity and reduces the visibility of traditional tools. Every move is a context shift -- new chain, new token, new paths, sometimes new tooling. The right mental model: cross-chain activity does not end the investigation, but it requires thinking modularly, chain by chain, and stitching the narrative back together with correlation rather than a single straight-line trace.
+Cross-chain is now one of the most common obfuscation tactics because it increases complexity and reduces the visibility of traditional tools. Every move is a context shift, new chain, new token, new paths, sometimes new tooling. The right mental model: cross-chain activity does not end the investigation, but it requires thinking modularly, chain by chain, and stitching the narrative back together with correlation rather than a single straight-line trace.
 
 ## Components
-- Bridges -- move funds from one blockchain to another quickly and at scale; each step changes the chain, the wrapped-asset semantics, and often the tool you need.
-- Bridge -> swap -> bridge loops -- funds bridged to another chain, swapped for another asset, then bridged back or onward; the cycling disrupts naive forward tracing.
-- Custodial swap services (no-KYC) -- convert assets without onboarding/KYC; act as black boxes where input and output cannot be tied publicly unless the operator cooperates with LE.
-- CEX cross-chain pivots -- deposit on one chain (e.g. Tron USDT) and withdraw on another (e.g. Ethereum USDT), using internal exchange mechanics to break external traceability; each deposit/withdrawal is a masking pivot.
-- Privacy chains (Monero, Zcash) -- once assets enter, on-chain visibility sharply decreases; pivot to OSINT or endpoint analysis. Monero is the practical end of any on-chain trace.
-- Tool fragmentation -- many analytic tools have cross-chain blind spots (unsupported newer chains, untracked bridges, incomplete wrapped-asset decoding); threat actors exploit this intentionally.
+- Bridges: move funds from one blockchain to another quickly and at scale; each step changes the chain, the wrapped-asset semantics, and often the tool you need.
+- Bridge -> swap -> bridge loops: funds bridged to another chain, swapped for another asset, then bridged back or onward; the cycling disrupts naive forward tracing.
+- Custodial swap services (no-KYC): convert assets without onboarding/KYC; act as black boxes where input and output cannot be tied publicly unless the operator cooperates with LE.
+- CEX cross-chain pivots: deposit on one chain (e.g. Tron USDT) and withdraw on another (e.g. Ethereum USDT), using internal exchange mechanics to break external traceability; each deposit/withdrawal is a masking pivot.
+- Privacy chains (Monero, Zcash): once assets enter, on-chain visibility sharply decreases; pivot to OSINT or endpoint analysis. Monero is the practical end of any on-chain trace.
+- Tool fragmentation: many analytic tools have cross-chain blind spots (unsupported newer chains, untracked bridges, incomplete wrapped-asset decoding); threat actors exploit this intentionally.
 
 ## When to use
-When a trace crosses chains -- to recognise which cross-chain technique is in play and plan modular, chain-by-chain correlation.
+When a trace crosses chains, to recognise which cross-chain technique is in play and plan modular, chain-by-chain correlation.
 
 ## Example
-$1.2M in stolen ETH is bridged to BNB Chain, swapped to USDC, bridged to Polygon, swapped to USDT, and bridged back to Ethereum, four cycles in 28 minutes -- a bridge -> swap -> bridge laundering loop.
+$1.2M in stolen ETH is bridged to BNB Chain, swapped to USDC, bridged to Polygon, swapped to USDT, and bridged back to Ethereum, four cycles in 28 minutes, a bridge -> swap -> bridge laundering loop.
 
 ## Related
 [On-Chain Obfuscation Categories](/kb/04-laundering-obfuscation/checklist-on-chain-obfuscation-categories), [Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Monero Is the Practical Ceiling of On-Chain Attribution](/kb/04-laundering-obfuscation/caution-monero-is-the-practical-ceiling-of-on-chain-attribution), [Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation)

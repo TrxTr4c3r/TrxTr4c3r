@@ -1,6 +1,6 @@
 export default {
   "index": "Overview",
-  "concept-erc-20-approvals-the-forgotten-attack-surface": "ERC-20 Approvals -- The Forgotten Attack Surface",
+  "concept-erc-20-approvals-the-forgotten-attack-surface": "ERC-20 Approvals: The Forgotten Attack Surface",
   "framework-service-choke-points-what-each-can-give-you": "Service Choke-Points: What Each Service Type Can Give You",
   "workflow-forensic-method-decision-tree": "Forensic Method Selection Decision Tree",
   "workflow-non-explorer-bridge-correlation": "Non-Explorer Bridge Correlation",
@@ -10,10 +10,10 @@ export default {
   "tactic-etherscan-advanced-filter-by-date": "Etherscan Advanced Filter for Point-in-Time Review",
   "tactic-evm-event-logs-and-decoding-calldata": "EVM Event Logs & Decoding Calldata",
   "tactic-filter-by-size-scrape-llm-summarise": "Filter-by-Size + Scrape + LLM Summarise",
-  "tactic-mint-style-bridges-pivot-to-counterparty-graph-analysis": "Mint-Style Bridges -- Pivot to Counterparty-Graph Analysis",
+  "tactic-mint-style-bridges-pivot-to-counterparty-graph-analysis": "Mint-Style Bridges: Pivot to Counterparty-Graph Analysis",
   "tactic-peeling-chain-analysis": "Peeling Chain Analysis",
   "tactic-post-mixer-bitcoin-tracing": "Post-Mixer Bitcoin Tracing",
-  "tactic-router-and-multicall-traffic-read-swap-events-exclude-mev": "Router & Multicall Traffic -- Read Swap Events, Exclude MEV",
+  "tactic-router-and-multicall-traffic-read-swap-events-exclude-mev": "Router & Multicall Traffic: Read Swap Events, Exclude MEV",
   "tactic-smart-contract-defi-tracing": "Smart Contract / DeFi Protocol Tracing",
   "tactic-taint-analysis": "Taint Analysis (Taint Tracing)",
   "tactic-temporal-timing-correlation": "Temporal / Timing Correlation Analysis",
@@ -21,5 +21,5 @@ export default {
   "tactic-transaction-graph-analysis": "Transaction Graph Analysis (TGA)",
   "checklist-evm-multi-chain-tracing-essentials": "EVM Multi-Chain Tracing Essentials",
   "caution-cross-chain-correlation-edge-cases-and-failure-modes": "Cross-Chain Correlation Edge Cases & Failure Modes",
-  "caution-evm-proxies-read-the-right-source": "EVM Proxies -- Read the Right Source",
+  "caution-evm-proxies-read-the-right-source": "EVM Proxies: Read the Right Source",
 }

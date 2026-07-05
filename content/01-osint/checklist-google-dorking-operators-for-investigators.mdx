@@ -1,24 +1,24 @@
 # Google Dorking Operators for Investigators
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`  ·  Level 1  ·  google-dorking · search-operators · osint · tradecraft · ethics</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
 
 ## Core idea
 Google advanced search operators surface information that standard searches bury or miss, making them one of the fastest OSINT tools available. Combining operators lets investigators find wallet mentions, leaked files, usernames, and documents across the web.
 
 ## Components
-- site: -- restrict results to a domain. e.g. site:reddit.com 0xabc
-- filetype: -- find file types. e.g. filetype:pdf "crypto" "payment"
-- inurl: -- match text in the URL. e.g. inurl:wallet site:github.com
-- intitle: -- match in the page title. e.g. intitle:"bitcoin address"
-- "..." -- exact phrase match; essential for wallet addresses and usernames.
-- -term -- exclude a term. e.g. "0xabc" -etherscan -coinbase
-- cache: -- view Google's cached page; useful when the original is deleted.
+- site:: restrict results to a domain. e.g. site:reddit.com 0xabc
+- filetype:: find file types. e.g. filetype:pdf "crypto" "payment"
+- inurl:: match text in the URL. e.g. inurl:wallet site:github.com
+- intitle:: match in the page title. e.g. intitle:"bitcoin address"
+- "...": exact phrase match; essential for wallet addresses and usernames.
+- -term: exclude a term. e.g. "0xabc" -etherscan -coinbase
+- cache:: view Google's cached page; useful when the original is deleted.
 
 ## When to use
 When hunting for a wallet address, username, leaked file, or document about a subject across the open web.
 
 ## Avoid when
-When a dork surfaces exposed credentials (e.g. filetype:env "PRIVATE_KEY" site:github.com), do not exploit them -- disclose responsibly.
+When a dork surfaces exposed credentials (e.g. filetype:env "PRIVATE_KEY" site:github.com), do not exploit them, disclose responsibly.
 
 ## Example
 "0xYOUR_ADDRESS" -site:etherscan.io -site:opensea.io searches forums, paste sites, and social media while excluding block explorers that dominate results. Pro tip: if a dork yields nothing on Google, try Bing, DuckDuckGo, or Yandex, and for historical content combine with site:web.archive.org.

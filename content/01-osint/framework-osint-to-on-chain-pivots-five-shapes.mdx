@@ -1,16 +1,16 @@
-# OSINT-to-On-Chain Pivots -- Five Shapes
+# OSINT-to-On-Chain Pivots: Five Shapes
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`  ·  Level 2  ·  osint · pivots · attribution · phishing-kits · deployer-history · corroboration</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
 
 ## Core idea
-Blockchain gives a complete, immutable record of what happened, but not who is behind it -- OSINT bridges that gap, and the combination turns a trace into an attribution. Blockchain shows what happened; OSINT shows who and how. The biggest gains come from corroboration: when blockchain aligns with OSINT, timestamps match, and infrastructure overlaps, both certainty and defensibility rise. OSINT findings pivot straight back into on-chain activity in five common shapes.
+Blockchain gives a complete, immutable record of what happened, but not who is behind it, OSINT bridges that gap, and the combination turns a trace into an attribution. Blockchain shows what happened; OSINT shows who and how. The biggest gains come from corroboration: when blockchain aligns with OSINT, timestamps match, and infrastructure overlaps, both certainty and defensibility rise. OSINT findings pivot straight back into on-chain activity in five common shapes.
 
 ## Components
-- Domain -> on-chain -- analyse a phishing domain; wallet addresses are often hard-coded in JavaScript, embedded in HTML, or referenced in transaction payloads, and typically belong to the same scam network.
-- Social handles -> deposit addresses -- Telegram/Discord/X handles where fraudsters post wallets for "donations," "investments," or affiliate payments; these sometimes overlap with case on-chain activity, confirming identity or cluster membership.
-- Phishing kits -> wallet addresses -- analyse the kit's structure; reused code, API keys, or wallet addresses (especially in drainer kits shared across Telegram) pivot to other on-chain incidents.
-- Email metadata -> hosting payment wallet -- the originating IP or hosting provider may match prior-scam infrastructure, leading to wallet addresses or payment flows used to pay for hosting, servers, or domain renewals.
-- Developer profiles -> deployer history -- GitHub or code-sharing platforms; many scam contracts are deployed by developers who reuse the same address, so the profile identifies other contracts and associated funding/movement.
+- Domain -> on-chain: analyse a phishing domain; wallet addresses are often hard-coded in JavaScript, embedded in HTML, or referenced in transaction payloads, and typically belong to the same scam network.
+- Social handles -> deposit addresses: Telegram/Discord/X handles where fraudsters post wallets for "donations," "investments," or affiliate payments; these sometimes overlap with case on-chain activity, confirming identity or cluster membership.
+- Phishing kits -> wallet addresses: analyse the kit's structure; reused code, API keys, or wallet addresses (especially in drainer kits shared across Telegram) pivot to other on-chain incidents.
+- Email metadata -> hosting payment wallet: the originating IP or hosting provider may match prior-scam infrastructure, leading to wallet addresses or payment flows used to pay for hosting, servers, or domain renewals.
+- Developer profiles -> deployer history: GitHub or code-sharing platforms; many scam contracts are deployed by developers who reuse the same address, so the profile identifies other contracts and associated funding/movement.
 
 Attribution indicators that can each become an on-chain pivot: domains, emails, phone numbers, Telegram handles, Discord, X/Twitter, phishing kits, GitHub, burner accounts, naming patterns, hosting providers, SSL configs, site templates.
 
@@ -21,4 +21,4 @@ When on-chain tracing alone cannot answer "who," and off-chain artefacts exist t
 Five worked attribution shapes show clues converging into one intelligence product: phishing domain -> kit source -> collector wallet -> known scam cluster; Telegram handle -> exchange deposit label -> prior fraud (actor link plus cash-out point in one pivot); GitHub repo -> contract creator address -> on-chain activity; deployer wallet matching a fraud group's router/bridge/behavioural fingerprints (new scam, same actor); and email header IP -> hosting provider -> on-chain hosting-fee payment wallet.
 
 ## Related
-[Combined Timelines -- Turning Tracing into Attribution](/kb/03-attribution-clustering/tactic-combined-timelines-turning-tracing-into-attribution), [View a Wallet's Exposure with impersonator.xyz](/kb/03-attribution-clustering/tactic-view-a-wallets-exposure-with-impersonator-xyz), [Surface-Level Fast Wins](/kb/06-casework-method/checklist-surface-level-fast-wins), [What to Collect -- On-Chain & Off-Chain Evidence](/kb/05-evidence-legal/checklist-what-to-collect-on-chain-and-off-chain-evidence)
+[Combined Timelines: Turning Tracing into Attribution](/kb/03-attribution-clustering/tactic-combined-timelines-turning-tracing-into-attribution), [View a Wallet's Exposure with impersonator.xyz](/kb/03-attribution-clustering/tactic-view-a-wallets-exposure-with-impersonator-xyz), [Surface-Level Fast Wins](/kb/06-casework-method/checklist-surface-level-fast-wins), [What to Collect: On-Chain & Off-Chain Evidence](/kb/05-evidence-legal/checklist-what-to-collect-on-chain-and-off-chain-evidence)

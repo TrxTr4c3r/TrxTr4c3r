@@ -94,6 +94,35 @@ function escapeProse(s) {
     c === '<' ? '&lt;' : c === '{' ? '&#123;' : '&#125;',
   )
 }
+// --- de-dash: strip em/en dashes and "--" from prose so nothing on the live
+//     site reads as AI-written. Runs on prose only (mdxSafe isolates code, so
+//     command flags like --depth are untouched). Preserves markdown table
+//     delimiter rows, horizontal rules, single hyphens in compound words
+//     (on-chain, SHA-256), and "->" arrows. A definitional "- Term -- text"
+//     bullet becomes "- Term: text"; other spaced dashes become commas.
+function deDash(prose) {
+  return prose
+    .split('\n')
+    .map((line) => {
+      const t = line.trim()
+      if (t.includes('-') && /^\|?[\s:|-]+\|[\s:|-]*$/.test(t)) return line // table delimiter
+      if (/^-{3,}$/.test(t)) return line // horizontal rule
+      return line
+        .replace(/^(\s*[-*]\s+[^—–][^—–]*?)\s+(?:—|–|--)\s+/, '$1: ') // bullet term -> colon
+        .replace(/\s+(?:—|–|-{2,})\s+/g, ', ') // spaced dash punctuation -> comma
+        .replace(/[—–]/g, '-') // unspaced em/en dash (e.g. ranges) -> hyphen
+        .replace(/-{2,}/g, '-') // any leftover doubled hyphens -> single
+    })
+    .join('\n')
+}
+// Titles follow a "Main Title -- Subtitle" pattern where a colon reads better
+// than the comma deDash would use. No-op on titles without a dash separator.
+function deDashTitle(s) {
+  return s
+    .replace(/\s+(?:—|–|--)\s+/g, ': ')
+    .replace(/[—–]/g, '-')
+    .replace(/-{2,}/g, '-')
+}
 function mdxSafe(body) {
   return body
     .split(/(```[\s\S]*?```)/g)
@@ -101,7 +130,7 @@ function mdxSafe(body) {
       if (chunk.startsWith('```')) return chunk
       return chunk
         .split(/(`[^`]*`)/g)
-        .map((seg) => (seg.startsWith('`') ? seg : escapeProse(seg)))
+        .map((seg) => (seg.startsWith('`') ? seg : escapeProse(deDash(seg))))
         .join('')
     })
     .join('')
@@ -172,22 +201,14 @@ for (const n of all) if (n.title) titleMap.set(n.title.toLowerCase(), n.route)
 // --- render one note to MDX ---
 function renderNote(n) {
   const type = noteType(n.meta, n.slug)
-  const badgeBits = []
-  badgeBits.push('`' + type + '`')
-  if (n.meta.level) badgeBits.push(`Level ${n.meta.level}`)
-  if (n.meta.tags) {
-    const tags = n.meta.tags
-      .split(',')
-      .map((t) => t.trim())
-      .filter(Boolean)
-    if (tags.length) badgeBits.push(tags.join(' · '))
-  }
-  const badge = `<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>${badgeBits.join('  ·  ')}</span>`
+  // Live-site notes show only the note type. Level and tags are deliberately
+  // NOT rendered (they stay in knowledge-base/ but never appear on the site).
+  const badge = `<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>\`${type}\`</span>`
 
-  let body = mdxSafe(n.body)
-
-  // rewrite the "## Related" title list into links
-  body = body.replace(
+  // Resolve the "## Related" title list into links on the RAW body first, so
+  // target titles that contain " -- " still match titleMap before de-dashing
+  // rewrites them. Each is displayed de-dashed.
+  let body = n.body.replace(
     /(##\s*Related\s*\n+)([\s\S]*?)(\n##\s|\s*$)/,
     (full, head, content, tail) => {
       const linked = content
@@ -196,11 +217,14 @@ function renderNote(n) {
         .filter(Boolean)
         .map((t) => {
           const r = titleMap.get(t.toLowerCase())
-          return r ? `[${t}](${r})` : t
+          return r ? `[${deDashTitle(t)}](${r})` : deDashTitle(t)
         })
       return `${head}${linked.join(', ')}${tail}`
     },
   )
+
+  // Now make MDX-safe and de-dash the whole body (prose only; code preserved).
+  body = mdxSafe(body)
 
   // Large notes (e.g. the tooling catalogue) get an in-page Contents jump list
   // linking each ## section, so readers don't have to scroll to find one.
@@ -213,7 +237,7 @@ function renderNote(n) {
     // Slug in the exact order Nextra will: H1 title, the injected Contents
     // heading, then every body heading. Guarantees anchors match.
     const slugger = new GithubSlugger()
-    slugger.slug(n.title)
+    slugger.slug(deDashTitle(n.title))
     slugger.slug('Contents')
     const anchor = new Map()
     for (const m of bodyNoCode.matchAll(/^(#{1,6})\s+(.+?)\s*$/gm)) {
@@ -229,7 +253,7 @@ function renderNote(n) {
     contents = `## Contents\n\nJump to a section:\n\n${links}\n\n`
   }
 
-  return `# ${n.title}\n\n${badge}\n\n${contents}${body}\n`
+  return `# ${deDashTitle(n.title)}\n\n${badge}\n\n${contents}${body}\n`
 }
 
 // --- render a section overview page: title + note-count badge + blurb +
@@ -241,9 +265,9 @@ function shortcutTables(notes) {
       .filter((n) => noteType(n.meta, n.slug) === type)
       .sort((a, b) => a.title.localeCompare(b.title))
     if (!group.length) continue
-    out += `\n### ${TYPE_LABEL[type]}\n\n| Note | Level |\n|---|---|\n`
+    out += `\n### ${TYPE_LABEL[type]}\n\n| Note |\n|---|\n`
     for (const n of group) {
-      out += `| [${n.title}](${n.route}) | ${n.meta.level || ''} |\n`
+      out += `| [${deDashTitle(n.title)}](${n.route}) |\n`
     }
   }
   return out
@@ -252,9 +276,9 @@ function shortcutTables(notes) {
 function renderSectionIndex(title, blurb, notes, extra) {
   const count = notes.length + (extra ? extra.notes.length : 0)
   const badge = `<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>${count} notes</span>`
-  let out = `# ${title}\n\n${badge}\n\n${blurb}\n\nJump to any note in this section:\n${shortcutTables(notes)}`
+  let out = `# ${title}\n\n${badge}\n\n${deDash(blurb)}\n\nJump to any note in this section:\n${shortcutTables(notes)}`
   if (extra) {
-    out += `\n## ${extra.heading}\n\n${extra.blurb}\n${shortcutTables(extra.notes)}`
+    out += `\n## ${extra.heading}\n\n${deDash(extra.blurb)}\n${shortcutTables(extra.notes)}`
   }
   return out + '\n'
 }
@@ -305,7 +329,7 @@ for (const topic of Object.keys(TOPICS)) {
     total++
   }
 
-  const metaEntries = [['index', 'Overview'], ...rootSorted.map((n) => [n.slug, n.title])]
+  const metaEntries = [['index', 'Overview'], ...rootSorted.map((n) => [n.slug, deDashTitle(n.title)])]
   let mixExtra = null
   if (bucket.mixers.length) {
     const mdir = path.join(dir, 'mixers')
@@ -326,7 +350,7 @@ for (const topic of Object.keys(TOPICS)) {
     )
     writeMeta(mdir, [
       ['index', 'Overview'],
-      ...mixSorted.map((n) => [n.slug, n.title]),
+      ...mixSorted.map((n) => [n.slug, deDashTitle(n.title)]),
     ])
     metaEntries.push(['mixers', 'Mixers & Tumblers'])
     mixExtra = {
@@ -373,7 +397,7 @@ ${rows}
 Published casework lands under [Casework](/kb/casework) as I complete investigations.
 `
 
-fs.writeFileSync(path.join(DEST, 'index.mdx'), indexMdx)
+fs.writeFileSync(path.join(DEST, 'index.mdx'), deDash(indexMdx))
 
 // Generated stats consumed by lib/brand.ts (landing page) so the home-page
 // counts derive from the knowledge base and never drift. Regenerated every run.
