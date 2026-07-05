@@ -2,6 +2,10 @@
 // Angle: "Proof, not credentials." Voice: honest, understated, rigorous.
 // Hard rule: no em-dashes or en-dashes anywhere.
 // Placeholders marked TODO stay until the owner supplies real values.
+// Counts (note/topic totals) are NOT copy: they come from lib/kb-stats.ts,
+// which scripts/migrate-kb.mjs regenerates from knowledge-base/ on every sync,
+// so the landing numbers can never drift from the knowledge base.
+import { KB_NOTE_COUNT, KB_TOPIC_COUNT } from './kb-stats'
 
 export const BRAND = {
   name: 'TrxTr4c3r',
@@ -41,9 +45,9 @@ export const BRAND = {
   metrics: {
     subtitle: 'Proof of work',
     items: [
-      { value: '131', label: 'Tradecraft notes in the open knowledge base' },
+      { value: String(KB_NOTE_COUNT), label: 'Tradecraft notes in the open knowledge base' },
       {
-        value: '8',
+        value: String(KB_TOPIC_COUNT),
         label:
           'Disciplines documented, from fundamentals to court-ready reporting',
       },
