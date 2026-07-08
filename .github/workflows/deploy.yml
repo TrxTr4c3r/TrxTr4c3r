@@ -33,7 +33,9 @@ jobs:
       - name: Compute base path
         run: |
           REPO="${GITHUB_REPOSITORY#*/}"
-          if [[ "$REPO" == *.github.io ]]; then
+          # A custom domain (public/CNAME) or a user/org site serves from the
+          # root, so no base path. A bare project repo serves under /<repo>.
+          if [[ -f public/CNAME || "$REPO" == *.github.io ]]; then
             echo "NEXT_PUBLIC_BASE_PATH=" >> "$GITHUB_ENV"
           else
             echo "NEXT_PUBLIC_BASE_PATH=/$REPO" >> "$GITHUB_ENV"
