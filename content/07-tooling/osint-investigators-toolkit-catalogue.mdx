@@ -6,7 +6,7 @@
 
 Jump to a section:
 
-[Blockchain](#blockchain-33-tools) · [Infrastructure](#infrastructure-20-tools) · [Email OSINT](#email-osint-7-tools) · [Username](#username-4-tools) · [Phone OSINT](#phone-osint-5-tools) · [Face Search](#face-search-4-tools) · [Image OSINT](#image-osint-7-tools) · [Geolocation](#geolocation-16-tools) · [Breach & Exposure](#breach--exposure-8-tools) · [Threat Intel](#threat-intel-10-tools) · [Documents & Metadata](#documents--metadata-8-tools) · [Social, Twitter/X](#social-twitterx-3-tools) · [Social, Telegram](#social-telegram-5-tools) · [Social, Discord](#social-discord-2-tools) · [Social, Reddit](#social-reddit-2-tools) · [Social, Instagram/TikTok](#social-instagramtiktok-2-tools) · [Social, Meta](#social-meta-1-tools) · [Social, LinkedIn](#social-linkedin-1-tools) · [Social, General](#social-general-3-tools) · [Darknet](#darknet-4-tools) · [Corporate & Records](#corporate--records-6-tools) · [Search & Dorking](#search--dorking-8-tools) · [Investigator Toolkit](#investigator-toolkit-11-tools) · [Additional Tracing & Attribution Platforms](#additional-tracing--attribution-platforms) · [Cross-Chain Bridge Explorers](#cross-chain-bridge-explorers) · [Instant-Swap / Instant-Exchange Services](#instant-swap--instant-exchange-services) · [Additional Infrastructure & Domain OSINT](#additional-infrastructure--domain-osint) · [Scam & Phishing Databases](#scam--phishing-databases) · [Case Documentation](#case-documentation) · [Freezing, Blacklisting & Recovery](#freezing-blacklisting--recovery) · [The three-piece investigator workflow (framing)](#the-three-piece-investigator-workflow-framing)
+[Blockchain](#blockchain-33-tools) · [Infrastructure](#infrastructure-20-tools) · [Email OSINT](#email-osint-7-tools) · [Username](#username-4-tools) · [Phone OSINT](#phone-osint-5-tools) · [Face Search](#face-search-4-tools) · [Image OSINT](#image-osint-7-tools) · [Geolocation](#geolocation-16-tools) · [Breach & Exposure](#breach--exposure-8-tools) · [Threat Intel](#threat-intel-10-tools) · [Documents & Metadata](#documents--metadata-8-tools) · [Social, Twitter/X](#social-twitterx-3-tools) · [Social, Telegram](#social-telegram-5-tools) · [Social, Discord](#social-discord-2-tools) · [Social, Reddit](#social-reddit-2-tools) · [Social, Instagram/TikTok](#social-instagramtiktok-2-tools) · [Social, Meta](#social-meta-1-tools) · [Social, LinkedIn](#social-linkedin-1-tools) · [Social, General](#social-general-3-tools) · [Darknet](#darknet-4-tools) · [Corporate & Records](#corporate--records-6-tools) · [Search & Dorking](#search--dorking-8-tools) · [Investigator Toolkit](#investigator-toolkit-11-tools) · [Additional Tracing & Attribution Platforms](#additional-tracing--attribution-platforms) · [Cross-Chain Bridge Explorers](#cross-chain-bridge-explorers) · [Instant-Swap / Instant-Exchange Services](#instant-swap--instant-exchange-services) · [Additional Infrastructure & Domain OSINT](#additional-infrastructure--domain-osint) · [Scam & Phishing Databases](#scam--phishing-databases) · [Case Documentation](#case-documentation) · [Freezing, Blacklisting & Recovery](#freezing-blacklisting--recovery) · [The three-piece investigator workflow (framing)](#the-three-piece-investigator-workflow-framing) · [Bridge & cross-chain explorers / utilities](#bridge--cross-chain-explorers--utilities) · [Tracing / case tooling](#tracing--case-tooling) · [Email / domain OSINT](#email--domain-osint)
 
 A curated, field-tested directory of open-source intelligence tools for crypto forensics, digital investigations, and threat hunting. Catalogue version v2026.05; 170 tools across 23 categories (all entries verified 2026-05 unless a note says otherwise).
 
@@ -398,5 +398,32 @@ Every investigation breaks into three pieces (per the stack article):
 2. **Identification & OSINT**, the hardest half: link on-chain address -> entity -> real person (Web3 -> Web2). Exchange KYC is the gold standard but LE-gated. When it is not available, pivot via domain/infra intel (Validin, Silent Push, Shodan/Censys, crt.sh), tech-stack IDs (BuiltWith/Wappalyzer), person pivots (Epieos, OSINT Industries, Holehe), and scam DBs; preserve with Wayback/archive.today. Document everything (Obsidian/Notion/Hunchly/Maltego).
 3. **Freezing, Blacklisting & Recovery**, report/blacklist/flag wallets so institutions can freeze; issuer freezes (Tether/Circle), T3 FCU, TRM Beacon; LE-only coordination via Deconflict/Kodex; recovery via Asset Reality/DigitalMint.
 
+# Additions from IOC Level 2 (June) Session 1
+
+*Tools shown in Intelligence on Chain's Level 2 (June) Blockchain & OSINT Investigations course, Session 1. Lighter schema (no OPSEC/Skill ratings). Confirm current URLs before relying on them. The instructor demonstrated an OP_RETURN decoder site but explicitly flagged it as low-trust, so it is deliberately not listed here.*
+
+## Bridge & cross-chain explorers / utilities
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| Relay Explorer | Relay.link cross-chain transfer lookup | free | relay.link | Search by tx hash or address; seen routing via a Bitcoin OP_RETURN memo |
+| chainlist.org | Resolve an EVM chain ID to its chain | free | chainlist.org | Decode the "destination chain ID" field found in bridge input data |
+| Arbiscan | Arbitrum explorer (Etherscan family) | free | arbiscan.io | The L1-deposit vs L2-withdrawal tabs expose the bridge legs |
+| TronScan address converter | Convert an EVM-hex recipient into a Tron (T...) address | free | tronscan.org | Keep the 0x, strip the leading zeros after it; see "Decoding a Cross-Chain Destination Address from Input Data" |
+
+## Tracing / case tooling
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| Spectra (IOC) | Intelligence on Chain's own tracer plus a terminal case manager | paid/community | intelligenceonchain.com | Auto-exchange time-and-value matching with a configurable tolerance (~$200 default) |
+| IOC OSINT Toolkit | IOC-hosted, filterable directory of 170+ investigation tools | free | ocint.intelligenceonchain.com | The live version of much of this catalogue |
+
+## Email / domain OSINT
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| MXToolbox | Email header analysis; SPF/DKIM/DMARC checks; return-path vs sender for spoof detection | freemium | mxtoolbox.com | Paste a raw email header to expose routing and spoofing |
+| Whoxy | WHOIS lookup plus reverse/historical WHOIS for registrant-email pivots | freemium | whoxy.com | Registrant data is privacy/GDPR-limited in many regions |
+
 ## Related
-Use a Suite of Tools, Not One, PI Response Priority: Freeze, Monitor, Predict, OSINT, [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Obsidian Case-Management Workflow](/kb/06-casework-method/tactic-obsidian-case-management-workflow)
+Use a Suite of Tools, Not One, PI Response Priority: Freeze, Monitor, Predict, OSINT, [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Decoding a Cross-Chain Destination Address from Input Data](/kb/02-tracing/tactic-decode-cross-chain-destination-address), [Obsidian Case-Management Workflow](/kb/06-casework-method/tactic-obsidian-case-management-workflow)

@@ -1,0 +1,23 @@
+# Decoding a Cross-Chain Destination Address from Input Data
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+A bridge or cross-chain call often carries the destination address inside the source transaction's input data, but encoded in a form that does not look like a normal address because it belongs to a different chain. Decoding that field hands you the exact next-hop address without needing the bridge's own explorer.
+
+## When to use
+When you have the source-side bridge transaction, can see a recipient field in the decoded input data or logs, but the value is a long hex string that is not a valid address on the chain you are currently viewing.
+
+## Components
+- Find the field: on an EVM explorer use "click to show more" then "decode input data", and also check the logs; the destination is usually a recipient or receiver field.
+- Identify the target chain: a destination chain ID often sits next to the recipient. Resolve the ID at chainlist.org (for EVM chains) so you know which chain and address format you are decoding to.
+- Convert by format:
+  - Bitcoin address encoded on EVM: decode the hex back to its Bitcoin string form. A purpose-built decoder, a "view as UTF-8" option on some explorers, or an LLM such as ChatGPT can do the conversion.
+  - EVM hex to Tron: use TronScan's built-in address converter. Paste the recipient into the EVM side, keep the leading 0x, delete the run of leading zeros immediately after it, and convert to the Tron (T...) address.
+- Verify the decode: confirm the decoded address actually exists and carries the expected transaction on the destination chain (right date and value, plus a matching cryptographic identifier where one is available).
+
+## Example
+An Arbitrum-to-Tron bridge transaction shows a recipient hex string in its input data. Feeding it into TronScan's converter (0x kept, leading zeros stripped) yields the Tron address that received the funds, which is then confirmed by matching the deposit nonce and value on TronScan.
+
+## Related
+EVM Event Logs and Decoding Calldata, [Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Understand the Protocol Before You Conclude](/kb/02-tracing/principle-understand-the-protocol-before-you-conclude)

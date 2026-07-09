@@ -1,0 +1,21 @@
+# Bitcoin OP_RETURN as a Cross-Chain Signal
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+On Bitcoin, an OP_RETURN output carries arbitrary data and plays a role similar to input data on EVM: bridges and services sometimes use it to embed routing or reference information. Seeing an OP_RETURN next to a transfer is a clue that a service is involved, and it can point you to the next hop.
+
+## When to use
+When a Bitcoin transaction you are tracing contains an OP_RETURN output, or when you suspect a bridge or service is in play but cannot see an explorer link.
+
+## Components
+- Spot it: an OP_RETURN shows up as a data output, usually near-zero value, among the normal outputs.
+- Identify the service by counterparty, not just by the code: put the Bitcoin address into an attribution tool such as Arkham and read its top counterparties. A large share of value flowing to a known service address (for example RelayLink) attributes the address and tells you which bridge or service to consult.
+- Decode the data if useful: OP_RETURN decoder sites can expose the raw message (which may look like a reference or a hash), but they often leave further work to do and some are low-trust, so corroborate anything you pull from them.
+- Resume via the right explorer: once the service is identified, use its own explorer (search the address or the reference) to find the destination leg.
+
+## Example
+A Bitcoin transaction shows an OP_RETURN plus two small outputs. Arkham attributes the receiving address to RelayLink by its counterparties; searching that address on relay.link then reveals the two deposits paying out as USDC on Polygon.
+
+## Related
+[Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Decoding a Cross-Chain Destination Address from Input Data](/kb/02-tracing/tactic-decode-cross-chain-destination-address), [Cross-Chain Obfuscation Categories](/kb/04-laundering-obfuscation/checklist-cross-chain-obfuscation-categories)

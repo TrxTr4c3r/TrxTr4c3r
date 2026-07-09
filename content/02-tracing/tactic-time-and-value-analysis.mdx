@@ -1,0 +1,21 @@
+# Time-and-Value Analysis
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+When funds pass through a service that breaks the direct on-chain link (a non-custodial swap like ChangeNOW or FixedFloat, or a bridge with no explorer), you can still reconnect the deposit to the withdrawal by matching two independent properties: the value (amount, adjusted for fees) and the time (the payout lands shortly after the deposit confirms). On its own it is probabilistic, so treat a match as a lead and confirm it with a cryptographic identifier or service logs where possible.
+
+## When to use
+At any choke point where the money visibly enters a service but the outbound leg is not directly linked: instant-exchange deposit addresses, liquidity-pool bridges, and any hop where you can see one side but not the other. It is the fallback when there is no first-party explorer to look the transfer up.
+
+## Components
+- Value window: the outbound amount is the inbound amount minus a fee, and service/bridge fees are roughly a percentage of value, so scale the window with the amount (small swaps lose a few dollars; six-figure swaps can lose thousands). Filter the destination side to a range that runs from a little below the inbound value up to the inbound value, since the service never pays out more than came in. IOC's Spectra defaults to a ~$200 tolerance, widened to $500-$1000 as needed.
+- Time window: anchor on the deposit (lock) time, not the service's internal hot-wallet movement. The payout appears after the network confirms the deposit; on Bitcoin allow up to ~15 minutes of confirmation lag and scan for the matching outbound in that window after the deposit.
+- Mind the reference point and the clocks: use the moment assets are locked with the service, and watch time-zone / UTC offsets between tools (Arkham and a block explorer can display shifted times). Arkham needs two dates selected for a date filter.
+- Confirm, do not conclude: a value-plus-time match is a hypothesis. Upgrade it to proof with a shared identifier (a nonce or deposit ID in the input data or logs) or by obtaining the service's logs. It fails outright against mint-style bridges, where you pivot to counterparty-graph analysis instead.
+
+## Example
+A drained wallet deposits ETH to a ChangeNOW deposit address at 05:33 for about $2,430. Filtering ChangeNOW's outflows to roughly $2,300-$2,430 on the same date and scanning just after 05:33 surfaces an outbound at 05:41 within fee tolerance: the probable continuation, to be confirmed from ChangeNOW's logs.
+
+## Related
+[Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation), Cross-Chain Correlation Edge Cases and Failure Modes, Mint-Style Bridges Pivot to Counterparty-Graph Analysis, [Temporal / Timing Correlation Analysis](/kb/02-tracing/tactic-temporal-timing-correlation)

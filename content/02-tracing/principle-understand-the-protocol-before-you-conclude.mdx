@@ -1,0 +1,21 @@
+# Understand the Protocol Before You Conclude
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`principle`</span>
+
+## Core idea
+When an on-chain action does not make sense (a burn to the null address, funds apparently destroyed, a bridge that seems to swallow value), that is a signal to research how the protocol works, not evidence that the trail ends. Many protocols move value by destroying a token on one side and creating it on the other, so an apparent dead end is usually a chain switch in disguise.
+
+## When to use
+Any time behaviour looks anomalous or terminal: burns, mints, wrapped assets, unfamiliar bridges or contracts. Resolve the mechanism before you write "funds could not be traced further", because that conclusion has to survive scrutiny.
+
+## Components
+- Recognise the anomaly: value sent to a burn or null address, a token you do not recognise, a contract with no obvious counterparty.
+- Research the mechanism: read the protocol's whitepaper or docs, search "&lt;protocol> burn / mint / bridge", or ask an LLM to explain how it works. Look specifically for a lock or burn on the source side and a mint or unlock on the destination side.
+- Map the equivalence: for example, burning RenBTC on Ethereum releases native BTC on Bitcoin, and locking BTC mints RenBTC back. A burn on chain A frequently equals a mint or release on chain B, often from the same protocol address set.
+- Resume on the correct chain, and record why you looked there (the protocol mechanics), so the step is defensible and reproducible by another analyst.
+
+## Example
+A trace appears to end when ETH is swapped to RenBTC and the RenBTC is burnt to the null address. Reading how the Ren protocol works shows the burn releases native Bitcoin on the Bitcoin chain, so the trace continues there rather than stopping at the burn.
+
+## Related
+Mint-Style Bridges Pivot to Counterparty-Graph Analysis, [Tornado Cash to RenBTC Cross-Chain Laundering Pattern](/kb/04-laundering-obfuscation/concept-tornado-renbtc-laundering-pattern), [Decoding a Cross-Chain Destination Address from Input Data](/kb/02-tracing/tactic-decode-cross-chain-destination-address), Separate On-Chain Fact from Inference
