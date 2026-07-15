@@ -17,3 +17,31 @@ html.dark {
   background: #4cff7a;
   color: #07100b;
 }
+
+/* Casework listing: a two-per-row grid of case cards (one column on mobile). */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+@media (max-width: 768px) {
+  .case-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.case-card {
+  display: block;
+  padding: 20px 22px;
+  border: 1px solid #23402e;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(76, 255, 122, 0.06), rgba(76, 255, 122, 0.01));
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.case-card:hover {
+  border-color: #4cff7a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(76, 255, 122, 0.08);
+}
