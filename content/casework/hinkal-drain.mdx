@@ -1,0 +1,47 @@
+# The Hinkal Liquidity-Pool Drain
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>CASE-2026-002 · Ethereum, Bitcoin, Zcash · fund-tracing</span>
+
+## Overview
+
+On the night of 2 July 2026, an attacker drained roughly 797,000 USDC out of the Hinkal liquidity pool, then spent the next few hours trying to make it disappear. This case follows the money in both directions: forward to where it cashed out, and backward to where it was funded.
+
+The stolen funds were swapped into ether, consolidated to about 454 ETH, and split two ways. Around 400 ETH went into Tornado Cash, a mixer meant to break the trail. The rest was bridged across to Bitcoin. Both moves are designed to end a trace.
+
+Neither did. Matching the mixer's withdrawals by pool size instead of dollar value, both pools converged on a single reused wallet holding about 410 ETH, parked and untouched, which the victim then flagged on-chain. The Bitcoin peeled through a run of wallets and walked straight into a Binance deposit: a real account, reachable by subpoena. Even the seed money that funded the whole operation traced back, through a cross-chain bridge, to a Zcash shielded pool.
+
+Two privacy walls, one at each end of the money. Each had a door: an exchange, and a bridge.
+
+**What this case does not do is name a person.** Both ends sit behind privacy or custody, so identity is a matter for legal process, not on-chain data. The link to the parked wallet is assessed as *probable* (denomination matching, address reuse, timing, and the victim's own on-chain recovery message), not proven. It is written that way on purpose.
+
+## Read it
+
+The case study below is the narrative version, told as a story. The full technical report, with every transaction hash and the law-enforcement handover targets, is underneath.
+
+### Case study
+
+<div style={{ margin: '16px 0' }}>
+  <iframe
+    src={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/casework/hinkal-drain-case-study.pdf'}
+    title="The Hinkal Drain: a fund-tracing case study (PDF)"
+    style={{ width: '100%', height: '85vh', border: '1px solid #1e3a2a', borderRadius: 8, background: '#0b1410' }}
+  />
+  <p style={{ fontSize: 13, opacity: 0.75, marginTop: 8 }}>
+    <a href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/casework/hinkal-drain-case-study.pdf'} target="_blank" rel="noopener noreferrer">Open the case study in a new tab</a> if the viewer does not load, or to download it.
+  </p>
+</div>
+
+### Full technical report
+
+The complete report: subject and attribution status, the full follow-the-funds narrative both directions, the handover targets, and an appendix with every transaction hash in full.
+
+<div style={{ margin: '16px 0' }}>
+  <iframe
+    src={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/casework/hinkal-drain-full-report.pdf'}
+    title="The Hinkal Drain: full fund-tracing report (PDF)"
+    style={{ width: '100%', height: '85vh', border: '1px solid #1e3a2a', borderRadius: 8, background: '#0b1410' }}
+  />
+  <p style={{ fontSize: 13, opacity: 0.75, marginTop: 8 }}>
+    <a href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/casework/hinkal-drain-full-report.pdf'} target="_blank" rel="noopener noreferrer">Open the full report in a new tab</a> if the viewer does not load, or to download it.
+  </p>
+</div>

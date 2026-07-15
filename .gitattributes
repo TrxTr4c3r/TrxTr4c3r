@@ -1,0 +1,10 @@
+# Keep binaries byte-exact (no EOL conversion). PDFs would corrupt otherwise.
+*.pdf binary
+*.png binary
+*.jpg binary
+*.webp binary
+
+# Generated docs and source are LF (the migrate script writes LF; keep it stable).
+*.md text eol=lf
+*.mdx text eol=lf
+*.ts text eol=lf
