@@ -11,4 +11,5 @@ export default {
   "definition-crypto-investigation-glossary": "Crypto Investigation Glossary",
   "definition-internal-transaction": "Internal Transactions",
   "principle-evm-explorer-familiarity": "EVM Explorers Share a Layout, Non-EVM Do Not",
+  "framework-bitcoin-transaction-shape-taxonomy": "Bitcoin Transaction Shape Taxonomy",
 }

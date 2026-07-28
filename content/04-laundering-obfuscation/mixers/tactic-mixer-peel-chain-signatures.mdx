@@ -1,0 +1,25 @@
+# Mixer-Operated Peel Chain Signatures
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+Custodial mixers pay customers through peel chains precisely because a chain of one input, two output transactions looks like ordinary user traffic. Ordinary traffic is where the signatures live. Four observable properties separate an operator's chain from a random user's, and each one shrinks the candidate pool enough to make a blockchain-wide search tractable.
+
+## Components
+- **Script type discipline along the spine.** The addresses that carry the chain forward all share one script type while the addresses peeled off to customers are mixed. In one observed service every spine address started with `3` while eight of twelve peel targets started with `bc1`, three with `1`, and one with `3`. In another the whole spine was `bc1q` while the peels varied. The spine is one wallet running its defaults; the peels are whatever address each customer supplied. Since different wallet implementations favour different address types, this single criterion narrows candidate chains hard.
+- **Block delay as a configuration fingerprint.** Inter-hop delays cluster around the service's default setting. One service's two chains ran a minimum of 4 blocks and a maximum of 118 between hops, averaging about 58, with standard deviations of 34.7 and 32.8. Another ran a minimum of 3 and a maximum of 918 with a standard deviation of 339.7, which is deliberate irregularity. Either profile is a discriminator, and a tight one is close to a signature.
+- **Consolidation binds sessions together.** When change addresses from separate sessions on separate days turn up as co-spent inputs to one `<many:1>` transaction, common input ownership makes them one entity, and the coincidence explanation fails: unrelated customers do not co-spend by accident on four separate occasions. In one study eight consolidation transactions across sessions collapsed into four unique transactions, which is the operator gathering its own change.
+- **Pooling transactions.** Look for the large multi-input transaction that gathers customer deposits before redistribution. One observed pool took in 95 input addresses for 7.7 BTC, then moved the value through a small set of reused storage addresses. Reuse of those storage addresses is what lets you connect one mixing session to the next.
+- **The same-block double hop.** In one service the transaction merging two peel outputs did not pay the customer directly. It paid an intermediary address, which paid the customer inside the same block. Coordinating two dependent transactions into one roughly ten minute block requires the first to confirm before the second can spend its output, so both hops are the same entity acting automatically.
+
+## When to use
+When you need to decide whether a peel chain in front of you belongs to a service or to a single user, and when you want to expand one known service address into the service's wider address set.
+
+## Avoid when
+Every one of these is circumstantial on its own, and ordinary user transactions share the same one input, two output shape. Combine at least two before treating a chain as service operated, and note that a chain feeding a customer's payout address is only attributable to the operator on the reasoning that no third party would make that payment on the operator's behalf.
+
+## Example
+A payout address was funded by a twelve step peel chain whose every spine address began with `3` while the peeled outputs were a mix of `1`, `3`, and `bc1`. Delays between hops sat between 4 and 118 blocks with low variance. Together those two properties identified the chain as service operated, and following the spine backwards led to a transaction where six exchange-attributed addresses fed the chain in one payment.
+
+## Related
+[Peel Chain](/kb/04-laundering-obfuscation/concept-peel-chain), [Peeling Chain Analysis](/kb/02-tracing/tactic-peeling-chain-analysis), [Traversing an Ambiguous Peel Chain with a Wallet Fingerprint](/kb/02-tracing/workflow-traversing-ambiguous-peel-chains-with-a-wallet-fingerprint), [Bitcoin Transaction Shape Taxonomy](/kb/00-fundamentals/framework-bitcoin-transaction-shape-taxonomy), [Bitcoin UTXO Clustering Heuristics](/kb/03-attribution-clustering/checklist-bitcoin-utxo-clustering-heuristics), [How Mixers Process Funds](/kb/04-laundering-obfuscation/mixers/workflow-how-mixers-process-funds), [Mixing Activity Red Flags](/kb/04-laundering-obfuscation/mixers/checklist-mixing-activity-red-flags), [Value-and-Block-Window Candidate Search](/kb/02-tracing/tactic-value-and-block-window-candidate-search)

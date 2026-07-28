@@ -1,0 +1,45 @@
+# Custodial Mixer Feature Landscape (2025 Survey)
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`</span>
+
+## Core idea
+What a custodial Bitcoin mixer actually offers a customer in 2025, measured rather than assumed. The feature set is the attack surface: how many payout addresses a service permits decides whether value analysis works against it, and where it hosts decides whether an infrastructure attack works against it.
+
+## Components
+
+**Market survey, 20 active services** (found via Bitcointalk and Reddit; the authors deliberately withheld service names):
+
+| Feature | Finding |
+|---|---|
+| Required registration or identity verification | 0 of 20 |
+| Allowed multiple input addresses | 1 of 20 |
+| Allowed payout to at least two addresses | 17 of 20 |
+| Offered customisable output delays | 10 of 20 |
+| Advertised delay range | immediate to 168 hours (9 offered 8 hours or less, 8 offered more than 24 hours) |
+| Ran a clearnet domain | 19 of 20 |
+| Used a Cloudflare-style reverse proxy | 13 of 20 |
+| Ran a Tor onion service | 19 of 20 |
+| Issued a letter of guarantee or signed warranty | 15 of 20 |
+
+**Ecosystem noise.** The space is heavily cloned: lookalike domains and imitation Telegram channels built to steal deposits. Genuine services also run multiple domains for redundancy, so a second domain is not by itself evidence of a clone. Expect to spend real time deciding which instance you are looking at.
+
+**Anatomy of one service** (a clearweb and darkweb mixer that announced itself on Bitcointalk in August 2020, studied in detail across 22 sessions):
+
+- Up to 20 payout addresses per session. P2TR (`bc1p`) was not supported as of September 2024.
+- A session lives 72 hours and is keyed to a GUID.
+- Each payout address gets an auto-generated delay, increasing by 0 to 35 minutes for each consecutive address, and the customer can override it.
+- The customer receives a letter of guarantee listing the payout addresses, amounts, and delays.
+- Ten deposit addresses are issued per session: eight P2WPKH, one P2SH, one P2PKH, with P2WPKH presented as recommended.
+- Minimum payout is 0.0001 BTC. Anything below that is not used to pay a customer.
+- Deposited coins are held for 18 blocks before becoming available for another customer's withdrawal.
+- Marketing emphasised the absence of a Cloudflare-style proxy, on the argument that a US-based proxy terminates TLS and caches customer data.
+- Payouts came both from other customers' deposits (swapping) and from the service's own change addresses (self-funded), so a payout is not reliably another customer's coin.
+
+## When to use
+When scoping an investigation into a specific service, to know which techniques are even available. One payout address means value analysis is viable. A clearnet domain means an infrastructure route exists. A letter of guarantee means there is a signed artifact to collect from the victim or the suspect.
+
+## Avoid when
+This is a snapshot of a market that turns over fast through exit scams and seizures, and the survey rests on forum posts and the services' own marketing, which may be inaccurate. Treat the numbers as the shape of the market in 2025, and re-survey before relying on any individual claim.
+
+## Related
+[Types of Mixers and Tumblers](/kb/04-laundering-obfuscation/mixers/concept-types-of-mixers-and-tumblers), [Mixers and Tumblers](/kb/04-laundering-obfuscation/mixers/definition-mixers-and-tumblers), [Mixer Operators Are Identified Off-Chain](/kb/04-laundering-obfuscation/mixers/principle-mixer-operators-are-identified-off-chain), [Value-and-Block-Window Candidate Search](/kb/02-tracing/tactic-value-and-block-window-candidate-search), [Mixer-Operated Peel Chain Signatures](/kb/04-laundering-obfuscation/mixers/tactic-mixer-peel-chain-signatures), [Controlled Test Transactions as Ground Truth](/kb/06-casework-method/tactic-controlled-test-transactions-for-ground-truth), [Legal and Regulatory Landscape for Mixers](/kb/04-laundering-obfuscation/mixers/concept-mixer-legal-regulatory-landscape), [How Mixers Process Funds](/kb/04-laundering-obfuscation/mixers/workflow-how-mixers-process-funds)

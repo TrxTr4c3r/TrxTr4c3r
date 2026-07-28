@@ -1,0 +1,24 @@
+# Mixer Operators Are Identified Off-Chain
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`principle`</span>
+
+## Core idea
+In all three US prosecutions where law enforcement successfully identified the operator of a Bitcoin mixer, the identification came from outside the mixing transactions. Investigators ran test transactions in every case, and in no case did the test transactions lead to the operator. On chain work established the service's behaviour and the flow of funds. Infrastructure work established who was running it.
+
+## Components
+- **ChipMixer** (US v. Nguyen, E.D. Pa. 2023, the most technically detailed of the three): the FBI identified the IP address of one of the service's Tor onion service servers, traced the server, obtained user account details from it, and reached the operator from there. The mixing scheme itself (pre-funded "chips" in denominations from 0.001 BTC upward in powers of two, merged and split by the user) was designed so no link between incoming and outgoing transactions existed to find.
+- **Helix** (US v. Harmon, D.D.C. 2019): advertised concealment from law enforcement and partnered with the darknet market AlphaBay. The technical detail was never fully disclosed publicly, but the evidence points to identification from information external to the blockchain.
+- **Bitcoin Fog** (US v. Sterlingov, D.D.C. 2021): the administrator was identified by tracing the bitcoins used to pay for the hosting of bitcoinfog.com. Chain analysis did the work, but against an infrastructure payment rather than against the mixing operation.
+- **Clearnet exposure is the current soft spot.** A 2025 survey of 20 active services found 19 running a clearnet domain. That opens lawful interception of the traffic, imaging of the server, and, where a certificate authority can be compelled to release subscriber data and issue a new certificate, an interception position that links input to output addresses directly. Cloudflare-style reverse proxies (in use at 13 of the 20) terminate TLS away from the operator's server, which is a privacy problem for the service and an opportunity for an investigator.
+
+## When to use
+When scoping a case against a mixing service rather than against one of its customers. Budget the on chain effort for victim identification, the fund trace, and characterising the service. Budget the attribution effort for infrastructure: domains, hosting payments, certificates, onion service leaks, and forum operational security slips.
+
+## Avoid when
+This says nothing about tracing a mixer's customers, which is a different and often more tractable problem that chain analysis handles well. It is also a statement about three past prosecutions, not a law: a service that reuses addresses or pays its own bills carelessly can still be caught on chain, as Bitcoin Fog partly was.
+
+## Example
+Chain analysis of ChipMixer could describe exactly how chips were funded and split, and could never say who funded them. What ended the case was an IP address behind a Tor onion service. Any investigation plan that spends all its hours on the transaction graph and none on the infrastructure is planning to describe a crime rather than solve one.
+
+## Related
+Working with Law Enforcement, OSINT to On-Chain Pivots: Five Shapes, [Custodial Mixer Feature Landscape (2025 Survey)](/kb/04-laundering-obfuscation/mixers/reference-custodial-mixer-feature-landscape-2025), Mixers Reduce Visibility, Not Traceability, [Legal and Regulatory Landscape for Mixers](/kb/04-laundering-obfuscation/mixers/concept-mixer-legal-regulatory-landscape), [Controlled Test Transactions as Ground Truth](/kb/06-casework-method/tactic-controlled-test-transactions-for-ground-truth), [Crypto Address Attribution Process](/kb/03-attribution-clustering/workflow-crypto-address-attribution-process)

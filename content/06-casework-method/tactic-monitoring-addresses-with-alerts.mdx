@@ -1,0 +1,24 @@
+# Monitoring Addresses with Alerts
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+When you cannot freeze stolen funds, because they are still in an externally owned wallet or in a non-freezable asset, the next best move is to monitor the addresses and get alerted the moment they move, and to flag them so that if the funds ever reach a compliant exchange, that exchange is put on notice. Monitoring is both a short-horizon (minute-by-minute) and a long-horizon (weeks, months, or years) discipline, because illicit funds sometimes sit dormant for a long time before a cash-out attempt.
+
+## Components
+- Real-time alerts. Set alerts on the suspect addresses so you are notified within about a minute of any movement, then execute a prepared response (a freeze request, a fresh trace). This is the "Monitor" step of PI Response Priority.
+- Flagging and tagging for exchange notification. Report and label the addresses in the analytics and compliance ecosystem and with cooperating services, so a compliant exchange that later receives those funds can flag the deposit and act. The value compounds over time even when nothing is freezable today.
+- Long-horizon patience. Sophisticated actors often let funds age to reduce heat. A flag placed today can pay off when the funds finally move years later. The Bitfinex case is the canonical example: stolen funds sat for years before movement and eventual seizure.
+- Tooling. Address-watch alerts (explorer alerts, Whale Alert-style feeds, analytics-platform monitoring), plus stablecoin blacklist checks and live coordination channels (see the tooling catalogue: Whale Alert, MistTrack blacklist lookup, TRM Beacon Network, T3 Financial Crime Unit).
+
+## When to use
+The moment you conclude the funds cannot be frozen right now, either because they sit in an externally owned wallet or non-freezable asset, or because no exchange is involved yet. Also whenever a case goes cold: leave monitoring and flags running rather than closing them out.
+
+## Avoid when
+There is rarely a reason not to. Even on paused or cold cases, leaving alerts and flags in place is low cost and high option value.
+
+## Example
+Stolen ETH sits in an attacker's externally owned wallet with no exchange in sight, so you cannot freeze it. You set movement alerts and flag the cluster. Months later the funds move toward a compliant exchange; the alert fires, the flag is already visible to that exchange, and you convert monitoring into a freeze request in time.
+
+## Related
+PI Response Priority: Freeze, Monitor, Predict, OSINT, [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Freezable vs Non-Freezable Crypto Assets](/kb/06-casework-method/concept-freezable-vs-non-freezable-assets), [Time-Decay of Crypto Evidence](/kb/05-evidence-legal/caution-time-decay-of-crypto-evidence), Working with Law Enforcement: Capacity, Speed, and Cross-Sector Coalitions

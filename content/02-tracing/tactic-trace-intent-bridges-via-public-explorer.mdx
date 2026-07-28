@@ -1,0 +1,43 @@
+# Trace an Intent-Based Bridge (NEAR Intents) via Its Public Explorer
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+Intent-based bridges (NEAR Intents and similar solver / settlement layers) publish a PUBLIC explorer that
+maps every settlement back to its source. Given only the destination payout transaction, the explorer hands
+you the source chain, source asset and amount, the source-chain deposit tx, the destination withdraw tx, and
+the user's intent account. This collapses a probabilistic timing/amount guess into a deterministic in-to-out
+lookup. It matters because an intent swap changes BOTH asset and amount (e.g. 1 ZEC in, 0.257 ETH out), so
+timing/amount correlation cannot match it, but the explorer resolves it exactly.
+
+## When to use
+When a trace reaches an intent-bridge payout (for example an Arkham label like "NEAR Intents: Bridge Hot
+Wallet" paying your subject address) and you need the source side. Try this deterministic lookup before any
+probabilistic correlation or an RFI.
+
+## Components
+- Grab the destination settlement / withdraw tx (the payout into your subject).
+- Look it up on the NEAR Intents Explorer (explorer.near-intents.org, keyed by transaction) or the Range
+  cross-chain explorer (range.org). The Explorer API mirrors it but needs a JWT, so it is not usable headless.
+- Read off: From (source chain + asset + amount); the "deposited to" address is the BRIDGE's own deposit
+  address, NOT the source wallet, so do not chase it; the source-chain Deposit tx (its inputs are the closest
+  thing to a source); the Withdraw tx (destination payout); the Intent hash; and under "View All Swap Steps"
+  the user's intent account (a 64-hex NEAR implicit account).
+- GOTCHA 1, solver is not the suspect: the solver / market-maker (e.g. crux.near) sits on the counterparty
+  side of EVERY leg, receiving what the user spent and sending what the user got. Do not attribute it. The
+  user's account is the one that both spent the input asset and received the output asset.
+- GOTCHA 2, source chain is not identity: the explorer gets you to the source-chain deposit tx, but that tx
+  may itself be a privacy wall (e.g. a Zcash Orchard deshield), so the real sender can still be hidden.
+- The user's intent account is a durable identifier: enumerate its other intents, and use it as an RFI target
+  to the bridge operator (KYC / IP / full intent history).
+
+## Example
+CASE-2026-002 (Hinkal): 0.257 ETH arrived at the gas-funding hub from "NEAR Intents: Bridge Hot Wallet". The
+NEAR Intents explorer resolved that settlement to 1 ZEC swapped to ETH, Zcash deposit tx
+5ebdeab05fe38ec10fd7e9af31ebb59d033bbcdc2a8c1833f5bf23d8ac5868a9, intent hash 1SQyZo...RzAMVm, user intent
+account b943c608c4e60f0bbe51eb1cc9331e15940415e93d190eada4bbcacb01423b16; solver crux.near dismissed as a
+market-maker. The Zcash deposit turned out to be an Orchard shielded-pool deshield (a wall), so the explorer
+got us to the source chain but not to identity.
+
+## Related
+[Cross-Chain / Bridge & Swap Analysis](/kb/02-tracing/tactic-cross-chain-bridge-swap-analysis), [Service Choke-Points: What Each Service Type Can Give You](/kb/02-tracing/framework-service-choke-points-what-each-can-give-you), [Decoding a Cross-Chain Destination Address from Input Data](/kb/02-tracing/tactic-decode-cross-chain-destination-address), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), Identify a zk Shielded-Pool Withdrawal On-Chain, Privacy-Coin Conversion, [Monero is the Practical Ceiling of On-Chain Attribution](/kb/04-laundering-obfuscation/caution-monero-is-the-practical-ceiling-of-on-chain-attribution)

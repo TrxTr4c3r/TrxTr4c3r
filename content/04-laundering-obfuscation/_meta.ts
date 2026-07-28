@@ -19,6 +19,7 @@ export default {
   "concept-wash-trading": "Wash Trading (incl. NFTs)",
   "principle-single-indicator-is-a-lead-not-proof": "Single Indicator Is a Lead, Not Proof",
   "framework-breaking-obfuscation-five-part-strategy": "Breaking Obfuscation: Five-Part Strategy",
+  "framework-deposit-to-exit-flow-by-service-type": "Deposit-to-Exit Flow by Service Type: Where Funds Re-Emerge and How to Find Them",
   "framework-why-threat-actors-obfuscate-five-motivations": "Why Threat Actors Obfuscate: Five Motivations",
   "checklist-cross-chain-obfuscation-categories": "Cross-Chain Obfuscation Categories",
   "checklist-offchain-behavioral-red-flags": "Off-Chain Behavioral Red-Flag Checklist",

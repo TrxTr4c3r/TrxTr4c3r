@@ -1,0 +1,25 @@
+# Vendor Risk Scores Disagree, and a Mixer Lowers Them
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`</span>
+
+## Core idea
+A commercial risk score is one vendor's model output over one vendor's dataset, and two vendors run over the same addresses in the same trace will not agree. Researchers scored an identical set of addresses with two AML services and found material divergence: an address one service had blacklisted outright drew 26 percent from the other, and an intermediate address rated 73 percent at one vendor rated 30 percent at the other. Cite a score as what a named vendor said on a named date, never as a property of the address.
+
+## Components
+- **Divergence is the norm at the extremes.** The two services broadly agreed on low risk, unremarkable addresses and diverged sharply exactly where the case turns, on the addresses carrying the suspicious flow.
+- **Mixing lowers the score, which is the point of paying for it.** Funds sent into a mixer were rated 29 to 30 percent tainted. The payout addresses on the other side rated 16 to 25 percent. The trail was not cleaner, the model just lost it.
+- **Taint is inherited from strangers.** An input address picked up a high rating, and in one case a blacklisting, because other customers of the same service had fed it with proceeds from problematic sources. The score described the pool, not the depositor.
+- **Absence of a label is not absence of a service.** A pooling address sitting in 40 transactions and plainly operated by the mixer drew a low score with no owner attributed by either vendor.
+- **Where they do agree, they can be right.** Both services correctly identified the exchange used to buy the test coins, and both attributed a set of payout-funding addresses to the same exchange. Attribution of large, well known entities is the part of the product that holds up.
+
+## When to use
+Whenever a risk score is about to enter a report, a SAR, or a decision to escalate. Score with a second vendor, record both, and record the date.
+
+## Avoid when
+Do not build a conclusion on a single score, and do not treat a low downstream score as evidence funds are clean when a mixer sits between you and the origin. In evidence-facing work, name the vendor, the date, and the fact that the model is proprietary and unreplicable, which is the same exposure that drives Daubert challenges against commercial analytics.
+
+## Example
+An address rated 73 percent by one service and 30 percent by the other appeared in a fund trace. Reporting "the address is 73 percent tainted" would have been indefensible. Reporting "AMLBot returned 73 percent and Crystal Blockchain returned 30 percent for this address on this date, and the two models disagree" is accurate, survives cross examination, and tells the reader what the disagreement is worth.
+
+## Related
+[Taint Analysis (Taint Tracing)](/kb/02-tracing/tactic-taint-analysis), [Commercial Analytics & the Daubert Challenge](/kb/05-evidence-legal/caution-commercial-analytics-and-the-daubert-challenge), Separate On-Chain Fact from Inference, [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), Mixers Reduce Visibility, Not Traceability, Single Indicator Is a Lead, Not Proof, [Glass Box Attribution](/kb/05-evidence-legal/concept-glass-box-attribution)

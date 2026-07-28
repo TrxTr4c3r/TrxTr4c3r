@@ -6,7 +6,7 @@
 
 Jump to a section:
 
-[Blockchain](#blockchain-33-tools) · [Infrastructure](#infrastructure-20-tools) · [Email OSINT](#email-osint-7-tools) · [Username](#username-4-tools) · [Phone OSINT](#phone-osint-5-tools) · [Face Search](#face-search-4-tools) · [Image OSINT](#image-osint-7-tools) · [Geolocation](#geolocation-16-tools) · [Breach & Exposure](#breach--exposure-8-tools) · [Threat Intel](#threat-intel-10-tools) · [Documents & Metadata](#documents--metadata-8-tools) · [Social, Twitter/X](#social-twitterx-3-tools) · [Social, Telegram](#social-telegram-5-tools) · [Social, Discord](#social-discord-2-tools) · [Social, Reddit](#social-reddit-2-tools) · [Social, Instagram/TikTok](#social-instagramtiktok-2-tools) · [Social, Meta](#social-meta-1-tools) · [Social, LinkedIn](#social-linkedin-1-tools) · [Social, General](#social-general-3-tools) · [Darknet](#darknet-4-tools) · [Corporate & Records](#corporate--records-6-tools) · [Search & Dorking](#search--dorking-8-tools) · [Investigator Toolkit](#investigator-toolkit-11-tools) · [Additional Tracing & Attribution Platforms](#additional-tracing--attribution-platforms) · [Cross-Chain Bridge Explorers](#cross-chain-bridge-explorers) · [Instant-Swap / Instant-Exchange Services](#instant-swap--instant-exchange-services) · [Additional Infrastructure & Domain OSINT](#additional-infrastructure--domain-osint) · [Scam & Phishing Databases](#scam--phishing-databases) · [Case Documentation](#case-documentation) · [Freezing, Blacklisting & Recovery](#freezing-blacklisting--recovery) · [The three-piece investigator workflow (framing)](#the-three-piece-investigator-workflow-framing) · [Bridge & cross-chain explorers / utilities](#bridge--cross-chain-explorers--utilities) · [Tracing / case tooling](#tracing--case-tooling) · [Email / domain OSINT](#email--domain-osint)
+[Blockchain](#blockchain-33-tools) · [Infrastructure](#infrastructure-20-tools) · [Email OSINT](#email-osint-7-tools) · [Username](#username-4-tools) · [Phone OSINT](#phone-osint-5-tools) · [Face Search](#face-search-4-tools) · [Image OSINT](#image-osint-7-tools) · [Geolocation](#geolocation-16-tools) · [Breach & Exposure](#breach--exposure-8-tools) · [Threat Intel](#threat-intel-10-tools) · [Documents & Metadata](#documents--metadata-8-tools) · [Social, Twitter/X](#social-twitterx-3-tools) · [Social, Telegram](#social-telegram-5-tools) · [Social, Discord](#social-discord-2-tools) · [Social, Reddit](#social-reddit-2-tools) · [Social, Instagram/TikTok](#social-instagramtiktok-2-tools) · [Social, Meta](#social-meta-1-tools) · [Social, LinkedIn](#social-linkedin-1-tools) · [Social, General](#social-general-3-tools) · [Darknet](#darknet-4-tools) · [Corporate & Records](#corporate--records-6-tools) · [Search & Dorking](#search--dorking-8-tools) · [Investigator Toolkit](#investigator-toolkit-11-tools) · [Additional Tracing & Attribution Platforms](#additional-tracing--attribution-platforms) · [Cross-Chain Bridge Explorers](#cross-chain-bridge-explorers) · [Instant-Swap / Instant-Exchange Services](#instant-swap--instant-exchange-services) · [Additional Infrastructure & Domain OSINT](#additional-infrastructure--domain-osint) · [Scam & Phishing Databases](#scam--phishing-databases) · [Case Documentation](#case-documentation) · [Freezing, Blacklisting & Recovery](#freezing-blacklisting--recovery) · [Law Enforcement Liaison & Cross-Sector Coalitions](#law-enforcement-liaison--cross-sector-coalitions) · [The three-piece investigator workflow (framing)](#the-three-piece-investigator-workflow-framing) · [Bridge & cross-chain explorers / utilities](#bridge--cross-chain-explorers--utilities) · [Tracing / case tooling](#tracing--case-tooling) · [Email / domain OSINT](#email--domain-osint) · [Corporate Registries by Country (Europe)](#corporate-registries-by-country-europe) · [OSINT Handbooks, Guides & Curated Stacks](#osint-handbooks-guides--curated-stacks) · [Self-hosted chain analysis (build your own graph)](#self-hosted-chain-analysis-build-your-own-graph) · [Address risk, attribution & community reports](#address-risk-attribution--community-reports) · [CoinJoin coordinator discovery](#coinjoin-coordinator-discovery)
 
 A curated, field-tested directory of open-source intelligence tools for crypto forensics, digital investigations, and threat hunting. Catalogue version v2026.05; 170 tools across 23 categories (all entries verified 2026-05 unless a note says otherwise).
 
@@ -318,6 +318,7 @@ OPSEC legend: **Safe** = low exposure; **Caution** = the tool transmits/logs you
 | Tool | What it does | Access | Website | Notes |
 |---|---|---|---|---|
 | Range Cross-Chain Explorer | Single view across many bridges | freemium | range.org | Stitch a source-chain tx to its destination leg |
+| NEAR Intents Explorer | Intent/solver bridge explorer (31+ chains) | free web; API needs JWT | explorer.near-intents.org | Keyed by settlement tx; resolves source chain/asset + deposit tx + user intent account. Solver acct is NOT the suspect |
 | Bridge Explorer (unbridge) | Free multi-bridge correlation | free | unbridge.xyz | |
 | Wormholescan | Wormhole bridge explorer | free | wormholescan.io | |
 | LayerZeroScan | LayerZero messaging explorer | free | layerzeroscan.com | |
@@ -386,9 +387,19 @@ OPSEC legend: **Safe** = low exposure; **Caution** = the tool transmits/logs you
 | Exchange LE portals | Dedicated law-enforcement request channels at major exchanges | verified LE |, | Learn each exchange's "front door" |
 | MistTrack stablecoin blacklist lookup | Check whether an address is already frozen/blacklisted | free | misttrack.io | Quick pre-check before chasing |
 | Deconflict | Tells you whether another agency is already working the wallet/case | verified LE only | deconflict.com | Avoids duplicated effort / colliding with a live op |
-| Kodex | Secure, auditable data requests from agencies to exchanges/institutions | verified LE / institutions | kodexglobal.com | |
+| Kodex | Secure, auditable data requests from agencies to exchanges/institutions; verifies LE-agent identity against a global network (roughly 15k agencies, 140k+ agents, 190 countries) to block fraudulent requests | verified LE / institutions | kodexglobal.com | Founded 2020 by former FBI agent Matt Donahue; used by major exchanges (Coinbase, Crypto.com). Also under "Law Enforcement Liaison & Cross-Sector Coalitions" below. Verified 2026-07-12 |
 | Asset Reality | Specialist asset recovery & management | firm | assetreality.com | Recovery-side |
 | DigitalMint | Recovery / ransom-settlement services | firm | digitalmint.io | Recovery-side |
+
+## Law Enforcement Liaison & Cross-Sector Coalitions
+
+*Bodies and channels that connect investigators, the private sector, and law enforcement to share intelligence, make warm introductions, deconflict, and route requests. See "Working with Law Enforcement: Capacity, Speed, and Cross-Sector Coalitions" (05-evidence-legal). Kodex, Deconflict, and T3 FCU also appear under "Freezing, Blacklisting & Recovery" above.*
+
+| Org / Channel | What it is | Access | Website | Notes |
+|---|---|---|---|---|
+| Operation Shamrock | Nonprofit coalition uniting law enforcement, industry, and the public to disrupt pig-butchering scams; founded by former Santa Clara DDA Erin West. Runs the "Crypto Coalition", a 2,400+ member network of local/state/federal/international partners sharing crypto crime-fighting technique | free / membership (Coalition is verified LE) | operationshamrock.org | Verified 2026-07-12 |
+| IAFCI | International Association of Financial Crimes Investigators. 501(c)(6) global body of public and private financial-crime, fraud, cyber, and LE professionals; intelligence exchange, chapters, conferences, and certifications. Lineage: ACCI 1968, IACCI 1974, renamed IAFCI 1996 | membership | iafci.org | Verified 2026-07-12 |
+| Kodex | Verified LE-to-institution request channel (see "Freezing, Blacklisting & Recovery" above) | verified LE / institutions | kodexglobal.com | Cross-listed |
 
 ## The three-piece investigator workflow (framing)
 
@@ -425,5 +436,98 @@ Every investigation breaks into three pieces (per the stack article):
 | MXToolbox | Email header analysis; SPF/DKIM/DMARC checks; return-path vs sender for spoof detection | freemium | mxtoolbox.com | Paste a raw email header to expose routing and spoofing |
 | Whoxy | WHOIS lookup plus reverse/historical WHOIS for registrant-email pivots | freemium | whoxy.com | Registrant data is privacy/GDPR-limited in many regions |
 
+# Additions from OSINT Excellence Cheat-Sheet Collection (Alex Lozano / cibergy), ingested 2026-07-12
+
+*Source: "OSINT Excellence - Cheat Sheet Collection" (Alex Lozano, cibergy.com / osintexcellence.org). Most of the collection duplicated notes and tools already here and was discarded; the genuinely additive, non-duplicative resources are the country-level corporate registries below and the OSINT handbooks/curated stacks. Every URL was link-checked 2026-07-12: `200` = live; `403` = live but bot-protected (open in a real browser); egrul/bizstats block automated checks entirely but are confirmed real (see notes). Lighter schema (no OPSEC/Skill ratings). Registries marked "official" are government/court sources; the rest are commercial aggregators. Confirm the current URL before relying on any entry.*
+
+## Corporate Registries by Country (Europe)
+
+*For FININT / due-diligence / entity-attribution work: following fiat off-ramps, shell companies, directors, and beneficial owners behind a crypto case. Complements the cross-jurisdiction sources in "Corporate & Records" above (OpenCorporates, GLEIF, ICIJ Offshore Leaks). OpenCorporates and North Data both span multiple countries and are listed once.*
+
+| Country | Registry / resource | What it is | Website | Notes |
+|---|---|---|---|---|
+| Germany | Handelsregister | Official German commercial register | handelsregister.de | Court-operated; the primary DE source |
+| Germany | Bundesanzeiger | Federal Gazette, official company financial filings | bundesanzeiger.de | Where DE annual accounts are published |
+| Germany | Unternehmensregister | Official consolidated company-register portal | unternehmensregister.de | Single entry point across DE registers |
+| Germany | Creditreform (Firmeneintrag) | Commercial credit / company data | firmeneintrag.creditreform.de | 403 to bots; opens in a browser |
+| DE/EU | North Data | Commercial company-data aggregator (DE + wider EU) | northdata.de | Cross-jurisdiction; strong ownership graphs |
+| UK | Companies House | Official UK company registry + full filing history | find-and-update.company-information.service.gov.uk | Also in "Corporate & Records" above |
+| UK | The Gazette | Official public record (insolvency/statutory notices) | thegazette.co.uk | Official |
+| UK | Company Check | Commercial UK company & director data | companycheck.co.uk | |
+| UK | BizStats | Free UK company info (Open Government Licence data) | www.bizstats.co.uk | Blocks automated checks; confirmed live via search |
+| France | Infogreffe | Official registry of the French commercial courts | infogreffe.fr | Official |
+| France | BODACC | Official bulletin of civil & commercial announcements | bodacc.fr | Official |
+| France | Pappers | Free/freemium FR company data | pappers.fr | Good free tier |
+| France | Societe.com | Commercial FR company data | societe.com | |
+| France | Verif | Commercial FR company data | verif.com | |
+| Italy | Registro delle Imprese | Official Italian business register | registroimprese.it | Official |
+| Italy | InfoCamere | Chambers-of-commerce registry operator | infocamere.it | Runs the IT register infrastructure |
+| Italy | Empresite | Commercial IT company directory | empresite.it | |
+| Italy | Pagine Gialle | Business directory (yellow pages) | paginegialle.it | Directory, not a legal register |
+| Russia | EGRUL (Federal Tax Service) | Official unified state register of legal entities | egrul.nalog.ru | Official; typically geo-restricted to RU IPs |
+| Russia | Rusprofile | Company-data aggregator | rusprofile.ru | 403 to bots; opens in a browser |
+| Russia | Zachestnyi Biznes | Company-data aggregator | zachestnyibiznes.ru | 403 to bots; opens in a browser |
+| Russia | List-Org | Company directory | list-org.com | |
+| Russia | Kontur Focus | Commercial due-diligence platform | focus.kontur.ru | 403 to bots; opens in a browser |
+| Spain | Registro Mercantil Central | Official central commercial registry | rmc.es | Official |
+| Spain | BORME (via BOE) | Official Mercantile Registry gazette | boe.es | Official |
+| Spain | Librebor | Free access to BORME filings | librebor.me | Free BORME mirror |
+| Spain | Axesor | Commercial company / credit data | axesor.es | |
+| Spain | Datoscif | Company financial data | datoscif.es | |
+| Netherlands | KvK | Official Dutch Chamber of Commerce business register | kvk.nl | Official |
+| Netherlands | OpenKvK | Open access to KvK data | openkvk.nl | |
+| Netherlands | Drimble | Public-records / company-info aggregator | drimble.nl | |
+| Netherlands | DNB public register | De Nederlandsche Bank register of licensed financial institutions | dnb.nl/en/public-register | Official; NB this is the central bank (not Dun & Bradstreet) |
+| Global | Dun & Bradstreet | Global business-data / DUNS | dnb.com | 403 to bots; distinct from dnb.nl above |
+| Switzerland | Zefix | Official central business-name index | zefix.ch | Official |
+| Switzerland | SHAB | Swiss Official Gazette of Commerce | shab.ch | Official |
+| Switzerland | Moneyhouse | Commercial CH company data | moneyhouse.ch | |
+| Switzerland | SIX Swiss Exchange | Listed-company disclosures | six-group.com | For listed entities |
+| Switzerland | Swissreg | Official trademark / patent register (IP, not companies) | swissreg.ch | IP register, use for brand/IP links, not company filings |
+
+## OSINT Handbooks, Guides & Curated Stacks
+
+*Free reference / learning resources. Verified 2026-07-12.*
+
+| Resource | What it is | Access | Website | Notes |
+|---|---|---|---|---|
+| Toddington OSINT cheat sheets | Free library of OSINT cheat sheets & resources | free | toddington.com/resources/cheat-sheets/ | OCR in the source mangled this as "toddinton", corrected |
+| AJMI Open Source Investigation Handbook | Al Jazeera Media Institute OSINT handbook (EN/AR) | free | institute.aljazeera.net/en/node/2111 | Ethics, geolocation, ships/planes, satellite, corporate ownership |
+| Blackdot Solutions, The OSINT Handbook | Vendor OSINT handbook | free (email gate) | blackdotsolutions.com/the-osint-handbook | Anti-Financial-Crime edition is more crypto-relevant: blackdotsolutions.com/osint-handbook-for-afc |
+| Recorded Future, The Intelligence Handbook (4th ed.) | 198-page intelligence-led security program guide | free (email gate) | go.recordedfuture.com/the-intelligence-handbook-fourth-edition | Includes fraud/identity/attack-surface intel chapters |
+| OSINT Handbook (osinthandbook.com) | Independent OSINT reference site | free | osinthandbook.com | |
+| OSINT Combine, OSINT Bookmark Stack | Curated importable browser bookmark set of OSINT tools | free | osintcombine.com/free-osint-tools/osint-bookmark-stack | |
+| OSINT Combine, Dark Web Bookmark Stack | Curated dark-web research bookmark set | free | osintcombine.com/free-osint-tools/darkweb-bookmark-stack | Pair with the Darknet tools above |
+
+# Additions from DFRWS EU 2025 mixer research, ingested 2026-07-28
+
+*Sources: Zavrel et al., "Tumbling down the stairs" (FSI:DI 52 (2025) 301869) and Tippe & Deckers, "Unmixing the mix" (FSI:DI 52 (2025) 301876). Tooling used to build and query a local Bitcoin transaction graph, plus the attribution and reporting sites the two teams pivoted through. Lighter schema (no OPSEC/Skill ratings). Bitcoin Core, Mempool.space, Crystal Intelligence, and Chainabuse already appear above; only the additive detail is recorded here.*
+
+## Self-hosted chain analysis (build your own graph)
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| Neo4j | Graph database; import the Bitcoin chain as blocks, transactions, and addresses, then query it in Cypher | freemium / self-host | neo4j.com | The 2025 study imported 2 billion+ nodes. Bulk import is far faster than per-transaction inserts. Shortest-path queries surface links that a visual graph hides |
+| btc-csv (Sommer, 2019) | Extracts raw Bitcoin blockchain data into CSV shaped for Neo4j bulk import | free | files.ifi.uzh.ch (UZH thesis) | Address decoder library is stale (2020) and cannot parse Taproot; the authors had to patch it. Budget time for that |
+| BlockSci | Open-source blockchain analysis platform (Kalodner et al., USENIX Security 2020) | free | github.com/citp/BlockSci | Unmaintained since 2020; rejected by the 2025 study for that reason. Still the reference implementation to read |
+| Bitcoin Core | Full node; the primary source of raw chain data and of forward/backward input-output links | free | bitcoincore.org | Paired with mempool.space in the fingerprinting study |
+| transactionfee.info | Charts of Bitcoin transaction statistics, including the share of 1-input/2-output transactions | free | transactionfee.info | Source of the "roughly 75 percent of transactions are `<1:2>`" baseline |
+
+## Address risk, attribution & community reports
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| AMLBot | Address risk scoring and taint percentage for BTC and other chains | freemium | amlbot.com | Used as the cross-check against Crystal. Does not publish its data sources or methodology. See "Vendor Risk Scores Disagree, and a Mixer Lowers Them" |
+| Crystal Blockchain / Crystal Intelligence | Institutional analytics with taint scoring and entity attribution | freemium / enterprise | crystalintelligence.com | Also listed under Additional Tracing & Attribution Platforms above. Free tier ran to 15 checks per day as of the 2025 study |
+| TokenScope | Address attribution and OSINT lookups on BTC addresses | free / freemium | tokenscope.com | Used to attribute peel-chain inputs to a named darknet market |
+| CheckBitcoinAddress | Community-reported scam and ransomware reports tied to BTC addresses | free | checkbitcoinaddress.com | Cross-reference identified customer payout addresses against public reports |
+
+## CoinJoin coordinator discovery
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| Wasabist | Public directory of active Wasabi CoinJoin coordinators | free | wasabist.io | Wasabi shut its own coordinator in 2024, so activity moved to third-party coordinators. This is where you find who is running them now |
+| Kukks coordinator list (nostr) | Alternative published list of Wasabi coordinators | free | github.com/Kukks/wasabinostr | Same purpose as Wasabist; different set |
+
 ## Related
-Use a Suite of Tools, Not One, PI Response Priority: Freeze, Monitor, Predict, OSINT, [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Decoding a Cross-Chain Destination Address from Input Data](/kb/02-tracing/tactic-decode-cross-chain-destination-address), [Obsidian Case-Management Workflow](/kb/06-casework-method/tactic-obsidian-case-management-workflow)
+Use a Suite of Tools, Not One, PI Response Priority: Freeze, Monitor, Predict, OSINT, [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Decoding a Cross-Chain Destination Address from Input Data](/kb/02-tracing/tactic-decode-cross-chain-destination-address), [Obsidian Case-Management Workflow](/kb/06-casework-method/tactic-obsidian-case-management-workflow), [Intelligence Discipline Taxonomy](/kb/01-osint/definition-intelligence-discipline-taxonomy), Working with Law Enforcement: Capacity, Speed, and Cross-Sector Coalitions, [Monitoring Addresses with Alerts](/kb/06-casework-method/tactic-monitoring-addresses-with-alerts)

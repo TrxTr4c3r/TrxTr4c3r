@@ -1,6 +1,7 @@
 export default {
   "index": "Overview",
   "concept-passive-vs-active-osint": "Passive vs Active OSINT",
+  "definition-intelligence-discipline-taxonomy": "Intelligence Discipline Taxonomy",
   "definition-what-osint-is": "What OSINT Is",
   "principle-osint-paints-the-jigsaw": "OSINT Paints the Picture on the Transaction Jigsaw",
   "framework-osint-to-on-chain-pivots-five-shapes": "OSINT-to-On-Chain Pivots: Five Shapes",

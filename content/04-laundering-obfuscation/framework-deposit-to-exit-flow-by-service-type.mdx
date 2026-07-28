@@ -1,0 +1,72 @@
+# Deposit-to-Exit Flow by Service Type: Where Funds Re-Emerge and How to Find Them
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+When funds enter an intermediary service, whether you can follow them out on-chain depends on ONE property:
+does the service deliver the funds to a **new address unlinked from the deposit** (the trail BREAKS on-chain),
+or to an **address the user specified inside the transaction** (the trail CONTINUES on-chain)? Two corrections
+this note exists to fix: (1) a mixer's **deposit wallet is NOT where the money re-emerges**, it comes out at a
+fresh, unlinked wallet; (2) **"same address, different chain" is a BRIDGE property, not a mixer property**, a
+mixer normally pays out on the SAME chain to a DIFFERENT wallet.
+
+## Components
+
+**1. Decentralized mixer, e.g. Tornado Cash (TRAIL BREAKS)**
+- Deposit address: attacker wallet A sends a fixed denomination (e.g. 100 ETH) to the pool contract.
+- Where it goes from there: locked in the **pool contract**, pooled with everyone else's same-denomination
+  deposits; no operator can move it; it leaves only when a valid zk proof is submitted.
+- Where it ends up: a **fresh wallet B the attacker controls**: SAME chain, NO on-chain link back to A.
+- How to find the exit address: no followable edge. Enumerate the pool's withdrawals **filtered by
+  denomination**, then correlate on **timing + relayer + gas + address-reuse convergence**. Result is
+  `#probable` at best (a probabilistic demix, not a cryptographic break).
+
+**2. Cross-chain bridge (TRAIL CONTINUES)**
+- Deposit address: wallet A sends to the **bridge contract** on chain A; the call encodes a destination
+  address + destination chain.
+- Where it goes from there: the bridge **locks/holds (or burns)** the funds on chain A.
+- Where it ends up: the bridge **mints/releases** the equivalent on chain B to the specified destination -
+  **often the SAME address on chain B**, sometimes a different one.
+- How to find the exit address: **decode it from the deposit tx**: "decode input data" + logs for the
+  `recipient` field and destination chain ID; resolve the ID at chainlist.org; convert address format if
+  needed; verify by matching **value + timing** on chain B.
+
+**3. DEX / protocol swap, e.g. THORChain (TRAIL CONTINUES)**
+- Deposit address: wallet A sends token X into the router/pool/vault (THORChain: a vault with a **memo**
+  encoding the destination).
+- Where it goes from there: swapped **atomically inside the protocol** in the same tx; the router does not
+  retain custody.
+- Where it ends up: output token Y (THORChain: native asset on another chain) to the **recipient named in the
+  swap/memo**, same or another chain.
+- How to find the exit address: **read the emitted `Swap` events / decode the memo**; follow the output token
+  to the recipient.
+
+**4. Centralized service, CEX or centralized mixer (TRAIL BREAKS)**
+- Deposit address: wallet A sends to a **service-assigned deposit address**; custody transfers to the service.
+- Where it goes from there: swept into the service's **hot/omnibus wallet**; on-chain it is commingled, and
+  the real accounting lives on the service's **internal off-chain ledger**.
+- Where it ends up: on withdrawal the service pays out from its hot wallet to **any address the customer
+  requests**, no on-chain link between deposit and withdrawal.
+- How to find the exit address: **not on-chain**: the link is in the service's **KYC records**; requires a
+  **subpoena / VASP disclosure request**. On-chain you see only "→ into the exchange hot wallet."
+
+**Grouped by outcome**
+- TRAIL BREAKS (funds re-emerge at a new, unlinked address): **mixers + centralized services** → demix
+  probabilistically (denomination + timing + reuse) or go off-chain (subpoena).
+- TRAIL CONTINUES (destination is written into the transaction): **bridges + DEX/protocol swaps** → decode
+  the destination and verify.
+
+## When to use
+When funds hit any intermediary service and you must decide whether to keep tracing forward on-chain or switch
+to demix/subpoena. Also the antidote to two common mistakes: looking at the **mixer deposit wallet** for the
+exit money, and looking on only **one chain**, a single `0x` address exists on every EVM chain, so a bridge
+exit "on the same address" hides on whichever chain you didn't check.
+
+## Example
+CASE-2026-002 (Hinkal): ~400 ETH went into Tornado's 10/100 ETH pools; the exit (~410 ETH on a fresh wallet)
+was found only by denomination + timing + reuse convergence (`#probable`), never by following the deposit
+wallet. Contrast the same case's THORChain/bridge leg, where the destination could be read straight out of the
+deposit transaction and confirmed by value + timing.
+
+## Related
+[How Mixers Process Funds](/kb/04-laundering-obfuscation/mixers/workflow-how-mixers-process-funds), [Types of Mixers and Tumblers](/kb/04-laundering-obfuscation/mixers/concept-types-of-mixers-and-tumblers), Filter Mixer Withdrawals by Denomination Not USD, Identify a zk Shielded-Pool Withdrawal On-Chain, [Decoding a Cross-Chain Destination Address from Input Data](/kb/02-tracing/tactic-decode-cross-chain-destination-address), [Cross-Chain Obfuscation Categories](/kb/04-laundering-obfuscation/checklist-cross-chain-obfuscation-categories), [EVM Multi-Chain Tracing Essentials](/kb/02-tracing/checklist-evm-multi-chain-tracing-essentials), [Chain Hopping / Cross-Chain Bridging](/kb/04-laundering-obfuscation/concept-chain-hopping), Breaking Obfuscation Five-Part Strategy

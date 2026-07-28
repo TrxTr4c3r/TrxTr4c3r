@@ -1,0 +1,31 @@
+# Crypto Crime Typology Catalogue
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+A recognition index of the common predicate crimes behind a crypto case, each with how it starts and how it tends to cash out. Use it at intake to classify the incident, so you can predict off-ramp behaviour and hunt for linked victims (see Identify the Predicate Typology First). This catalogues the origin of the funds, not how they are laundered afterward. For the movement shapes that come next, see On-Chain Laundering Pattern Catalogue.
+
+## Components
+Each entry: what it is, the typical initial vector, the typical cash-out or next step, and the key artifact to collect.
+
+- Pig butchering (investment / romance scam). Long-con social engineering on a fake investment or relationship; the victim sends crypto to a "platform" wallet. Cash-out: consolidation into mule and collector wallets, then regional off-ramps or OTC. Artifacts: chat logs, the fake platform domain, the deposit address.
+- Approval phishing. The victim is tricked into signing an ERC-20 or ERC-721 approval to a malicious spender; the attacker drains the tokens afterward. Cash-out: sweep to a collector, then DEX swap or mixer. Artifacts: the approval transaction, the malicious spender contract (see ERC-20 Approvals: The Forgotten Attack Surface).
+- Wallet drainer (drainer kit). A malicious dapp or signature, often kit-based (Inferno, Angel, Pink, and similar), empties the wallet on connect or sign. Cash-out: the kit's dev and collector infrastructure, then preferred exchanges. Artifacts: the drainer signature or method, the dev-to-main flow (see Drainer-Kit & Known-Actor Pattern Recognition).
+- Malware / clipper / infostealer. Malware steals seed phrases or keys, or a clipper silently swaps the copied destination address. Cash-out: direct sweep of whole balances. Artifacts: infected-host indicators, stealer logs, the substituted address.
+- Seed-phrase / key compromise. A phishing site, fake support agent, or leaked backup hands over the keys; the attacker imports the wallet and drains it. Cash-out: full-balance sweep. Artifacts: the point of leak, the first attacker-controlled hop.
+- Address poisoning. The attacker seeds the victim's transaction history with a look-alike address, hoping a future send goes to them by mistake. Cash-out: a one-off mistaken transfer. Artifacts: the poisoning transaction, the look-alike address.
+- Rug pull / exit scam. A project raises funds then pulls liquidity or absconds. Cash-out: LP removal, distribution to team wallets, then mixers. Artifacts: the contract, the liquidity events, the team wallets.
+- Ransomware / extortion. Payment is demanded for decryption or non-release. Cash-out: consolidation, mixers, high-risk exchanges. Artifacts: the ransom note, the payment address.
+- SIM swap / account takeover. The attacker seizes a phone or account to bypass 2FA, then withdraws from an exchange or wallet. Cash-out: withdrawal to an attacker wallet, then off-ramp. Artifacts: carrier records, exchange withdrawal logs.
+- Fake exchange / withdrawal-block scam. The victim "invests" on a fake exchange that then blocks withdrawals (often overlaps pig butchering). Cash-out: deposits to operator wallets. Artifacts: the platform domain, the deposit address.
+
+Quick map (typology to expected cash-out): pig butchering to consolidation plus regional off-ramp or OTC; approval phishing and drainers to a kit collector plus DEX or mixer plus known exchanges; malware and key theft to an immediate full sweep; ransomware to mixer plus high-risk exchange; rug pull to LP pull plus team wallets.
+
+## When to use
+At intake, to classify the incident and set your tracing expectations before committing to an approach.
+
+## Example
+A victim reports that their tokens vanished right after they connected to a mint site. That is a wallet drainer, so you look for the malicious signature and the kit's collector address, and you expect co-victims funnelling into the same collector.
+
+## Related
+[Identify the Predicate Typology First](/kb/06-casework-method/principle-identify-predicate-typology-first), [On-Chain Laundering Pattern Catalogue](/kb/04-laundering-obfuscation/checklist-onchain-laundering-pattern-catalogue), [Drainer-Kit & Known-Actor Pattern Recognition](/kb/04-laundering-obfuscation/concept-drainer-kit-and-known-actor-pattern-recognition), ERC-20 Approvals: The Forgotten Attack Surface, [Intake Triage Checklist](/kb/06-casework-method/checklist-intake-triage-checklist), Off-Chain Behavioral Red Flags

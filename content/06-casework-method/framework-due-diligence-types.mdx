@@ -1,0 +1,24 @@
+# Types of Due Diligence
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+"Due diligence" is not one thing, it is a family of investigative engagements distinguished by *what* is being vetted and *why*. Naming the type up front scopes the work: it fixes the subject (a person, a company, a deal, a counterparty), the risk being assessed, and the depth required. All of them lean on the same OSINT / FININT sources (registries, sanctions and watchlists, media, legal filings, and increasingly on-chain data); they differ in framing, not tooling.
+
+## Components
+- Customer Due Diligence (CDD): Verifying a customer's identity and assessing their money-laundering, terrorist-financing, and fraud risk. This is the KYC/AML variant and the one most directly relevant to crypto: onboarding checks at a VASP, enhanced due diligence (EDD) for high-risk clients, and ongoing monitoring. See "Crypto Investigation Acronyms & Bodies".
+- Third-Party / Vendor Due Diligence: Assessing vendors, suppliers, and partners for financial stability, sanctions exposure, litigation history, ownership, and reputational risk before or during a relationship.
+- Strategic Due Diligence: Comprehensive M&A assessment of a target company's strategic fit, value, and risks before an acquisition or merger.
+- Management Due Diligence (MDD): Evaluating the capability, track record, and integrity of a target's management team (common in M&A, investments, and partnerships).
+- Employee Due Diligence: Background verification of a candidate's or employee's identity, qualifications, and suitability for a role.
+- Investment Due Diligence: Evaluating an investment opportunity against the investor's goals, risk tolerance, and expected returns (in crypto, this extends to vetting a project's team, contracts, and on-chain history).
+- ESG Due Diligence: Assessing environmental, social, and governance factors: sustainability practices, ethical impact, and related risks.
+
+## When to use
+At intake / scoping, to name the engagement type and set depth. A crypto-forensics analyst most often runs CDD/EDD (onboarding and monitoring) and third-party due diligence (counterparty and VASP risk); the M&A / management / employee / investment / ESG variants recur in corporate-investigations and compliance work.
+
+## Example
+A firm about to pay a new crypto vendor runs third-party due diligence: corporate registry lookup for ownership and directors (see the country-level registries in the tool catalogue), OpenSanctions / OFAC screening of the entity and its principals, adverse-media search, and on-chain screening of the payment address for exposure to sanctioned or illicit clusters, the same evidence chain as an attribution case, framed as risk clearance rather than investigation.
+
+## Related
+[Five Investigation Goal Types](/kb/06-casework-method/framework-five-investigation-goal-types), [Six Core Investigation Questions](/kb/06-casework-method/framework-six-core-investigation-questions), [Crypto Investigation Acronyms & Bodies](/kb/00-fundamentals/definition-crypto-investigation-acronyms), [Intelligence Discipline Taxonomy](/kb/01-osint/definition-intelligence-discipline-taxonomy), [Sanctions Screening a Bitcoin Cluster](/kb/06-casework-method/checklist-sanctions-screening-a-bitcoin-cluster), [OSINT Investigator's Toolkit - Full Tool Catalogue](/kb/07-tooling/osint-investigators-toolkit-catalogue)

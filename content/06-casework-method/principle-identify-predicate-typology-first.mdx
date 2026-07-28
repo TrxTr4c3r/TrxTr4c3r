@@ -1,0 +1,24 @@
+# Identify the Predicate Typology First
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`principle`</span>
+
+## Core idea
+Before you start tracing, work out what the underlying crime actually was: pig butchering, approval phishing, a wallet drainer, malware, and so on. The predicate typology is not just a label. It shapes the whole investigation: it predicts how the criminals will try to cash out, tells you which patterns and infrastructure to expect, and points to other victims and connections that can strengthen the case. Tracing the funds is only one part of an investigation; understanding why the theft happened is what makes the trace useful.
+
+## Components
+- Typology predicts cash-out. Different crimes carry different laundering and off-ramp habits. A drainer crew reusing a kit leaves recognizable routing and preferred exchanges; a pig-butchering operation funnels to consolidation wallets and regional off-ramps or OTC; a ransomware actor behaves differently again. Knowing the type narrows where to watch (see Drainer-Kit & Known-Actor Pattern Recognition).
+- Typology surfaces other victims. Most predicate crimes are one-to-many. A single drainer contract, scam domain, or consolidation wallet ties your victim to many others. Pivoting on the typology's shared infrastructure (contracts, domains, deposit addresses) discovers linked victims, and their reports add funds, evidence, and weight to the case.
+- Typology sets expectations and method. It tells you which artifacts should exist to collect: an approval transaction for phishing, a malicious signature for a drainer, off-chain chat logs and a fake platform for pig butchering, and which choke points will matter downstream.
+- Do it at intake. Classifying the predicate is an intake and scoping step, not an afterthought. Get the victim's account straight enough to classify the crime before you commit to a tracing approach (see Intake Triage Checklist, Six Core Investigation Questions).
+
+## When to use
+At intake, on any theft or fraud case, before choosing a tracing strategy.
+
+## Avoid when
+Never skip it, but do not let an early guess harden into tunnel vision. Treat the typology as a working hypothesis and revise it if the on-chain evidence contradicts the story (see A Single Indicator Is a Lead, Not Proof).
+
+## Example
+Classifying an incident as approval phishing rather than a seed-phrase theft tells you to look for an ERC-20 approval to a malicious spender, predicts a drainer-style sweep to a collector address, and lets you pivot on that collector to find dozens of co-victims, none of which you would have looked for if you had treated it as a one-off wallet compromise.
+
+## Related
+[Crypto Crime Typology Catalogue](/kb/06-casework-method/checklist-crypto-crime-typology-catalogue), [Drainer-Kit & Known-Actor Pattern Recognition](/kb/04-laundering-obfuscation/concept-drainer-kit-and-known-actor-pattern-recognition), ERC-20 Approvals: The Forgotten Attack Surface, [Intake Triage Checklist](/kb/06-casework-method/checklist-intake-triage-checklist), [Six Core Investigation Questions](/kb/06-casework-method/framework-six-core-investigation-questions), A Single Indicator Is a Lead, Not Proof, Working with Law Enforcement: Capacity, Speed, and Cross-Sector Coalitions

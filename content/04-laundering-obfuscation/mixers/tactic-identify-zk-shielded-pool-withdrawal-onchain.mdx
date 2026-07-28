@@ -1,0 +1,42 @@
+# Identify a zk Shielded-Pool Withdrawal On-Chain (transact + Groth16 proof + Nullified)
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+A withdrawal (spend) out of a zk-SNARK shielded pool has a recognisable on-chain signature, and its recipient
+will look "unfunded" because the proof cryptographically severs the depositor to recipient link. Reading that
+signature lets you positively identify a shielded withdrawal instead of mistaking it for a normal transfer,
+and stops you from treating an "appears unfunded" wallet as a dead end or a search error. It is the privacy
+design working as intended; tracing resumes at the pool boundary (deposits in, withdrawals out), exactly as
+with a mixer.
+
+## When to use
+When a wallet of interest "appears unfunded" or its funder resolves to a contract (e.g. an explorer or Arkham
+shows the pool contract as the "first funder", or shows nothing), and when you see a high-gas call into a
+privacy protocol. Reach for it to decide whether an inbound is a shielded payout (a wall you trace at the
+boundary) versus an ordinary transfer (a wall you keep hopping through).
+
+## Components
+- **Function signature.** The spend calls something like `transact(uint256[2] a, uint256[2][2] b, uint256[2] c,
+  tuple dimensions, tuple circomData)`. The `a` (uint256[2]) / `b` (uint256[2][2]) / `c` (uint256[2]) triple is
+  the canonical **Groth16** zk-SNARK proof calldata layout (A in G1, B in G2, C in G1); a `circomData` /
+  circom parameter names the **Circom** circuit. High gas use (hundreds of thousands) reflects on-chain proof
+  verification, not a plain transfer.
+- **Nullifier event.** The tx emits a `Nullified(uint256 nullifier)` (or equivalent) log from the pool
+  contract. Spending a nullifier consumes a private note without revealing which deposit it came from; it is
+  the pool's anti-double-spend primitive and the moment the link is severed.
+- **Public output.** The visible value movement is an ERC-20 or native `Transfer` FROM the pool contract TO
+  the recipient. That transfer is the only public trace; there is no on-chain edge back to the depositor.
+- **Forensic implication.** Do not record "funded by the contract / no external funder" as a finding of a
+  dead end or a failed search. Note it as a shielded withdrawal, and pivot to boundary analysis (enumerate
+  deposits and withdrawals at the pool, match by denomination and timing) the same way you would a mixer.
+
+## Example
+CASE-2026-002 (Hinkal): feeder wallets received 100-USDC payouts that Arkham showed as coming from the Hinkal
+contract with no external first funder. The payout tx was a `transact` call (MethodID `0x979a77a8`) carrying a
+Groth16 `a`/`b`/`c` proof plus `circomData`, using ~500K gas, and emitting `Nullified(nullifier)`; the public
+output was a USDC `Transfer` (value `100000000` = 100.0 USDC) from the pool to the feeder. That signature
+confirmed the wallets were funded by shielded withdrawals, not left unexplained.
+
+## Related
+[On-Chain Obfuscation Categories](/kb/04-laundering-obfuscation/checklist-on-chain-obfuscation-categories), [What Mixers Hide and How Blockchain Analysis Uncovers It](/kb/04-laundering-obfuscation/mixers/framework-what-mixers-hide-how-analysis-uncovers), Mixers Make Funds Harder to Find, Not Invisible, [EVM Event Logs & Decoding Calldata](/kb/02-tracing/tactic-evm-event-logs-and-decoding-calldata), Filter Mixer Withdrawals by Denomination, Not USD, [Reading an EVM Transaction](/kb/00-fundamentals/concept-reading-an-evm-transaction)

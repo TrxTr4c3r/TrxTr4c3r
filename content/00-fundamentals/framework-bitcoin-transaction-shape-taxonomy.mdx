@@ -1,0 +1,25 @@
+# Bitcoin Transaction Shape Taxonomy
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+The first thing to read off a Bitcoin transaction is its shape: the count of input addresses against the count of output addresses, written `<n:m>`. Shape alone narrows what the transaction can mean, and therefore whether ownership changed at that hop. Address types, transaction parameters, and clustering heuristics only refine the interpretation afterwards. In the notation, `few` means five or fewer and `many` means more than five.
+
+## Components
+- `<few:2>`, typically `<1:2>`: **simple spend**. One output pays the receiver, the other returns change to the sender. Extra inputs appear only because the sender needed enough value; the output count stays at two. If a single address appears on both the input and the output side, that output is change and the other output is the payment (trivial change). This is the most common shape on the network, roughly 75 percent of all transactions on a 30 day moving average per transactionfee.info at the time the paper was written.
+- `<1:1>`: **move**, **sweep**, or **changeless spend**. Primary interpretation is that one owner controls both addresses (self transfer, or a migration to a new address type). It can also be a real payment between parties when an available UTXO already matched the amount plus fee, which becomes likelier the more UTXOs the sender holds. In a peel chain, this shape is the end of the chain.
+- `<many:1>`: **consolidation**. A user gathers value spread across many addresses into one. Both sides are normally the same owner, which makes this the single most productive shape for clustering. With more than one output it can instead be a consolidation payment (change plus a receiver) or a CoinJoin.
+- `<1:many>`: **batch spend** or **tokenization / spread**. A batch spend is a service paying many independent users at once (typical of exchange withdrawal batching) and normally contains a return address. A spread is one owner splitting funds across addresses they control to limit future linkage.
+- **CoinJoin**: multiple participants each contribute inputs and claim outputs in a single transaction, so the common input ownership heuristic fails by design. See CoinJoin Implementation Signatures for how to tell which implementation built one.
+
+## When to use
+At every hop of a Bitcoin trace, before reaching for a heuristic. Naming the shape tells you which interpretations are even available, and stops you reading a consolidation as a payment or a change output as a counterparty.
+
+## Avoid when
+Users are free to build transactions any way they like, so no shape guarantees an interpretation. The taxonomy holds because rational users minimise fees and stay on one wallet implementation for long stretches, which produces consistent patterns. Treat the shape as the opening hypothesis, then test it.
+
+## Example
+A chain of `<1:2>` transactions where each hop sends a small amount to an exchange deposit address and a larger remainder to a fresh address is a peel chain. When that chain finally produces a `<1:1>`, the chain has ended. When it produces a `<many:1>`, the chain has reset into a consolidation, and the co-spent inputs hand you every other address the operator merged.
+
+## Related
+[Bitcoin UTXO and Change Addresses](/kb/00-fundamentals/concept-bitcoin-utxo-change), [Bitcoin UTXO Clustering Heuristics](/kb/03-attribution-clustering/checklist-bitcoin-utxo-clustering-heuristics), [Change-Address Heuristics (UTXO Analysis)](/kb/03-attribution-clustering/tactic-change-address-utxo-heuristics), [Peel Chain](/kb/04-laundering-obfuscation/concept-peel-chain), [CoinJoin Implementation Signatures](/kb/02-tracing/tactic-coinjoin-implementation-signatures), [Traversing an Ambiguous Peel Chain with a Wallet Fingerprint](/kb/02-tracing/workflow-traversing-ambiguous-peel-chains-with-a-wallet-fingerprint), [Address Clustering (Common-Input-Ownership Heuristic)](/kb/03-attribution-clustering/tactic-address-clustering-cioh)

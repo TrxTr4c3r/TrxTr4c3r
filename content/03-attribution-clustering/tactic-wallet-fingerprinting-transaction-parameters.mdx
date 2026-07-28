@@ -1,0 +1,26 @@
+# Wallet Fingerprinting from Transaction Parameters
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+Wallet software leaves a repeatable signature in fields that have nothing to do with where the money went. Version number, per input sequence number, locktime, whether signatures are low-r ground, input and output ordering, and where the change output sits are all chosen by the implementation, not by the user. Collect those fields across transactions you know one wallet produced and you can recognise that wallet elsewhere. This gives you a change-detection vector that survives cases where value, freshness, and script type all fail.
+
+## Components
+- **General transaction parameters**: `nVersion` (1 or 2), RBF signalling, whether the wallet performs low-r grinding (deliberately regenerating a signature until the `r` component is short, which saves a byte), and which transaction shapes the wallet ever produces.
+- **Input and output attributes**: is there a particular input ordering, a particular output ordering (by value, lexical as in BIP-69, or historical), a deterministic change index, and does the change output match the input script type.
+- **Locktime handling**: the joint distribution of `nSequence` and `nLockTime` is the strongest single axis, because the two fields are supposed to agree and many implementations set them independently.
+- **Address attributes**: how many transactions an address ever participates in, the block delay between them, and which address types the wallet issues.
+- **Rarity is what makes it work.** Across blocks 799,000 to 800,008 (roughly one week of Bitcoin), the paper measured the joint distribution of these fields. `nVersion` 2 with locktime explicitly disabled (`nSequence` 0xFFFFFFFF) but `nLockTime` set to a block height occurred in 49 transactions, 0.00226 percent of the sample. `nVersion` 2 with locktime explicitly enabled (`nSequence` 0xFFFFFFFE) but `nLockTime` set to 0 occurred in 0.911 percent. Either field on its own is unremarkable. The combination is close to unique, and a wallet that randomises the fields independently generates those internally inconsistent combinations constantly.
+- **You need very little ground truth.** The published fingerprint was built from roughly 40 transactions harvested from 22 controlled mixing sessions.
+
+## When to use
+When the standard change heuristics collapse: both outputs go to fresh addresses of the same script type, the values are roughly equal and rounded, and both spend onward in similar ways. Also useful for auditing a co-spend cluster for foreign addresses, and for separating service-controlled addresses from customer addresses inside a service's own transaction graph.
+
+## Avoid when
+The result is probabilistic and stays probabilistic. A transaction matching a fingerprint does not belong to that wallet, it is merely consistent with it, so record it as a lead with a stated confidence and never as an identification. Fingerprints hold only for default settings: wallets expose many of these as user configurable, implementations change them between versions, and a single deviation (say, two inputs from the same address alongside otherwise textbook parameters) is enough to call a transaction foreign. Applying the fingerprint in both directions at a given hop, to the funding transaction and to each output's spend, materially improves the call over testing one side.
+
+## Example
+A custom mixer wallet randomised `nVersion`, RBF, and locktime to blend in. That randomisation was the tell. Its transactions repeatedly carried locktime set to a block height with every input signalling that locktime was disabled, a combination that appears in about two transactions in every hundred thousand on the open network. Combined with the absence of low-r grinding and with no stable input ordering, that was enough to walk the service's peel chains and separate 344 service addresses from 461 customer addresses.
+
+## Related
+[Bitcoin UTXO Clustering Heuristics](/kb/03-attribution-clustering/checklist-bitcoin-utxo-clustering-heuristics), [Change-Address Heuristics (UTXO Analysis)](/kb/03-attribution-clustering/tactic-change-address-utxo-heuristics), [Bitcoin Transaction Shape Taxonomy](/kb/00-fundamentals/framework-bitcoin-transaction-shape-taxonomy), [Traversing an Ambiguous Peel Chain with a Wallet Fingerprint](/kb/02-tracing/workflow-traversing-ambiguous-peel-chains-with-a-wallet-fingerprint), [Address Clustering (Common-Input-Ownership Heuristic)](/kb/03-attribution-clustering/tactic-address-clustering-cioh), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), Single Indicator Is a Lead, Not Proof

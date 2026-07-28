@@ -1,0 +1,35 @@
+# Value-and-Block-Window Candidate Search
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+When you know roughly what went into a service and roughly when, you can enumerate every transaction in a block window that paid out a matching value, and count them. That count is the anonymity set. It converts a vague sense that "the mixer worked" into a number, and the number is often small enough to be actionable.
+
+## Components
+- **The query**: over an indexed copy of the chain, count or return every value transfer received between two block heights inside a value range. As printed in the source paper, using a Neo4j graph of the Bitcoin chain:
+
+  ```cypher
+  MATCH (b:Block)<-[:BELONGS_TO]-(t:Transaction)-[r:RECEIVES]->(a:Address)
+  WHERE r.value <= <max_value>
+    AND r.value >= <min_value>
+    AND b.height >= <start_block>
+    AND b.height <= <end_block>
+  RETURN COUNT(r)
+  ```
+
+  Swap `COUNT(r)` for `RETURN a` and you get the candidate addresses themselves rather than the size of the set.
+- **Precision of the fee estimate drives everything.** Against a service that pays out to a single address, searching the 24 hours after the deposit at the exact expected value (deposit minus the known fee) returned 2 candidate transactions, one of which was the real payout. Widening to the service's full advertised fee range returned 4,453. Widening to everything between zero and the maximum expected amount returned 461,140.
+- **A second payout address breaks it.** Against a service configured with two output addresses, no transaction anywhere matched the combined payout value. Searching each leg separately returned 150 candidates for one address and 3 for the other, and the full-fee-range query returned 1,422. Splitting the payout removes the single value that ties the legs together, which is the whole basis of the technique.
+- **Where the input side comes from**: darknet market order pages, review timestamps, public order status, or your own controlled test transaction. Anything that pins an amount to a time turns into a query.
+
+## When to use
+When you have partial knowledge of a transaction (approximate value and approximate timing) and need to convert it into a bounded set of candidate addresses for follow up. It is the fallback when the graph itself shows no path between input and output.
+
+## Avoid when
+This is a candidate generator, not an identification. A hit is a lead to be corroborated with off chain data, service logs, or a second on chain signal. It also needs an indexed local copy of the chain to be practical, since you are running range scans over the whole block interval rather than following a graph.
+
+## Example
+Investigators knew the amount and the hour a darknet market buyer sent funds into a mixer, because the market's own order page published both. Querying the 24 hour window at the expected payout value returned two candidate transactions. One of them was the payout, and the receiving address became the pivot to the buyer.
+
+## Related
+[Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Temporal / Timing Correlation Analysis](/kb/02-tracing/tactic-temporal-timing-correlation), [Mixer-Operated Peel Chain Signatures](/kb/04-laundering-obfuscation/mixers/tactic-mixer-peel-chain-signatures), [Controlled Test Transactions as Ground Truth](/kb/06-casework-method/tactic-controlled-test-transactions-for-ground-truth), [Custodial Mixer Feature Landscape (2025 Survey)](/kb/04-laundering-obfuscation/mixers/reference-custodial-mixer-feature-landscape-2025), [Post-Mixer Bitcoin Tracing](/kb/02-tracing/tactic-post-mixer-bitcoin-tracing)

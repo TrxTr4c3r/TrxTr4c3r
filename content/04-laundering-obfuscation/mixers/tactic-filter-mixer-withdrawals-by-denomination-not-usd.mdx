@@ -1,0 +1,25 @@
+# Filter Mixer Withdrawals by Denomination, Not USD
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+When matching a mixer's withdrawals against known deposits (for example, hunting the Tornado Cash withdrawals
+that pair with a subject's deposits), filter the withdrawal list by TOKEN AMOUNT / pool denomination (e.g.
+exactly 100 ETH), never by a narrow USD band. Fixed-denomination pools pay out a fixed token amount, but the
+USD value of that amount drifts with price. If the token appreciated between deposit and withdrawal, an
+equal-denomination withdrawal is worth MORE in USD than the matching deposit, so a tight USD filter silently
+drops those withdrawals from view and you wrongly conclude that less came out than went in.
+
+## When to use
+Any time you set a value filter on an explorer/analytics tool (Arkham, MetaSleuth, etc.) while enumerating a
+mixer pool's withdrawals, or more generally when reconciling in-vs-out across a fixed-denomination service.
+Filter by the pool's denomination amount; if you must use USD, widen the band well beyond the deposit value.
+
+## Example
+CASE-2026-002: the 100 ETH Tornado withdrawals showed ~$170.6K each while the matching 100 ETH deposits were
+~$169.69K (ETH ticked up in between). A USD filter capped near the deposit value hid the withdrawals and
+nearly caused a 300 ETH reuse cluster (three 100 ETH withdrawals to one reused address) to be missed.
+Switching the filter to the 100 ETH denomination surfaced the full set.
+
+## Related
+[How Blockchain Analysis Detects Mixing Activity](/kb/04-laundering-obfuscation/mixers/checklist-blockchain-analysis-mixing-detection), [Case: Tornado Cash Round-Trip Resolved by Address Reuse](/kb/04-laundering-obfuscation/example-case-tornado-cash-round-trip-resolved-by-address-reuse), [Mixing Obfuscation Techniques](/kb/04-laundering-obfuscation/mixers/tactic-mixing-obfuscation-techniques)

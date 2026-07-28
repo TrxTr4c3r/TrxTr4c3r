@@ -1,0 +1,27 @@
+# Controlled Test Transactions as Ground Truth
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+You cannot fingerprint a service you have no known-good data on. The way researchers and law enforcement get that data is to become a customer under controlled conditions: run sessions through the service, record every parameter you control, and then expand outward from addresses you know for certain are yours. Every heuristic in the mixer literature starts from a seed obtained this way.
+
+## Components
+- **Scale the sample to the claim you want to make.** Twenty two sessions across eighteen months supported a statistical wallet fingerprint. Two sessions supported a descriptive account of patterns and nothing stronger. The authors of the two-session study said so explicitly, and that honesty is part of the method.
+- **Re-run later.** One study ran 20 sessions in March 2023 and 2 more in September 2024 for the sole purpose of checking whether the earlier findings still held. Services change. A fingerprint with no re-test has an unknown shelf life.
+- **Use different wallet software for the input and the output side.** Otherwise your own wallet's fingerprint contaminates the very parameters you are trying to attribute to the service.
+- **Record per address**: address type, transaction count, and the block delay between transactions.
+- **Record per transaction**: input and output counts, value, signature sizes, `nLockTime`, `nVersion`, per input `nSequence`, and fee per virtual byte. These are the fields the fingerprint is built from, and they are painful to reconstruct later.
+- **Keep the artifacts.** The letter of guarantee, the session identifier, the payout schedule you configured, and the screenshots are all evidence, and the fee you paid is a documented payment to the service.
+- **Watch what your funding source reveals.** Both studies bought coins at an exchange, and both AML vendors correctly identified that exchange from the chain. Your funding path is a de-anonymisation vector for you.
+
+## When to use
+When you need ground truth on a service's behaviour: a mixer, an instant exchanger, a bridge, or any counterparty whose internal handling you cannot observe from outside. Also when you need to establish what a service does before you can argue in a report what it did.
+
+## Avoid when
+Get written authority before you send anything. You are paying a service that may be criminal, in a jurisdiction that may treat that payment as an offence, and the transaction is permanently public. Both source papers ran ethics reviews, used legally acquired coins, kept amounts minimal to limit their effect on the ecosystem, and anonymised addresses and amounts in publication. Also be clear about what the technique delivers: test transactions reveal the service's behaviour, and in the three US mixer prosecutions on record they did not identify a single operator.
+
+## Example
+Twenty two controlled mixing sessions produced roughly 40 transactions with known ownership on at least one side. That set was enough to extract the service's wallet fingerprint, which in turn seeded a graph traversal that identified 344 service addresses and 461 customer addresses the analyst had never touched.
+
+## Related
+[Mixer Operators Are Identified Off-Chain](/kb/04-laundering-obfuscation/mixers/principle-mixer-operators-are-identified-off-chain), [Wallet Fingerprinting from Transaction Parameters](/kb/03-attribution-clustering/tactic-wallet-fingerprinting-transaction-parameters), [Traversing an Ambiguous Peel Chain with a Wallet Fingerprint](/kb/02-tracing/workflow-traversing-ambiguous-peel-chains-with-a-wallet-fingerprint), [Investigator OPSEC Checklist](/kb/06-casework-method/checklist-investigator-opsec), Lawful Collection: Pretexting Poisons Evidence, [Custodial Mixer Feature Landscape (2025 Survey)](/kb/04-laundering-obfuscation/mixers/reference-custodial-mixer-feature-landscape-2025), [Evidence Preservation Checklist](/kb/05-evidence-legal/checklist-evidence-preservation)

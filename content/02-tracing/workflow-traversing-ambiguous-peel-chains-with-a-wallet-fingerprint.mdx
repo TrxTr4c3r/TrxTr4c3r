@@ -1,0 +1,26 @@
+# Traversing an Ambiguous Peel Chain with a Wallet Fingerprint
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`workflow`</span>
+
+## Core idea
+A well built mixer produces peel chains where every conventional change signal is neutralised: fresh addresses on both outputs, matching script types, roughly equal rounded values, and similar onward spending. The fingerprint gives you a signal the operator did not think to normalise, and that is enough to walk the chain in both directions and label each address as service or customer.
+
+## Components
+1. **Seed from something you own or know.** A payout address from a controlled test transaction, a victim's address, or a reported address. Everything downstream expands from a known point.
+2. **Test both sides of every hop.** At each link, apply the fingerprint to the transaction that funded the input and to the transactions that spend each output. Two sided testing beats one sided by a wide margin, because a customer's ordinary wallet has stable parameters that contrast sharply with a randomising service wallet.
+3. **Read the shape to know what the link is.** `<1:2>` is another link in the chain, so pick the continuation and carry on. `<1:1>` is the end of the chain. `<many:1>` is a reset into a consolidation, and it is a gift: the co-spent inputs bind every one of those addresses to the same entity in one move.
+4. **Classify each address.** An address with exactly two transactions, carrying the service signature on both, is service controlled. An address with many transactions, stable parameters, dusting behaviour, or an onward link to a named platform is a customer. Anything that fits neither gets marked as an anomaly and queued for review rather than silently absorbed.
+5. **Stop on a hard deviation.** One clear break from the fingerprint (for example two inputs drawn from the same address alongside textbook standard parameters) ends that branch. That transaction was built by a customer.
+6. **Constrain the search space so brute force is viable.** Because the service is hiding inside ordinary looking traffic, its transactions have small input and output counts. Restrict the sweep to addresses with exactly two transactions and to the three shapes the service actually emits, then use the absence of low-r grinding and the lack of a stable input ordering to prune the consolidations.
+
+## When to use
+When a Bitcoin trace enters a custodial mixer that pays out through peel chains, and standard change detection cannot tell the peel from the continuation. Also when you already hold one confirmed service address and want to expand it into the service's address set.
+
+## Avoid when
+Two blind spots kill the method outright. An isolated changeless payout, where a deposit is passed whole to another customer in a single `<1:1>` with no intermediate transaction, leaves nothing to follow in either direction. Where the service routes deposits straight into a CoinJoin ecosystem such as JoinMarket, visibility ends at that boundary. Ambiguous links are skipped rather than guessed, so coverage is always partial and every volume figure you derive is a lower bound.
+
+## Example
+Applying the method to 22 seeded sessions identified 344 service addresses and 461 customer addresses. The observed peel chain volume was 0.8534 BTC, with the earliest encountered transaction on 17 January 2023 and the latest on 15 May 2024. The authors were explicit that this is far below the service's real throughput and functions only as a floor. Several identified customer payout addresses were followed onward into named services (HTX, coinsbuy, ChangeNOW), and others matched community scam and ransomware reports.
+
+## Related
+[Peeling Chain Analysis](/kb/02-tracing/tactic-peeling-chain-analysis), [Peel Chain](/kb/04-laundering-obfuscation/concept-peel-chain), [Wallet Fingerprinting from Transaction Parameters](/kb/03-attribution-clustering/tactic-wallet-fingerprinting-transaction-parameters), [Bitcoin Transaction Shape Taxonomy](/kb/00-fundamentals/framework-bitcoin-transaction-shape-taxonomy), [Mixer-Operated Peel Chain Signatures](/kb/04-laundering-obfuscation/mixers/tactic-mixer-peel-chain-signatures), [Post-Mixer Bitcoin Tracing](/kb/02-tracing/tactic-post-mixer-bitcoin-tracing), [Controlled Test Transactions as Ground Truth](/kb/06-casework-method/tactic-controlled-test-transactions-for-ground-truth), [Bitcoin UTXO Clustering Heuristics](/kb/03-attribution-clustering/checklist-bitcoin-utxo-clustering-heuristics)

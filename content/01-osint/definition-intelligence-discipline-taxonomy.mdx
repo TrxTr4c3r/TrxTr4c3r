@@ -1,0 +1,24 @@
+# Intelligence Discipline Taxonomy
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`definition`</span>
+
+## Core idea
+Intelligence is organised into collection "disciplines" ("INTs") named by the source the data comes from, not by the tool used. OSINT is one of several. Knowing where OSINT sits in this taxonomy keeps an investigator honest about what a public-source finding can and cannot prove, and points to the sibling disciplines a case may also need. For a crypto-forensics analyst the three that matter most are OSINT, FININT, and SOCMINT; the rest are useful context and common interview vocabulary.
+
+## Components
+- OSINT: Open Source Intelligence. Information legally collected from publicly available sources (web, social media, public records, news, and public blockchain ledgers). The foundation of digital investigations. See "What OSINT Is".
+- SOCMINT: Social Media Intelligence. A sub-branch of OSINT focused specifically on social platforms: posts, images, videos, public conversations, follower graphs. Its own tradecraft (sock puppets, platform-specific search) but still open-source.
+- HUMINT: Human Intelligence. Collected through direct interaction with people (interviews, informants, elicitation). Not open-source; leaves traces and carries legal/ethical weight, overlaps with the "active OSINT" line an investigator should be cautious about crossing.
+- GEOINT: Geospatial Intelligence. Analysis of geospatial data (imagery + mapping + GIS) to understand activity on the Earth's surface; underpins geolocation and chronolocation work.
+- IMINT: Imagery Intelligence. Collection and interpretation of visual images from satellites, aircraft, drones, and cameras. Often feeds GEOINT.
+- SIGINT: Signals Intelligence. Interception and analysis of electronic signals and communications (radio, telecom, radar). A state/LE capability, generally not available to civilian investigators.
+- FININT: Financial Intelligence. Collection and analysis of financial data to understand behaviour, detect risk, and investigate fraud, money laundering, sanctions evasion, and illicit financial networks. The discipline most adjacent to crypto forensics.
+
+## When to use
+When framing an investigation or reporting: name the discipline a finding came from so its reliability and lawfulness are clear (an OSINT finding is public and passive; a HUMINT finding is not). Also common interview vocabulary for analyst roles.
+
+## Example
+FININT-relevant public sources for a crypto case: corporate business registries (directors, shareholders, beneficial owners, see the country-by-country registries in the OSINT Investigator's Toolkit catalogue), sanctions / leaks / watchlists (OpenSanctions, ICIJ Offshore Leaks), public blockchain and exchange data, and trade/maritime tracking. A wallet cluster (on-chain OSINT) tied to a shell company in a national registry (FININT) tied to a named director (SOCMINT/OSINT) is the discipline chain that turns "what" into "who".
+
+## Related
+[What OSINT Is](/kb/01-osint/definition-what-osint-is), [Passive vs Active OSINT](/kb/01-osint/concept-passive-vs-active-osint), [Crypto Investigation Acronyms & Bodies](/kb/00-fundamentals/definition-crypto-investigation-acronyms), [Key OSINT Techniques for Crypto Investigators](/kb/01-osint/checklist-key-osint-techniques-for-crypto-investigators), [OSINT Investigator's Toolkit - Full Tool Catalogue](/kb/07-tooling/osint-investigators-toolkit-catalogue)
