@@ -110,6 +110,45 @@ Event signatures, both #verified from live logs on the 10 ETH pool:
 
 **Note the trap:** `to`, the destination address you are chasing, is **not indexed**. You cannot filter for it. You must pull every `Withdrawal` log and decode `data`.
 
+**Why indexed matters so much here.** An event puts up to three fields in `topics`, which are filterable, and the rest in `data`, which is not. That choice is fixed by the contract author and it decides whether a lookup takes seconds or hours. Below, two contracts index exactly the field you want, and knowing that removes most of the work.
+
+### The two supporting contracts most people miss
+| Contract | Address | Why you care |
+|---|---|---|
+| TornadoRouter | `0xd90e2f925DA726b50C4Ed8D0Fb90Ad053324F31b` | Emits `EncryptedNote` with **`sender` indexed**, so deposits are filterable **by depositor** |
+| Relayer Registry (proxy) | `0x58E8dCC13BE9780fC42E8723D8EaD4CF46943dF2` | Registered relayers appear here, so you can **prove** an address is a service, not your subject |
+| Relayer Registry implementation | `0x84b0c75c1F6211450FEC7289c32D717AdaDD702A` | The `RelayerRegistry` logic behind that proxy |
+
+| Event | topic0 | Indexed | In `data` |
+|---|---|---|---|
+| `EncryptedNote(address indexed sender, bytes encryptedNote)` | `0xfa28df43db3553771f7209dcef046f3bdfea15870ab625dcda30ac58b82b4008` | **`sender`** | `encryptedNote` |
+| `StakeBurned(address relayer, uint256 amountBurned)` | `0x659f33fc6677bebf3a9bf3101092792e31f35766d0358e54577bdd91a655f6a0` | none | `relayer`, `amountBurned` |
+
+### Step one: ask whether your suspect used Tornado at all
+Do this **before** touching a pool, because it is one query instead of tens of thousands of logs. The pool's `Deposit` event indexes only `commitment`, a random hash, so a pool cannot answer "did this address deposit". The Router can, because it indexes `sender`.
+
+Filter the Router's logs on `topics[1]` set to your suspect's address, left-padded to 32 bytes:
+
+```
+eth_getLogs {
+  "address": "0xd90e2f925DA726b50C4Ed8D0Fb90Ad053324F31b",
+  "fromBlock": "0x...", "toBlock": "0x...",
+  "topics": [
+    "0xfa28df43db3553771f7209dcef046f3bdfea15870ab625dcda30ac58b82b4008",
+    "0x000000000000000000000000<suspect address without the 0x>"
+  ]
+}
+```
+
+Each hit is one Tornado deposit by that address. Count them, and take the transaction hashes.
+
+**Worked example, verified 2026-07-28.** Filtering the Router for `0xbB3f01a1b1C68F3DEB36C55342b5F5706c32fc20` returned exactly **14** `EncryptedNote` events across blocks 25448486 to 25448510, which reconstructs a known 410 ETH deposit set (3 at 100 ETH plus 11 at 10 ETH) from a single call.
+
+**Three limits, so you do not over-read it.**
+- It only sees deposits made **through the Router**. A direct call to a pool contract emits no `EncryptedNote`, so absence here is not proof of non-use.
+- The `encryptedNote` payload was **empty** (`0x`) in every event observed, including all 14 above. The indexed `sender` is the entire value; do not expect to recover note contents.
+- The event carries **no amount or pool**. It tells you who and when, not which denomination. Open the transactions to get that.
+
 ### Trace it, step by step
 1. **Fix the pool.** Which denomination did your subject touch? That is your universe.
 2. **Enumerate deposits.** Etherscan or Blockscout, pool address, Logs tab, filter `topics[0]` = the Deposit topic0. Record `commitment`, `leafIndex` and `timestamp` for every one. By RPC:
@@ -131,7 +170,9 @@ Event signatures, both #verified from live logs on the 10 ETH pool:
    ```
 5. **Size the maximal set.** Count deposits whose `leafIndex` and `timestamp` both precede the withdrawal. That is set A. Record the number.
 6. **Shrink it.** In the order that pays best:
-   - **Relayer.** Read `relayer` from the withdrawal. Then fingerprint it by fee: on the 10 ETH pool I observed `0x0A5B2bF3cCfB44C1D22F07Eed9553eCba752D4aD` charging exactly 0.04015 ETH on both its withdrawals while `0x4750BCfcC340AA4B31be7e71fa072716d28c29C5`, `0xAAAAA27EA9ffab81F4735e6B766af985d0c88C61`, `0x000000Cd6521Ed1a65FAe0678eA15aF4EEAD74fe` and `0xEE4C45Cc5eAa535CB8a8ffdc92f2839A601fe226` all charged exactly 0.04465 ETH. **A distinct fee is a relayer fingerprint**, so an unlabelled withdrawal can be attributed to a relayer by fee alone, and relayer choice clusters users.
+   - **Relayer.** Read `relayer` from `topics[1]` of the withdrawal. Then fingerprint it by fee: on the 10 ETH pool I observed `0x0A5B2bF3cCfB44C1D22F07Eed9553eCba752D4aD` charging exactly 0.04015 ETH on both its withdrawals while `0x4750BCfcC340AA4B31be7e71fa072716d28c29C5`, `0xAAAAA27EA9ffab81F4735e6B766af985d0c88C61`, `0x000000Cd6521Ed1a65FAe0678eA15aF4EEAD74fe` and `0xEE4C45Cc5eAa535CB8a8ffdc92f2839A601fe226` all charged exactly 0.04465 ETH. **A distinct fee is a relayer fingerprint**, so an unlabelled withdrawal can be attributed to a relayer by fee alone, and relayer choice clusters users.
+   - **Confirm a relayer is a relayer, do not assume it.** A relayer only submits the transaction, pays the gas and takes a fee. It is an intermediary, not the beneficiary, and writing it down as your subject is the most common error made against this protocol. To settle it, check the Relayer Registry: pull `StakeBurned` logs from `0x58E8dCC13BE9780fC42E8723D8EaD4CF46943dF2` and see whether the address appears. `0x4750BCfcC340AA4B31be7e71fa072716d28c29C5` and `0xEE4C45Cc5eAa535CB8a8ffdc92f2839A601fe226` appear in both the pool withdrawals above and that registry, which is two independent sources agreeing. **Caution:** `StakeBurned` fires with `amountBurned` of 0 as often as not (verified live alongside real burns of 101274647663961686373 and 51304105271969724567 wei of TORN), so its presence proves registration, never that a stake was actually forfeited.
+   - **Self-submitted withdrawals: the gas trail is open.** When `relayer` is `0x0000000000000000000000000000000000000000` and `fee` is 0, nobody submitted it for your subject, so the recipient paid its own gas and had to be funded beforehand. That funding transaction is the link a relayer exists to prevent. Because `relayer` **is** indexed, you can pull only these cases: filter the pool on `topics[1]` set to 32 zero bytes and you get a ready-made list of every self-submitted withdrawal, which is precisely the subset where gas-funding analysis works. Verified live on the 100 ETH pool, where `0xA82fb01F567550576395326081a74986f8615ea4` took three separate self-submitted 100 ETH withdrawals at blocks 25622543, 25622548 and 25622553, a reused destination with an open funding trail.
    - **Gas funding.** Trace who funded the deposit EOA and who funded the withdrawal `to`. A shared upstream funder or a common CEX withdrawal address collapses the set outright. This is the most productive discriminator in practice.
    - **Amount decomposition.** If the subject moved a non-standard total, say three 10 ETH deposits plus one 1 ETH, and an identical multiset is withdrawn to fresh addresses inside a tight window, the unique decomposition can cut the set to single digits.
    - **Timing.** Discard deposits after the withdrawal block. Tightens, never resolves.
@@ -148,9 +189,10 @@ The surviving set is in the hundreds with no relayer, gas or decomposition discr
 - The depositor is a router or relayer contract, not your subject. Check whether the depositing address is a contract.
 - Arbitrage and relayer bots that deposit and withdraw on behalf of others.
 - **Matching on amount inside a single-denomination pool.** Every deposit in the pool is the same size, so amount alone carries zero information there.
+- **A withdrawal may have been made by a note thief, not the depositor.** Every correlation in this section rests on one assumption: whoever withdrew is whoever deposited. Stolen deposit notes break it, and can invert a conclusion rather than merely weaken it. Malicious JavaScript hidden in a Tornado Cash governance proposal leaked deposit notes to a private server from around 1 January 2024, affecting the IPFS gateway deployments specifically (ipfs.io, cf-ipfs.com, eth.link). It was disclosed by a community member, Gas404, on 26 February 2024, Checkmarx published the technical analysis, and at least one resulting theft was confirmed on-chain. Hours after the OFAC delisting, ZachXBT stated that the main frontend was still compromised. **For any deposit made through a web frontend, check whether it falls inside a known compromise window before you assert that the depositor controls the withdrawal address.** A deposit note behaves like a bearer instrument: possession is control, and possession can be copied.
 
 ### One reporting caution
-Blockscout still tags all four ETH pools `OFAC Sanctions Lists`, `SANCTIONED` and `BLOCKED BY USDC` or `BLOCKED BY USDT`. Explorer labels lag reality in both directions. Check the live SDN list yourself before you assert a sanctions nexus in a report, and never source a sanctions claim from an explorer tag.
+OFAC **delisted** Tornado Cash on 21 March 2025, yet Blockscout still tags all four ETH pools `OFAC Sanctions Lists`, `SANCTIONED` and `BLOCKED BY USDC` or `BLOCKED BY USDT`. That is a live example of an explorer label lagging reality, and it lags in both directions. Check the current SDN list yourself before asserting a sanctions nexus, and never source a sanctions claim from an explorer tag. Note separately that Roman Semenov remains designated under the DPRK programme, so "the contracts are not sanctioned" and "no person connected to this is sanctioned" are different statements.
 
 ## 5. RAILGUN
 ### How it works
@@ -451,6 +493,9 @@ Everything below was confirmed against live chain data through the Blockscout MC
 | `0x81D40F21F12A8F0E3252Bccb954D722d4c464B64` | CCTP MessageTransmitter V2, EIP-1967 proxy |
 | `0xa30C41865729C248067704d4DB9F38385Cbe1186` | MessageTransmitterV2 implementation |
 | `0x80C67432656d59144cEFf962E8fAF8926599bCF8` | Orbiter Finance bridge Maker, **not a contract**, so no event log to parse |
+| `0xd90e2f925DA726b50C4Ed8D0Fb90Ad053324F31b` | TornadoRouter, verified contract, tagged Tornado.Cash: Router |
+| `0x58E8dCC13BE9780fC42E8723D8EaD4CF46943dF2` | Tornado.Cash Relayer Registry, EIP-1967 proxy |
+| `0x84b0c75c1F6211450FEC7289c32D717AdaDD702A` | RelayerRegistry implementation behind that proxy |
 
 **#verified event signatures and topic0**
 
@@ -462,6 +507,17 @@ Everything below was confirmed against live chain data through the Blockscout MC
 | `0x56a618cda1e34057b7f849a5792f6c8587a2dbe11c83d0254e72cb3daffda7d1` | `Transact(uint256 treeNumber, uint256 startPosition, bytes32[] hash, ... ciphertext)` |
 | `0x781745c57906dc2f175fec80a9c691744c91c48a34a83672c41c2604774eb11f` | `Nullified(uint16 treeNumber, bytes32[] nullifier)` |
 | `0x6eb224fb001ed210e379b335e35efe88672a8ce935d981a6896b27ffdf52a3b2` | `LogMessagePublished(address indexed sender, uint64 sequence, uint32 nonce, bytes payload, uint8 consistencyLevel)` |
+| `0xfa28df43db3553771f7209dcef046f3bdfea15870ab625dcda30ac58b82b4008` | `EncryptedNote(address indexed sender, bytes encryptedNote)` on the TornadoRouter |
+| `0x659f33fc6677bebf3a9bf3101092792e31f35766d0358e54577bdd91a655f6a0` | `StakeBurned(address relayer, uint256 amountBurned)` on the Relayer Registry |
+
+**#verified working techniques**, each run against live chain data rather than reasoned about:
+
+| Technique | Evidence |
+|---|---|
+| Filtering the Router by indexed `sender` returns a single address's deposits | Returned exactly 14 `EncryptedNote` events for `0xbB3f01a1b1C68F3DEB36C55342b5F5706c32fc20`, blocks 25448486 to 25448510 |
+| Filtering a pool by 32 zero bytes returns only self-submitted withdrawals | Returned many on the 100 ETH pool, all with `fee` 0, including three to `0xA82fb01F567550576395326081a74986f8615ea4` at blocks 25622543, 25622548 and 25622553 |
+| The Relayer Registry corroborates relayer identity | `0x4750BCfcC340AA4B31be7e71fa072716d28c29C5` and `0xEE4C45Cc5eAa535CB8a8ffdc92f2839A601fe226` appear in both pool withdrawals and registry `StakeBurned` logs |
+| `StakeBurned` fires with a zero amount | Observed zeros alongside real burns of 101274647663961686373 and 51304105271969724567 wei of TORN |
 
 **#verified live relayers on the Tornado 10 ETH pool**, with the fee each charged, as a worked example of relayer fingerprinting:
 
