@@ -1,0 +1,481 @@
+# Operational Tracing Runbook: Live Mixers Bridges and No-KYC Swaps
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`</span>
+
+## Contents
+
+Jump to a section:
+
+[Core idea](#core-idea) · [How to use this runbook](#how-to-use-this-runbook) · [1. Identify the service from a transaction hash](#1-identify-the-service-from-a-transaction-hash) · [2. Quick reference: the one identifier that joins both sides](#2-quick-reference-the-one-identifier-that-joins-both-sides) · [3. Compute a topic0 or a selector yourself](#3-compute-a-topic0-or-a-selector-yourself) · [4. Tornado Cash](#4-tornado-cash) · [5. RAILGUN](#5-railgun) · [6. Privacy Pools and Aztec](#6-privacy-pools-and-aztec) · [7. Bitcoin CoinJoin](#7-bitcoin-coinjoin) · [8. THORChain, Maya and Chainflip](#8-thorchain-maya-and-chainflip) · [9. Message-identifier bridges](#9-message-identifier-bridges) · [10. Intent and liquidity bridges](#10-intent-and-liquidity-bridges) · [11. No-KYC custodial swaps](#11-no-kyc-custodial-swaps) · [12. Privacy coins as off-ramps](#12-privacy-coins-as-off-ramps) · [13. Solana and Tron reading](#13-solana-and-tron-reading) · [14. Correlation techniques](#14-correlation-techniques) · [15. Bounding an anonymity set](#15-bounding-an-anonymity-set) · [16. Peel chain and consolidation detection](#16-peel-chain-and-consolidation-detection) · [17. What to record for reproducibility](#17-what-to-record-for-reproducibility) · [18. Verification status of every hex in this note](#18-verification-status-of-every-hex-in-this-note)
+
+## Core idea
+Every obfuscation service either commits an identifier on-chain that binds both sides, or it does not. That single fact decides your whole approach. If it commits one (bridges, native swaps), you pull the identifier and resolve the destination deterministically, then repeat on the next hop. If it does not (mixers, shielded pools, custodial swaps), you cannot resolve, so you enumerate a candidate set, shrink it with discriminators, record the surviving count, and pivot off-chain when it stops shrinking. Everything below is the concrete procedure for each case: the contract, the event, the field name, the query.
+
+## How to use this runbook
+1. **Classify** the transaction using section 1. Do not proceed without a positive service ID.
+2. **Branch.** If the identifier resolves to a bridge or swap message event carrying a nonce, guid, orderId, VAA tuple or in_hash, you are on the **deterministic** path: sections 8 to 10. If it resolves to a mixer, shielded pool or custodial swap, you are on the **bounded-set** path: sections 4 to 7 and 11.
+3. **Extract** using that service's numbered steps, recording every field in section 17's list as you go.
+4. **Bound or resolve.** Deterministic: resolve the destination, then repeat step 1 on the destination transaction. Bounded: size the set with section 15, shrink it with section 14.
+5. **Stop and pivot** when the service's own "stop when" test fires.
+
+**Two standing rules.** Recompute every topic0 and re-verify every contract address on a live explorer at case time rather than trusting any document, including this one. And record the exact query alongside every finding, because a figure nobody can reproduce is not evidence.
+
+## 1. Identify the service from a transaction hash
+Run this in order. It terminates in a named service or a named unknown.
+
+1. **Pull the transaction** on the right explorer: Etherscan family for EVM, mempool.space or Blockchair for Bitcoin, TronScan for Tron, Solscan or SolanaFM for Solana.
+2. **Bitcoin first, structure tells you everything.**
+   - Has an `OP_RETURN`? Decode the hex to ASCII. A memo starting `SWAP:`, `OUT:`, `+` or `=` is THORChain or Maya, and the memo usually contains the destination address in clear text. Go to section 8.
+   - Exactly 5 inputs and 5 outputs, all outputs equal to 0.025 or 0.25 BTC? Whirlpool. Section 7.
+   - Many inputs and many outputs, 21 or more inputs, outputs in near-standard denominations? Wasabi or WabiSabi. Section 7.
+   - Equal-value outputs plus unequal change and a maker fee? JoinMarket. Section 7.
+3. **EVM: read the Logs tab and resolve every topic0.** This is the single highest-yield step. Take each log's `topics[0]` and look it up on **openchain.xyz** or **4byte.directory**, both free. Match against section 2. The presence of a specific field name is the fingerprint:
+   - `LogMessagePublished` plus a `sequence` -> Wormhole
+   - `DepositForBurn` plus a `nonce` -> Circle CCTP
+   - `PacketSent` or `OFTSent` plus a `guid` -> LayerZero or Stargate
+   - `CreatedOrder` plus an `orderId` -> deBridge DLN
+   - `V3FundsDeposited` or `FundsDeposited` plus a `depositId` -> Across
+   - `Deposit(bytes32,uint32,uint256)` -> Tornado Cash
+   - `Shield`, `Unshield`, `Transact` or `Nullified` -> RAILGUN
+4. **Unverified contract, no ABI?** Decode the first 4 bytes of the transaction `input` as a function selector on 4byte or openchain. Then check whether Dune has decoded the contract: if it has, named event tables exist for it. Otherwise read raw logs and match topic0 as above.
+5. **Destination is a fresh address with no code?** That is a custodial swap deposit address or a CEX deposit address. Cluster it by fan-in to a common hot wallet, then match the hot wallet against known service clusters. Section 11.
+6. **Solana:** read program IDs, not the from/to fields. Section 13.
+
+## 2. Quick reference: the one identifier that joins both sides
+| Service | Mechanism | The identifier that joins both sides | Resolve it at | Realistic outcome |
+|---|---|---|---|---|
+| Tornado Cash | Fixed-denomination zk pool | **None exists.** `nullifierHash` binds a spend to the pool, never to a deposit | Etherscan Logs, Dune | Bounded set, often a dead end |
+| RAILGUN | Shielded balance | **None.** Only the public shield-in and unshield-out addresses | Etherscan Logs on the Smart Wallet | Bounded set, or resolved by viewing key |
+| Privacy Pools (0xbow) | zk pool plus association sets | **`Ragequit` reveals the original depositor** | Etherscan, Envio indexer | Deterministic on ragequit, else bounded |
+| Aztec | Privacy L2 | L1 portal deposit and withdraw amount plus timing | L1 Etherscan on the portal | Bounded at the L1 boundary only |
+| Whirlpool (Ashigaru) | 5-in/5-out CoinJoin | **The Tx0** entry transaction | mempool.space, whirlpoolstats.xyz | Bounded, Tx0 links the depositor |
+| Wasabi 2.x | WabiSabi CoinJoin | Coinjoin txid, coordinator via Nostr announcement | mempool.space, wabisator.com | Bounded |
+| JoinMarket | Maker/taker CoinJoin | Coinjoin txid, equal-output grouping | mempool.space | Bounded |
+| THORChain, Maya, THORSwap | Vault plus memo | **Inbound tx hash appears as `in_hash` and in the outbound memo `OUT:`** | thornode API, runescan.io | Deterministic |
+| Chainflip | Deposit channel | **Deposit channel id**, destination in channel metadata | scan.chainflip.io | Deterministic |
+| Wormhole, Portal, NTT | Lock and mint messaging | **VAA tuple: emitterChain, emitterAddress, sequence** | wormholescan.io | Deterministic |
+| Circle CCTP | Burn and mint USDC | **`nonce`, or `messageHash` = keccak256 of the MessageSent bytes** | Etherscan plus the Iris API | Deterministic |
+| LayerZero v2, Stargate v2 | Messaging plus OFT | **`guid` (bytes32)**, plus `srcEid` and `dstEid` | layerzeroscan.com | Deterministic |
+| Across | Intent and relayer | **`depositId` plus `originChainId`** | Etherscan SpokePool logs, Dune | Deterministic |
+| deBridge DLN | Intent order network | **`orderId` (bytes32)** | deExplorer, stats-api.dln.trade | Deterministic |
+| Synapse | Liquidity pool | **`kappa` (bytes32)** | Synapse explorer | Deterministic |
+| Hop | Liquidity pool | **`transferId`** | Hop explorer | Deterministic |
+| Celer cBridge | Liquidity pool | **`transferId` (keccak256)** | cBridge status API | Deterministic |
+| FixedFloat, ChangeNOW and peers | Custodial no-KYC swap | **Off-chain order id only** | The service's order-lookup API | Probable via amount and timing, or the order id |
+| Monero | Ring signatures, RingCT | **None.** Boundary only | Exchange records, view key | On-chain dead end |
+| Zcash | Shielded pools | **`valueBalance`** at the t and z boundary | Blockchair, Nighthawk explorer | Boundary correlation |
+| Dash PrivateSend | CoinJoin | Equal-denomination mix transaction | Blockchair Dash | Bounded |
+| Firo Spark | Lelantus Spark | Mint and spend at the transparent boundary | Firo explorer | Boundary correlation |
+| Litecoin MWEB | Confidential extension block | Peg-in amount, peg-out inside the HogEx | litecoinspace.org/mweb | Boundary correlation |
+
+## 3. Compute a topic0 or a selector yourself
+Never trust a copied hex, including the ones in this note. An event's topic0 is `keccak256` of the canonical signature: no spaces, canonical types, no parameter names. A function selector is the first 4 bytes of the same hash.
+
+```
+keccak256("Deposit(bytes32,uint32,uint256)")
+  = 0xa945e51eec50ab98c161376f0db4cf2aeba3ec92755fe2fcd388bdbbb80ff196
+```
+
+Three free ways to get it:
+- **Read it off the chain.** The most reliable: open any transaction that used the contract, view the Logs tab, and read `topics[0]` directly. Blockscout and Etherscan both show the decoded signature next to it. This is how every hex in section 18 was verified.
+- **openchain.xyz** or **4byte.directory** signature databases, for reversing an unknown hex back to a signature.
+- **`cast keccak "Deposit(bytes32,uint32,uint256)"`** if you have Foundry.
+
+**Watch which parameters are indexed**, because it decides whether you can filter on them. Indexed parameters land in `topics[1..3]` and are filterable. Non-indexed parameters live in `data` and are not: you must pull and decode the log. This trips people constantly, and in two of the most important cases here the field you actually want is non-indexed.
+
+## 4. Tornado Cash
+### How it works
+Fixed-denomination pools. A deposit inserts a Pedersen commitment into a Merkle tree and emits `Deposit`. A withdrawal submits a zk-SNARK proving membership plus a nullifier hash that prevents double-spend, and emits `Withdrawal`. A relayer pays the gas so the destination address needs no prior ETH. The contracts are immutable and remain live and in use.
+
+### Detect it
+Ethereum ETH pool contracts, all #verified on Blockscout 2026-07-28:
+
+| Pool | Contract | Balance at verification | Unspent notes |
+|---|---|---|---|
+| 0.1 ETH | `0x12D66f87A04A9E220743712cE6d9bB1B5616B8Fc` | 582.2 ETH | 5,822 |
+| 1 ETH | `0x47CE0C6eD5B0Ce3d3A51fdb1C52DC66a7c3c2936` | 3,880 ETH | 3,880 |
+| 10 ETH | `0x910Cbd523D972eb0a6f4cAe4618aD62622b39DbF` | 20,580 ETH | 2,058 |
+| 100 ETH | `0xA160cdAB225685dA1d56aa342Ad8841c3b53f291` | 248,300 ETH | 2,483 |
+| 100,000 DAI | `0x23773E65ed146A459791799d01336DB287f25334` | ERC20Tornado | n/a |
+| 10 WBTC | `0xbB93e510BbCD0B7beb5A853875f9eC60275CF498` | ERC20Tornado | n/a |
+
+Pools also exist on BSC, Polygon, Arbitrum, Optimism, Avalanche and Gnosis with the same code and different addresses. Resolve each from the same source contract list rather than assuming.
+
+Event signatures, both #verified from live logs on the 10 ETH pool:
+
+| Event | topic0 | Indexed | In `data` |
+|---|---|---|---|
+| `Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)` | `0xa945e51eec50ab98c161376f0db4cf2aeba3ec92755fe2fcd388bdbbb80ff196` | `commitment` | `leafIndex`, `timestamp` |
+| `Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)` | `0xe9e508bad6d4c3227e881ca19068f099da81b5164dd6d62b2eaf1e8bc6c34931` | `relayer` | **`to`**, `nullifierHash`, `fee` |
+
+**Note the trap:** `to`, the destination address you are chasing, is **not indexed**. You cannot filter for it. You must pull every `Withdrawal` log and decode `data`.
+
+### Trace it, step by step
+1. **Fix the pool.** Which denomination did your subject touch? That is your universe.
+2. **Enumerate deposits.** Etherscan or Blockscout, pool address, Logs tab, filter `topics[0]` = the Deposit topic0. Record `commitment`, `leafIndex` and `timestamp` for every one. By RPC:
+   ```
+   eth_getLogs {
+     "address": "0x910Cbd523D972eb0a6f4cAe4618aD62622b39DbF",
+     "fromBlock": "0x...", "toBlock": "0x...",
+     "topics": ["0xa945e51eec50ab98c161376f0db4cf2aeba3ec92755fe2fcd388bdbbb80ff196"]
+   }
+   ```
+   Paginate by block range; the full history will not return in one call.
+3. **Enumerate withdrawals.** Same call with the Withdrawal topic0. Decode `data` for each to get `to`, `nullifierHash` and `fee`. Read `relayer` from `topics[1]`.
+4. **Set-scale work on Dune** where you need the whole history at once. Decoded tables live under the per-chain `tornado_cash_*` schemas (`_ethereum`, `_arbitrum`, `_optimism`, `_polygon`, `_bnb`, `_avalanche_c`, `_gnosis`). Confirm exact table and column names in the live catalogue, they drift:
+   ```sql
+   select evt_block_time, commitment, leafIndex, evt_tx_hash
+   from tornado_cash_ethereum.ETHTornado_evt_Deposit
+   where contract_address = 0x910cbd523d972eb0a6f4cae4618ad62622b39dbf
+   order by leafIndex;
+   ```
+5. **Size the maximal set.** Count deposits whose `leafIndex` and `timestamp` both precede the withdrawal. That is set A. Record the number.
+6. **Shrink it.** In the order that pays best:
+   - **Relayer.** Read `relayer` from the withdrawal. Then fingerprint it by fee: on the 10 ETH pool I observed `0x0A5B2bF3cCfB44C1D22F07Eed9553eCba752D4aD` charging exactly 0.04015 ETH on both its withdrawals while `0x4750BCfcC340AA4B31be7e71fa072716d28c29C5`, `0xAAAAA27EA9ffab81F4735e6B766af985d0c88C61`, `0x000000Cd6521Ed1a65FAe0678eA15aF4EEAD74fe` and `0xEE4C45Cc5eAa535CB8a8ffdc92f2839A601fe226` all charged exactly 0.04465 ETH. **A distinct fee is a relayer fingerprint**, so an unlabelled withdrawal can be attributed to a relayer by fee alone, and relayer choice clusters users.
+   - **Gas funding.** Trace who funded the deposit EOA and who funded the withdrawal `to`. A shared upstream funder or a common CEX withdrawal address collapses the set outright. This is the most productive discriminator in practice.
+   - **Amount decomposition.** If the subject moved a non-standard total, say three 10 ETH deposits plus one 1 ETH, and an identical multiset is withdrawn to fresh addresses inside a tight window, the unique decomposition can cut the set to single digits.
+   - **Timing.** Discard deposits after the withdrawal block. Tightens, never resolves.
+   - **Address reuse.** Does `to` later touch a KYC service, or an address already in your graph?
+7. **Record the surviving count and the exact query.** "The anonymity set comprised 9 deposits" is evidence. "Probably came from this deposit" is not.
+
+### The pool balance shortcut
+Balance divided by denomination equals the number of unspent notes, because every deposit adds exactly one denomination and every withdrawal removes exactly one. All four ETH pools divided exactly at verification, confirming the arithmetic. This gives you the current outstanding-note count for free, without enumerating a single log, and it is a hard floor on the set size for a withdrawal happening now.
+
+### Stop when
+The surviving set is in the hundreds with no relayer, gas or decomposition discriminator, and `to` sits idle or fans out to fresh addresses. Pivot to the deposit EOA's CEX funding source, or the eventual off-ramp of the withdrawal address, and serve legal process there.
+
+### False positives
+- The depositor is a router or relayer contract, not your subject. Check whether the depositing address is a contract.
+- Arbitrage and relayer bots that deposit and withdraw on behalf of others.
+- **Matching on amount inside a single-denomination pool.** Every deposit in the pool is the same size, so amount alone carries zero information there.
+
+### One reporting caution
+Blockscout still tags all four ETH pools `OFAC Sanctions Lists`, `SANCTIONED` and `BLOCKED BY USDC` or `BLOCKED BY USDT`. Explorer labels lag reality in both directions. Check the live SDN list yourself before you assert a sanctions nexus in a report, and never source a sanctions claim from an explorer tag.
+
+## 5. RAILGUN
+### How it works
+A shielded balance system. `Shield` moves a public balance in, `Transact` moves value privately inside the pool, `Unshield` moves it back out to a public address. Only the shield-in and unshield-out addresses are ever public. A 0.25 per cent fee is taken on shield and unshield.
+
+### Detect it
+**The contract you need is the Railgun Smart Wallet, not RelayAdapt.** This matters: `0xc3f2C8F9d5F0705De706b1302B7a039e1e11aC88` (RelayAdapt, #verified) returns `has_logs: false`, so filtering logs there yields nothing.
+
+| Contract | Address | Status |
+|---|---|---|
+| Railgun Smart Wallet (proxy) | `0xFA7093CDD9EE6932B4eb2c9e1cde7CE00B1FA4b9` | #verified, EIP-1967 proxy, tagged RAILGUN |
+| Smart Wallet implementation | `0xB4F2d77bD12c6b548Ae398244d7FAD4ABCE4D89b` | #verified, named RailgunSmartWallet |
+| RelayAdapt (multicall) | `0xc3f2C8F9d5F0705De706b1302B7a039e1e11aC88` | #verified, **emits no logs** |
+
+Event signatures, all #verified from live logs on the Smart Wallet:
+
+| Event | topic0 |
+|---|---|
+| `Unshield(address to, (uint8,address,uint256) token, uint256 amount, uint256 fee)` | `0xd93cf895c7d5b2cd7dc7a098b678b3089f37d91f48d9b83a0800a91cbdf05284` |
+| `Transact(uint256 treeNumber, uint256 startPosition, bytes32[] hash, (bytes32[4],bytes32,bytes32,bytes,bytes)[] ciphertext)` | `0x56a618cda1e34057b7f849a5792f6c8587a2dbe11c83d0254e72cb3daffda7d1` |
+| `Nullified(uint16 treeNumber, bytes32[] nullifier)` | `0x781745c57906dc2f175fec80a9c691744c91c48a34a83672c41c2604774eb11f` |
+
+**`Unshield` is the artefact that matters and every field is non-indexed.** `to` is the public destination address in clear text. Pull the log and decode `data`.
+
+### Trace it, step by step
+1. **Filter the Smart Wallet's logs** for the Unshield topic0. Each hit gives you `to`, the token contract, the net `amount` and the `fee`.
+2. **Reconstruct the gross amount.** `fee` is exactly 0.25 per cent of `amount + fee`, so gross equals `amount + fee`. Verified against three live unshields on 2026-07-28 (recipients withheld, they are ordinary users and the arithmetic is the point):
+
+   | Token | Net amount | Fee | Gross | Fee as share of gross |
+   |---|---|---|---|---|
+   | USDC | 43.022175 | 0.107825 | 43.13 | 0.2500% |
+   | USDC | 1,348.914885 | 3.380739 | 1,352.295624 | 0.2500% |
+   | DAI | 185,369 | 464.583959899749373433 | 185,833.583959899749373433 | 0.2500% |
+
+   Use this both to confirm you are looking at a genuine RAILGUN unshield and to match a gross figure against a shield on the other side. If the ratio is not 0.25 per cent of gross, you are not looking at a standard unshield.
+3. **Pull the whole receipt, not one log.** A single RAILGUN interaction emits many events across `Transact`, `Nullified` and `Unshield`. Use `eth_getTransactionReceipt` and decode every log, or you will miss the one you need.
+4. **Enumerate the other side.** List every shield and unshield of the same token in your window, apply the gross calculation, and match amounts. There is no on-chain identifier joining a shield to an unshield, so this is correlation only.
+5. **Use the standby period as a hard timing constraint.** A freshly shielded balance can only unshield back to its origin address for the first hour. So a shield followed inside roughly an hour by an unshield to a *different* address is impossible, which removes candidates rather than merely reordering them.
+
+### Stop when
+No amount match and no viewing key. The internal note graph is genuinely opaque.
+
+### Pivot
+Request the **viewing key** from a cooperating party. It is read-only, cannot spend, and reveals that wallet's full shielded history including memos. This is the lawful route and it resolves the flow outright.
+
+### False positives
+Private DeFi through the adapt contract reshields the swapped asset and dust back to the same 0zk address. Do not read a reshield as a new user or a new deposit.
+
+## 6. Privacy Pools and Aztec
+### Privacy Pools (0xbow)
+Live on Ethereum, Optimism, BSC and Arbitrum across roughly 21 pools. An Entrypoint contract fronts per-asset pool contracts.
+
+1. **Resolve the Entrypoint and pool addresses from the project docs.** Do not guess them, and I have not verified them here.
+2. **Detect** via `Deposit`, `Withdrawal`, `Ragequit` and association-set root update events.
+3. **Pull fields:** `_depositor`, `_value`, `_precommitmentHash` and the returned `_commitment` on deposit; `processooor`, `scope` (the unique pool id) and `data` on withdrawal.
+4. **Check for `Ragequit` first.** A ragequit returns funds to the original deposit address and **reveals the original depositor**, which is a deterministic break. If your subject ragequit, the link is resolved.
+5. **Otherwise bound it** exactly as Tornado: denomination, plus association-set membership, plus timing. The association set is a gift, not an obstacle: membership constrains which deposits the withdrawal could have come from.
+6. **Use the free Envio indexer** (`github.com/enviodev/privacy-pools`) which covers every Entrypoint and pool across all four chains, rather than hand-rolling log queries. Use the live Merkle leaf count as the set ceiling.
+
+### Aztec
+Treat as internally opaque. Work only the Ethereum L1 boundary: enumerate deposits into and withdrawals out of the portal contract and apply amount plus timing correlation. **Resolve the current portal address from Aztec's own docs**, I have not verified it and it should not be assumed.
+
+## 7. Bitcoin CoinJoin
+### Whirlpool (Ashigaru)
+**How it works.** ZeroLink pattern. A **Tx0** entry transaction splits the user's funds into fixed-denomination premix outputs, pays the entry fee, and emits a change output. Mature coinjoins then have exactly 5 inputs and 5 outputs, all equal to the pool denomination. Two pools: 0.025 BTC and 0.25 BTC, each with a 5 per cent Tx0 entry fee (0.00125 and 0.0125 BTC) and a cap of 20 UTXOs per Tx0. Remixes afterwards are free and unlimited. Tor only.
+
+**Detection algorithm.** A transaction is a Whirlpool coinjoin when all three hold: exactly 5 inputs and 5 outputs; every output equals a pool denomination; and at least one input comes from a previously identified Whirlpool coinjoin. Seed from known coinjoins and iterate forward.
+
+**Trace it.**
+1. Pull the transaction graph on mempool.space or Blockchair.
+2. **Find the Tx0.** Walk back from the coinjoin inputs to the entry transaction. The Tx0 is the user-linking artefact: it ties the depositor's funding UTXOs to the premix set.
+3. **Trace the change output, always.** Whirlpool's change output (the toxic or "doxxic" change) retains full traceability and has no cover traffic. Users who later spend it alongside mixed coins collapse their own privacy under common-input-ownership. This is the single most productive lead in the whole design.
+4. Enumerate the premix outputs of the Tx0 for the initial set; the set grows with each remix.
+5. Track pools and cycles for free on **whirlpoolstats.xyz**.
+
+**False positive.** Any 5-by-5 equal-output transaction not chained to a prior Whirlpool coinjoin. Condition three exists precisely to exclude coincidental batches.
+
+### Wasabi 2.x
+**How it works.** WabiSabi, using Chaumian credentials to decompose amounts into multiple standard denominations, so outputs are **variable**, not uniform. Since the original coordinator shut, coordination is by community operators. Clients typically refuse rounds below 21 inputs, and from 2.2.0.0 only join zero-coordinator-fee rounds, so a coordinator-fee output indicates an older or different coordinator.
+
+**Trace it.**
+1. Open the coinjoin on mempool.space and record every input outpoint, output value and script, plus input and output counts.
+2. **Do not apply equal-output logic.** Detect the decomposition signature instead: outputs drawn from a set of standard denominations, tight value intervals, uniform script types.
+3. **Attribute the round to a coordinator.** There is no on-chain coordinator tag. Coordinators announce rounds over **Nostr**, so match the coinjoin txid and timing against the announcement feed, and against community trackers **wabisator.com** and Liquisabi. Record the relay and the announcement event id as your artefact.
+4. Bound by round membership: the anonymity set is the count of inputs in that round. A small community coordinator can collapse it, which is why identifying *which* coordinator ran the round is the substantive step.
+5. Apply sub-transaction analysis: match input and output amounts within the mining fee tolerance, and follow remix chains.
+
+**False positive.** PayJoin and ordinary exchange batch transactions resemble a coinjoin. Confirm the WabiSabi structure and a coordinator announcement before naming it.
+
+### JoinMarket, Ginger, Sparrow
+- **JoinMarket:** maker and taker orderbook. **The taker pays the fees, so fee direction reveals the role.** Outputs are less uniform than Whirlpool because makers earn fees. Bound by equal-output grouping plus fee analysis; recurring maker addresses become attributable over time.
+- **Ginger Wallet:** a Wasabi fork shipping a default community coordinator. Treat as Wasabi 2.x and attribute the coordinator the same way.
+- **Sparrow:** where it drives Whirlpool rounds, use the Whirlpool procedure and identify the coordinator in play.
+
+## 8. THORChain, Maya and Chainflip
+### THORChain, Maya and THORSwap
+**How it works.** A native L1 send to the current Asgard vault address carrying a **memo**. The protocol swaps and pays out from vault liquidity in a separate transaction on another chain. No cryptographic link between the two transactions; the join lives in protocol state.
+
+**The memo is the prize.** Format is `FUNCTION:PARAM1:PARAM2`, for example `SWAP:ETH.ETH:0xDESTINATION:limit`. **It usually contains the destination address in clear text.** On Bitcoin it sits in an `OP_RETURN`; long memos are split across the OP_RETURN plus encoded outputs, or use a reference form.
+
+**Trace it.**
+1. **Read the inbound memo** and take the destination address straight out of it. Decode the `OP_RETURN` hex to ASCII on Bitcoin; read calldata on EVM. Reassemble split memos.
+2. **Resolve the swap** via `/thorchain/tx/<hash>` on the THORNode API, or runescan.io. It returns the parsed swap with observed inbound, outbound and addresses.
+3. **Confirm the deterministic join.** The outbound transaction's memo is `OUT:` followed by the inbound tx hash, and its `in_hash` field equals the inbound hash. Verify the outbound `to_address` matches the destination you read from the inbound memo.
+4. **Record:** `memo` raw and decoded, `in_hash`, `to_address`, `vault_pub_key`, `coin.asset`, `coin.amount`, and `aggregator` plus `aggregator_target_asset` if the swap exited through a DEX aggregator.
+5. **Never cache a vault address.** Asgard vaults are TSS multisig and rotate on churn, roughly every few days. Resolve the correct one for your date from the inbound addresses endpoint.
+
+**False positive.** Savers and add-liquidity memos (`+`, `a`) are not swaps and produce no outbound. Do not count them as chain hops.
+
+### Chainflip
+**How it works.** A unique **deposit channel** address is generated per swap on the source chain. Funds sent there trigger the swap and the egress pays the destination. Vault swaps instead send straight to the vault with the destination in the deposit transaction metadata.
+
+**Trace it.**
+1. Paste the deposit address or source tx hash into **scan.chainflip.io**. It returns the full swap including the destination.
+2. Record `depositAddress`, `channelId` (formatted `<blockheight>-<Chain>-<n>`), `destinationAddress`, `sellAsset` and `buyAsset`, `brokerAddress`, `affiliateFees`, `refundParameters.refundAddress` and any DCA chunk parameters.
+3. For a vault swap, parse the destination out of the deposit transaction metadata instead.
+
+**Two traps.** Deposit channels expire after 24 hours, so a late deposit may not be recognised as a swap at all. And **a refund goes to `refundParameters.refundAddress`, not the destination**, so distinguish an egress from a refund before you call an address the beneficiary.
+
+## 9. Message-identifier bridges
+These commit an identifier on-chain. Pull it, resolve it, move on.
+
+### Wormhole, Portal and NTT
+Core bridge contracts, both #verified:
+
+| Chain | Core bridge | Status |
+|---|---|---|
+| Ethereum | `0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B` | #verified, named Wormhole, EIP-1967 proxy |
+| Polygon | `0x7A4B5a56256163F07b2C80A7cA55aBE66C4ec4d7` | #verified, named Wormhole, EIP-1967 proxy |
+
+Event, #verified from live Ethereum logs:
+
+`LogMessagePublished(address indexed sender, uint64 sequence, uint32 nonce, bytes payload, uint8 consistencyLevel)`
+topic0 `0x6eb224fb001ed210e379b335e35efe88672a8ce935d981a6896b27ffdf52a3b2`
+
+**Only `sender` is indexed.** You can filter by emitter, but `sequence` sits in `data`, so you cannot filter on it. Pull and decode.
+
+1. Filter the core bridge's logs for that topic0.
+2. Read the emitter from `topics[1]`, then decode `sequence` from `data`. Those two plus the chain id form the **VAA tuple** that joins both legs.
+3. Resolve the VAA on **wormholescan.io** as `chain/emitter/sequence`.
+4. **Decode the payload for the destination.** The first payload byte is the type: `0x01` is a token transfer. The recipient is encoded as bytes32 inside the payload, so take the last 20 bytes for an EVM address, or read all 32 as a Solana pubkey.
+5. On Solana the emitter is a PDA and the sequence tracks per emitter.
+
+**False positive.** A VAA can be a governance or attestation message with no value attached. Check the payload type before treating it as a transfer. In the live Ethereum logs I saw two distinct emitters producing different payload types in the same window, so confirm which emitter is the token bridge from Wormhole's own deployment list.
+
+### Circle CCTP
+| Contract | Address | Status |
+|---|---|---|
+| MessageTransmitter V2 (proxy) | `0x81D40F21F12A8F0E3252Bccb954D722d4c464B64` | #verified, EIP-1967 proxy, tagged Circle CCTP |
+| MessageTransmitter V2 implementation | `0xa30C41865729C248067704d4DB9F38385Cbe1186` | #verified, named MessageTransmitterV2 |
+
+1. Open the burn transaction and find `DepositForBurn` in the logs. Read `nonce`, `amount`, `destinationDomain` and `mintRecipient`.
+2. Find `MessageSent(bytes)` in the same receipt and compute the message hash:
+   ```
+   topic     = keccak256("MessageSent(bytes)")
+   log       = receipt.logs.find(l => l.topics[0] == topic)
+   msgBytes  = abiDecode(["bytes"], log.data)[0]
+   msgHash   = keccak256(msgBytes)
+   ```
+3. Resolve the attestation on the Iris API by source domain and transaction hash.
+4. On the destination chain, find `MintAndWithdraw` matching the same nonce.
+5. **`mintRecipient` is bytes32.** Take the last 20 bytes for EVM.
+
+**Two traps.** CCTP uses Circle **domain ids**, not chain ids (Solana is domain 5), so never treat a domain as a chain id. And Standard and Fast transfers both call `depositForBurn`: the finality threshold fields distinguish them, not the destination.
+
+### LayerZero v2 and Stargate v2
+1. Paste the source tx hash into **layerzeroscan.com**, which resolves the whole path end to end.
+2. On-chain, filter for `PacketSent(bytes encodedPayload, bytes options, address sendLibrary)` on EndpointV2, and `OFTSent(bytes32 guid, uint32 dstEid, address fromAddress, uint256 amountSentLD, uint256 amountReceivedLD)` on the OFT contract.
+3. **The `guid` is the join.** Match `PacketSent` on the source to `PacketDelivered` or the `lzReceive` call on the destination.
+4. Record `guid`, `srcEid`, `dstEid`, `nonce`, `receiver`, `amountSentLD` and `amountReceivedLD`.
+5. For set work, Dune has `layerzero_v2_*` decoded tables including `EndpointV2_PacketSent_event`, `OFT_OFTSent_event` and `OFT_OFTReceived_event`.
+
+**Two traps.** `srcEid` and `dstEid` are **endpoint ids, not chain ids**: map them via LayerZero's deployment table. And plenty of applications use LayerZero for messages carrying no value, so confirm an `OFTSent` before treating it as a transfer.
+
+## 10. Intent and liquidity bridges
+| Bridge | Source event | Destination event | The join | Where to resolve |
+|---|---|---|---|---|
+| Across | `V3FundsDeposited`, or `FundsDeposited` in V4 | `FilledV3Relay`, or `FilledRelay` in V4 | `depositId` plus `originChainId` | Etherscan SpokePool logs; Dune `across_v3_*` tables |
+| deBridge DLN | `CreatedOrder(Order order, bytes32 orderId, ...)` from `DlnSource.createOrder()` | `FulfilledOrder` or `SentOrderCancel` on `DlnDestination` | `orderId` (bytes32) | `stats-api.dln.trade/api/Orders/creationTxHash/{hash}`, or `/api/Transaction/{hash}/orderIds` |
+| Synapse | `TokenDeposit` or `TokenRedeem` | Destination credit | `kappa` (bytes32) | Synapse explorer plus Etherscan |
+| Hop | `TransferSent` | `WithdrawalBonded` | `transferId` | Hop explorer plus Etherscan |
+| Celer cBridge | `Send` | `Relay` | `transferId`, computed from sender, receiver, token, amount, nonce and chain ids | cBridge status API |
+
+Procedure is uniform: pull the join id from the source log, then either resolve it on the bridge's own explorer or filter the destination chain's logs for the same id. The recipient is a decoded event field in every case.
+
+**Across version trap.** V4 renamed both events and moved address fields to bytes32. Confirm which version the transaction actually used before matching signatures.
+
+**The intent-bridge trap that matters most.** On Across, deBridge and any solver-filled bridge, **the party paying on the destination side is the solver, from their own inventory.** They are not your subject and not a counterparty. Do not put them in the graph as one.
+
+## 11. No-KYC custodial swaps
+Covers FixedFloat, ChangeNOW, SimpleSwap, StealthEX, Godex, LetsExchange, SwapSpace, Changelly, Exolix, Swapuz, Trocador, Majestic Bank, SideShift, Houdini Swap, Ben.exchange and Alfacash.
+
+**How it works.** Funds go to a service-controlled deposit address; a separate service-controlled address pays out from reserves. **There is no on-chain identifier joining the two legs.** The join exists only in the service's off-chain order record.
+
+### Trace it, step by step
+1. **Recognise the deposit address** by clustering: repeated fan-in from unrelated users, fan-out to a common hot wallet, and rotation on every use.
+2. **Derive the fee schedule empirically** rather than trusting marketing. Assemble known in/out pairs for one asset pair, then for each compute `fee = amount_in - amount_out - network_fee` and fit `amount_out = amount_in * (1 - p) - c` by least squares. Validate on held-out pairs. FixedFloat converges on roughly 1 per cent for fixed-rate orders and 0.5 per cent for float.
+3. **Match the outbound leg** on amount minus fee against outbounds from the known hot wallet inside the service's processing window, which is seconds to minutes for instant swaps.
+4. **Use the order id where you have it.** FixedFloat's public REST API exposes per-order `id`, `token`, `status`, `type`, `from.address` (the deposit address), `to.address` (the payout destination), memo or tag, amounts and currency pair. An order id resolves both legs deterministically, but only the id holder or the service under legal process can query it.
+5. **Serve the service.** A notice can freeze an in-flight order, since these services run AML holds, and can yield the payout address plus any KYC captured during the hold. This is an interdiction lever, not just an evidence request.
+6. **Check the service is live** before relying on any of it: kycnot.me, the service's own status page, and WHOIS are free checks.
+
+**Fixed versus float matters.** A fixed-rate order locks the amount, giving precise amount correlation. A float order requires a wider tolerance band.
+
+**The aggregator trap.** Trocador, SwapSpace and Houdini Swap route through other providers. The deposit address you are looking at may belong to a downstream provider, so **the operator you must serve may not be the front end you found.** Fingerprint the back end from the deposit-address cluster before sending anything.
+
+### Telegram bot swaps
+Most bots are front ends over the services above, or over THORChain and Chainflip. Fingerprint the back end from the deposit-address cluster and memo pattern, then run that service's procedure. The bot itself is an OSINT target: the `t.me` handle, WHOIS on any linked domain, crt.sh for subdomains, Wayback for prior claims.
+
+## 12. Privacy coins as off-ramps
+The universal weak point of every opt-in privacy asset is the boundary. Crossing it reveals amount and timing on one side, and a KYC exchange at a transparent endpoint links identity to the pseudonym permanently.
+
+**Generic procedure:** find the transparent boundary transaction, enumerate every boundary event in a window, match on value (round numbers especially) and timing, then attach identity via exchange records at the transparent endpoint.
+
+| Coin | What is still visible | Procedure |
+|---|---|---|
+| **Monero** | Nothing useful on-chain | On-chain tracing is a dead end. Work the on-ramp and off-ramp only: correlate a known exchange withdrawal to an XMR address against a later XMR deposit to an exchange, by amount and timing. For a cooperating party request the **private view key** plus primary address to build a view-only wallet: it reveals incoming transactions and balances but **cannot reliably confirm outgoing spends**, which need key images. Do not spend budget on decoy analysis; it only ever worked on pre-2017 and buggy transactions |
+| **Zcash** | `valueBalance` at the boundary; Sapling `vShieldedSpend` and `vShieldedOutput`; Orchard `actions`; legacy Sprout `vpub_old` and `vpub_new`; fees always | Shielding (t to z) reveals the sender and amount. Deshielding (z to t) reveals the recipient and amount. **Only z to z hides all three.** Explorers show the shield or deshield amount as the absolute value of `valueBalance`. Enumerate boundary events in a window and match on value and timing. Request an **incoming or full viewing key** (ZIP 310, `uview1` prefix) from a cooperating party: read-only, and it reveals amounts, counterparties and **memos**. Use Blockchair, the Nighthawk explorer, zcha.in for turnstiles, zkp.baby for pool balances |
+| **Dash** | Everything; it is a transparent chain with CoinJoin | Detect a mix on Blockchair Dash: N equal inputs and N equal outputs of one denomination (0.001, 0.01, 0.1, 1, 10 DASH) and no change. Rounds are user-selectable 2 to 16 and each is a separate transaction, so follow the chain. Bound per round by counting same-denomination participants. **No stronger than a generic Bitcoin CoinJoin** |
+| **Firo Spark** | The mint and spend boundaries | Mint equals shield, spend equals private send or deshield. Spark addresses are **not searchable on any explorer** and amounts are hidden. Work the mint and the spend-to-transparent boundaries. Exchange addresses (prefix `EX`) cannot receive directly from Spark, which **forces routing through a transparent address**: that forced hop is your anchor. Opt-in view keys exist |
+| **Litecoin MWEB** | Peg-in amount; peg-out inside the HogEx | Stealth addresses begin `ltcmweb1`. A peg-in is a distinct on-chain transaction with a visible amount. **A peg-out is not a standalone transaction**: it appears as an output inside the HogEx, the always-last integrating transaction of each block, with the peg-out amount and target script in the kernel. Match peg-in against later peg-out on amount and timing. Detect on litecoinspace.org/mweb. Privacy only holds if the user makes many small peg-outs to different addresses, so a single large peg-out is highly correlatable |
+| **Grin, Beam** | Little on-chain | Both MimbleWimble. Hard on-chain, but thin liquidity means very few off-ramps to check. Work the exchange boundary |
+
+## 13. Solana and Tron reading
+### Solana: why naive from/to fails
+Value moves inside program instructions and cross-program invocations, not as a single from/to field, and one transaction touches many accounts through address lookup tables.
+
+1. **Read pre and post token balances.** The per-token-account diff is the true value movement. Start here, not with the instruction list.
+2. **Expand inner instructions.** The visible top-level instruction is usually a router; the real transfer is a CPI underneath it.
+3. **Identify program IDs** to name the service.
+4. **Resolve accounts behind address lookup tables.** Explorers expand them; by RPC use `getTransaction` with `maxSupportedTransactionVersion` and read `loadedAddresses`.
+5. **Map each SPL token account to its owner.** The owner is the party, never the token account.
+6. **Use the fee payer and the rent payer as linking artefacts.** The first signer pays the fee, and whoever funded the associated token account creation for a fresh recipient is often the controlling party. This is the Solana equivalent of gas-funding correlation and it is just as productive.
+
+Free tools: Solscan, SolanaFM, Solana Explorer, and public RPC via `getTransaction` and `getSignaturesForAddress`.
+
+### Tron and TRC-20
+1. TRC-20 transfers emit the standard ERC-20 `Transfer(address indexed from, address indexed to, uint256 value)`, topic0 `0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef`. Read via TronScan logs, or TronGrid `/v1/contracts/{address}/events` and `/wallet/gettransactioninfobyid`.
+2. **Use resource artefacts as leads.** A new Tron account needs activation by a small TRX send, and energy is frequently delegated to the sender. **The activator and the energy delegator are third parties with a relationship to your subject.** Check the account's resource delegations on TronScan.
+3. **Check the token contract blacklist.** USDT on Tron maintains an on-contract blacklist. An `AddedBlackList` or `RemovedBlackList` event, or an `isBlackListed` read, tells you whether an address was frozen, which explains funds that suddenly stop moving and is itself a detectable artefact.
+
+## 14. Correlation techniques
+### Amount minus fee
+Derive the schedule empirically per section 11 step 2, then match an unknown deposit's expected output within a tolerance band. Never assume a published fee.
+
+### Timestamp windows, realistic values
+| Service class | Window |
+|---|---|
+| Native swaps (THORChain, Chainflip) | Seconds to minutes; outbound within a few blocks of inbound confirmation |
+| Bridges (CCTP, Wormhole, LayerZero, Across) | Seconds for fast and intent routes, up to roughly 15 to 20 minutes where finality is awaited |
+| Custodial instant swaps | Seconds to minutes; fixed-rate orders lock for roughly 10 to 15 minutes |
+| Mixers and shielded pools | **Unbounded.** Minutes to months. Timing only tightens a set, it never resolves one |
+
+Intersect the amount band with the timing band, then with the funding source. Any one alone is weak; the intersection of all three is usually decisive.
+
+### Gas and funding source
+The highest-yield discriminator against any pool or mixer, because a fresh destination address has to get its gas from somewhere.
+- **EVM:** trace who funded the first wei of the destination address. A funder shared with the deposit side collapses the set. Etherscan's "Funded By" and the Etherscan MCP's `get_funded_by` both give this directly.
+- **Tron:** the activator and energy delegator, per section 13.
+- **Solana:** the fee payer and the ATA rent payer, per section 13.
+
+## 15. Bounding an anonymity set
+Record the count and the exact query, every time.
+
+| Chain or service | How to count |
+|---|---|
+| EVM pool (Tornado, Privacy Pools) | Count deposits in the same pool at or below the withdrawal's `leafIndex` and timestamp. `eth_getLogs` on the Deposit topic0, or `count(*)` on the Dune decoded Deposit table. For Tornado, pool balance divided by denomination gives the current unspent-note count for free |
+| Bitcoin CoinJoin | The number of equal-denomination outputs in the round. Whirlpool is 5 per cycle, compounding across remixes. Wasabi is the count of same-value outputs. Pull via the Blockchair API |
+| Tron | Enumerate same-value `Transfer` events in the window via the TronGrid events endpoint |
+| Solana | Count same-denomination deposit instructions via `getSignaturesForAddress` on the program, then parse instructions |
+
+## 16. Peel chain and consolidation detection
+**Peel chain.** A chain of transactions each sending a large change onward while peeling a small payment. On Bitcoin, follow the largest output at each hop. On EVM, follow the address retaining the bulk balance. Working threshold: change output above roughly 90 per cent of input, payment below roughly 10 per cent, repeated more than three hops.
+
+**Consolidation.** Many inputs to one output on Bitcoin, or many addresses to one on EVM. On Dune, group by receiving address and count distinct funders in a window, flagging fan-in above a threshold. Apply common-input-ownership on Bitcoin, **but exclude coinjoins first** or you will manufacture false entities.
+
+## 17. What to record for reproducibility
+Per artefact: chain; block height; block timestamp in UTC; transaction hash; log index for EVM, instruction index for Solana, vout for Bitcoin; contract or program id; event name and topic0; **the join identifier** (nonce, guid, orderId, VAA tuple, kappa, transferId, in_hash, channelId, order id); source address; destination address; amount as raw value plus decimals; fee; relayer, broadcaster or broker; memo or payload as raw hex plus decoded; anonymity-set size **and the exact query that produced it**; explorer URL and API endpoint with parameters; retrieval timestamp.
+
+## 18. Verification status of every hex in this note
+Everything below was confirmed against live chain data through the Blockscout MCP on **2026-07-28**, at Ethereum block heights between 25630329 and 25632678. Addresses are case-insensitive; checksum casing varies between sources.
+
+**#verified contracts (Ethereum unless noted)**
+
+| Address | Confirmed as |
+|---|---|
+| `0x12D66f87A04A9E220743712cE6d9bB1B5616B8Fc` | Tornado.Cash 0.1 ETH, verified contract, balance 582.2 ETH |
+| `0x47CE0C6eD5B0Ce3d3A51fdb1C52DC66a7c3c2936` | Tornado.Cash 1 ETH, verified contract, balance 3,880 ETH |
+| `0x910Cbd523D972eb0a6f4cAe4618aD62622b39DbF` | Tornado.Cash 10 ETH, verified contract, balance 20,580 ETH |
+| `0xA160cdAB225685dA1d56aa342Ad8841c3b53f291` | Tornado.Cash 100 ETH, verified contract, balance 248,300 ETH |
+| `0x23773E65ed146A459791799d01336DB287f25334` | ERC20Tornado, tagged fixed pool 100,000 DAI |
+| `0xbB93e510BbCD0B7beb5A853875f9eC60275CF498` | ERC20Tornado, tagged fixed pool 10 WBTC |
+| `0xFA7093CDD9EE6932B4eb2c9e1cde7CE00B1FA4b9` | RAILGUN Smart Wallet, EIP-1967 proxy, emits logs |
+| `0xB4F2d77bD12c6b548Ae398244d7FAD4ABCE4D89b` | RailgunSmartWallet implementation |
+| `0xc3f2C8F9d5F0705De706b1302B7a039e1e11aC88` | RAILGUN RelayAdapt, **emits no logs** |
+| `0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B` | Wormhole core bridge, EIP-1967 proxy |
+| `0x7A4B5a56256163F07b2C80A7cA55aBE66C4ec4d7` | Wormhole core bridge on **Polygon**, EIP-1967 proxy |
+| `0x81D40F21F12A8F0E3252Bccb954D722d4c464B64` | CCTP MessageTransmitter V2, EIP-1967 proxy |
+| `0xa30C41865729C248067704d4DB9F38385Cbe1186` | MessageTransmitterV2 implementation |
+| `0x80C67432656d59144cEFf962E8fAF8926599bCF8` | Orbiter Finance bridge Maker, **not a contract**, so no event log to parse |
+
+**#verified event signatures and topic0**
+
+| topic0 | Signature |
+|---|---|
+| `0xa945e51eec50ab98c161376f0db4cf2aeba3ec92755fe2fcd388bdbbb80ff196` | `Deposit(bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp)` |
+| `0xe9e508bad6d4c3227e881ca19068f099da81b5164dd6d62b2eaf1e8bc6c34931` | `Withdrawal(address to, bytes32 nullifierHash, address indexed relayer, uint256 fee)` |
+| `0xd93cf895c7d5b2cd7dc7a098b678b3089f37d91f48d9b83a0800a91cbdf05284` | `Unshield(address to, (uint8,address,uint256) token, uint256 amount, uint256 fee)` |
+| `0x56a618cda1e34057b7f849a5792f6c8587a2dbe11c83d0254e72cb3daffda7d1` | `Transact(uint256 treeNumber, uint256 startPosition, bytes32[] hash, ... ciphertext)` |
+| `0x781745c57906dc2f175fec80a9c691744c91c48a34a83672c41c2604774eb11f` | `Nullified(uint16 treeNumber, bytes32[] nullifier)` |
+| `0x6eb224fb001ed210e379b335e35efe88672a8ce935d981a6896b27ffdf52a3b2` | `LogMessagePublished(address indexed sender, uint64 sequence, uint32 nonce, bytes payload, uint8 consistencyLevel)` |
+
+**#verified live relayers on the Tornado 10 ETH pool**, with the fee each charged, as a worked example of relayer fingerprinting:
+
+| Relayer | Fee charged |
+|---|---|
+| `0x4750BCfcC340AA4B31be7e71fa072716d28c29C5` | 0.04465 ETH |
+| `0xAAAAA27EA9ffab81F4735e6B766af985d0c88C61` | 0.04465 ETH |
+| `0x000000Cd6521Ed1a65FAe0678eA15aF4EEAD74fe` | 0.04465 ETH |
+| `0xEE4C45Cc5eAa535CB8a8ffdc92f2839A601fe226` | 0.04465 ETH |
+| `0x0A5B2bF3cCfB44C1D22F07Eed9553eCba752D4aD` | **0.04015 ETH**, on both observed withdrawals |
+
+**NOT verified here. Derive or confirm these yourself before use:** every Privacy Pools Entrypoint and pool address; the Aztec L1 portal; Across SpokePool, deBridge DlnSource and DlnDestination, Synapse, Hop and Celer contract addresses; all non-Ethereum Tornado pool addresses; and every topic0 for Across, deBridge, Synapse, Hop, Celer, LayerZero and CCTP events. The procedure to derive any topic0 is section 3. The TRC-20 `Transfer` topic0 given in section 13 is the standard ERC-20 value and was not separately confirmed on Tron here.
+
+**Known drift risks.** Dune decoded table and column names change, so confirm in the live catalogue. Bridge event schemas change across versions: Across V3 versus V4, CCTP V1 versus V2, LayerZero v1 versus v2. Always confirm you are matching the version the transaction actually used. Wide `eth_getLogs` ranges need block-range pagination.
+
+## Related
+[Types of Mixers and Tumblers](/kb/04-laundering-obfuscation/mixers/concept-types-of-mixers-and-tumblers), [Mixers and Tumblers](/kb/04-laundering-obfuscation/mixers/definition-mixers-and-tumblers), [Mixer Operators Are Identified Off-Chain](/kb/04-laundering-obfuscation/mixers/principle-mixer-operators-are-identified-off-chain), [Custodial Mixer Feature Landscape (2025 Survey)](/kb/04-laundering-obfuscation/mixers/reference-custodial-mixer-feature-landscape-2025), [How Mixers Process Funds](/kb/04-laundering-obfuscation/mixers/workflow-how-mixers-process-funds), [What Mixers Hide and How Blockchain Analysis Uncovers It](/kb/04-laundering-obfuscation/mixers/framework-what-mixers-hide-how-analysis-uncovers), [Identify a zk Shielded-Pool Withdrawal On-Chain (transact + Groth16 proof + Nullified)](/kb/04-laundering-obfuscation/mixers/tactic-identify-zk-shielded-pool-withdrawal-onchain), [Chain Hopping / Cross-Chain Bridging](/kb/04-laundering-obfuscation/concept-chain-hopping), [Privacy Coin Conversion](/kb/04-laundering-obfuscation/concept-privacy-coin-conversion), [Monero Is the Practical Ceiling of On-Chain Attribution](/kb/04-laundering-obfuscation/caution-monero-is-the-practical-ceiling-of-on-chain-attribution), [Cross-Chain Obfuscation Categories](/kb/04-laundering-obfuscation/checklist-cross-chain-obfuscation-categories), [Breaking Obfuscation: Five-Part Strategy](/kb/04-laundering-obfuscation/framework-breaking-obfuscation-five-part-strategy), [Cross-Chain / Bridge & Swap Analysis](/kb/02-tracing/tactic-cross-chain-bridge-swap-analysis), [Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation), [Trace an Intent-Based Bridge (NEAR Intents) via Its Public Explorer](/kb/02-tracing/tactic-trace-intent-bridges-via-public-explorer), [Mint-Style Bridges: Pivot to Counterparty-Graph Analysis](/kb/02-tracing/tactic-mint-style-bridges-pivot-to-counterparty-graph-analysis), [CoinJoin Implementation Signatures](/kb/02-tracing/tactic-coinjoin-implementation-signatures), [Post-Mixer Bitcoin Tracing](/kb/02-tracing/tactic-post-mixer-bitcoin-tracing), [EVM Event Logs & Decoding Calldata](/kb/02-tracing/tactic-evm-event-logs-and-decoding-calldata), [Decoding a Cross-Chain Destination Address from Input Data](/kb/02-tracing/tactic-decode-cross-chain-destination-address), [Bitcoin OP_RETURN as a Cross-Chain Signal](/kb/02-tracing/tactic-bitcoin-op-return-bridge-signal), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Value-and-Block-Window Candidate Search](/kb/02-tracing/tactic-value-and-block-window-candidate-search), [Temporal / Timing Correlation Analysis](/kb/02-tracing/tactic-temporal-timing-correlation), [Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Service Choke-Points: What Each Service Type Can Give You](/kb/02-tracing/framework-service-choke-points-what-each-can-give-you), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [OSINT Investigator's Toolkit - Full Tool Catalogue](/kb/07-tooling/osint-investigators-toolkit-catalogue)

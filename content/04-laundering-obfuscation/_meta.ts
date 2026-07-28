@@ -27,5 +27,6 @@ export default {
   "checklist-on-chain-obfuscation-categories": "On-Chain Obfuscation Categories",
   "caution-monero-is-the-practical-ceiling-of-on-chain-attribution": "Monero Is the Practical Ceiling of On-Chain Attribution",
   "example-case-tornado-cash-round-trip-resolved-by-address-reuse": "Case: Tornado Cash Round-Trip Resolved by Address Reuse",
+  "reference-mixers-bridges-and-privacy-services-2026": "Operational Tracing Runbook: Live Mixers Bridges and No-KYC Swaps",
   "mixers": "Mixers & Tumblers",
 }

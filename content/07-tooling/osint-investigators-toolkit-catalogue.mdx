@@ -6,7 +6,7 @@
 
 Jump to a section:
 
-[Blockchain](#blockchain-33-tools) · [Infrastructure](#infrastructure-20-tools) · [Email OSINT](#email-osint-7-tools) · [Username](#username-4-tools) · [Phone OSINT](#phone-osint-5-tools) · [Face Search](#face-search-4-tools) · [Image OSINT](#image-osint-7-tools) · [Geolocation](#geolocation-16-tools) · [Breach & Exposure](#breach--exposure-8-tools) · [Threat Intel](#threat-intel-10-tools) · [Documents & Metadata](#documents--metadata-8-tools) · [Social, Twitter/X](#social-twitterx-3-tools) · [Social, Telegram](#social-telegram-5-tools) · [Social, Discord](#social-discord-2-tools) · [Social, Reddit](#social-reddit-2-tools) · [Social, Instagram/TikTok](#social-instagramtiktok-2-tools) · [Social, Meta](#social-meta-1-tools) · [Social, LinkedIn](#social-linkedin-1-tools) · [Social, General](#social-general-3-tools) · [Darknet](#darknet-4-tools) · [Corporate & Records](#corporate--records-6-tools) · [Search & Dorking](#search--dorking-8-tools) · [Investigator Toolkit](#investigator-toolkit-11-tools) · [Additional Tracing & Attribution Platforms](#additional-tracing--attribution-platforms) · [Cross-Chain Bridge Explorers](#cross-chain-bridge-explorers) · [Instant-Swap / Instant-Exchange Services](#instant-swap--instant-exchange-services) · [Additional Infrastructure & Domain OSINT](#additional-infrastructure--domain-osint) · [Scam & Phishing Databases](#scam--phishing-databases) · [Case Documentation](#case-documentation) · [Freezing, Blacklisting & Recovery](#freezing-blacklisting--recovery) · [Law Enforcement Liaison & Cross-Sector Coalitions](#law-enforcement-liaison--cross-sector-coalitions) · [The three-piece investigator workflow (framing)](#the-three-piece-investigator-workflow-framing) · [Bridge & cross-chain explorers / utilities](#bridge--cross-chain-explorers--utilities) · [Tracing / case tooling](#tracing--case-tooling) · [Email / domain OSINT](#email--domain-osint) · [Corporate Registries by Country (Europe)](#corporate-registries-by-country-europe) · [OSINT Handbooks, Guides & Curated Stacks](#osint-handbooks-guides--curated-stacks) · [Self-hosted chain analysis (build your own graph)](#self-hosted-chain-analysis-build-your-own-graph) · [Address risk, attribution & community reports](#address-risk-attribution--community-reports) · [CoinJoin coordinator discovery](#coinjoin-coordinator-discovery)
+[Blockchain](#blockchain-33-tools) · [Infrastructure](#infrastructure-20-tools) · [Email OSINT](#email-osint-7-tools) · [Username](#username-4-tools) · [Phone OSINT](#phone-osint-5-tools) · [Face Search](#face-search-4-tools) · [Image OSINT](#image-osint-7-tools) · [Geolocation](#geolocation-16-tools) · [Breach & Exposure](#breach--exposure-8-tools) · [Threat Intel](#threat-intel-10-tools) · [Documents & Metadata](#documents--metadata-8-tools) · [Social, Twitter/X](#social-twitterx-3-tools) · [Social, Telegram](#social-telegram-5-tools) · [Social, Discord](#social-discord-2-tools) · [Social, Reddit](#social-reddit-2-tools) · [Social, Instagram/TikTok](#social-instagramtiktok-2-tools) · [Social, Meta](#social-meta-1-tools) · [Social, LinkedIn](#social-linkedin-1-tools) · [Social, General](#social-general-3-tools) · [Darknet](#darknet-4-tools) · [Corporate & Records](#corporate--records-6-tools) · [Search & Dorking](#search--dorking-8-tools) · [Investigator Toolkit](#investigator-toolkit-11-tools) · [Additional Tracing & Attribution Platforms](#additional-tracing--attribution-platforms) · [Cross-Chain Bridge Explorers](#cross-chain-bridge-explorers) · [Bridge Resolution APIs](#bridge-resolution-apis) · [Instant-Swap / Instant-Exchange Services](#instant-swap--instant-exchange-services) · [Additional Infrastructure & Domain OSINT](#additional-infrastructure--domain-osint) · [Scam & Phishing Databases](#scam--phishing-databases) · [Case Documentation](#case-documentation) · [Freezing, Blacklisting & Recovery](#freezing-blacklisting--recovery) · [Law Enforcement Liaison & Cross-Sector Coalitions](#law-enforcement-liaison--cross-sector-coalitions) · [The three-piece investigator workflow (framing)](#the-three-piece-investigator-workflow-framing) · [Bridge & cross-chain explorers / utilities](#bridge--cross-chain-explorers--utilities) · [Tracing / case tooling](#tracing--case-tooling) · [Email / domain OSINT](#email--domain-osint) · [Corporate Registries by Country (Europe)](#corporate-registries-by-country-europe) · [OSINT Handbooks, Guides & Curated Stacks](#osint-handbooks-guides--curated-stacks) · [Self-hosted chain analysis (build your own graph)](#self-hosted-chain-analysis-build-your-own-graph) · [Address risk, attribution & community reports](#address-risk-attribution--community-reports) · [CoinJoin coordinator discovery](#coinjoin-coordinator-discovery) · [Event Signature & Selector Lookup](#event-signature--selector-lookup) · [Privacy-Coin & CoinJoin Explorers](#privacy-coin--coinjoin-explorers)
 
 A curated, field-tested directory of open-source intelligence tools for crypto forensics, digital investigations, and threat hunting. Catalogue version v2026.05; 170 tools across 23 categories (all entries verified 2026-05 unless a note says otherwise).
 
@@ -324,10 +324,45 @@ OPSEC legend: **Safe** = low exposure; **Caution** = the tool transmits/logs you
 | LayerZeroScan | LayerZero messaging explorer | free | layerzeroscan.com | |
 | deBridge Explorer | deBridge transfers | free | explorer.debridge.finance | |
 | THORChain / Runescan | THORChain swaps | free | thorchain.net / runescan.io | |
-| Mayan Explorer | Mayan cross-chain swaps | free | explorer.mayan.finance | |
-| Allbridge | Allbridge transfers | free | allbridge.io | |
+| Mayan Explorer | Mayan cross-chain swaps | free | explorer.mayan.finance | Mayan swaps emit Wormhole VAAs, so they also resolve on Wormholescan |
+| Allbridge | Allbridge transfers | free | allbridge.io | Core explorer at core.allbridge.io/explorer; search by sender, recipient, tx or transfer ID |
+| Axelarscan | Axelar general message passing | free | axelarscan.io | message_id = source tx hash + log index, from the Gateway ContractCall event. Squid routes resolve here too |
+| Circle CCTP (CCTPScan) | Native USDC burn-and-mint transfers | free | developers.circle.com | The cleanest bridge to trace. DepositForBurn + MessageSent -> MintAndWithdraw. V1 and V2 use separate contracts and nonce spaces |
+| Synapse Explorer | Synapse liquidity-network transfers | free | explorer.synapseprotocol.com | GraphQL. Liquidity network, so match amount minus fee and timestamp. Lookalike front ends circulate: use this domain only |
+| Hop Explorer | Hop transfers | free | explorer.hop.exchange | Extract the TransferSent event and its transferId |
+| Celer cBridge | cBridge transfers | free | cbridge.celer.network | transferId (keccak256). Status API returns both legs in one response, see Bridge Resolution APIs |
+| Across | Intent/solver bridge fills | free | across.to | V3FundsDeposited -> FilledV3Relay (V4 renamed both). The relayer fronts the funds: the destination payer is the solver, NOT the suspect |
+| Socketscan (Socket/Bungee) | Aggregator route lookup | free | socketscan.io | Confirm the current post-rebrand domain. Do NOT treat the aggregator as the bridge: identify each leg's underlying bridge |
+| LI.FI / Jumper status | Meta-router status by tx hash | free | li.fi / jumper.exchange | Returns PENDING/DONE/FAILED/PARTIAL/REFUNDED. PARTIAL and REFUNDED flag a failed hop that may have returned funds to a DIFFERENT address |
+| Orbiter Explorer | L2-to-L2 Maker-model transfers | free | explorer.orbiter.finance | No event log to parse: transfers go to a Maker EOA. Routing is encoded in the trailing digits of the amount, so preserve full precision |
+| Chainflip Scan | Native cross-chain DEX swaps | free | scan.chainflip.io | Swap ID + deposit channel, e.g. 6543210-Ethereum-1933. Intent-style, so vendor coverage is weak |
+| Everclear Explorer | Intent-based clearing (ex-Connext) | free | explorer.everclear.org | intentId + Hyperlane message_id; cross-check the Hyperlane explorer. Legacy: connextscan.io |
+| Hyperlane Explorer | Interchain messaging | free | explorer.hyperlane.xyz | message ID = keccak256(message) via Mailbox.dispatch. Often the transport layer BENEATH another protocol: identify what is riding on it |
+| Chainlink CCIP Explorer | CCIP messages and token transfers | free | ccip.chain.link | messageId generated on the source chain; shows both legs and status |
+| Mintscan | Cosmos IBC packets | free | mintscan.io | Packet sequence + channel IDs, port "transfer". The denom encodes the path (transfer/channel-X), so multi-hop routes reconstruct from the denom alone |
+| Nine Realms THORChain tracker | THORChain swap tracking | free | track.ninerealms.com | Paired with the Midgard and THORNode APIs below |
 
 *~80-90% of bridge use is ordinary infrastructure, not obfuscation. Most bridges maintain their own dedicated explorer, search the bridge name.*
+
+*Vendor tools auto-resolve the deterministic message-identifier bridges (Wormhole, CCTP, LayerZero/Stargate, Axelar, CCIP, IBC, native rollup bridges). Coverage is weak or absent for intent/solver bridges (Across, deBridge, Chainflip, Relay, Everclear), where the legs are linked only by an off-chain order ID: **a vendor tool showing no link does not mean no link exists.** Full breakdown: "Operational Tracing Runbook: Live Mixers Bridges and No-KYC Swaps" (04-laundering-obfuscation).*
+
+## Bridge Resolution APIs
+
+*Programmatic endpoints that bind a source leg to a destination leg. Prefer these over screenshots where you can: the raw JSON response is a citable, reproducible exhibit, and several dead bridges prove you cannot re-derive what you did not capture.*
+
+| API / endpoint | What it returns | Access | Where | Notes |
+|---|---|---|---|---|
+| Circle Iris attestation API | The attestation for a CCTP message hash, binding burn to mint | free | developers.circle.com | Hash the MessageSent body to get the message hash, then resolve. Confirm V1 vs V2 for your period |
+| cBridge status API | Source AND destination block tx links in one response | free | cbridge-docs.celer.network | POST the transfer_id. One of the cleanest single-response exhibits available from any bridge |
+| LayerZero Scan API | GUID, DVN set, executor, destination tx, delivery status | free | layerzeroscan.com | Query by source tx hash. Note the v1 to v2 transition when working historical periods |
+| Wormholescan global transaction endpoint | VAA lookup by (emitter_chain, emitter_address, sequence) | free | wormholescan.io | Also resolves Mayan swaps. Token Bridge yields a wrapped asset, NTT yields native |
+| THORNode API | Current and historical Asgard inbound vault addresses | free | thornode.ninerealms.com | `/thorchain/inbound_addresses`. Vaults churn circa every 3 days, so NEVER cache a vault address: resolve it for the relevant date |
+| Midgard API | THORChain swap records linking inbound to outbound | free | midgard.ninerealms.com | Often the only reliable link: the legs are separate txs on different chains joined only by THORChain state. Read the memo, which frequently carries the destination address in clear text |
+| deBridge DLN stats / orders API | Order records searchable by tx, sender or receiver | free | app.debridge.finance/orders | Deterministic orderId. The destination filler is a solver, not the subject |
+| Across API | depositId, originChainId, indexed relayer | free | across.to | Confirm the contract version: V4 renamed the deposit and fill events |
+| Synapse explorer GraphQL | Transfers by tx hash, chain and token | free | explorer.synapseprotocol.com | Liquidity network, so match amount minus fee and timestamp rather than following a coin |
+| Relay API | Order records | free | relay.link | No public event schema verified, so treat the API record as the primary artefact and corroborate on amount and timing |
+| LI.FI status endpoint | Route status + explorer link for the underlying leg | free | li.fi | Then trace the underlying bridge leg with that bridge's own identifier logic |
 
 ## Instant-Swap / Instant-Exchange Services
 
@@ -528,6 +563,38 @@ Every investigation breaks into three pieces (per the stack article):
 |---|---|---|---|---|
 | Wasabist | Public directory of active Wasabi CoinJoin coordinators | free | wasabist.io | Wasabi shut its own coordinator in 2024, so activity moved to third-party coordinators. This is where you find who is running them now |
 | Kukks coordinator list (nostr) | Alternative published list of Wasabi coordinators | free | github.com/Kukks/wasabinostr | Same purpose as Wasabist; different set |
+| Wasabi Nostr announcement feed | Where coordinators announce rounds | free | relay: wss://relay.primal.net | There is NO on-chain coordinator tag. Attributing a WabiSabi round to a coordinator means matching the coinjoin txid and timing to an announcement. Record the relay + announcement event id as the artefact |
+| Liquisabi | Community WabiSabi round tracker | free | see Wasabi community listings | Cross-reference alongside Wasabist when attributing a round |
+
+## Event Signature & Selector Lookup
+
+*The highest-yield free step when you do not know what a contract is: take each log's `topics[0]` and reverse it to an event signature. Also reverses a 4-byte function selector from an unverified contract's `input`. Both are free and need no key. Recompute rather than trust a copied hex, see "Operational Tracing Runbook: Live Mixers Bridges and No-KYC Swaps" (04-laundering-obfuscation) section 3.*
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| openchain.xyz signature database | Reverse a topic0 or 4-byte selector to its signature | free | openchain.xyz | Primary lookup. Broader coverage than 4byte in practice |
+| 4byte.directory | Reverse a function selector or event topic | free | 4byte.directory | The original; keep both, coverage differs |
+| Blockscout / Etherscan Logs tab | Read topic0 AND the decoded signature straight off the chain | free | blockscout.com / etherscan.io | The most reliable route: no lookup needed, the chain tells you. Also shows which params are indexed (filterable) vs in `data` (not) |
+| `cast keccak` (Foundry) | Compute a topic0 locally from a canonical signature | free | getfoundry.sh | `cast keccak "Deposit(bytes32,uint32,uint256)"`. Canonical types, no spaces, no param names |
+
+## Privacy-Coin & CoinJoin Explorers
+
+*Free explorers for the chains where the boundary is the only tractable edge. Privacy assets are traced at the transparent boundary (shield/deshield, peg-in/peg-out, mint/spend), never inside the pool.*
+
+| Tool | What it does | Access | Website | Notes |
+|---|---|---|---|---|
+| whirlpoolstats.xyz (Whirlpool.Observer) | Tracks Whirlpool pools, Tx0s and mix cycles | free | whirlpoolstats.xyz | Covers the 0.025 and 0.25 BTC pools. Use to find the Tx0, which is the depositor-linking artefact |
+| litecoinspace.org/mweb | Litecoin MWEB peg-in / peg-out explorer | free | litecoinspace.org/mweb | A peg-out is NOT a standalone tx: it is an output inside the HogEx, the always-last tx in each block. Peg-in amounts are visible |
+| mwebexplorer.com | Alternative MWEB explorer | free | mwebexplorer.com | Second source for MWEB boundary events |
+| Nighthawk zcash-explorer | Open-source Zcash explorer that classifies tx type and pool | free | github.com/nighthawk-apps/zcash-explorer | Tells you which pool (Sapling / Orchard / transparent) a tx touched |
+| zcha.in | Zcash turnstile / pool migration view | free | zcha.in | For turnstile analysis between shielded pools |
+| zkp.baby | Live Zcash shielded pool balances | free | zkp.baby | Size the anonymity set per pool at a point in time |
+| Blockchair (Zcash / Dash) | Multi-chain explorer covering ZEC and DASH | free | blockchair.com/zcash, /dash | For Dash: detect PrivateSend as N equal in / N equal out of one denomination with no change |
+| Firo explorer | Firo / Lelantus Spark explorer | free | explorer.firo.org | Spark addresses are NOT searchable and amounts are hidden. Only the mint and spend-to-transparent boundaries are tractable |
+| Envio Privacy Pools indexer | Open-source indexer for every 0xbow Entrypoint and pool | free / self-host | github.com/enviodev/privacy-pools | Covers Ethereum, Optimism, BSC, Arbitrum. Use the live Merkle leaf count as the anonymity-set ceiling. Beats hand-rolling log queries |
+| kycnot.me | Tracks which no-KYC swap services are actually live and their KYC posture | free | kycnot.me | Verify a swap service is operating BEFORE building a theory on it |
+| SolanaFM | Parsed Solana instructions incl. inner instructions (CPIs) | freemium | solana.fm | Essential: on Solana the real transfer is a CPI under a router, and naive from/to fails |
+| TronGrid API | Tron events and tx info endpoints | free tier | trongrid.io | `/v1/contracts/{address}/events` and `/wallet/gettransactioninfobyid`. Also check energy delegation: the delegator is a lead |
 
 ## Related
-Use a Suite of Tools, Not One, PI Response Priority: Freeze, Monitor, Predict, OSINT, [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Decoding a Cross-Chain Destination Address from Input Data](/kb/02-tracing/tactic-decode-cross-chain-destination-address), [Obsidian Case-Management Workflow](/kb/06-casework-method/tactic-obsidian-case-management-workflow), [Intelligence Discipline Taxonomy](/kb/01-osint/definition-intelligence-discipline-taxonomy), Working with Law Enforcement: Capacity, Speed, and Cross-Sector Coalitions, [Monitoring Addresses with Alerts](/kb/06-casework-method/tactic-monitoring-addresses-with-alerts)
+Use a Suite of Tools, Not One, PI Response Priority: Freeze, Monitor, Predict, OSINT, [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Cooperating Instant Exchanges as Pivot Points](/kb/02-tracing/tactic-cooperating-instant-exchanges-as-pivot-points), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Decoding a Cross-Chain Destination Address from Input Data](/kb/02-tracing/tactic-decode-cross-chain-destination-address), [Obsidian Case-Management Workflow](/kb/06-casework-method/tactic-obsidian-case-management-workflow), [Intelligence Discipline Taxonomy](/kb/01-osint/definition-intelligence-discipline-taxonomy), Working with Law Enforcement: Capacity, Speed, and Cross-Sector Coalitions, [Monitoring Addresses with Alerts](/kb/06-casework-method/tactic-monitoring-addresses-with-alerts), [Operational Tracing Runbook: Live Mixers Bridges and No-KYC Swaps](/kb/04-laundering-obfuscation/reference-mixers-bridges-and-privacy-services-2026)
