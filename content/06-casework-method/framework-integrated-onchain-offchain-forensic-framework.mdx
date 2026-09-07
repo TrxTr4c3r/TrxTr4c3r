@@ -1,0 +1,37 @@
+# The Integrated On-Chain and Off-Chain Forensic Framework
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+Blockchain analytics and traditional digital forensics are usually taught and practised as separate disciplines, and cases fall down the gap between them. This framework treats them as two parallel tracks through the same four phases, so that each phase produces both a chain-side and a device-side output and neither track runs ahead of the other unsupported. Which track leads at each phase is decided by the crime typology (see Type A vs Type B: Where the Investigation Starts).
+
+Validated by expert judgement from three Indonesian practitioners (digital forensics association, cybercrime police directorate, national cyber agency) against a 14-item instrument, and built on a review of 16 prior studies. Standards-anchored to NIST SP 800-86 and ISO/IEC 27037 and 27042.
+
+## Components
+**Phase 1: Identification.** Detect and characterise the incident, then form a hypothesis. The 5WH questions (who, what, when, where, why, how) are the discipline here: they force the initial assumptions into the open where they can be tested rather than assumed.
+- *On-chain track:* determine which networks are in scope (Bitcoin, Ethereum, others), and isolate the specific addresses, transactions, and smart contracts relevant to the case. The objective is to narrow the data, not to gather it all.
+- *Off-chain track:* identify every potential source of digital evidence (devices, accounts, access logs), run forensic triage to find what matters fastest, and identify the tools each stage will need.
+
+**Phase 2: Collection and Acquisition.** Acquire with integrity. Image the data, hash it with SHA-256 at the point of collection, and bind metadata to every item: case name and number, examiner, timestamps, seizure and case locations, timezone.
+- *On-chain track:* extract the relevant blocks, transactions, and addresses (or run a full node). Public chain data generally needs no warrant, but it still needs collection in a way that preserves integrity and authenticity, which in practice means recording exactly what was retrieved, from which explorer or node, and when.
+- *Off-chain track:* acquire the artifact set from the device. See Crypto Artifacts on a Seized Device for the list.
+
+**Phase 3: Examination and Analysis.** Extract, then interpret. Data mining for hidden patterns, statistical analysis, timeline construction, and linkage between data objects.
+- *On-chain track:* ownership analysis (combining multiple factors and evidence to identify who benefits from an address), clustering (grouping addresses to one controller so the target narrows), and e-discovery (assembling transaction and wallet data from the internet and from devices into a single map of the case).
+- *Off-chain track:* client process memory (keys, transaction data, contacts, passphrases, backup locations), user device artifacts (registry, wallet files, logs), volatile memory analysis, network traffic analysis, virtual hard disk analysis.
+
+**Phase 4: Reporting.** Translate for the audience that has to act on it: methodology documented, fund-flow visualisations that a non-technical reader can follow, and documentation complete enough to support chain-of-custody and court presentation in both common law and civil law systems.
+
+**The loop.** The framework is explicitly not linear. Findings in analysis trigger more collection; the reporting phase surfaces new leads that reopen identification. Treat the four phases as a cycle you may run several times on one case, and keep the documentation current as you go rather than reconstructing it at the end.
+
+## When to use
+As the shape of a case that has both a device side and a chain side, which is most law-enforcement and most internal-investigation work. It complements rather than replaces the workspace's own five-stage pipeline: the pipeline is the tracing route from seed to evidence package, and this is the phase-by-phase map of how the two evidence streams stay married to each other.
+
+## Avoid when
+The framework's own acknowledged weak points, flagged during expert validation, are worth carrying: on-chain evidence collection has no agreed documentation standard, so this is where you have to be strictest by your own discipline. And the model was built against Layer 1 chains, so Layer 2 protocols and privacy coins need their own treatment.
+
+## Example
+Type B ransomware case. Phase 1 identifies the ransom address and the chain; phase 2 collects the transaction set off an explorer with hashes and timestamps recorded; phase 3 clusters the recipient addresses and finds a deposit to a KYC exchange; the off-chain track then opens at phase 2 again with a disclosure request, and the loop runs a second time with a named subject and, later, a device.
+
+## Related
+[Type A vs Type B: Where the Investigation Starts](/kb/06-casework-method/concept-type-a-vs-type-b-investigation-entry-points), [Crypto Artifacts on a Seized Device](/kb/05-evidence-legal/checklist-crypto-artifacts-on-a-seized-device), [The 5-Stage Investigation Process](/kb/06-casework-method/workflow-the-5-stage-investigation-process), [Forensic Standards and Legal Instruments for Crypto Cases](/kb/05-evidence-legal/reference-forensic-standards-and-legal-instruments-for-crypto-cases), [The Six Operational Phases of the Cryptocurrency Investigation Methodology](/kb/06-casework-method/framework-cim-six-operational-phases), [Six Core Investigation Questions](/kb/06-casework-method/framework-six-core-investigation-questions), [Blockchain as Evidence Custody Infrastructure](/kb/05-evidence-legal/concept-blockchain-as-evidence-custody-infrastructure), [Wallet Clustering and Heuristics](/kb/03-attribution-clustering/concept-wallet-clustering-and-heuristics), [Crypto Address Attribution Process](/kb/03-attribution-clustering/workflow-crypto-address-attribution-process)

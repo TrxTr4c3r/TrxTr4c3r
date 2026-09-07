@@ -1,0 +1,30 @@
+# Forensic Standards and Legal Instruments for Crypto Cases
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`</span>
+
+## Core idea
+Crypto forensics has no standard of its own. What it has is a set of general digital-forensics standards and international legal instruments that a report can be anchored to, and anchoring to them is how the same analysis becomes defensible in more than one jurisdiction. Naming the standard your process followed is cheap; the absence of it is the first thing a procedural challenge reaches for.
+
+**Instrument names and numbers are as cited by the sources and have not been independently verified here. Check the current version before you cite one.**
+
+## Components
+**Process and evidence-handling standards.**
+- **NIST SP 800-86**, *Guide to Integrating Forensic Techniques into Incident Response*. The four-phase model most digital forensic process descriptions derive from: collection, examination, analysis, reporting. Also the usual citation for evidentiary integrity through cryptographic hashing.
+- **ISO/IEC 27037:2012**. Guidelines for the identification, collection, acquisition, and preservation of digital evidence. Emphasises procedural transparency, trained personnel, and forensically sound tools. This is the standard behind the practice of using acquisition methods that are agnostic to any specific proprietary tool or platform, so that exported evidence (transaction records, system logs, memory captures) can be validated in a comparable forensic environment in another country.
+- **ISO/IEC 27042:2015**. Analysis and interpretation of digital evidence. The methodological counterpart: conclusions must rest on verifiable and reproducible findings. This is also the usual anchor for the completeness of forensic documentation, meaning acquisition timestamps, case identifiers, examiner credentials, hash digests, timezone indicators, and system configuration recorded in a structured form.
+
+**International legal instruments.**
+- **Convention on Cybercrime (Budapest Convention)**. The foundational cross-border legal framework for the collection and admissibility of electronic evidence.
+- **Interpol guidelines on digital evidence**, relevant to blockchain-related criminal investigations.
+- **FATF Recommendation 16, the Travel Rule.** Requires identity information to accompany virtual asset transfers, which is what makes VASP-held originator and beneficiary data requestable in the first place.
+
+**What these standards do not solve.** Both sources land on the same gap: there is no accepted protocol for preserving *on-chain* evidence specifically. Off-chain artifacts have well-established chain-of-custody practice. Blockchain data is permanently accessible yet volatile in its interpretability, and there is no settled method for timestamping, hashing, and documenting an on-chain finding in a legally defensible form. The SLR frames the same problem as a standardisation failure with a sharp consequence: without a standard method of interpretation, two competent investigators can reach different conclusions from the same data, which undermines both findings.
+
+## When to use
+When writing the methodology section of a report that may be used across borders, and when you need to state what your process conformed to rather than just what you did.
+
+## Avoid when
+Do not cite a standard you did not actually follow, and do not treat conformance as a substitute for explaining your reasoning. A report that names ISO/IEC 27037 but cannot show its hash verification steps is worse off than one that never mentioned it.
+
+## Related
+Expert Evidence Rules: USA, UK, Australia, [Six Characteristics of a Court-Credible Forensic Report](/kb/05-evidence-legal/framework-court-credible-forensic-report-six-characteristics), [The Integrated On-Chain and Off-Chain Forensic Framework](/kb/06-casework-method/framework-integrated-onchain-offchain-forensic-framework), [Blockchain as Evidence Custody Infrastructure](/kb/05-evidence-legal/concept-blockchain-as-evidence-custody-infrastructure), Admissibility: The Three Gates, [Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [Compelling VASP Disclosure: The Legal-Process Ladder](/kb/05-evidence-legal/framework-compelling-vasp-disclosure-legal-process), VASP Records: What to Request

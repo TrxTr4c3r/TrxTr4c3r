@@ -27,6 +27,9 @@ export function SiteFooter() {
             <a href={BRAND.links.x} className="hover:text-phosphor">
               Twitter
             </a>
+            <a href={BRAND.links.substack} className="hover:text-phosphor">
+              Substack
+            </a>
             <Link href={BRAND.links.kb} className="hover:text-phosphor">
               Knowledge base
             </Link>

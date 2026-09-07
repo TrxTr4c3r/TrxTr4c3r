@@ -1,0 +1,29 @@
+# Scope the Engagement in Writing
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`principle`</span>
+
+## Core idea
+The first task on any engagement is not opening a tool. It is establishing precisely what question is being asked, in writing, before any analysis begins. A poorly scoped instruction is one of the commonest reasons a technically competent report fails to answer the legal question actually in dispute. The written instruction disciplines both sides: it forces the instructing party to articulate the precise question, and it forces the analyst to answer that question and no other.
+
+## When to use
+Every engagement, formal or informal, paid or favour. In the UK, written instructions to an expert are mandatory under CPR Part 35. In Australia the Evidence Acts provide for a written letter of instruction. Where it is not required, do it anyway, and then reference it in the report: characteristic 3 of a credible report is a clear account of the materials relied upon, and a well-drafted instruction letter enumerates most of them for you.
+
+## Components
+What the written scope has to settle before work starts:
+- The precise question to be answered, in the terms the outcome will be judged in.
+- Which blockchain networks are in scope.
+- The relevant time period.
+- The known starting points: origin address, seed transaction, or contract.
+- The standard of proof the findings must meet, and the forum the report may be used in.
+- The materials being provided to you, itemised.
+
+**Then verify the starting point independently.** Every trace begins from at least one known data point: an address funds were stolen from, a transaction hash from exchange logs, a contract address, an on-chain movement from prior disclosure. An origin point that is wrong (misattribution, an exchange's own error, deliberate misdirection by the reporting party) produces a chain that is internally coherent and factually worthless. Verify it on an explorer against the account the client gave you before building anything on top of it. No competent chef starts cooking with an ingredient they have not inspected.
+
+## Avoid when
+There is no exception. The failure this prevents is expensive and late: it surfaces when the report is read by someone who wanted a different question answered, at which point the analysis is sunk cost.
+
+## Example
+"Trace the stolen funds" is not an instruction. "Establish whether any part of the 41.2 ETH that left address X on the stated date reached any address controlled by the respondent, on Ethereum only, between those two dates, to the civil standard, for use in a freezing application in the Business and Property Courts" is. The second version also tells you when to stop.
+
+## Related
+[Six Characteristics of a Court-Credible Forensic Report](/kb/05-evidence-legal/framework-court-credible-forensic-report-six-characteristics), [The Scope Triangle](/kb/06-casework-method/concept-the-scope-triangle), [Six Core Investigation Questions](/kb/06-casework-method/framework-six-core-investigation-questions), [Translate Stakeholder Wants Into Investigable Questions](/kb/06-casework-method/tactic-translate-stakeholder-wants-into-investigable-questions), [Victim Artifact Intake: Getting the Starting Point Right](/kb/06-casework-method/checklist-victim-artifact-intake), Expert Evidence Rules: USA, UK, Australia, [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing), [Case Opening Procedure](/kb/06-casework-method/workflow-case-opening-procedure), [Reviewing an Opposing Forensic Report](/kb/05-evidence-legal/checklist-reviewing-an-opposing-forensic-report)

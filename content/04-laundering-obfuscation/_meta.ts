@@ -4,8 +4,10 @@ export default {
   "concept-defi-layering": "DeFi Layering",
   "concept-dormancy-time-delay-laundering": "Dormancy / Time-Delay Laundering",
   "concept-drainer-kit-and-known-actor-pattern-recognition": "Drainer-Kit & Known-Actor Pattern Recognition",
+  "concept-exchange-internal-transfers-as-off-chain-layering": "Exchange-Internal Transfers as Off-Chain Layering",
   "concept-gambling-platform-laundering": "Gambling Platform Laundering",
   "concept-gather-scatter": "Gather-Scatter",
+  "concept-initial-deposit-addresses-and-the-sole-purpose-inference": "Initial Deposit Addresses and the Sole-Purpose Inference",
   "concept-mixing-tumbling": "Mixing / Tumbling (CoinJoin)",
   "concept-money-mule-networks": "Money Mule Networks",
   "concept-nested-services-omnibus-wallets": "Nested Services / Omnibus Wallets",
@@ -27,6 +29,7 @@ export default {
   "checklist-on-chain-obfuscation-categories": "On-Chain Obfuscation Categories",
   "caution-monero-is-the-practical-ceiling-of-on-chain-attribution": "Monero Is the Practical Ceiling of On-Chain Attribution",
   "example-case-tornado-cash-round-trip-resolved-by-address-reuse": "Case: Tornado Cash Round-Trip Resolved by Address Reuse",
+  "reference-financial-crime-typology-indicator-matrix": "Financial Crime Typology Indicator Matrix",
   "reference-mixers-bridges-and-privacy-services-2026": "Operational Tracing Runbook: Live Mixers Bridges and No-KYC Swaps",
   "mixers": "Mixers & Tumblers",
 }

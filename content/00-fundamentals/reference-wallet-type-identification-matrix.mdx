@@ -1,0 +1,34 @@
+# Wallet Type Identification Matrix
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`</span>
+
+## Core idea
+Ask what type of wallet you are looking at before you ask who controls it. The type sets the analytical approach: a custodial address points at a service and a records request, a non-custodial address points at behavioural analysis and OSINT. Getting the order backwards is how exchange infrastructure gets attributed to a customer.
+
+## Components
+| Wallet type | What it is | Typical control | Investigative consideration |
+|---|---|---|---|
+| Custodial | Managed by a third-party service such as an exchange or hosted provider | Service provider | Chain activity alone does not identify the account holder. Route to VASP assessment |
+| Non-custodial | Controlled by the user through private keys or a seed phrase | Individual or organisation | Focus on transaction history, counterparties, attribution indicators, OSINT correlation |
+| Hot | Internet-connected for routine transactions | User or organisation | Frequently active, often high transaction volume |
+| Cold | Offline storage for long-term holding | User or organisation | Limited activity is expected, not itself suspicious |
+| Hardware | Physical device holding keys offline | User | Chain data cannot confirm a hardware wallet was used. Stay on observable transactions |
+| Software | Application on a computer or phone | User | Observations rest on chain activity, not on the software |
+| Browser | Extension used to interact with dApps | User | Common in DeFi, NFT, and contract cases |
+| Multisignature | Requires multiple approvals to authorise | Multiple parties | May indicate organisational or shared control. Review authorisation patterns where observable |
+
+**Wallet environment.** An exchange (custodial) environment shows deposits, withdrawals, and pooled infrastructure: document the interaction and do not assume customer ownership. Self-custody shows direct user control: analyse behaviour, counterparties, and fund flow. A DeFi platform shows contract interactions: review contract activity, liquidity pools, and protocol interactions. An NFT marketplace shows token transfers and marketplace activity: review transfers and related wallets.
+
+**Behavioural observations worth recording.** Repeated interaction with a single exchange suggests a long-term service relationship. Frequent contract interaction suggests DeFi participation or automation. Many incoming deposits followed by consolidation warrants further tracing. Long dormancy followed by significant movement is worth correlating against external events. Consistent interaction with the same cluster may support attribution work.
+
+## When to use
+At the start of every wallet review, before the transaction history gets interesting enough to distract you.
+
+## Avoid when
+Wallet type informs strategy, it does not supply conclusions. The pitfalls: assuming a wallet belongs to whoever is currently using it, confusing exchange-controlled wallets with customer-controlled ones, treating a contract address as a user wallet, claiming to know the wallet software from chain data, and ignoring behavioural patterns that would have given useful context.
+
+## Example
+A trace arrives at an address with thousands of small inbound transfers and periodic large consolidating outflows. That is service behaviour, and the working assumption becomes exchange or custodial infrastructure rather than a suspect's personal wallet. The next step is identifying the service and considering a records request, not building a behavioural profile of an individual.
+
+## Related
+[Wallet Review Procedure](/kb/02-tracing/workflow-wallet-review-procedure), [VASP Types and What Each Interaction Means](/kb/03-attribution-clustering/reference-vasp-types-and-what-each-interaction-means), [Cryptocurrency Address Format Recognition Matrix](/kb/00-fundamentals/reference-address-format-recognition-matrix), [Address View vs Contract View on a Block Explorer](/kb/00-fundamentals/concept-address-view-vs-contract-view), [Wallet Clustering and Heuristics](/kb/03-attribution-clustering/concept-wallet-clustering-and-heuristics), [Service Choke-Points: What Each Service Type Can Give You](/kb/02-tracing/framework-service-choke-points-what-each-can-give-you), [Nested Services / Omnibus Wallets](/kb/04-laundering-obfuscation/concept-nested-services-omnibus-wallets), [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing)

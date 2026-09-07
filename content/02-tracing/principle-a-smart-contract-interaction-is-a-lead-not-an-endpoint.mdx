@@ -1,0 +1,25 @@
+# A Smart Contract Interaction Is a Lead, Not an Endpoint
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`principle`</span>
+
+## Core idea
+A contract executes logic. It is not a person, it is not a wallet, and it is almost never where the money stops. When a trace reaches a contract, the question is what the contract did and where the assets went afterwards. Ending a trace at the contract interaction is one of the most common ways a live trail gets recorded as a dead end. The presence of a contract is also not, by itself, an indicator of anything suspicious.
+
+## When to use
+Any time a trace touches a token transfer, a swap, a liquidity pool, a staking deposit, an NFT mint, or a bridge, all of which are contract interactions.
+
+## Components
+**The review sequence.** Confirm the item under review is actually a contract and capture why it entered scope. Confirm the network before reading any explorer data. Record the exact contract address and how you verified it. Identify the function, method, event, or token action relevant to the case. Review linked transactions: contract calls, token transfers, approvals, swaps, and surrounding activity. Identify the wallets that interacted with the contract and their role. Then carry those wallets and transfers forward into the wider trace.
+
+**Common contract activity and what it means for you.** Token transfer: review the token contract, transfer history, counterparties. Token minting: identify when and how tokens were created. Token burning: review supply reduction and related transactions. Liquidity pool activity: document deposits, withdrawals, and observable counterparties. Token swaps: identify the assets exchanged and keep tracing. NFT minting: contract address, token ID, ownership history. Governance voting: context on project participation. Staking: asset movement in and out.
+
+**What to record whenever a contract is relevant.** Network, contract address, transaction hash, block number, timestamp in UTC, the function or event observed where available, the token or asset involved, the related wallet addresses, the explorer used, and the supporting evidence IDs.
+
+## Avoid when
+The pitfalls: treating a contract as a user-controlled wallet, failing to record the contract address at all, assuming every contract interaction is suspicious, confusing token contracts with wallet addresses, ending the trace at the interaction, and ignoring what the wallets did after the contract executed. Focus on observable behaviour rather than assumptions about intent.
+
+## Example
+Funds enter a DEX router contract and the graph tool shows the flow terminating there. It has not terminated: the swap produced an output token that left to a wallet in the same transaction, and that wallet is the next hop. Recording the router as the endpoint would drop a live trail, and the fix is reading the transaction's token transfers rather than its top-level to-address.
+
+## Related
+[Transaction Tracing Decision Tree and Endpoint Classification](/kb/02-tracing/workflow-transaction-tracing-decision-tree-and-endpoint-classification), Document a Token Transfer by Network, Standard, and Contract, [Token Standard Quick Reference](/kb/00-fundamentals/reference-token-standard-quick-reference), [Address View vs Contract View on a Block Explorer](/kb/00-fundamentals/concept-address-view-vs-contract-view), [Reading an EVM Transaction](/kb/00-fundamentals/concept-reading-an-evm-transaction), [Internal Transactions](/kb/00-fundamentals/definition-internal-transaction), [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing), [Blockchain Explorer Review Procedure](/kb/02-tracing/workflow-blockchain-explorer-review-procedure)

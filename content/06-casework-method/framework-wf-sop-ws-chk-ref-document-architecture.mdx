@@ -1,0 +1,31 @@
+# WF / SOP / WS / CHK / REF Document Architecture
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+Five document types, each doing one job, with a prefix and a sequential number. Every stage of an investigation gets the same four working documents plus a shared reference shelf, so an investigator, a supervisor, and a reviewer can all locate the same artifact from its identifier alone.
+
+## Components
+| Prefix | Document type | Job |
+|---|---|---|
+| WF | Operational Workflow | One-page visual roadmap of the stage. Read first, to see the sequence before starting. |
+| SOP | Standard Operating Procedure | Step-by-step guidance: purpose, scope, procedure, documentation requirements, quality considerations, common pitfalls. Read before touching the worksheet. |
+| WS | Operational Worksheet | The working document. Where observations, evidence, analytical findings, and notes actually get recorded. |
+| CHK | Operational Checklist | Quality assurance. Confirms documentation is complete, steps were performed, findings are recorded, and the case can advance. |
+| REF | Operational Reference | Quick-reference material consulted mid-investigation. Matrices, format guides, directories, glossary. |
+
+- **Numbering** is prefix plus a sequential number tied to the stage: `SOP-006` is the sixth SOP. A stage's four documents share the number, so `WF-003`, `SOP-003`, `WS-003`, and `CHK-003` are one set.
+- **Sequence within a stage:** review the WF, follow the SOP, complete the WS, verify with the CHK, consult REF as needed, then advance.
+- **Revision control:** each document carries a version number, revision date, and summary of changes. Organisations can extend this with reviewer names and approval dates.
+
+## When to use
+When you are standing up a case-file template or a team's casework system and need the artifact taxonomy before the content. It is also the fix for the common failure where procedure, working notes, and quality checks all live in one sprawling document nobody can review.
+
+## Avoid when
+The architecture is a filing convention, not a methodology. Five well-named documents per stage do nothing for a case whose analysis is wrong. Consistency of application is what makes it pay off; a half-adopted naming scheme is worse than none, because identifiers stop being predictable.
+
+## Example
+An investigator picking up a colleague's wallet-analysis handover knows without asking that `SOP-003` tells them how the review was supposed to be done, `WS-003` holds what was actually found, and `CHK-003` says whether it was signed off. The same numbers appear in the report's methodology section.
+
+## Related
+[The Six Operational Phases of the Cryptocurrency Investigation Methodology](/kb/06-casework-method/framework-cim-six-operational-phases), [Obsidian Case-Management Workflow](/kb/06-casework-method/tactic-obsidian-case-management-workflow), [The Analysis Standard: Four-Block Write-Up](/kb/05-evidence-legal/framework-the-analysis-standard-four-block-write-up), [Handover Reports Must Be Replicable](/kb/05-evidence-legal/principle-replicable-handover-reports), Preserve the Analysis, Not Just the Finding

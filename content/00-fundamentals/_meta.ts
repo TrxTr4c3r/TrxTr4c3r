@@ -12,4 +12,8 @@ export default {
   "definition-internal-transaction": "Internal Transactions",
   "principle-evm-explorer-familiarity": "EVM Explorers Share a Layout, Non-EVM Do Not",
   "framework-bitcoin-transaction-shape-taxonomy": "Bitcoin Transaction Shape Taxonomy",
+  "reference-blockchain-network-comparison-matrix": "Blockchain Network Comparison Matrix",
+  "reference-address-format-recognition-matrix": "Cryptocurrency Address Format Recognition Matrix",
+  "reference-token-standard-quick-reference": "Token Standard Quick Reference",
+  "reference-wallet-type-identification-matrix": "Wallet Type Identification Matrix",
 }

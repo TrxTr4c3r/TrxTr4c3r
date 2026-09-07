@@ -1,0 +1,41 @@
+# THORChain Memo Grammar on Bitcoin
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`</span>
+
+## Core idea
+THORChain has no smart contracts on Bitcoin, so every instruction to the protocol travels as plain ASCII in an OP_RETURN output. Decode the memo and you know exactly what the transaction was for, who requested it, and frequently where the value goes next. An undecoded THORChain memo is an unread instruction, and the BTC amount alone will mislead you about intent.
+
+## When to use
+Any Bitcoin transaction whose OP_RETURN decodes to readable ASCII with colon-delimited fields, or any Bitcoin address that turns out to be a THORChain Asgard vault. The memo is on the Bitcoin side, so you can read it without touching THORChain at all.
+
+## Components
+
+**User-generated memos** (a real person or bot is instructing the protocol):
+
+| Memo form | Shorthand | Meaning |
+|---|---|---|
+| `SWAP:ASSET:DESTADDR:LIMIT` | `s:` or `=:` | Market swap. `=` is the modern shorthand prefix |
+| `=<:ASSET:DESTADDR:LIMIT` | | Limit swap, conditional execution |
+| `ADD:POOL:THORADDR` | `a:` or `+:` | Add liquidity to a pool |
+| `WITHDRAW:POOL:BASISPOINTS` | `-:` or `wd:` | Withdraw liquidity. The number is **basis points**, so `10000` is 100% and `5000` is 50% |
+
+**Protocol-generated memos** (both ends are THORChain-controlled vaults, no user involved):
+
+| Memo form | Meaning |
+|---|---|
+| `MIGRATE:<thorchain_height>` | A retiring Asgard vault moving funds to the new Asgard vault during a churn. The number is the THORChain block height at which that tranche was scheduled, not a Bitcoin height |
+| `YGGDRASIL+:<thorchain_height>` | Asgard funding a node operator's Yggdrasil vault with working capital (deprecated design) |
+| `YGGDRASIL-:<thorchain_height>` | A Yggdrasil vault returning funds to Asgard |
+| `consolidate` | Internal UTXO housekeeping, no counterparty |
+
+**Operational reading notes:**
+- The destination address in a swap memo is in clear text, so a swap memo hands you the next hop on the destination chain for free. This is the highest-value thing in the grammar.
+- Instruction transactions carry a **minimum-viable amount**, `0.00010001` BTC (10,001 sat) on Bitcoin, one satoshi over the dust floor. The value is just the carrier, the memo is the payload. Never infer intent or size from the amount on an instruction transaction.
+- Vaults later sweep those 10,001 sat UTXOs as ordinary inputs when building outbound transactions. Co-spend correctly identifies the **vault** as the owner, but do not read the input provenance as one entity's funds: each dust UTXO arrived from a different, unrelated user's instruction transaction.
+- The number after the colon on internal memos is always a THORChain height. Dating it needs a separate step because there is no public THORChain archive node.
+
+## Example
+Bitcoin transaction `dd8845d1d0c77122b007f46f761d94cfc5db65a8905e9c2f65610e2f98f07504` in block 690834 carries OP_RETURN `6a0f4d4947524154453a31343435363237`, which decodes to `MIGRATE:1445627`. Five of its six inputs are `0.00010001` BTC UTXOs whose own memos read `-:BTC.BTC:10000`, `-:BTC.BTC:9600` and `-:BTC.BTC:100`: unrelated users requesting 100%, 96% and 1% liquidity withdrawals, swept up as spare change by the vault when it built its migration transaction.
+
+## Related
+[Bitcoin OP_RETURN as a Cross-Chain Signal](/kb/02-tracing/tactic-bitcoin-op-return-bridge-signal), [THORChain Vault Churn and Asgard Migration](/kb/02-tracing/concept-thorchain-vault-churn-and-asgard-migration), [Dating a Block Height Without an Archive Node](/kb/02-tracing/tactic-dating-a-block-height-without-an-archive-node), [Finding a Bitcoin Transaction by Its OP_RETURN](/kb/02-tracing/tactic-finding-a-bitcoin-transaction-by-its-op-return), [Understand the Protocol Before You Conclude](/kb/02-tracing/principle-understand-the-protocol-before-you-conclude), [Address Clustering (Common-Input-Ownership Heuristic)](/kb/03-attribution-clustering/tactic-address-clustering-cioh), [Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation)

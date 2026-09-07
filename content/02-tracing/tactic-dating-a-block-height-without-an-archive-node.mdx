@@ -1,0 +1,30 @@
+# Dating a Block Height Without an Archive Node
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+A protocol reference frequently gives you a **block height on its own chain** rather than a date, and the public RPC endpoints for that chain are usually pruned, so `/block?height=N` answers "no archive nodes configured". You do not need an archive node. The chain's **indexer** stores height and timestamp side by side on every record it has ever written, so two records either side of your target let you interpolate the date, which is all you need to open a search window on another chain.
+
+## When to use
+Any time a memo, event or log hands you a foreign chain's block height and you need a wall-clock time to correlate against Bitcoin, an EVM chain, or an off-chain record. Common with THORChain `MIGRATE`, Cosmos IBC, and any bridge that references its own scheduler height.
+
+## Components
+- **Try the node first, expect it to fail.** For THORChain the current public route is the Liquify gateway (`gateway.liquify.com/chain/thorchain_api/...` and `.../chain/thorchain_midgard/v2/...`). The older `ninerealms.com` hosts no longer resolve. Historical block queries return `No archive nodes configured for this chain`, so do not burn time hunting for a working archive node.
+- **Pivot to the indexer.** Midgard records every action with both `height` and `date`, and `date` is a **nanosecond** Unix timestamp, so divide by 1e9:
+
+  ```
+  https://gateway.liquify.com/chain/thorchain_midgard/v2/actions?limit=2&height=<target>
+  ```
+
+- **Interpolate across the pair.** Take one record below and one above the target height, derive the seconds per block from the two, and step to your target. Sanity-check the derived block time against the chain's published nominal value.
+- **Anchor onto the chain you actually care about.** For Bitcoin: `https://mempool.space/api/v1/mining/blocks/timestamp/<unix_ts>` returns the nearest block and its height.
+- **Treat the interpolated time as a lead, never as evidence.** Chains halt, restart and change block times, so an interpolation can drift by hours across a long gap. It is good enough to open a search window, and the thing you find in that window is what gets verified and recorded.
+
+## Avoid when
+Never write an interpolated timestamp into a case file, report or exhibit. It is `#estimated` by construction. Use it to find the artefact, then record the artefact's own explorer-confirmed timestamp and discard the estimate.
+
+## Example
+THORChain height 1445627 needed a date, and no public archive node would serve the block. Midgard returned height 1445550 at 1626181634 and height 1445957 at 1626183946, giving 5.68 seconds per block. Stepping 77 blocks forward from 1445550 put the target near 2021-07-13 13:14 UTC. That anchored to Bitcoin block 690833, and the transaction was found in the very next block, whose own confirmed timestamp of 1626182257 (2021-07-13 13:17:37 UTC) is what went into the record.
+
+## Related
+[Finding a Bitcoin Transaction by Its OP_RETURN](/kb/02-tracing/tactic-finding-a-bitcoin-transaction-by-its-op-return), [THORChain Memo Grammar on Bitcoin](/kb/02-tracing/reference-thorchain-memo-grammar-on-bitcoin), [THORChain Vault Churn and Asgard Migration](/kb/02-tracing/concept-thorchain-vault-churn-and-asgard-migration), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Temporal / Timing Correlation Analysis](/kb/02-tracing/tactic-temporal-timing-correlation), [Value-and-Block-Window Candidate Search](/kb/02-tracing/tactic-value-and-block-window-candidate-search), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference)

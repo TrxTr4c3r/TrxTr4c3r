@@ -1,0 +1,32 @@
+# Three Functions of Forensic Tooling
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+A forensic platform serves three distinct functions, and knowing which one you are relying on at any point in an analysis is what makes the reliance defensible. Confuse them and you end up citing an intelligence product as a finding. The tools are equipment; none of them supplies a methodology. The platform presents data and pictures. You decide what the data means, which analytical steps to take, which heuristics apply, and how the output becomes an evidential narrative.
+
+## Components
+**Function 1: the intelligence layer.** Attribution data identifying addresses as belonging to known exchanges, services, or entities. Genuinely useful for directing an investigation, and in most cases it is intelligence rather than evidence. A label is a hypothesis about control that needs independent corroboration before it becomes a finding in a report (see Never Trust a Single Source of Attribution).
+
+**Function 2: visualisation.** Clear, followable transaction graphs that let a judge, jury, or non-technical reader see how value moved. This is not a trivial contribution. Making blockchain evidence comprehensible is part of the expert's function, and a well-built graph is one of the most effective instruments available for it.
+
+**Function 3: clustering.** Applying heuristics across large datasets to group addresses by common controller. The heuristics themselves are not mathematically exotic and could in principle be applied by hand, but a single entity may span hundreds of thousands of addresses across millions of transactions, and applying the rules consistently and exhaustively at that scale is beyond manual capacity. This is the one function where software provides capability you genuinely cannot replicate by hand on anything but a tiny dataset.
+
+**The selection principle: use the simplest practical tool for the job.** Every layer of software complexity is a layer that has to be explained to the court, and every proprietary process is a potential admissibility challenge waiting to be made. So: open-source where possible, hand-traced where practical, software where necessary, and always with a documented account of what the software was asked to do and why. Write every report as though a contested trial is a possible endpoint.
+
+Tool choice should be dictated by the task, meaning the networks in scope, the transaction architecture, and the admissibility requirements of the jurisdiction. In practice it is too often dictated by what the analyst already has a licence for. Vendor relationships and subscription costs are not methodological reasons.
+
+**What to ask of any report produced with a commercial platform** (whether you wrote it or you are opposing it):
+- Which platforms were used, and for which specific analytical tasks?
+- What proprietary attribution data was relied on, and how has it been independently corroborated?
+- Did the expert apply the tool's outputs mechanically, or exercise independent judgement and, where warranted, depart from the tool's conclusions?
+- Can the methodology be stated so that the court and an opposing expert can audit every inferential step?
+
+## When to use
+When choosing a tool for work that may end up in evidence, when writing the tooling part of a methodology section, and when auditing someone else's tool-derived findings.
+
+## Avoid when
+This is not an argument against commercial platforms. They industrialise a process that is computationally immense and their visualisation and coverage are real assets. It is an argument against pointing at the oven when asked how the dish was made. Where the opacity of a commercial platform is itself a live admissibility issue, an open-source alternative with published, peer-reviewed heuristics (GraphSense) and raw-data explorers (Etherscan, Blockchair, network-native explorers) give you a methodology that can be reviewed, replicated, and independently audited.
+
+## Related
+Use a Suite of Tools, Not One, [Glass Box Attribution](/kb/05-evidence-legal/concept-glass-box-attribution), [Commercial Analytics & the Daubert Challenge](/kb/05-evidence-legal/caution-commercial-analytics-and-the-daubert-challenge), [Never Trust a Single Source of Attribution](/kb/03-attribution-clustering/principle-multiple-attribution-sources), [Six Characteristics of a Court-Credible Forensic Report](/kb/05-evidence-legal/framework-court-credible-forensic-report-six-characteristics), D'Aloia v Persons Unknown: When the Methodology Fails, Not the Trace, Vendor Risk Scores Disagree, [Known Weaknesses to Disclose in a Forensic Report](/kb/05-evidence-legal/checklist-known-weaknesses-to-disclose-in-a-forensic-report), [OSINT Investigator's Toolkit - Full Tool Catalogue](/kb/07-tooling/osint-investigators-toolkit-catalogue)

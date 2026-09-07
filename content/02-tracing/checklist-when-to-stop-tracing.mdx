@@ -1,0 +1,25 @@
+# Know When to Stop Tracing
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+The goal of a trace is to reach an entity that collects identity data, not to rack up hops. Every hop past a genuine stop signal spends time and adds a chance of following the wrong money. These are the five conditions that say stop.
+
+## Components
+1. A VASP or crypto business. The best outcome. Stop tracing and switch to the request or legal process (see VASP Records: What to Request and What Exists).
+2. A probable unattributed service address. No label, but the address carries more than roughly 1,000 transactions, or belongs to a cluster of more than roughly 500 addresses. Volume at that scale is service behaviour, so treat it as an unidentified service rather than a suspect wallet and stop.
+3. A Bitcoin address-type change. Following BTC forward, watch for the output type shifting between the three common formats: addresses starting 1 (legacy, P2PKH), 3 (pay-to-script-hash), and bc1 (native SegWit, Bech32). A change of type can mean a payment into a different wallet or service rather than continued self-custody, so treat it as a checkpoint and reassess.
+4. Excessive commingling. When the UTXO you are following becomes one input among many in a transaction with many outputs, you cannot tie your input to any particular output. Following past that is guesswork.
+5. An identified privacy service. Mixers, tumblers, and CoinJoins break the link by design. Do not claim a through-path across one (this workspace treats post-mixer work as a separate discipline; see Post-Mixer Bitcoin Tracing and CoinJoin / Mixer Detection).
+
+## When to use
+At every hop, as a quick check before committing to the next one. Also at the point where a case starts to feel endless, which is usually a sign that a stop signal was passed several hops back.
+
+## Avoid when
+Stopping is not the same as concluding. Record what stopped you and why, because "commingled beyond attribution" and "reached Binance deposit address" lead to completely different next actions. And a stop on one branch does not close the others; the fund flow usually splits.
+
+## Example
+A trace runs four hops, then the next address shows 3,400 transactions and no attribution anywhere. That is service behaviour, not the suspect's wallet, so the trace stops there and the effort moves to the branch that reached a labelled exchange deposit address two hops earlier.
+
+## Related
+Asset-Tracing Methodologies for Commingled Funds (PIFO, LIBR, LIFO, FIFO), [Service Choke-Points: What Each Service Type Can Give You](/kb/02-tracing/framework-service-choke-points-what-each-can-give-you), [Exchange / VASP KYC Correlation](/kb/03-attribution-clustering/tactic-vasp-kyc-correlation), [Post-Mixer Bitcoin Tracing](/kb/02-tracing/tactic-post-mixer-bitcoin-tracing), [CoinJoin / Mixer Detection](/kb/02-tracing/tactic-coinjoin-mixer-detection), [Bitcoin UTXO Clustering Heuristics](/kb/03-attribution-clustering/checklist-bitcoin-utxo-clustering-heuristics), [Bitcoin Transaction Shape Taxonomy](/kb/00-fundamentals/framework-bitcoin-transaction-shape-taxonomy), [Case Tractability: When to Decline](/kb/06-casework-method/principle-case-tractability-when-to-decline)

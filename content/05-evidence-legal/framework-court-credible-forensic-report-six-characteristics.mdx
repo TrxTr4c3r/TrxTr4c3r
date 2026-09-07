@@ -1,0 +1,28 @@
+# Six Characteristics of a Court-Credible Forensic Report
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+A technically brilliant analysis that is poorly reported is an analysis the court cannot use. As far as the court is concerned the report is not a summary of the work, it is the work. Six characteristics separate a report that survives cross-examination from one that does not, and all six sit on top of a single foundational duty: the expert's overriding obligation is to the court, not to the party paying for the analysis.
+
+## Components
+1. **A clearly stated methodology.** Every technique applied, in sequence, with the reason it was appropriate for this asset type and this transaction architecture. Every tool named, with the specific function it was used for (attribution intelligence, visualisation, or clustering) and the limitations of that function. "I used Chainalysis to trace the funds" is not a methodology statement; it is the equivalent of writing "I used the oven" as a recipe.
+2. **Transparent reasoning at every inferential step.** Show the working. Every point where you moved from data to interpretation gets documented, in terms that let the reader follow the reasoning and judge whether it holds. A court that cannot follow the reasoning cannot accept the conclusion.
+3. **A clear account of the materials relied upon.** What you were given, what you went and found yourself, and where each item came from: raw blockchain data from public explorers, attribution data from a forensic platform, exchange records obtained under legal process, public corporate disclosures. Where material surfaces after the report is written (a deposition, late disclosure) that would have changed the scope or the weight placed on an inference, consider a supplementary report.
+4. **Proportionate conclusions.** "This address received funds traceable to that prior transaction" is a technical conclusion the methodology supports. "The defendant committed fraud" is a legal conclusion it does not. Where a chain rests on several probabilistic inferences that compound each other's uncertainty, the cumulative effect belongs in how the conclusion is worded.
+5. **Compliance with the jurisdiction's procedural requirements.** The report must be procedurally compliant, not merely technically sound. See Expert Evidence Rules: USA, UK, Australia.
+6. **Accessibility to a non-technical audience.** The reader is a judge, jury, or tribunal with no prior knowledge of blockchain. A report only another specialist can understand has not finished its job. The source calls this the Human Bridge function: translating technical complexity into judicial comprehensibility is part of the expert's role, not an optional extra.
+
+**The reproducibility test.** The practical check on characteristic 1: could another forensic expert, working from your methodology section alone, reproduce the analysis and reach the same findings? If there are steps you took but did not describe, decisions you made but did not explain, or tools whose function you did not specify, the methodology section is incomplete. Reproducibility is the operational definition of transparency.
+
+## When to use
+As the structure and the self-audit for any report that could end up in front of a court, a regulator, or an opposing expert. Also as the checklist for reading someone else's report.
+
+## Avoid when
+Do not treat this as a substitute for the write-up discipline inside the findings themselves (see The Analysis Standard: Four-Block Write-Up). These six characteristics govern the report as a court document; the four-block standard governs how each finding within it is written.
+
+## Example
+D'Aloia v Persons Unknown failed on characteristic 1 and 2 alone: the expert claimed a FIFO methodology, the court found a subjective approach had actually been applied, and the claim collapsed even though funds had been traced. See D'Aloia v Persons Unknown: When the Methodology Fails, Not the Trace.
+
+## Related
+D'Aloia v Persons Unknown: When the Methodology Fails, Not the Trace, Expert Evidence Rules: USA, UK, Australia, [Known Weaknesses to Disclose in a Forensic Report](/kb/05-evidence-legal/checklist-known-weaknesses-to-disclose-in-a-forensic-report), [Reviewing an Opposing Forensic Report](/kb/05-evidence-legal/checklist-reviewing-an-opposing-forensic-report), [The Analysis Standard: Four-Block Write-Up](/kb/05-evidence-legal/framework-the-analysis-standard-four-block-write-up), [Handover Reports Must Be Replicable](/kb/05-evidence-legal/principle-replicable-handover-reports), [Glass Box Attribution](/kb/05-evidence-legal/concept-glass-box-attribution), [Fact Witness vs Expert Witness](/kb/05-evidence-legal/principle-fact-witness-vs-expert-witness), [Calibrate Your Testimony Language](/kb/05-evidence-legal/tactic-calibrate-testimony-language), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference)

@@ -1,0 +1,25 @@
+# Victim Artifact Intake: Getting the Starting Point Right
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+A case built on the wrong starting address is wasted work, and victim-supplied detail is where the wrong starting address comes from. Collect the artifacts, then confirm the starting point against the chain before tracing a single hop. Four recurring distortions turn an honest victim account into a bad anchor.
+
+## Components
+- Collect first: victim statements, screenshots, messaging conversations, and receipts. Mine them for wallet addresses and transaction IDs, and record addresses and hashes in full.
+- Work in crypto amounts, not dollars. Price moves, so the dollar figure a victim remembers will not match anything on chain. The asset amount is the searchable value.
+- Expect a fee gap on crypto ATMs. Kiosks charge heavily, so the cash paid in and the amount that arrives on chain are different numbers. Do not treat the receipt total as the on-chain value.
+- Expect a timestamp gap. Receipt and screenshot times reflect when the transaction was made, not when it was recorded on chain, and the two can differ enough to break a naive time-window search.
+- Then verify before you trace. Confirm the transaction dates and times line up with the victim's timeline, run OSINT against the addresses for known-entity hits, and check how much value is still held, whether the addresses show exposure to exchanges or payment processors, and when they were last active.
+
+## When to use
+At first contact with a victim or reporting party, before scoping the trace. Runs ahead of the Intake Triage Checklist, which handles objective and scope once the anchors are solid.
+
+## Avoid when
+Never let an unverified victim figure into the case file as fact. Victim material is a report of what happened, and it stands as reported until an explorer confirms the hash, block, exact value, and direction. Two amounts that look the same to a victim can be two different transactions.
+
+## Example
+A victim reports sending 1,700 dollars of Bitcoin on a Tuesday afternoon. The receipt shows a purchase at 2:14 pm and the chain shows 0.0384 BTC settling at 2:31 pm after the kiosk fee. Anchoring on the dollar figure or the receipt time finds nothing; anchoring on the deposit address from the receipt finds the transaction, and from there the real starting point.
+
+## Related
+[Intake Triage Checklist](/kb/06-casework-method/checklist-intake-triage-checklist), [Five Intake Red Flags](/kb/06-casework-method/checklist-five-intake-red-flags), [Identifying Cryptocurrency in the Field](/kb/05-evidence-legal/checklist-identifying-crypto-in-the-field), [Impersonation Scams and the Crypto-Kiosk On-Ramp](/kb/06-casework-method/concept-impersonation-and-kiosk-onramp-scams), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [Crypto Crime Typology Catalogue](/kb/06-casework-method/checklist-crypto-crime-typology-catalogue), [Identify the Predicate Typology First](/kb/06-casework-method/principle-identify-predicate-typology-first), [Surface-Level Fast Wins](/kb/06-casework-method/checklist-surface-level-fast-wins)

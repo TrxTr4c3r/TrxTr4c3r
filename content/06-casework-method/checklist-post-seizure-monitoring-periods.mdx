@@ -1,0 +1,30 @@
+# Post-Seizure Monitoring Periods by Asset Type
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+A freeze is a checkpoint, not an ending. The other side keeps working the problem after the order lands, so the watch continues for months, and how long depends on the asset. Privacy coins get watched four times longer than Ethereum, because the circumvention routes stay open four times longer.
+
+## Components
+**Minimum monitoring periods:**
+| Asset type | Minimum period | Alert triggers | Review cadence |
+|---|---|---|---|
+| Bitcoin | 6 months | Address activity, UTXO movement | Daily for 30 days, then weekly |
+| Ethereum and EVM | 3 months | Contract interaction, gas spike | Daily for 30 days, then weekly |
+| Stablecoins | 12 months | Blacklist circumvention, new issuance | Weekly for 90 days, then monthly |
+| Privacy coins | 24 months | Exchange deposits, mixing activity | Weekly throughout |
+
+**Technical watch:** keep surveillance on every known address, alert on related address activity, watch for fork-based replay attempts, track wrapped versions of frozen tokens, read the mempool for pending transactions, and watch validator or miner activity for unusual patterns.
+
+**Tooling:** dedicated wallet watchers on all identified addresses, webhook alerts for real-time notification, node-level alerts for relevant transactions, and dark web monitoring for discussion of the addresses.
+
+**Keep the paperwork alive:** calendar every order expiry with advance warning, prepare extension documentation in a standard format, document the continuing risk of dissipation with current evidence rather than the original filing, and keep records of compliance with every order term in court-ready form.
+
+## When to use
+From the moment a freeze or seizure lands, through to final asset return.
+
+## Avoid when
+Do not stand the watch down early because the address has gone quiet. Dormancy is a common tactic for waiting out an order, and the stablecoin and privacy coin periods are long specifically because that is where the wait pays off.
+
+## Related
+[Freeze Circumvention Techniques and Countermeasures](/kb/06-casework-method/checklist-freeze-circumvention-techniques-and-countermeasures), [Monitoring Addresses with Alerts](/kb/06-casework-method/tactic-monitoring-addresses-with-alerts), [The Six-Step Crypto Recovery Framework](/kb/06-casework-method/framework-six-step-crypto-recovery-framework), [Freezable vs Non-Freezable Crypto Assets](/kb/06-casework-method/concept-freezable-vs-non-freezable-assets), [Anchor Every Finding With a Temporal Qualifier](/kb/05-evidence-legal/tactic-anchor-findings-with-temporal-qualifiers)

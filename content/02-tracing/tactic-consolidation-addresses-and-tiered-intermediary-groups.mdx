@@ -1,0 +1,36 @@
+# Consolidation Addresses and Tiered Intermediary Groups
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+In a large laundering network the intermediary addresses are not a flat crowd. They organise into **tiers**, and within those tiers a small number of **consolidation addresses** do most of the work. Identifying them changes the shape of the investigation: instead of chasing hundreds of addresses you characterise a handful of hubs, describe each tier by aggregate volume, and put the tracing effort where the money actually concentrates.
+
+The identifying heuristic is simple and stated plainly in the record: a consolidation wallet has **many more deposits than withdrawals** relative to other wallets in the chain. Many in, few out, large balances passing through.
+
+There is a methodological sting attached, and it is the part most analysts miss. **A consolidation address redirects the tracing order.** Once hundreds of millions of dollars from many sources pool in one address, a convention like LIFO no longer picks the outflow you expect, because the ordering is now governed by the pool's traffic rather than by your victim's deposit. Consolidation is not just a graph feature. It is the point at which your tracing convention starts doing something different from what it did upstream, and the report has to say so.
+
+## Components
+- **Identify hubs by ratio.** Deposit count substantially exceeding withdrawal count, against the baseline of other addresses in the same path. Confirm with lifetime volume, which for a true hub is usually orders of magnitude above the case value.
+- **Assign tiers by position.** Group the intermediaries by what they receive from and send to, rather than by anything intrinsic. The 225M complaint uses two: Group 1 receives directly from the exchange accounts, Group 2 consolidates from Group 1 and feeds the destination addresses.
+- **Report each tier by aggregate flow.** Address count in the tier, total received, total forwarded to the next tier, and total sent directly to the destination. This is what makes a network of hundreds of addresses legible in a paragraph.
+- **Record inter-tier and intra-tier churn.** Hubs move funds back and forth between each other. Note it, because it is both an obfuscation signal and the reason the aggregate numbers do not reconcile into a clean waterfall.
+- **State the effect on the tracing convention.** Where a consolidation address sits in the path, say that it redirects the ordering and say how you handled it. See Asset-Tracing Methodologies for Commingled Funds.
+- **Treat the hub as a subpoena and attribution target.** Hubs are the highest-value addresses in the network for gas-funding analysis and for identifying the controlling entity. See Gas-Funding Analysis to Cluster Controlled Addresses.
+
+## When to use
+Any trace that fans into a network too large to walk address by address, and any report that has to describe such a network to a non-specialist reader. Also as a triage step early in a large case: find the hubs first, and the structure of the rest usually resolves around them.
+
+## Avoid when
+The high-deposit low-withdrawal shape belongs to a service rather than an actor. Exchange hot wallets, bridge vaults, staking contracts, and payment processors all show it, and none of them indicates common control. Classify the address before calling it a consolidation hub. See Transaction Tracing Decision Tree and Endpoint Classification.
+
+Be careful with lifetime volume as an indicator too: a hub that has moved $1.1 billion over its life is not thereby holding $1.1 billion of your case's funds, and the two figures must never be conflated in a report.
+
+## Example
+The 225M complaint's two-tier description compresses a network of 65 addresses into a readable paragraph. Intermediary Group 1 is 53 addresses that received over $800 million directly from the OKX accounts, forwarded approximately $665 million to Group 2, and sent approximately $140 million directly to the seized destination addresses. Intermediary Group 2 is 12 addresses that consolidated from Group 1 and fed the destinations.
+
+Inside Group 2, two addresses do the heavy lifting: 0xf60444fe54ff46ae29053a67e6b0fdd17b15a6b9 and 0x0c0996d0c3af2892a7a8fc621eb7347ec9b6b9ac, which between them received over $1.1 billion over their lifetime and sent approximately $62.4 million and $197.2 million respectively to the seized addresses.
+
+The complaint also states the tracing problem the hubs create, listing among the obstacles to end-to-end tracing "the use of consolidation addresses used to accumulate hundreds of millions of dollars that redirects the LIFO order."
+
+## Related
+Asset-Tracing Methodologies for Commingled Funds, Transaction Graph Analysis, [Transaction Tracing Decision Tree and Endpoint Classification](/kb/02-tracing/workflow-transaction-tracing-decision-tree-and-endpoint-classification), [On-Chain Laundering Pattern Catalogue](/kb/04-laundering-obfuscation/checklist-onchain-laundering-pattern-catalogue), [Gather-Scatter](/kb/04-laundering-obfuscation/concept-gather-scatter), [Peeling Chain Analysis](/kb/02-tracing/tactic-peeling-chain-analysis), [Gas-Funding Analysis to Cluster Controlled Addresses](/kb/03-attribution-clustering/tactic-gas-funding-analysis-to-cluster-controlled-addresses), [Exchange Pass-Through Detection by One-to-One Deposit and Withdrawal Matching](/kb/02-tracing/tactic-exchange-passthrough-one-to-one-deposit-withdrawal-matching), [Describe Laundering in Phases When the Transactions Cannot Be Counted](/kb/05-evidence-legal/principle-describe-laundering-in-phases-when-transactions-cannot-be-counted), The Forfeiture-Complaint Tracing Narrative, [Articulating No Legitimate Economic Purpose](/kb/05-evidence-legal/tactic-articulating-no-legitimate-economic-purpose), [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing), [Wallet Type Identification Matrix](/kb/00-fundamentals/reference-wallet-type-identification-matrix)

@@ -1,0 +1,31 @@
+# Document a Token Transfer by Network, Standard, and Contract
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+A ticker symbol is not a finding. "USDT" exists across at least five chains under four standards, and impersonation tokens reuse the same symbol, so a write-up that names only the symbol cannot be reproduced and cannot be defended. Five values make a token transfer verifiable: network, token standard, token contract address, transaction hash, and wallet address.
+
+## When to use
+Every time a case involves anything other than a chain's native asset, which in scam, pig-butchering, and laundering work is the normal condition rather than the exception.
+
+## Components
+**The verification sequence.**
+1. Identify the token: symbol, issuer context, and why it matters to the case.
+2. Verify the network before relying on any address, transfer, explorer view, or contract record.
+3. Verify the token contract address is the official one, and distinguish it from lookalike, bridged, or unrelated contracts carrying the same symbol.
+4. Review transaction history: transfers, approvals, swaps, mint and burn activity, bridge movement, and wallet-level context.
+5. Identify counterparties: wallets, services, contracts, bridges, exchanges interacting with the flow.
+6. Carry the verified movements and counterparties into the wider trace.
+
+**The five questions worth asking.** Which chain hosts the token, which sets the explorer and method? Is this the official contract, which prevents confusion with counterfeit tokens? Which standard, which sets the compatible tools? Is this a token transfer or a native asset transfer, which changes interpretation? Does the activity span multiple chains, which means cross-chain tracing?
+
+**Where stablecoins show up.** Funding exchange accounts on deposit. Conversion before transfer on withdrawal. Lending, liquidity pools, swaps and staking in DeFi. Rapid cross-border value transfer. Fraud, where victims are instructed to buy or send stablecoins. Laundering, during layering and conversion.
+
+## Avoid when
+The failures here are documentation failures, not analytical ones: recording the ticker without the network, omitting the contract address, treating USDT on Ethereum and USDT on Tron as the same transaction, confusing a wrapped asset with a native stablecoin deployment, and tracing on the wrong explorer as a consequence. Conversion into a stablecoin is also not an endpoint: keep tracing while public activity continues.
+
+## Example
+A victim statement says they sent 5,000 USDT to a trading platform. The reproducible version of that finding names Tron as the network, TRC-20 as the standard, the official Tether TRC-20 contract address, the full transaction hash, and the full recipient address. Only the last of those distinguishes the real transfer from a lookalike-token transfer that would show the same symbol and a similar amount.
+
+## Related
+[Token Standard Quick Reference](/kb/00-fundamentals/reference-token-standard-quick-reference), [Blockchain Network Comparison Matrix](/kb/00-fundamentals/reference-blockchain-network-comparison-matrix), [Cryptocurrency Address Format Recognition Matrix](/kb/00-fundamentals/reference-address-format-recognition-matrix), A Smart Contract Interaction Is a Lead, Not an Endpoint, [Blockchain Explorer Review Procedure](/kb/02-tracing/workflow-blockchain-explorer-review-procedure), [Address Poisoning Attack](/kb/03-attribution-clustering/caution-address-poisoning), [EVM Multi-Chain Tracing Essentials](/kb/02-tracing/checklist-evm-multi-chain-tracing-essentials), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference)

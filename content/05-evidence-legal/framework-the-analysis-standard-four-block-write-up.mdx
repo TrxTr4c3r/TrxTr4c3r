@@ -1,0 +1,30 @@
+# The Analysis Standard: Four-Block Write-Up
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+Every analytical write-up, whether it is a wallet review, a transaction review, a trace, or an attribution assessment, uses the same four labelled blocks in the same order. The labels do the work: a reader can see at a glance where fact stops and reasoning starts, and a reviewer can challenge one block without discarding the others.
+
+## Components
+1. **Observed facts.** Only information directly supported by the blockchain record or documented evidence. Transactions, timestamps, addresses, hashes, screenshots, publicly verifiable records. No adjectives, no interpretation.
+2. **Analytical observations.** The patterns, relationships, and behaviours you identified across those facts. This is where "the funds were consolidated at a single address within four hours" lives.
+3. **Investigative assessment.** What you conclude from the facts and observations, with the confidence level and the limitations attached. This is the only block where a conclusion belongs.
+4. **Recommended follow-up.** The next actions: review a related wallet, conduct OSINT, identify exchange exposure, request records, continue tracing, escalate, or close.
+
+Underneath the four blocks sit four categories of information the toolkit asks investigators to keep distinct throughout a case:
+- **Observed facts:** supported directly by documented evidence.
+- **Analytical inferences:** reasonable conclusions from the evidence, always stated with the supporting evidence and the limitations.
+- **Attribution assessments:** evaluations of association between activity and a person, organisation, or service, always carrying a confidence level and independent corroboration where available.
+- **Professional judgment:** yours, and not delegable to a worksheet. No template substitutes for investigative reasoning.
+
+## When to use
+As the shape of every findings section you write, and as a review template for someone else's. It scales down to a two-paragraph note and up to a full report section.
+
+## Avoid when
+The structure is only worth having if the blocks stay honest. The failure mode is an "observed facts" block carrying inference ("the scammer moved the funds") or an "investigative assessment" with no stated limitation. A quality pass should confirm block 1 is supported by chain data and free of assumptions, block 2 explains its relationships, and block 3 flags what remains unresolved.
+
+## Example
+Observed facts: on the stated date, 12.4 ETH left address A in a single transaction, hash recorded in full, and arrived at address B. Analytical observations: address B received comparable amounts from six unrelated addresses within the same 48-hour window, then forwarded the aggregate in one transfer. Investigative assessment: address B is consistent with a co-mingling or collection point rather than an end-recipient wallet; confidence Moderate; the assessment rests on flow shape alone and no service attribution has been established. Recommended follow-up: identify exchange exposure downstream of address B and request records if a VASP is identified.
+
+## Related
+[Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [The Six Principles of the Cryptocurrency Investigation Methodology](/kb/06-casework-method/framework-cim-six-principles), [Attribution Procedure (Seven Steps)](/kb/03-attribution-clustering/workflow-attribution-procedure-seven-steps), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), [Handover Reports Must Be Replicable](/kb/05-evidence-legal/principle-replicable-handover-reports), [Anchor Every Finding With a Temporal Qualifier](/kb/05-evidence-legal/tactic-anchor-findings-with-temporal-qualifiers), [Calibrate Your Testimony Language](/kb/05-evidence-legal/tactic-calibrate-testimony-language), Preserve the Analysis, Not Just the Finding

@@ -1,0 +1,34 @@
+# Blockchain Network Comparison Matrix
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`</span>
+
+## Core idea
+Ten networks that account for most of what turns up in casework, compared on the four things that change how you work a case: the native asset, whether the chain runs smart contracts, what it is typically used for, and which explorer to open. Identifying the network is the first decision in any trace, because it determines every tool choice that follows.
+
+## Components
+| Network | Native asset | Consensus | Smart contracts | Typical investigative use | Common explorer |
+|---|---|---|---|---|---|
+| Bitcoin | BTC | Proof of Work | No | Payments, ransomware, darknet, long-term value transfer | Mempool.space, Blockstream Explorer |
+| Ethereum | ETH | Proof of Stake | Yes | DeFi, NFTs, token transfers, contracts | Etherscan |
+| BNB Smart Chain | BNB | Proof of Staked Authority | Yes | DeFi, token projects, gaming | BscScan |
+| Solana | SOL | Proof of Stake plus Proof of History | Yes | High-speed DeFi, NFTs, memecoins | Solscan |
+| Tron | TRX | Delegated Proof of Stake | Yes | Stablecoin transfers, exchange activity, cross-border payments | TRONSCAN |
+| Polygon | POL | Proof of Stake | Yes | Ethereum scaling, DeFi, gaming | PolygonScan |
+| Avalanche | AVAX | Avalanche consensus | Yes | DeFi, enterprise applications, token ecosystems | Avalanche C-Chain explorers |
+| Arbitrum | ETH | Ethereum Layer-2 rollup | Yes | Layer-2 DeFi, lower-cost Ethereum activity | Arbiscan |
+| Optimism | ETH | Ethereum Layer-2 rollup | Yes | Layer-2 scaling, dApps | Optimistic Etherscan |
+| Base | ETH | Ethereum Layer-2 rollup | Yes | Consumer applications, DeFi, token ecosystems | BaseScan |
+
+**The five questions the matrix answers:** Which chain is involved, and therefore which explorer and methods apply? Does it support contracts, and therefore should contract interactions be reviewed? What is the native asset, which explains the fees? Is this Layer-1 or Layer-2, which changes tracing method and bridge analysis? Are token standards in play, which triggers separate token analysis?
+
+## When to use
+At the start of a trace and at every hop that lands somewhere unfamiliar. Also when planning a case: knowing that Layer-2 activity is involved tells you bridges are probably in the picture before you find them.
+
+## Avoid when
+Explorer names, URLs, and features change. Verify the explorer supports the specific chain before relying on its output. Similar-looking addresses belong to different networks, asset movement between networks needs separate tracing on both sides, and timestamps go in UTC regardless of which chain you are on.
+
+## Example
+An `0x` address with token activity turns out to sit on Base rather than Ethereum. That single fact changes the explorer, means the funds most likely arrived over a bridge from Ethereum or an exchange with native Base withdrawals, and adds a bridge leg to the trace that would have been invisible had the analysis stayed on Etherscan.
+
+## Related
+[Cryptocurrency Address Format Recognition Matrix](/kb/00-fundamentals/reference-address-format-recognition-matrix), [Token Standard Quick Reference](/kb/00-fundamentals/reference-token-standard-quick-reference), [Wallet Type Identification Matrix](/kb/00-fundamentals/reference-wallet-type-identification-matrix), [EVM Multi-Chain Tracing Essentials](/kb/02-tracing/checklist-evm-multi-chain-tracing-essentials), [Blockchain Explorer Review Procedure](/kb/02-tracing/workflow-blockchain-explorer-review-procedure), [Reading an EVM Transaction](/kb/00-fundamentals/concept-reading-an-evm-transaction), [Chain-Specific Attribution Signals: Bitcoin vs Ethereum](/kb/00-fundamentals/concept-chain-specific-attribution-signals-bitcoin-vs-ethereum)

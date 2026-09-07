@@ -1,0 +1,27 @@
+# Preserve the Analysis, Not Just the Finding
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+Preservation discipline usually protects artifacts: hash the screenshot, timestamp the export, keep the original unaltered. That protects the exhibit and does nothing for the analysis. Clustering models get retrained, attribution databases absorb new intelligence, and tool versions ship, so the same query re-run in six months can return a different answer. The standard is reconstruction: could another investigator, 18 months later, load the preserved inputs into the same tool version and reproduce the result? If the answer is uncertain, the record is not defensible yet.
+
+## Components
+Capture all six contemporaneously, at the end of each analytical session:
+- **Tool name and version,** with the date and time the analysis ran.
+- **Observations pinned to specific block heights,** never relative descriptions like "the most recent block".
+- **Address state as it appeared at that moment:** balances, transaction history, and the attribution labels the tool was displaying then. Labels change silently.
+- **Screenshots, exports, and raw tool outputs,** captured at analysis time and filed in the case, not regenerated later.
+- **Underlying transaction data** (hashes, addresses, raw call data) held independently of the analytical tool, so the record survives losing access to the platform, the licence, or the vendor.
+- **The analytical workflow itself:** which queries were run, in what order, with what parameters. A preserved conclusion is not a reproducible one.
+
+## When to use
+At the close of every analytical session on a matter that could reach court. Doing it at report-writing time is too late, because the tool state has already moved on and the labels you saw are gone.
+
+## Avoid when
+Never skip it because the tool "stores the history". Vendor-side history is a record you do not control, cannot version-pin, and may lose with the licence. Keep an independent copy.
+
+## Example
+An analyst clusters 47 addresses in March. By the time the case reaches trial the vendor has retrained its heuristics and the same query returns 39. Without a preserved version stamp, the March export, and the co-spend data held outside the tool, the analyst cannot show that the original finding was correct when made, and the discrepancy reads as an error rather than a model update.
+
+## Related
+[Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Anchor Every Finding With a Temporal Qualifier](/kb/05-evidence-legal/tactic-anchor-findings-with-temporal-qualifiers), [Glass Box Attribution](/kb/05-evidence-legal/concept-glass-box-attribution), [The Three Layers of Blockchain Evidence](/kb/05-evidence-legal/framework-three-layer-blockchain-evidence-model), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [Commercial Analytics & the Daubert Challenge](/kb/05-evidence-legal/caution-commercial-analytics-and-the-daubert-challenge)

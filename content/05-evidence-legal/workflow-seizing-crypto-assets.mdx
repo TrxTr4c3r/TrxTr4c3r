@@ -1,0 +1,25 @@
+# Seizing Crypto: Devices, VASP Accounts, and the Agency Wallet
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`workflow`</span>
+
+## Core idea
+Seizing crypto is not the same as seizing the thing it is stored on. The value sits on the blockchain, and the device is only one route to it. Holding the hardware while the suspect keeps another copy of the keys means watching the balance leave. There are two seizure paths, and the device path is a race.
+
+## Components
+- Path one, physical devices. Taking the device restricts one route to the keys, not the value. If the suspect has a seed backup, a second device, or an accomplice with the phrase, the wallet can still be drained. Once enforcement action is under way and seizure is likely, move the assets to an agency-controlled wallet quickly.
+- Path two, VASP accounts. Assets on an exchange are controlled by the provider on behalf of the target, much like a bank. Serve a seizure warrant on the VASP as you would a bank and have custody transferred to a law-enforcement wallet. Many VASPs outside the home jurisdiction comply voluntarily.
+- Identification. Work out which wallet providers and wallet types are in play (web, mobile, desktop, hardware). Establish whether the device passcode or key and the wallet credentials can be obtained; access windows are often short once it is established that crypto is being used criminally. Restrict access to any device that might hold evidence so it cannot be tampered with.
+- Collection. If you cannot get into the wallet immediately, put the device in airplane mode or a Faraday bag to cut remote wipe and remote access. Once the wallet is decrypted, transfer the funds to the department wallet by pasting the receiving address or scanning its QR code. Go through every tab and subfolder in the wallet software, because one wallet application can hold several accounts and several assets in different places.
+- Preservation. After the transfer, run standard chain of custody and digital evidence procedure over both the device and the transfer record. Check whether the department wallet supports a vault requiring two people to approve any movement, and use it.
+
+## When to use
+At enforcement action, or whenever a case reaches the point where assets can actually be taken into custody rather than only traced.
+
+## Avoid when
+Do not move funds without the legal authority to do so, and do not treat the on-chain transfer as self-documenting. The seizure transaction is itself evidence: capture its hash, block, exact value, and the destination address in full, and log it like any other exhibit (see Custody Log, The Six Questions).
+
+## Example
+A search turns up a laptop with an unlocked Exodus wallet and a paper seed phrase in a drawer. The phrase means the suspect's associates may already have access, so the priority order is transfer to the agency wallet first, then bag and document the device, then log the seizure transaction hash and the destination address into the custody record.
+
+## Related
+[Identifying Cryptocurrency in the Field](/kb/05-evidence-legal/checklist-identifying-crypto-in-the-field), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [Custody Log: The Six Questions](/kb/05-evidence-legal/checklist-custody-log-the-six-questions), [Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Evidence Preservation Checklist](/kb/05-evidence-legal/checklist-evidence-preservation), [Time-Decay of Crypto Evidence](/kb/05-evidence-legal/caution-time-decay-of-crypto-evidence), [Freezable vs Non-Freezable Crypto Assets](/kb/06-casework-method/concept-freezable-vs-non-freezable-assets), [VASP Records: What to Request and What Exists](/kb/05-evidence-legal/checklist-vasp-records-what-to-request)

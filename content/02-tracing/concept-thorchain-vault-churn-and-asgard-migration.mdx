@@ -1,0 +1,33 @@
+# THORChain Vault Churn and Asgard Migration
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
+
+## Core idea
+THORChain's vaults are TSS-controlled by the active validator set, so when validators rotate (a **churn**) the funds must move to a vault the new set can sign for. The old vault is flagged `retiring` and drains into the new Asgard vault in **scheduled tranches**, not one sweep. Each tranche is a separate on-chain transaction carrying a `MIGRATE:<thorchain_height>` memo. A vault emptying itself into another vault over several hours is routine housekeeping, not a theft.
+
+## When to use
+When a large UTXO address drains to a single destination in several stepped transactions, when you meet a `MIGRATE` memo, or when a Bitcoin address you are tracing turns out to be a THORChain vault and you need to know whether its movements are protocol-driven or user-driven.
+
+## Components
+- **Why tranches.** Splitting the drain means a TSS signing failure cannot brick the entire treasury. THORChain has published a postmortem on a retiring vault that got stuck, so the caution is earned rather than theoretical.
+- **The observed schedule.** Each tranche moves a rising share of what **remains**, and the fifth pass sends everything. Measured to the satoshi on the July 2021 churn: 20%, then 40%, then 60%, then 80%, then 100% of the remaining balance. The vault lands on exactly zero.
+- **The cadence is a fixed block interval** (`FundMigrationInterval`), not a wall-clock one. On the July 2021 churn the memo heights were spaced exactly 720 THORChain blocks apart, about 70 minutes at the roughly 5.7 second block time of the period. **This parameter has since been changed** (ADR-007 raised migration and churn intervals), so measure it for your period rather than assuming 720.
+- **Every tranche goes to the same successor vault.** One retiring vault, one destination, N transactions. A fan-out to many destinations is a different animal and deserves a second look.
+- **Vaults are short-lived.** A vault is created by a churn, works for a few days, and is drained by the next churn. Its full history is often small enough to read end to end, which makes it an unusually cooperative subject.
+- **The change output is the vault paying itself.** Each tranche has one output to the new vault, one change output back to the retiring vault, and the OP_RETURN. The change output is what the next tranche spends, so the tranches form a clean chain.
+
+## Example
+Asgard vault `bc1q3wap0eync35cmemdk3rcp800a8m5uyrqu2g4d8` lived for six days and 38 transactions. It was **born** on 2021-07-07 from inbound `MIGRATE` memos sent by the previous generation of retiring vaults. It **worked** for six days taking user swaps, liquidity adds and withdrawals. On 2021-07-13 it was **retired** and drained in five tranches inside four hours 35 minutes, all to `bc1qqefsjm654cdw94ejj8g4s49w7z8te75vdw7m4p`:
+
+| Memo | THORChain height | BTC block | % of remaining | To new vault (BTC) | Transaction |
+|---|---|---|---|---|---|
+| `MIGRATE:1445627` | 1445627 | 690834 | 20% | 67.98639897 | `dd8845d1d0c77122b007f46f761d94cfc5db65a8905e9c2f65610e2f98f07504` |
+| `MIGRATE:1446347` | 1446347 | 690844 | 40% | 108.77847810 | `e1a0bd7ce31047b7556e54c462841ce119f9866bd93ba342e77cb34d0c173377` |
+| `MIGRATE:1447067` | 1447067 | 690849 | 60% | 97.90057449 | `5652a7ae74ef65c5625222c74e137ea5f796452ee5d060a860c69f184f5e2688` |
+| `MIGRATE:1447787` | 1447787 | 690859 | 80% | 52.21366213 | `ffa5b5dd33a5779c0da02648aed38ee2160db1a241b6bcaa05e22597a7d40bec` |
+| `MIGRATE:1448507` | 1448507 | 690861 | 100% | 13.05329978 | `99adc3c9ec8bdb0879bcabd8ace630ee431d089836c088097b66055fc12b290a` |
+
+The five tranches sum to 33,993,277,531 sat (339.93277531 BTC), inclusive of miner fees, and the retiring vault's balance ends at precisely zero.
+
+## Related
+[THORChain Memo Grammar on Bitcoin](/kb/02-tracing/reference-thorchain-memo-grammar-on-bitcoin), [Protocol Housekeeping vs Incident](/kb/02-tracing/tactic-protocol-housekeeping-vs-incident), [Understand the Protocol Before You Conclude](/kb/02-tracing/principle-understand-the-protocol-before-you-conclude), [Bitcoin OP_RETURN as a Cross-Chain Signal](/kb/02-tracing/tactic-bitcoin-op-return-bridge-signal), [Dating a Block Height Without an Archive Node](/kb/02-tracing/tactic-dating-a-block-height-without-an-archive-node), [Cross-Chain / Bridge & Swap Analysis](/kb/02-tracing/tactic-cross-chain-bridge-swap-analysis), [Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation)

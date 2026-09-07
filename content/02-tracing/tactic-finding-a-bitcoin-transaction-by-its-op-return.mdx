@@ -1,0 +1,56 @@
+# Finding a Bitcoin Transaction by Its OP_RETURN
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+Bitcoin explorers index addresses and hashes, not message content, so "find the transaction containing this memo" has no search box on mempool.space or blockstream.info. Two routes exist: an explorer that does index output scripts (Blockchair), and, when that is unavailable, a **raw-block byte sweep**. Download whole blocks over a candidate window and search the bytes for the memo string. It needs no local node, no index, and no API key.
+
+## When to use
+When you know what a transaction *said* but not its hash: a bridge memo, a protocol instruction, a message, a challenge clue. Also when an explorer's content search is rate-limited, geo-blocked, or has blacklisted your IP.
+
+## Components
+
+**Step 1: build the exact needle.** Convert the ASCII memo to hex, then prepend the script opcodes. `MIGRATE:1445627` is 15 bytes:
+
+```
+4d4947524154453a31343435363237
+```
+
+`6a` is OP_RETURN and `0f` is "push 15 bytes", so the full scriptPubKey is `6a0f4d4947524154453a31343435363237`. Search the raw ASCII for a loose match, the full script hex for an exact one.
+
+**Step 2 (fast path): Blockchair.** It indexes output scripts and will do the whole job in one request:
+
+```
+https://blockchair.com/bitcoin/outputs?q=script_hex(6a0f4d4947524154453a31343435363237)
+https://api.blockchair.com/bitcoin/outputs?q=script_hex(<hex>)&limit=10
+```
+
+The free tier is aggressive about blocking. `430` from the API means the IP is throttled and `403` at the web edge means it is blocked outright, in which case change your egress or fall back.
+
+**Step 3 (fallback): narrow the window.** You need a block range, not the whole chain. Derive it from whatever timestamp evidence you have, then anchor it:
+
+```
+https://mempool.space/api/v1/mining/blocks/timestamp/<unix_ts>   →  nearest block height
+```
+
+**Step 4: sweep raw blocks, do not paginate transaction lists.** The naive approach walks `/api/block/<hash>/txs/<index>` 25 transactions at a time, roughly 100 requests per block. Instead pull each block whole and search the bytes:
+
+```
+https://mempool.space/api/block-height/<height>   →  block hash
+https://mempool.space/api/block/<hash>/raw        →  the entire block, about 1 to 4 MB
+```
+
+One request per block, and the memo sits in the bytes in plaintext. A `if MEMO in raw:` test over 30 blocks is seconds of work.
+
+**Step 5: recover the txid from the bytes, not from a label.** Parse the block: 80-byte header, varint transaction count, then transactions. For each, strip the segwit marker, flag and witness data, then double-SHA256 the remaining legacy serialisation and reverse it. That is the txid, computed rather than trusted.
+
+**Step 6: verify and prove uniqueness.** Confirm the hit on two independent explorers, then **keep sweeping**. Protocols often emit several transactions sharing one memo, so a single hit is not proof of a unique answer until you have swept the surrounding window and counted.
+
+## Avoid when
+Do not sweep a wide window blind. Each block is a megabyte or more, so this is a scalpel for a window you have already narrowed to tens of blocks, not a chain-wide grep. If you genuinely need chain-wide content search, that is a local index or a BigQuery public dataset job, not an API loop.
+
+## Example
+Hunting a THORChain migration with only a memo and a rough value, Blockchair returned `403` for the analyst's IP. Interpolating a THORChain height to a timestamp gave 2021-07-13 13:14 UTC, which anchored to Bitcoin block 690833. Sweeping raw blocks forward found the memo bytes in block 690834 on the second block tried, and the txid `dd8845d1d0c77122b007f46f761d94cfc5db65a8905e9c2f65610e2f98f07504` was recomputed from the block bytes and confirmed on mempool.space and blockstream.info. Sweeping a further 35 blocks proved exactly one transaction carried that memo.
+
+## Related
+[Bitcoin OP_RETURN as a Cross-Chain Signal](/kb/02-tracing/tactic-bitcoin-op-return-bridge-signal), [THORChain Memo Grammar on Bitcoin](/kb/02-tracing/reference-thorchain-memo-grammar-on-bitcoin), [Dating a Block Height Without an Archive Node](/kb/02-tracing/tactic-dating-a-block-height-without-an-archive-node), [Value-and-Block-Window Candidate Search](/kb/02-tracing/tactic-value-and-block-window-candidate-search), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Non-Explorer Bridge Correlation](/kb/02-tracing/workflow-non-explorer-bridge-correlation)

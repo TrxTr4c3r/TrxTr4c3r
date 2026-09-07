@@ -1,0 +1,30 @@
+# Exchange-Internal Transfers as Off-Chain Layering
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
+
+## Core idea
+Transfers between two accounts at the same exchange never touch the blockchain. They are ledger entries in the exchange's own database, they usually carry no fee, and they are **completely invisible to on-chain analysis**. A launderer who moves value through ten accounts inside one exchange has produced ten hops that no explorer, no graph tool, and no blockchain analytics vendor will ever show. The only route to them is the exchange's records, which means legal process, which means time and jurisdiction.
+
+This is layering that costs the launderer almost nothing and costs the investigator a great deal. It is also increasingly where the real obfuscation happens, because it is strictly more effective than on-chain layering and strictly cheaper.
+
+## Components
+- **The mechanism.** Named internal-transfer products (Binance Pay is the example in the record, working like Venmo: scan a QR code or enter an email, phone number, or exchange user ID) and plain account-to-account transfers. Zero fee, instant, off-ledger.
+- **The detection signal.** You cannot see the transfers, so you detect them by their *absence*. An account whose inbound value substantially exceeds what arrived on-chain is receiving internally. The composition ratio is the tell: in the Binance matter, 88% of all incoming deposits into Subject Account 1 came from other Binance accounts.
+- **The counterparty spread.** Internal layering shows up as a high volume of deposits from an implausible number of same-exchange accounts. Subject Account 1 received from 49 other accounts; the linked account received from 98.
+- **The account-type mismatch.** These are personal accounts carrying volumes and counterparty counts no personal account plausibly generates. The complaint's phrasing: "It is highly unusual for a cryptocurrency exchange account set up for personal use to have such a high volume of deposits from so many other cryptocurrency exchange accounts."
+- **The depth problem.** Records for the sending accounts show the same pattern again, one layer further back. The Binance matter found "a succession of USDT transactions through multiple layers of other Binance accounts," each layer requiring its own records to unpick.
+- **The two-way damage.** Off-ledger layering blocks tracing forward to the cash-out point *and* backward to the original victims. Both directions terminate at the same wall.
+
+## When to use
+Whenever a trace terminates at an exchange deposit address and the on-chain story stops making sense: value arriving at an account that exceeds the on-chain inbound, or a cash-out that cannot be reconciled with any traceable deposit. Also when drafting a records request, because internal-transfer logs are a separate item from on-chain deposit and withdrawal history and will not be produced unless asked for by name. See VASP Records: What to Request.
+
+## Avoid when
+Reading a high internal-deposit ratio as laundering on its own. Ordinary users receive internal transfers, and some exchanges route their own products (savings, conversions, sub-accounts, payment features) through internal ledger entries that inflate the figure innocently. The signal needs the counterparty spread, the account-type mismatch, or a link to a traced deposit before it means anything. See A Single Indicator Is a Lead, Not Proof.
+
+## Example
+The Binance complaint states the consequence in one line: "Transfers between Binance accounts are not recorded on a public blockchain, rendering them untraceable without legal process and cooperation from the exchange."
+
+The account-linking evidence then arrives from the off-chain side instead. Both accounts were accessed from a shared IP within minutes of each other, immediately followed by a 750,000 USDT internal transfer between them, visible only because the exchange produced both the access logs and the transaction logs. On-chain, that 750,000 USDT movement does not exist.
+
+## Related
+[Exchange Pass-Through Detection by One-to-One Deposit and Withdrawal Matching](/kb/02-tracing/tactic-exchange-passthrough-one-to-one-deposit-withdrawal-matching), [Clustering Exchange Accounts From Subpoenaed Records](/kb/03-attribution-clustering/checklist-clustering-exchange-accounts-from-subpoenaed-records), Nested Services and Omnibus Wallets, VASP Records: What to Request, Compelling VASP Disclosure Through Legal Process, Service Choke Points: What Each Can Give You, [On-Chain Laundering Pattern Catalogue](/kb/04-laundering-obfuscation/checklist-onchain-laundering-pattern-catalogue), [Off-Chain Behavioral Red-Flag Checklist](/kb/04-laundering-obfuscation/checklist-offchain-behavioral-red-flags), A Single Indicator Is a Lead, Not Proof, [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing), [Transaction Tracing Decision Tree and Endpoint Classification](/kb/02-tracing/workflow-transaction-tracing-decision-tree-and-endpoint-classification), [VASP Types and What Each Interaction Means](/kb/03-attribution-clustering/reference-vasp-types-and-what-each-interaction-means)

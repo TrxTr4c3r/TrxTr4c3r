@@ -1,0 +1,32 @@
+# Articulating No Legitimate Economic Purpose
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+An observed transaction pattern is not by itself evidence of laundering. The bridge from *this is what happened* to *this was done to conceal* is an economic argument, and it is the single most reusable piece of reasoning in a forfeiture complaint: **every hop costs money, so a path that adds hops without adding utility cost the sender something and bought them nothing except distance from the source.** State the cost, state the absence of any benefit, and the inference of concealment intent follows without you having to assert a state of mind directly.
+
+This is what turns a graph screenshot into a paragraph a lawyer can use. Analysts routinely observe the pattern and then skip the articulation, which leaves the reader to supply the inference themselves. Write it out.
+
+## Components
+The argument has four moves. Run them in order.
+
+- **Establish the cost.** Each transfer incurs a network fee, paid in the chain's native asset. On Ethereum, moving USDT costs ETH regardless of the USDT amount. Where an exchange sits in the path, add its withdrawal fees. Where value shrinks across the chain, say so and attribute the shrinkage.
+- **Establish the absent benefit.** A party genuinely trying to move value from A to B minimises hops, because hops cost money and add delay. Retail exchanges exist precisely to batch transfers and lower per-transaction cost, so a sender avoiding them is paying more, not less. Name the cheaper path that was available and not taken.
+- **Establish the accomplished effect.** Say what the structure did achieve: it broke the visible on-chain path, it commingled the funds with other sources, it forced an investigator to serve legal process on an exchange to link a deposit to a withdrawal, or it moved the balance out of an address before a freeze could land on it.
+- **Name the pattern, then draw the inference.** Rapid succession, circular routing back to an address already in the path, splitting into near-equal amounts, or a 1:1 deposit-and-withdrawal cycle through an exchange. Conclude that the structure is consistent with concealment, and keep the conclusion at the confidence level the evidence supports.
+
+## When to use
+Every time a report describes layering, a peel chain, a consolidation address, circular transfers, or an exchange used as a pass-through. Also whenever a reviewer could reasonably ask "so what?" of a transaction diagram.
+
+## Avoid when
+The extra hops have a plausible legitimate explanation you have not excluded: a DEX routing through intermediate pools, a bridge's internal mechanics, an exchange's own hot-wallet housekeeping, MEV bot traffic, or a wallet's automated batching. Exclude those first, or the argument hands an opposing expert an easy rebuttal. See Protocol Housekeeping vs Incident and Router and Multicall Traffic.
+
+Also avoid overstating it. The complaints say the activity "appears consistent with" and "is likely" concealment; they do not claim to have read anyone's mind. Match that register. See Calibrate Your Testimony Language.
+
+## Example
+From the 225M complaint, on funds split into three near-equal amounts: an address distributed approximately 500,000, 500,000, and 499,980 USDT to three addresses within a day; two of the receiving addresses forwarded the full 500,000 they received onward within an hour. The complaint's articulation is one sentence: "There is no logical economic purpose for transacting this way and are clearly for laundering purposes."
+
+And on the round trip, where the effect is named explicitly: an address sent approximately 15,890,000 USDT to a second address, which returned the funds through a third address inside two months. The complaint explains what that bought the launderer, which is that it avoided "leaving large USDT balances in single addresses for too long, leaving them susceptible to potential freezes."
+
+## Related
+The Forfeiture-Complaint Tracing Narrative, [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [Calibrate Your Testimony Language](/kb/05-evidence-legal/tactic-calibrate-testimony-language), A Single Indicator Is a Lead, Not Proof, [Describe Laundering in Phases When the Transactions Cannot Be Counted](/kb/05-evidence-legal/principle-describe-laundering-in-phases-when-transactions-cannot-be-counted), [On-Chain Laundering Pattern Catalogue](/kb/04-laundering-obfuscation/checklist-onchain-laundering-pattern-catalogue), [Exchange Pass-Through Detection by One-to-One Deposit and Withdrawal Matching](/kb/02-tracing/tactic-exchange-passthrough-one-to-one-deposit-withdrawal-matching), [Protocol Housekeeping vs Incident](/kb/02-tracing/tactic-protocol-housekeeping-vs-incident), Router and Multicall Traffic: Read Swap Events, Exclude MEV, [Six Characteristics of a Court-Credible Forensic Report](/kb/05-evidence-legal/framework-court-credible-forensic-report-six-characteristics)

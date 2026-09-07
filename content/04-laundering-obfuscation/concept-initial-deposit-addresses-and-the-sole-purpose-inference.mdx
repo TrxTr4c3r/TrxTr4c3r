@@ -1,0 +1,34 @@
+# Initial Deposit Addresses and the Sole-Purpose Inference
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
+
+## Core idea
+The address a scammer hands to a victim is a distinct piece of infrastructure with a distinct evidentiary property. DOJ calls it a **0 Level address** or an **initial deposit address**: the first on-chain point victim funds reach, always a non-custodial address rather than an exchange-hosted one, chosen precisely because it is hard to attribute. It is also, almost always, a **single-purpose address**, and that is what makes it valuable. If an address exists only to receive scam deposits, then its *entire* inbound history is scam deposits, and identifying two victims lets you reason about the balance sent by the hundred you never found.
+
+This is the bridge from a handful of interviews to a scheme-scale loss figure. It is also an inference, and it has to be argued rather than assumed.
+
+## Components
+The argument that an initial deposit address is single-purpose rests on four supports, and a report should state all four.
+
+- **Operational logic.** Scam operators run the fraud full-time and have no significant legitimate crypto income to send anywhere. There is nothing else for the address to receive.
+- **Operational security.** Mixing legitimate income with fraud proceeds creates exposure. Accountants, banks, and exchange compliance staff who are not party to the scheme would eventually see it. Keeping the streams separate is the rational choice for the operator.
+- **Burn-rate.** Victims who realise they have been scammed report the address to law enforcement, which invites freezes and seizure. An address given to victims has a short useful life and is used for nothing else during it.
+- **Negative evidence.** The investigation looked for a legitimate depositor and did not find one. The 225M complaint states this directly: law enforcement "has not found a witness who deposited funds into the 93 Initial Deposit Addresses for legitimate purposes."
+
+Two further properties matter in practice. **One address serves many victims**, so a single address is a pivot to a victim set rather than one victim. And **the role is not fixed**: the same address frequently appears as an initial deposit address in one victim's path and as an intermediary in another's, which means role labels in a report should be scoped to a path rather than asserted globally.
+
+## When to use
+As a pivot at the start of a scam trace. One victim's deposit address gives you every other victim who paid into it, and the address's total inbound volume gives you a floor for the scheme's scale. Also when scoping a report's loss figure, since the confirmed-victim total and the address-total are different numbers that answer different questions.
+
+## Avoid when
+The address turns out to have mixed use. Test it before relying on the inference: an address with a long history, legitimate-looking counterparties, exchange interactions in both directions, or activity predating the scheme is not single-purpose. Check the inbound composition before treating the whole balance as victim funds.
+
+Be equally careful with the *forward* claim. That the entire inbound balance is likely victim funds does not make the entire balance traceable to identified victims, and a report must keep the two apart. See Describe Laundering in Phases When the Transactions Cannot Be Counted.
+
+## Example
+In the 225M matter, approximately 434 suspected victims sent roughly $19 million into 93 initial deposit addresses. Those same 93 addresses received **over $62 million** in total. The complaint does not claim $62 million in identified victim losses. It argues that the $43 million difference is most likely additional, unidentified victims of the same or similar schemes, and it supports that with the four points above.
+
+One address in the set, 0x414f61e4057ea79279e4970cfdad198ebe70092b, had received nearly $3.6 million, and law enforcement identified 39 separate individuals who had sent funds to it. Several of the victim interviews in the complaint (M.S. in Texas, M.L. in Arizona, D.M. in Virginia, R.M. in Iowa) all resolve to that one address, reached through entirely separate approaches on LinkedIn, WhatsApp, and by text message.
+
+## Related
+[Articulating No Legitimate Economic Purpose](/kb/05-evidence-legal/tactic-articulating-no-legitimate-economic-purpose), [Describe Laundering in Phases When the Transactions Cannot Be Counted](/kb/05-evidence-legal/principle-describe-laundering-in-phases-when-transactions-cannot-be-counted), The Forfeiture-Complaint Tracing Narrative, [On-Chain Laundering Pattern Catalogue](/kb/04-laundering-obfuscation/checklist-onchain-laundering-pattern-catalogue), [Exchange-Internal Transfers as Off-Chain Layering](/kb/04-laundering-obfuscation/concept-exchange-internal-transfers-as-off-chain-layering), [Money Mule Networks](/kb/04-laundering-obfuscation/concept-money-mule-networks), [Financial Crime Typology Indicator Matrix](/kb/04-laundering-obfuscation/reference-financial-crime-typology-indicator-matrix), [Identify the Predicate Typology First](/kb/06-casework-method/principle-identify-predicate-typology-first), [Crypto Crime Typology Catalogue](/kb/06-casework-method/checklist-crypto-crime-typology-catalogue), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), Victim Artifact Intake, [Exchange Pass-Through Detection by One-to-One Deposit and Withdrawal Matching](/kb/02-tracing/tactic-exchange-passthrough-one-to-one-deposit-withdrawal-matching)

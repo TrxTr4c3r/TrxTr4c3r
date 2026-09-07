@@ -1,0 +1,31 @@
+# Type A vs Type B: Where the Investigation Starts
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
+
+## Core idea
+Crypto cases divide cleanly into two shapes, and which one you have determines the direction the whole investigation runs in. Type A starts with a known suspect and unknown money. Type B starts with known money and an unknown suspect. Getting this wrong at intake means running the phases in the wrong order and wasting the first days of a case.
+
+## Components
+**Type A: the crime is known, the money is not.** A corruption, embezzlement, or fraud case where the offender has been identified and crypto turns out to be how the proceeds moved. There are seized devices, user accounts, logs. The investigation runs **bottom-up**: off-chain first, on-chain second.
+- Start with device forensics: disk imaging, hash verification, volatile memory capture. The artifacts (login credentials, browsing history, wallet metadata, address labels) are what link a suspect to blockchain activity.
+- Then move on-chain with the addresses those artifacts gave you: trace the flows, confirm the wallets were actually used, and look for interaction with KYC-regulated exchanges.
+- The bottleneck is usually the device, not the chain.
+
+**Type B: the money is known, the actor is not.** Ransomware, a drainer, a rug pull, a darknet market, illicit token issuance. The perpetrator operates entirely in cyberspace and there is nothing to seize. The investigation runs **top-down**: on-chain first, off-chain second, and deanonymization is the whole problem.
+- Start on-chain: clustering heuristics, smart contract analysis, transaction graphing, to map the wallet network and find where it touches something regulated.
+- Points of intersection with centralised exchanges are the pivot. Off-chain attribution follows: subpoenas and VASP disclosure, device forensics once a subject exists, and OSINT identity tracing.
+- The bottleneck is the pivot point. No exchange touch, no attribution.
+
+**The phases are the same; the sequence is not.** Both run identification, collection and acquisition, examination and analysis, and reporting, and both use on-chain and off-chain work. The typology decides which track leads at each phase. See The Integrated On-Chain and Off-Chain Forensic Framework.
+
+## When to use
+At intake, before any tool comes out. It sits alongside the scope question (what am I being asked to establish?) and answers a different one: which end of the case do I have hold of?
+
+## Avoid when
+Do not treat the two as mutually exclusive for the life of the case. A Type B case that reaches attribution becomes a Type A case: once you have a subject and a warrant, the device work begins and the off-chain track leads. Most cases that go the distance change shape at least once.
+
+## Example
+A pig-butchering victim report is Type B. There is a deposit address and nothing else, so the trace runs forward to a co-mingling hub and onward looking for a VASP deposit. An internal embezzlement referral where the finance director is already suspended is Type A. The laptop comes first, and the addresses it yields are what you take to the chain.
+
+## Related
+[The Integrated On-Chain and Off-Chain Forensic Framework](/kb/06-casework-method/framework-integrated-onchain-offchain-forensic-framework), [Crypto Artifacts on a Seized Device](/kb/05-evidence-legal/checklist-crypto-artifacts-on-a-seized-device), [The Scope Triangle](/kb/06-casework-method/concept-the-scope-triangle), [Six Core Investigation Questions](/kb/06-casework-method/framework-six-core-investigation-questions), [Identify the Predicate Typology First](/kb/06-casework-method/principle-identify-predicate-typology-first), [The 5-Stage Investigation Process](/kb/06-casework-method/workflow-the-5-stage-investigation-process), [Intake Triage Checklist](/kb/06-casework-method/checklist-intake-triage-checklist), [Crypto Address Attribution Process](/kb/03-attribution-clustering/workflow-crypto-address-attribution-process), [VASP Types and What Each Interaction Means](/kb/03-attribution-clustering/reference-vasp-types-and-what-each-interaction-means)

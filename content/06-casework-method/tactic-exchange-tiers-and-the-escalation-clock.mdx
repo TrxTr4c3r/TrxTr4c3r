@@ -1,0 +1,35 @@
+# Exchange Tiers and the Escalation Clock
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+Not every exchange responds to the same pressure. Sort the target by how regulated it is, then match the approach to the tier and put a clock on the escalation, because a freeze request with no escalation trigger just sits in a queue while the funds move.
+
+## Components
+**Tier the exchange first:**
+- **Tier 1, regulated major.** Formal legal process works. Bring a court order and a suspicious activity filing.
+- **Tier 2, regulated regional.** Direct compliance contact backed by legal process. Bring a freeze declaration and the chain analysis.
+- **Tier 3, limited regulation.** Heightened pressure through several channels at once. Bring an expanded evidence package, and consider a media strategy.
+- **Non-compliant, jurisdiction-evading.** Formal process alone will not land. Escalate to regulators and apply indirect pressure through banking and infrastructure partners, with enforcement referrals and public exposure as the levers.
+
+**Send everything at once, not in sequence:**
+1. Contact the compliance team directly.
+2. Submit simultaneously: the formal freeze request letter, the evidence package with the transaction tracing, any court orders already obtained, and law enforcement contact details.
+
+**Then run the clock:**
+- No response after 4 hours, escalate to legal counsel.
+- No response after 12 hours, notify the regulator.
+
+**Finding the exchange in the first place:** watch for movement toward known deposit addresses, read gas fee and withdrawal patterns for an exchange footprint, look for exchange-specific token patterns in the flow, and watch the mempool for pending transactions to exchange wallets.
+
+## When to use
+The moment traced funds reach or approach a centralised venue and a freeze is still possible.
+
+## Avoid when
+Do not open with public exposure or media pressure against a Tier 1 or Tier 2 venue. It burns a working relationship you will need on the next case, and those tiers respond to process anyway. Save it for the venues where nothing else reaches.
+
+## Example
+Funds land at a regional exchange. Compliance gets the full package at 10:00. Nothing back by 14:00, so counsel takes over the thread. Still nothing by 22:00, so the licensing regulator is notified, which is usually the message the compliance team actually answers.
+
+## Related
+[Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Service Choke-Points: What Each Service Type Can Give You](/kb/02-tracing/framework-service-choke-points-what-each-can-give-you), [Compelling VASP Disclosure: The Legal-Process Ladder](/kb/05-evidence-legal/framework-compelling-vasp-disclosure-legal-process), [The First 24 Hours of a Crypto Theft](/kb/06-casework-method/checklist-first-24-hours-of-a-crypto-theft), [Four Parallel Recovery Avenues](/kb/05-evidence-legal/framework-four-parallel-recovery-avenues), [VASP Records: What to Request and What Exists](/kb/05-evidence-legal/checklist-vasp-records-what-to-request)

@@ -1,0 +1,35 @@
+# Token Standard Quick Reference
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`</span>
+
+## Core idea
+A native asset and a token are different objects that happen to move on the same ledger, and they are analysed differently. The native asset is the chain's own currency and pays the fees. A token is created by a smart contract, so it always has a contract address, and that contract address is the thing that removes ambiguity from your findings.
+
+## Components
+| Standard | Chain | Typical use | Investigative note |
+|---|---|---|---|
+| ERC-20 | Ethereum | Fungible tokens: stablecoins, utility, governance | The most common standard. Review the token contract, transfer history, and holder activity |
+| ERC-721 | Ethereum | NFTs | Each token unique. Review ownership history and marketplace activity |
+| ERC-1155 | Ethereum | Multi-token | Fungible and non-fungible assets in one contract |
+| BEP-20 | BNB Smart Chain | Fungible tokens | Operationally similar to ERC-20 on an EVM chain |
+| TRC-20 | Tron | Fungible tokens | Very frequent in stablecoin cases, especially USDT |
+| SPL | Solana | Fungible and specialised assets | Native Solana token standard |
+| ARC-20 | Avalanche | Fungible tokens | Used in Avalanche-compatible applications |
+
+**Native asset vs token.** The native asset is the chain's primary currency (BTC, ETH, SOL), pays network fees, and is integral to the chain's operation. A token is created through a contract on an existing chain, usually needs that chain's native asset to pay fees, and represents an application, project, stablecoin, governance right, NFT, or other asset.
+
+**Stablecoins commonly encountered.** USDT (Tether) issues across Ethereum, Tron, BNB Smart Chain, Solana, Polygon and others, as ERC-20, TRC-20, BEP-20 and SPL. USDC issues on Ethereum, Base, Solana, Polygon, Arbitrum, Optimism and others. DAI is ERC-20 on Ethereum and supported EVM chains. FDUSD sits mainly on BNB Smart Chain and Ethereum. PYUSD is ERC-20 and appears in retail payment and exchange matters.
+
+**NFT specifics to record:** marketplace used, collection name, contract address, token ID, transfer history, purchase and sale activity, related wallet interactions.
+
+## When to use
+Whenever the asset in a case is anything other than the chain's native coin, which in scam and laundering casework is most of the time.
+
+## Avoid when
+The pitfalls are consistent: assuming every asset is the chain's native coin, recording a ticker symbol without the contract address, failing to identify which chain hosts the token, treating NFTs like fungible assets, ignoring contract information the explorer already shows, and confusing identical symbols that exist on multiple networks. A verified contract may offer more context, but an unverified one is not itself suspicious.
+
+## Example
+"The victim sent 5,000 USDT" is not a documented finding. USDT exists on at least five chains under four standards, and there are impersonation tokens using the same symbol. The finding needs the chain, the standard, the official token contract address, the transaction hash, and the wallet address before it can be reproduced by anyone else.
+
+## Related
+[Cryptocurrency Address Format Recognition Matrix](/kb/00-fundamentals/reference-address-format-recognition-matrix), [Blockchain Network Comparison Matrix](/kb/00-fundamentals/reference-blockchain-network-comparison-matrix), Document a Token Transfer by Network, Standard, and Contract, A Smart Contract Interaction Is a Lead, Not an Endpoint, [Reading an EVM Transaction](/kb/00-fundamentals/concept-reading-an-evm-transaction), [Blockchain Explorer Review Procedure](/kb/02-tracing/workflow-blockchain-explorer-review-procedure), [Internal Transactions](/kb/00-fundamentals/definition-internal-transaction)

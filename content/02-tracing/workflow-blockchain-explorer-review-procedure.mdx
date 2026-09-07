@@ -1,0 +1,29 @@
+# Blockchain Explorer Review Procedure
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`workflow`</span>
+
+## Core idea
+Seven steps for reading an explorer in a way somebody else can reproduce. The output of the procedure is not just the finding, it is the record of how the finding was obtained: which explorer, which network, which identifier, at what time. An explorer displays public chain data. It does not verify ownership, and its labels are not independently confirmed.
+
+## Components
+1. **Identify the network.** Confirm the chain, confirm the address or hash belongs to it, then select the explorer. Document which explorer you used.
+2. **Verify the search target.** Decide what you are actually looking at: wallet address, transaction hash, block, token contract, smart contract, or other resource. Record the identifier exactly as observed.
+3. **Review blockchain metadata.** Block number, block timestamp, confirmation status, transaction status, network fee, token standard where applicable, gas information where applicable. Do not modify values the explorer displays.
+4. **Review transaction details.** Sending address, receiving address, amount, asset, fee, transaction hash, block number, timestamp, and any contract interaction. Record only what the chain record supports.
+5. **Review wallet activity.** Current balance, historical activity, inbound and outbound transactions, frequency, asset types, token holdings, contract interactions, and any significant change in activity.
+6. **Identify investigative leads.** Previously unidentified wallets, exchange exposure, contract interactions, DeFi usage, NFT marketplace activity, cross-chain transfers, high-value transfers, repeated patterns. Record them as observations, not conclusions.
+7. **Record findings.** Explorer used, date and time reviewed, network, observations, evidence references, follow-up recommendations.
+
+**Documentation standard per review:** case number, wallet ID and transaction ID where applicable, evidence IDs, explorer used, date and time reviewed, investigator, network, source URL or reference, and any retained screenshots or exports.
+
+## When to use
+Every time an explorer is opened during wallet analysis, transaction review, or tracing. Budget 15 to 45 minutes.
+
+## Avoid when
+The five recurring errors: reviewing a wallet on the wrong explorer, confusing a wallet address with a transaction hash, assuming explorer labels are independently verified, failing to record which explorer was used, and writing an analytical conclusion into the metadata as though it were a chain fact. If several explorers were consulted, document each. Revisit the data on long-running cases, because new transactions arrive.
+
+## Example
+An analyst reviews a transaction on Etherscan, screenshots the page, and writes up the amount. Three weeks later a reviewer cannot reproduce it, because the hash actually settled on Arbitrum and the Etherscan page was a different transaction that shared no identifier with the case. Step 1 and step 2 in sequence would have caught it, and step 7 would have made the error visible in a day rather than three weeks.
+
+## Related
+[Wallet Review Procedure](/kb/02-tracing/workflow-wallet-review-procedure), [Blockchain Network Comparison Matrix](/kb/00-fundamentals/reference-blockchain-network-comparison-matrix), [Cryptocurrency Address Format Recognition Matrix](/kb/00-fundamentals/reference-address-format-recognition-matrix), EVM Explorers Share a Layout, Non-EVM Do Not, [Reading an EVM Transaction](/kb/00-fundamentals/concept-reading-an-evm-transaction), [Transaction Tracing Decision Tree and Endpoint Classification](/kb/02-tracing/workflow-transaction-tracing-decision-tree-and-endpoint-classification), [The Analysis Standard: Four-Block Write-Up](/kb/05-evidence-legal/framework-the-analysis-standard-four-block-write-up), [Anchor Every Finding With a Temporal Qualifier](/kb/05-evidence-legal/tactic-anchor-findings-with-temporal-qualifiers)

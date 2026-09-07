@@ -1,0 +1,44 @@
+# Transaction Tracing Decision Tree and Endpoint Classification
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`workflow`</span>
+
+## Core idea
+Six decisions repeat at every hop of a trace, and the last of them is a classification, not a stop. A trace endpoint is the point where publicly observable analysis has reached a documented limit on the evidence currently available. It is not the end of the investigation, and the endpoint type determines what happens next. Record why tracing stopped, not only where.
+
+## Components
+**The six decision points, repeated per hop:**
+1. **Blockchain verification.** Is the network correctly identified? If not, verify the asset and network before going further.
+2. **Transaction verification.** Can the transaction be independently verified? If yes, record the metadata and continue. If no, re-verify the hash, the address, and the source information.
+3. **Wallet identification.** Has the receiving wallet already been documented in this case? If yes, link to the existing wallet ID. If no, assign a new one and record the wallet.
+4. **Continue the trace?** Did the assets move again? If yes, follow the next transaction and update the trace. If no, evaluate whether this wallet is a logical endpoint.
+5. **Endpoint classification.** Pick the category and document the reason for picking it.
+6. **Additional investigation?** Continue tracing, review related wallets, conduct OSINT, review contract activity, identify exchange exposure, escalate for supervisory review, request records through legal process, or close the tracing activity.
+
+**Endpoint categories and the action each implies:**
+| Endpoint | Next action |
+|---|---|
+| Centralised exchange / VASP | Consider legal process or organisational procedure for non-public records |
+| Decentralised exchange | Review contract interactions and token swaps |
+| Cross-chain bridge | Resume tracing on the destination chain |
+| Smart contract | Review contract purpose, function, and related transactions |
+| NFT marketplace | Review transfers, marketplace activity, and related wallets |
+| Custodial wallet | Determine whether further attribution opportunities exist |
+| Dormant wallet | Document the inactivity and monitor if appropriate |
+| Unknown wallet | Continue tracing as further information becomes available |
+| Public tracing exhausted | Document the limitations and identify possible next steps |
+
+**Four flow shapes and what each tells you to do next.** Linear movement toward a service: prioritise identifying the exchange and whether attribution is available there. Consolidation of several wallets into one: look for common-control indicators and judge whether the consolidation is legitimate. Distribution from one wallet to many: decide whether the spread warrants pursuit and review recipients for recurring activity. Cross-chain movement over a bridge: document the bridge and its transaction identifiers, then continue on the destination chain.
+
+**Documentation per decision:** case number, trace number, wallet IDs, transaction IDs, evidence IDs, explorer reference, date and time in UTC, investigator identifier.
+
+## When to use
+At each hop, as a fast structured check, and especially at the moment a trace starts to feel like it should stop. If several branches apply, document each separately.
+
+## Avoid when
+The decision tree guides consistent thinking, it does not replace judgment. The pitfalls: treating an exchange deposit as the end of the investigation without saying why, failing to create a wallet ID for a newly identified address, skipping intermediate transactions, continuing a trace with no defined objective, and closing a trace without recording its limitations. Reassess earlier decisions when significant new activity appears.
+
+## Example
+Funds reach an address that immediately forwards them into a bridge contract. Decision 4 says yes, they moved. Decision 5 classifies the endpoint as cross-chain bridge rather than smart contract, because the contract's function was transfer to another chain. The recorded reason for that classification is what tells the next investigator to look on the destination chain instead of concluding the trail went cold at a contract.
+
+## Related
+[Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing), [Forensic Method Selection Decision Tree](/kb/02-tracing/workflow-forensic-method-decision-tree), [Blockchain Explorer Review Procedure](/kb/02-tracing/workflow-blockchain-explorer-review-procedure), [Wallet Review Procedure](/kb/02-tracing/workflow-wallet-review-procedure), [Service Choke-Points: What Each Service Type Can Give You](/kb/02-tracing/framework-service-choke-points-what-each-can-give-you), [VASP Types and What Each Interaction Means](/kb/03-attribution-clustering/reference-vasp-types-and-what-each-interaction-means), A Smart Contract Interaction Is a Lead, Not an Endpoint, [Transaction Graph Analysis (TGA)](/kb/02-tracing/tactic-transaction-graph-analysis), [EVM Multi-Chain Tracing Essentials](/kb/02-tracing/checklist-evm-multi-chain-tracing-essentials)

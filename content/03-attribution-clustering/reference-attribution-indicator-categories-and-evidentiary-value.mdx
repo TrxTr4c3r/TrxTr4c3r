@@ -1,0 +1,39 @@
+# Attribution Indicator Categories and Relative Evidentiary Value
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`</span>
+
+## Core idea
+Eight categories of attribution indicator, ranked by what each can actually establish, and a reliability ladder that puts assumption at the bottom with a value of none. Every category on the list requires corroboration, including observable blockchain data. The strongest assessments come from convergence across independent lines, not from one compelling observation.
+
+## Components
+**Indicator categories.**
+| Category | Examples | What it establishes | Consideration |
+|---|---|---|---|
+| Blockchain activity | Transaction history, recurring counterparties, wallet clusters | Observable on-chain behaviour | Does not establish identity by itself |
+| OSINT | Public wallet disclosures, websites, forums, social media | May corroborate chain findings | Assess source reliability, corroborate independently |
+| Exchange / VASP information | Public exchange labels, hosted-wallet indicators | May identify a service relationship | Does not identify an account holder without more |
+| Corporate records | Business registrations, public filings | May link an organisation to activity | Verify authenticity and relevance |
+| Victim or witness information | Statements, communications, screenshots | Investigative context | Evaluate credibility, corroborate where possible |
+| Technical infrastructure | Domains, APIs, repositories, public documentation | May connect projects or services | Do not assume operational control |
+| Behavioural patterns | Transaction timing, fund flow, wallet reuse | Supports pattern analysis | Consider legitimate alternative explanations |
+| Regulatory / public records | Sanctions lists, enforcement actions, advisories | Contextual information | Confirm it applies to this investigation |
+
+**Relative evidentiary value.** Observable blockchain data: high, still requires corroboration. Official organisational records: high, still requires corroboration. Verified public disclosures: moderate to high. Public OSINT: moderate. Media reporting: low to moderate. Anonymous online posts: low. Assumptions or speculation: none, not suitable as evidence. Reliability is context-dependent, so judge the specific source and circumstances rather than the category label.
+
+**Corroboration matrix.** A single indicator with no independent corroboration is a preliminary observation. Two independent indicators mean keep evaluating. Multiple independent indicators give stronger analytical support. Conflicting indicators must be documented and resolved before any conclusion.
+
+**What strengthens attribution:** consistent chain behaviour across multiple transactions, independent OSINT supporting the chain observations, publicly disclosed addresses tied to verified organisations, multiple reliable sources naming the same entity, and reasoning documented well enough to reproduce.
+
+**What demands caution:** single-source attribution, anonymous online claims, wallet labels with no supporting documentation, circumstantial timing on its own, similar naming conventions, unverified screenshots or copied content, and any unsupported assumption about who controls a wallet.
+
+## When to use
+While building an attribution case, and as the checklist for grading somebody else's. Five questions per indicator: has it been independently corroborated, does it support or merely suggest, have contradictory indicators been documented, are there reasonable alternative explanations, and would another investigator read this evidence the same way?
+
+## Avoid when
+Do not use the ladder as a scoring system. Three moderate-reliability indicators that all trace back to the same original source are one indicator wearing three hats, and independence is what the matrix is actually measuring.
+
+## Example
+An address is linked to a named individual by a forum post, a screenshot of that forum post, and a news article citing the forum post. That looks like three indicators across three categories. It is one anonymous online claim, reliability low, repeated twice. The corroboration matrix rates it a preliminary observation, and the attribution stays at Low until an independent line appears.
+
+## Related
+[Attribution Procedure (Seven Steps)](/kb/03-attribution-clustering/workflow-attribution-procedure-seven-steps), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), [Never Trust a Single Source of Attribution](/kb/03-attribution-clustering/principle-multiple-attribution-sources), [Court-Tested Attribution Evidence Types](/kb/05-evidence-legal/framework-court-tested-attribution-evidence-types), [Advanced Attribution Techniques](/kb/03-attribution-clustering/checklist-advanced-attribution-techniques), [Source Reliability Grading (NATO STANAG 2511)](/kb/01-osint/framework-source-reliability-grading-nato-stanag-2511), [Confirmation Bias and Misleading On-Chain Data](/kb/03-attribution-clustering/caution-confirmation-bias-misleading-data), [VASP Types and What Each Interaction Means](/kb/03-attribution-clustering/reference-vasp-types-and-what-each-interaction-means), [The Risk of Public Attribution](/kb/05-evidence-legal/caution-public-attribution-legal-risk)

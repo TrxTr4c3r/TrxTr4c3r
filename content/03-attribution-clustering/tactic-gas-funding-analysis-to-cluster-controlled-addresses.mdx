@@ -1,0 +1,32 @@
+# Gas-Funding Analysis to Cluster Controlled Addresses
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+A token transfer on an EVM chain cannot move without the native asset paying for it. That means a launderer moving USDT through fifty addresses had to put ETH into every one of those addresses first, and **the ETH funding graph is a second, separate graph that the launderer usually forgets to obfuscate.** Back-trace the gas rather than the value. The token path is the one they designed to be confusing; the funding path is plumbing, and plumbing is laid down by whoever is in control.
+
+This is one of the highest-yield clustering moves available on an EVM chain, and it works precisely because the two graphs serve different purposes. Effort goes into breaking the value trail. Almost none goes into disguising who topped up the fee balances.
+
+## Components
+- **Identify the addresses that moved the tokens.** The intermediary set you are trying to bind together.
+- **For each, find the inbound native-asset transfers.** Not the token transfers. On Ethereum this is the ETH that arrived before the address could transact, typically small and typically arriving shortly before first use.
+- **Look for a common funder.** One address, or a small set, that supplied gas to many members of the group. A single funder across an otherwise unconnected set is strong evidence of common control.
+- **Back-trace the funder.** Where did *its* native asset come from? This frequently terminates at an exchange account, which converts an on-chain cluster into a subpoena target with KYC attached.
+- **Record the direction and directness.** Note whether funding was direct or passed through a hop, because "in some cases directly" is a materially different claim from "always directly" and a reviewer will check.
+- **Cross-check against the value graph.** Where the funding cluster and the value cluster agree, the attribution is materially stronger than either alone. See A Single Indicator Is a Lead, Not Proof.
+
+## When to use
+Any EVM case with a set of intermediary addresses you suspect share a controller, especially where the token flow has been deliberately layered. Also when a value trace has gone cold and you need a second axis to work along, and when you want to convert an address cluster into an off-chain identity by finding the exchange that funded it.
+
+## Avoid when
+The addresses were funded by a service rather than a person: a gas-station or relayer contract, an exchange withdrawal that happens to serve many unrelated customers, a bridge that delivers native asset on arrival, or an account-abstraction paymaster. Each of those produces a shared funder with no common control behind it. Establish what the funder *is* before treating shared funding as a link.
+
+Also weak on chains where the fee model differs. Account-based chains with delegated or sponsored fees, and UTXO chains where the fee comes out of the inputs, do not produce a separable funding graph in this form.
+
+## Example
+In the 225M complaint, law enforcement analysed the source of gas paid into the Intermediary Group 2 addresses and the seized subject addresses, and found that two consolidation addresses had supplied the ETH, "in some cases directly," to the remaining ten intermediary addresses in the group. Back-tracing the ETH from those two consolidation addresses reached three OKX accounts. Two were already among the 144 accounts identified in the case. The third, OKX UID 316574636496327938, was new, and was pulled into the cluster on account characteristics rather than on the value trail: the same iCloud email naming convention as the others, Vietnamese registration, KYC photographs appearing to have been taken in the same office, and creation within three minutes of another account in the set.
+
+That is the shape of the win. The gas graph produced an account the value graph had not, and off-chain records then corroborated it.
+
+## Related
+[Wallet Clustering and Heuristics](/kb/03-attribution-clustering/concept-wallet-clustering-and-heuristics), [Advanced Attribution Techniques](/kb/03-attribution-clustering/checklist-advanced-attribution-techniques), [Clustering Exchange Accounts From Subpoenaed Records](/kb/03-attribution-clustering/checklist-clustering-exchange-accounts-from-subpoenaed-records), A Single Indicator Is a Lead, Not Proof, [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), [Chain-Specific Attribution Signals: Bitcoin vs Ethereum](/kb/00-fundamentals/concept-chain-specific-attribution-signals-bitcoin-vs-ethereum), [Reading an EVM Transaction](/kb/00-fundamentals/concept-reading-an-evm-transaction), Multiple Attribution Sources, The Forfeiture-Complaint Tracing Narrative, [Crypto Address Attribution Process](/kb/03-attribution-clustering/workflow-crypto-address-attribution-process), Combined Timelines: Turning Tracing Into Attribution

@@ -5,11 +5,15 @@
 ## Core idea
 Any one label on an address can be wrong or incomplete. Corroborate attribution across several independent sources before relying on it, for example a block explorer label, an Arkham entity, a community warning, and a sanctions-list entry that all point the same way.
 
+Stated for court: **a tool's attribution of a cluster to a named entity is a hypothesis, not a finding.** Clustering and attribution are two separate claims doing two different jobs. Clustering can establish, to a defensible standard, that a set of addresses is controlled by one entity. Naming that entity requires evidence that exists outside the tool, and that evidence has to be identified, documented, and able to withstand cross-examination on its own terms. Overstating the reach of a clustering analysis, claiming more than the heuristics support, risks the whole analysis being dismissed as unreliable.
+
 ## When to use
 Any time you are about to act on or report a claim that a given address belongs to a particular person, group, or service.
 
 ## Example
 An address flagged as fake phishing on a block explorer was also labelled Bruvex on Arkham and tied to a named administrator (Richard Hart) and a website through separate lookups. Multiple converging signals raised confidence; a lone label would not have.
 
+The court-facing version, from a real matter: a forensic tool attributed a cluster of addresses to Binance Global. The clustering itself was analytically sound and provable. What could not be proved was the tool's attribution of that cluster to Binance merely because the tool said so. Working behind the output, one of the addresses in the cluster turned out to be identified as a hot wallet by Binance itself, on its own website. That public statement by the entity was accepted as credible and independently verifiable support for the attribution. The label became defensible not because the tool produced it, but because an independent source confirmed it.
+
 ## Related
-[The Risk of Public Attribution](/kb/05-evidence-legal/caution-public-attribution-legal-risk), [Screening Addresses Against OFAC Sanctions](/kb/06-casework-method/tactic-ofac-sanction-screening), [Arkham for Attribution and Visualization](/kb/03-attribution-clustering/tactic-arkham-attribution-visualizer)
+[The Risk of Public Attribution](/kb/05-evidence-legal/caution-public-attribution-legal-risk), [Screening Addresses Against OFAC Sanctions](/kb/06-casework-method/tactic-ofac-sanction-screening), [Arkham for Attribution and Visualization](/kb/03-attribution-clustering/tactic-arkham-attribution-visualizer), [Three Functions of Forensic Tooling](/kb/07-tooling/framework-three-functions-of-forensic-tooling), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), [Glass Box Attribution](/kb/05-evidence-legal/concept-glass-box-attribution), [Court-Tested Attribution Evidence Types](/kb/05-evidence-legal/framework-court-tested-attribution-evidence-types), Attribution Indicator Categories and Evidentiary Value, [Known Weaknesses to Disclose in a Forensic Report](/kb/05-evidence-legal/checklist-known-weaknesses-to-disclose-in-a-forensic-report)

@@ -1,0 +1,34 @@
+# Crypto Artifacts on a Seized Device
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+Once a device is in your hands, the crypto evidence on it sits in four places: the wallet application's own files, the operating system's traces of that application running, the browser, and volatile memory. Field identification tells you crypto is involved (see Identifying Cryptocurrency in the Field). This is the examination list for what to pull off the image afterwards.
+
+## Components
+**Wallet application data.**
+- `wallet.dat` and equivalent wallet database files.
+- Seed phrases and extended private keys (xprv) in any stored form, including notes apps, password managers, screenshots, and cloud sync folders.
+- Wallet-based data: user profiles, contact lists, address labels, and locally cached transaction records (asset type, amount, sender and receiver addresses, labels, date and time, fees, account balance).
+- Client and wallet logs: `debug.log`, `peers.dat`, and application log directories.
+- File locations themselves matter. Where the wallet stored its data tells you which client and version was in use.
+
+**Operating system traces.** Registry files, prefetch, iconcache, and thumbcache. These establish that a wallet application ran, roughly when, and sometimes what it displayed, even where the application data has been deleted.
+
+**Browser artifacts.** History, bookmarks, cache, saved credentials, extension storage. Web wallets and exchange accounts live here, and browser extension storage is where a MetaMask-style wallet keeps its encrypted vault.
+
+**Volatile memory (capture before shutdown).** Client process memory can hold public and private keys, passphrases, decrypted transaction data, contacts, and backup locations. Work it with string searches, grep, and targeted keyword searches. Once the machine is powered down this material is gone.
+
+**Network and disk.** Network traffic capture and analysis (Wireshark) where a live capture was possible, and virtual hard disk analysis with a carving tool such as Bulk Extractor plus keyword searching.
+
+## When to use
+At the examination stage of a Type A investigation, where the case starts from a suspect-controlled device and the on-chain trace is built outward from what the device gives you. See Type A vs Type B: Where the Investigation Starts.
+
+## Avoid when
+Two disciplines apply. First, forensic soundness: image before you examine, hash at acquisition (SHA-256) and re-verify, and record the case number, examiner, timestamps, timezone, and seizure location against every item. Second, a recovered artifact is not attribution. A seed phrase on a device proves the key was accessible from that device, not that a particular person authorised a particular transaction. Every address and amount lifted off a device gets verified against a block explorer before it enters the case file as fact.
+
+## Example
+A recovered `wallet.dat` plus an address label list gives you a set of candidate addresses. Prefetch confirms the client ran during the window in question. Memory captured at seizure yields the passphrase. The addresses then go to the chain for verification, and the trace runs outward from there.
+
+## Related
+[Identifying Cryptocurrency in the Field](/kb/05-evidence-legal/checklist-identifying-crypto-in-the-field), [Type A vs Type B: Where the Investigation Starts](/kb/06-casework-method/concept-type-a-vs-type-b-investigation-entry-points), [The Integrated On-Chain and Off-Chain Forensic Framework](/kb/06-casework-method/framework-integrated-onchain-offchain-forensic-framework), [What to Collect: On-Chain & Off-Chain Evidence](/kb/05-evidence-legal/checklist-what-to-collect-on-chain-and-off-chain-evidence), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), Seizing Crypto: Devices, VASP Accounts, and the Agency Wallet, [Wallet Type Identification Matrix](/kb/00-fundamentals/reference-wallet-type-identification-matrix), [Time-Decay of Crypto Evidence](/kb/05-evidence-legal/caution-time-decay-of-crypto-evidence)

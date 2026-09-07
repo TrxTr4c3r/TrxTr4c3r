@@ -1,0 +1,22 @@
+# Anchor Every Finding With a Temporal Qualifier
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+The ledger does not pause for litigation. A wallet that held 12 BTC when the analysis ran can be drained an hour later, a dormant address can wake the day after the report is finalised, and a case can take a year to reach trial. Write every finding in the past tense, pinned to a block height and a timestamp, so it stays true regardless of what the chain does afterwards. Tense and timestamps are evidentiary boundaries, not style choices.
+
+## Components
+- **The address is the most volatile input in the whole report.** Balances move, dormant addresses receive, and an empty address can become the next destination for laundered proceeds. Everything else in the analysis is more stable than this.
+- **Past tense plus an anchor.** "The address held 12 BTC as of block 812,453, recorded at 14:32 UTC on 24 May 2026" survives. "The address holds 12 BTC" is wrong the moment it stops being true, and the defence gets to point that out. (Those figures are the source's illustration. The shape is the lesson, not the numbers.)
+- **Same discipline for movement.** "The funds reached this address at block 812,453 and remained there as of the analysis," rather than "the funds are at this address."
+- **State the anchor once in the methodology section:** the date and block height every finding is pinned to. No reader should have to guess whether a claim is current or historical.
+- **Expect the question at trial.** Counsel will ask what has changed since the analysis. Be ready either to re-run it against current data or to argue why the original snapshot is the relevant evidentiary frame.
+
+## When to use
+Every report that may reach court, and every finding written into a case file that someone will read months later. Apply it at the moment of capture, because reconstructing the anchor after the fact is guesswork.
+
+## Example
+A finding written as "the wallet is holding the stolen funds" reads as false by the time of trial if the funds moved. Written as "the wallet received the traced funds at block 812,453 and still held them at the time of analysis," it stays accurate forever and the subsequent movement becomes a new finding rather than a contradiction of the old one.
+
+## Related
+[Calibrate Your Testimony Language](/kb/05-evidence-legal/tactic-calibrate-testimony-language), Preserve the Analysis, Not Just the Finding, [The Three Layers of Blockchain Evidence](/kb/05-evidence-legal/framework-three-layer-blockchain-evidence-model), [Time-Decay of Crypto Evidence](/kb/05-evidence-legal/caution-time-decay-of-crypto-evidence), [Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles)

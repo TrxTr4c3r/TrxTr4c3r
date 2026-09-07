@@ -1,0 +1,26 @@
+# The Six Principles of the Cryptocurrency Investigation Methodology
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+Six operational principles sit under CIM, and they exist because the strongest investigations are not the ones with the best tools. They are the ones with disciplined process, thorough documentation, and reasoning that somebody else can audit. Each principle is a constraint on what you are allowed to write down.
+
+## Components
+1. **Evidence before assumption.** Conclusions are supported by documented evidence, not intuition. Record the blockchain observation exactly as it appears before you develop any conclusion from it.
+2. **Observation before attribution.** Observable activity does not establish ownership or control. Keep three things visibly separate: observed blockchain facts, analytical inferences, and attribution assessments.
+3. **Corroboration across independent sources.** No single source normally carries a significant attribution or investigative conclusion on its own. Corroborate on-chain findings against OSINT, public records, regulatory information, corporate records, and VASP information.
+4. **Standardised documentation.** Every investigation should let another qualified investigator understand four things: what evidence was collected, what analytical steps were performed, why the conclusions were reached, and what limitations remain.
+5. **Reproducible analysis.** Another investigator should be able to follow your documented workflow, review your evidence, and understand the reasoning behind each assessment. If they cannot, the analysis is not finished.
+6. **Continuous reassessment.** Crypto cases are dynamic. As evidence arrives, revisit earlier assumptions, attribution assessments, confidence levels, and conclusions. An objective investigation stays adaptable.
+
+## When to use
+As a review pass over your own work product before it leaves your hands, and as the standard for reviewing somebody else's. Each principle maps to a specific failure you can look for: an unsourced claim, an address treated as an identity, a single-source attribution, an undocumented step, an unreproducible conclusion, and a stale assessment nobody revisited.
+
+## Avoid when
+The methodology supports professional decision-making, it does not automate it. Following all six principles does not make a weak evidence base strong, and it does not relieve you of organisational policy, legal requirements, or supervisory direction.
+
+## Example
+An analyst writes "wallet X belongs to the scammer" after seeing the victim's funds arrive there. Principle 2 blocks it: the observation is that the victim's transfer was received by that address. The attribution claim needs its own line, its own supporting indicators, and its own confidence rating, and under principle 3 it needs a second independent source before it carries weight.
+
+## Related
+[The Six Operational Phases of the Cryptocurrency Investigation Methodology](/kb/06-casework-method/framework-cim-six-operational-phases), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [The Analysis Standard: Four-Block Write-Up](/kb/05-evidence-legal/framework-the-analysis-standard-four-block-write-up), [Never Trust a Single Source of Attribution](/kb/03-attribution-clustering/principle-multiple-attribution-sources), [Handover Reports Must Be Replicable](/kb/05-evidence-legal/principle-replicable-handover-reports), [Confirmation Bias and Misleading On-Chain Data](/kb/03-attribution-clustering/caution-confirmation-bias-misleading-data), Preserve the Analysis, Not Just the Finding

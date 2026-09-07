@@ -1,0 +1,28 @@
+# Describe Laundering in Phases When the Transactions Cannot Be Counted
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`principle`</span>
+
+## Core idea
+A trace across hundreds of thousands of transactions cannot be written transaction by transaction, and pretending otherwise produces a report nobody reads and nobody can check. The defensible alternative is to **describe the phases of the laundering and evidence each phase with a named sample, while stating plainly that it is a sample and why an exhaustive account was not possible.** Declaring the limit is what protects the analysis. A report that quietly presents a sample as if it were the whole is vulnerable in a way that an openly partial one is not.
+
+## Components
+- **Say what the volume is.** Give the real figure: number of transactions, number of addresses, value moved, and over what period. The scale is itself a finding, and it is the justification for everything that follows.
+- **Name the phases.** Break the flow into stages the reader can hold: victim deposit, first-layer intermediaries, exchange accounts, second-layer intermediaries, consolidation, destination. Each phase gets its own section and its own evidence.
+- **Give aggregate figures per phase.** How much entered each group of addresses and how much left it for the next. Aggregates are checkable even when individual transactions are not enumerated.
+- **Evidence each phase with named examples.** One or two fully specified paths per phase, with real addresses, real amounts, and real dates. Label them as representative.
+- **State the constraint honestly.** Say why full enumeration is not possible and what that costs the analysis. The 225M complaint does this explicitly, conceding that only *some* victim funds could be traced end to end, and listing the three reasons: transaction volume, consolidation addresses that redirect the tracing order, and intermediary addresses that both obstruct and redirect.
+- **Keep the confirmed set separate from the inferred set.** Report interviewed-and-confirmed victims, back-traced-but-unconfirmed victims, and complaint-database matches as three distinct populations with three distinct counts. Never merge them into one number.
+
+## When to use
+Any case where the transaction count exceeds what you can list: high-volume exchange accounts, large mule networks, long-running scam infrastructure, or a scheme with more than a handful of victims. Also any case where the honest answer to "did you check every transaction?" is no.
+
+## Avoid when
+The case is small enough to enumerate. If there are forty transactions, list forty transactions. Sampling a tractable case looks like avoidance and invites the question of what the unlisted transactions would have shown.
+
+## Example
+The 225M complaint states its own limit in one sentence and then proceeds on that basis: "Due to the massive volume of transactions across a large network of addresses, this complaint describes the phases of laundering (including some specifics about relevant transactions) rather than detailing every single transaction."
+
+It maintains the population separation throughout. Approximately 434 individuals were identified as suspected victims by back-tracing; approximately 60 of those were interviewed and all but one confirmed the scam; a further 42 victim reports were located in the IC3 and FTC complaint databases, with a footnote noting that some of those 42 overlap with the 60 interviewed. Three populations, three counts, and the overlap disclosed rather than hidden.
+
+## Related
+The Forfeiture-Complaint Tracing Narrative, [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [Handover Reports Must Be Replicable](/kb/05-evidence-legal/principle-replicable-handover-reports), [Known Weaknesses to Disclose in a Forensic Report](/kb/05-evidence-legal/checklist-known-weaknesses-to-disclose-in-a-forensic-report), [Six Characteristics of a Court-Credible Forensic Report](/kb/05-evidence-legal/framework-court-credible-forensic-report-six-characteristics), [Calibrate Your Testimony Language](/kb/05-evidence-legal/tactic-calibrate-testimony-language), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing), [Articulating No Legitimate Economic Purpose](/kb/05-evidence-legal/tactic-articulating-no-legitimate-economic-purpose)

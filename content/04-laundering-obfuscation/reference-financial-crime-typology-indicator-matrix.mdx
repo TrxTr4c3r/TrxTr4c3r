@@ -1,0 +1,43 @@
+# Financial Crime Typology Indicator Matrix
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`</span>
+
+## Core idea
+Fifteen operational indicators crossed against eight typologies, showing which indicators are common, which are possible, and which are rarely seen. The value is not in the ticks, it is in the blanks: what is absent discriminates between typologies far better than what is present, because the common indicators are common everywhere.
+
+## Components
+Legend: **C** = common indicator, **P** = possible indicator, **R** = rare or not typically observed.
+
+| Indicator | Investment fraud | Pig butchering | Money laundering | Ransomware | Sanctions evasion | Rug pull | Ponzi scheme | Romance fraud |
+|---|---|---|---|---|---|---|---|---|
+| Rapid movement of funds | C | C | C | C | C | P | P | C |
+| Layering activity | P | P | C | C | C | P | P | C |
+| Chain hopping | P | P | C | C | C | P | P | C |
+| Stablecoin conversion | C | C | C | P | C | P | P | C |
+| Multiple intermediary wallets | P | P | C | C | C | P | P | C |
+| Exchange exposure | C | C | C | C | C | C | C | P |
+| Victim communications | C | C | C | C | R | R | R | C |
+| Withdrawal restrictions | C | C | C | R | R | R | C | R |
+| Smart contract interaction | P | P | P | C | R | C | P | R |
+| DeFi protocol usage | P | P | C | P | C | C | R | R |
+| High-risk jurisdiction exposure | C | P | C | C | C | R | R | C |
+| Darknet marketplace interaction | R | P | C | C | R | R | R | R |
+| Repeated investment solicitation | C | C | C | R | R | R | C | C |
+| Sudden liquidity removal | R | R | R | R | R | C | R | R |
+| Anonymous service usage | P | P | C | C | C | P | R | C |
+
+**Reading it.** One isolated indicator means keep collecting evidence and avoid a premature conclusion. Multiple indicators inside a single typology means do more analysis and corroboration. Indicators spanning several typologies means carry multiple working hypotheses rather than picking one. Contradictory indicators mean reassess the assumptions and document the limitations.
+
+**Five questions before naming a typology.** Which indicators are directly supported by documented evidence? Are multiple typologies reasonably consistent with what is observed? Which indicators are absent? Are there legitimate alternative explanations? Does the totality support the assessment?
+
+## When to use
+During the assessment phase, once the trace has produced enough observable behaviour to compare against. Also useful early, as a screening aid, to decide which lines of enquiry are worth opening.
+
+## Avoid when
+This is a decision aid, not a scoring system, and typologies are analytical frameworks rather than legal conclusions. The pitfalls: picking a typology off a single indicator, ignoring indicators that support a competing hypothesis, treating the matrix as arithmetic, assuming every observed indicator carries equal weight, and overlooking the limitations. Confidence tracks evidence quality, not the seriousness of the suspected conduct.
+
+## Example
+A case shows rapid movement, stablecoin conversion, exchange exposure, victim communications, withdrawal restrictions, and repeated investment solicitation. Those are common across investment fraud, pig butchering, and Ponzi schemes, so they do not discriminate. What discriminates is what is missing: no sudden liquidity removal rules out a rug pull, and no darknet interaction argues against a laundering-first framing. The question the matrix answers is which pattern the documented activity is most consistent with, not which crime you think happened.
+
+## Related
+[Crypto Crime Typology Catalogue](/kb/06-casework-method/checklist-crypto-crime-typology-catalogue), [Identify the Predicate Typology First](/kb/06-casework-method/principle-identify-predicate-typology-first), [On-Chain Obfuscation Categories](/kb/04-laundering-obfuscation/checklist-on-chain-obfuscation-categories), [Cross-Chain Obfuscation Categories](/kb/04-laundering-obfuscation/checklist-cross-chain-obfuscation-categories), [Attribution Indicator Categories and Relative Evidentiary Value](/kb/03-attribution-clustering/reference-attribution-indicator-categories-and-evidentiary-value), [Attribution Procedure (Seven Steps)](/kb/03-attribution-clustering/workflow-attribution-procedure-seven-steps), [The Analysis Standard: Four-Block Write-Up](/kb/05-evidence-legal/framework-the-analysis-standard-four-block-write-up), [Impersonation Scams and the Crypto-Kiosk On-Ramp](/kb/06-casework-method/concept-impersonation-and-kiosk-onramp-scams)

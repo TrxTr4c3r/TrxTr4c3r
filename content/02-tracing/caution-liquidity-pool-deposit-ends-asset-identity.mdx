@@ -1,0 +1,27 @@
+# A Liquidity Pool Deposit Ends Asset Identity
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`</span>
+
+## Core idea
+When traced funds enter a liquidity pool they stop existing as a distinct asset on the chain, immediately and completely. There is no partial answer and no clever query that recovers the original tokens. What the depositor holds afterwards is LP tokens representing a proportional claim on whatever the pool contains later, and when they redeem they get a share of the pool as it then stands, not the assets they put in. From the deposit transaction onward this is a commingling problem, and it has to be handled with a declared commingling convention rather than a trace.
+
+## Components
+**The mechanic.** Deposit 1 ETH and 2,000 USDC into an ETH/USDC pool that already holds 200 ETH and 400,000 USDC, and you receive LP tokens representing roughly 0.5% of the pool. Your specific ETH and USDC are now part of the aggregate alongside every other provider's deposit. On redemption you receive 0.5% of the pool's then-current contents, a figure that differs from the deposit because of trading fees earned and price movement during the period. So the on-chain quantity out will not match the quantity in even where nothing improper happened, which matters when you are reconciling amounts.
+
+**Two related discontinuities to document, not step over.**
+- **Wrapping and unwrapping.** Many DeFi operations require a wrapped representation first, WBTC being the common case: a custodian holds the real BTC and issues an equivalent ERC-20 on Ethereum, redeemable one for one. The WBTC is the Ethereum representation of the Bitcoin, not the Bitcoin. So a wrapping event changes the chain, the token standard, and the address space the asset can be followed in, all at once. Every wrap and unwrap is a hop that has to be identified and interpreted correctly or the chain of continuity breaks.
+- **Flash loans.** A large sum borrowed, used, and repaid inside a single transaction. Their forensic footprint only exists inside the internal execution of that one transaction, so reconstructing what happened means reading the internal calls and emitted events, not the transfer list.
+
+**What DeFi forensics can still establish.** The complete on-chain record of what happened in and around the protocol: the value that entered and left, the addresses that initiated and received each operation, and the sequence of internal operations that produced the outcome. Smart contracts are open source by default, so where a contract holds a function that lets its deployer drain the pool, that function is readable, not inferred. What none of it establishes without off-chain evidence is who controls the initiating address, and with no central operator holding KYC records the attribution problem here can be harder than at a centralised exchange.
+
+## When to use
+The moment a traced flow touches an AMM, a lending protocol, a yield position, or a bridge that wraps.
+
+## Avoid when
+Do not report a post-pool figure as a continuation of the traced amount without saying that a commingling convention was applied and which one. This is the exact point where D'Aloia-style inconsistency creeps into a report, because the arithmetic stops being a trace and becomes an allocation.
+
+## Example
+A rug pull investigated by the source: the deployer's withdrawal function drained a pool built from many victims' contributions. Because every victim had contributed to the same pool, the extracted funds were a commingling of all of them, and a pari passu distribution was chosen deliberately so no individual victim's claim was preferred and each recovered a share proportional to their contribution. The choice was made explicitly, documented, and defensible under cross-examination, which is the standard the judgment in D'Aloia set.
+
+## Related
+Asset-Tracing Methodologies for Commingled Funds (PIFO, LIBR, LIFO, FIFO), Smart Contract & DeFi Tracing, [DeFi Layering](/kb/04-laundering-obfuscation/concept-defi-layering), A Smart Contract Interaction Is a Lead, Not an Endpoint, [Understand the Protocol Before You Conclude](/kb/02-tracing/principle-understand-the-protocol-before-you-conclude), EVM Event Logs and Decoding Calldata, D'Aloia v Persons Unknown: When the Methodology Fails, Not the Trace, [Three Functions of Forensic Tooling](/kb/07-tooling/framework-three-functions-of-forensic-tooling), [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing), EVM Proxies: Read the Right Source

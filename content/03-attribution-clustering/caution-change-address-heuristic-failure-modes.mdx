@@ -1,0 +1,24 @@
+# Change-Address Heuristic Failure Modes
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`</span>
+
+## Core idea
+Correctly identifying the change output gives you two things at once: the direction of the payment, and a new address you can attribute to the sender. That is exactly why an error here does not stay local. A misidentified change output puts the wrong address in the cluster and sends the trace down the wrong branch, and every hop after that inherits the mistake. Four failure modes account for most of it, and a competent opposing expert will probe all four.
+
+## Components
+- **Deliberate manipulation.** The heuristics are public. An actor who understands them can build transactions specifically to confound them: non-round payment amounts, change sent to a previously used address, script types mixed so the change output is indistinguishable from the payment. Sophistication in the counterparty is itself a reason to lower confidence in change detection.
+- **The consolidation transaction problem.** Sweeping several UTXOs into one address is routine wallet maintenance and involves no payment at all. Such a transaction may have no change output, or a change output that bears no useful relationship to any of the heuristics. Reading a consolidation as a payment is the error that cascades furthest, because it invents a counterparty that does not exist.
+- **The multi-party transaction problem.** Every change heuristic assumes a single sender. Where inputs come from multiple independent parties, the assumption is void and the heuristics do not degrade gracefully, they break. This is the CoinJoin problem in its change-detection form, and it also catches exchange batch transactions, which look structurally similar.
+- **The category error: applying UTXO logic to account-based chains.** Change addresses exist because a UTXO must be consumed in full and the remainder explicitly returned. Ethereum, ERC-20 transfers, and Layer 2 activity have no such mechanic and therefore no change outputs. Applying change-address analysis (or the round-number and fresh-address inferences that support it) to an account-based chain is not a marginal error, it is a method applied to an asset it was never designed for. Selecting the wrong methodology for the asset is the kind of error an opposing expert will use to question the reliability of the entire analysis, not just the step it occurred at.
+
+## When to use
+Before treating any change identification as settled, and when reading someone else's trace that depends on one.
+
+## Avoid when
+None of this means abandon the heuristics. They are a legitimate and valuable part of UTXO analysis when applied to the right asset type, corroborated by complementary signals, and documented with their limits acknowledged. They become a liability when applied mechanically, without regard to the transaction architecture in front of you, or when their probabilistic nature goes undisclosed. The right question is never "were change heuristics used?" but "was their use justified, were their limits acknowledged, and were their outputs corroborated?"
+
+## Example
+Two outputs, one 0.5 BTC and one 3.7412 BTC, inputs and the irregular output both native segwit while the round output is legacy. Round-number, fresh-address, and script-type signals all agree the irregular output is change. Then the input count turns out to be eleven, from addresses with no prior common history, and the whole reading collapses: this is a batch or a coinjoin, and the single-sender assumption underneath all three signals was never true.
+
+## Related
+[Change-Address Heuristics (UTXO Analysis)](/kb/03-attribution-clustering/tactic-change-address-utxo-heuristics), [Bitcoin UTXO Clustering Heuristics](/kb/03-attribution-clustering/checklist-bitcoin-utxo-clustering-heuristics), [Wallet Clustering and Heuristics](/kb/03-attribution-clustering/concept-wallet-clustering-and-heuristics), CoinJoin/Mixer Detection, [CoinJoin Implementation Signatures](/kb/02-tracing/tactic-coinjoin-implementation-signatures), [Known Weaknesses to Disclose in a Forensic Report](/kb/05-evidence-legal/checklist-known-weaknesses-to-disclose-in-a-forensic-report), [Chain-Specific Attribution Signals: Bitcoin vs Ethereum](/kb/00-fundamentals/concept-chain-specific-attribution-signals-bitcoin-vs-ethereum), [Bitcoin Transaction Shape Taxonomy](/kb/00-fundamentals/framework-bitcoin-transaction-shape-taxonomy), [Reviewing an Opposing Forensic Report](/kb/05-evidence-legal/checklist-reviewing-an-opposing-forensic-report), Bitcoin UTXOs and Change

@@ -1,0 +1,31 @@
+# Reviewing an Opposing Forensic Report
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+Crypto forensics is not a one-sided discipline, and the same skill set that builds a tracing case is what tests one. The purpose of reviewing an opposing report is not to find fault. It is to find out whether fault exists. Manufacturing a challenge where none is warranted damages your own credibility and, through it, your client's position. Where a weakness is real, identify it precisely and pursue it hard. Where the analysis is sound, say so and concede the point.
+
+## Components
+**The systematic read.** Work the report against these questions, each of which maps to a known weakness in the methodology:
+- Has the expert distinguished clearly between what the blockchain data establishes and what additional off-chain evidence would be required?
+- Are the heuristics identified, justified as appropriate for this asset type and transaction architecture, and applied consistently?
+- Has the commingled funds model (FIFO, LIFO, pari passu, LIBR, rolling charge, or another) been named, explained, and applied consistently throughout?
+- Was the origin address or seed transaction independently verified, or was it accepted from the instructing party?
+- Have the tool's attribution labels been corroborated by evidence that exists outside the tool?
+- Does the report acknowledge its own limitations, or does it read as advocacy?
+- What did the analysis choose *not* to follow, and why? Unpursued transaction paths can be as damaging under cross-examination as the findings themselves.
+
+**Constructing the rebuttal.** Lead with methodology, not with a conclusion. Setting out the framework you used to assess the opposing analysis, before you state what you found, signals that the challenge is principled rather than partisan. Engage the opposing methodology at the same level of technical specificity as the report itself: name the model applied, explain why the choice matters, show what result an alternative model produces on the same data, and explain why the alternative fits these facts better. A challenge that identifies the problem without quantifying its impact is one the court may acknowledge but cannot act on.
+
+**The witness box and the joint meeting.** The work does not end with the report. Expect oral evidence and cross-examination, and in some jurisdictions a court-directed joint expert meeting where both experts must produce a joint statement of agreement and disagreement. Enter it with a clear framework for what you genuinely agree with and where you hold a principled disagreement; that is the position that carries weight in the statement and with the court.
+
+**The most productive cross-examination lines** are the ones that expose the gap between what the methodology can establish and what the report claims it establishes: the pseudonymity gap, heuristic reliability, data quality, and consistency of the commingling model.
+
+## When to use
+When instructed to review or respond to another analyst's tracing evidence, and as an internal pre-submission audit of your own report. Reading your own work with this list is the cheapest way to find what the other side will find.
+
+## Avoid when
+Do not build a challenge you cannot sustain at trial. And be prepared for where the review leads: defence-side forensic work does not always support the defendant's account. Where your review shows the opposing methodology, despite its imperfections, reached a substantially correct conclusion, you serve the client by saying so clearly and early. The overriding duty is to the court, not to the instructing party.
+
+## Related
+[Six Characteristics of a Court-Credible Forensic Report](/kb/05-evidence-legal/framework-court-credible-forensic-report-six-characteristics), [Known Weaknesses to Disclose in a Forensic Report](/kb/05-evidence-legal/checklist-known-weaknesses-to-disclose-in-a-forensic-report), D'Aloia v Persons Unknown: When the Methodology Fails, Not the Trace, Expert Evidence Rules: USA, UK, Australia, Asset-Tracing Methodologies for Commingled Funds (PIFO, LIBR, LIFO, FIFO), [Change-Address Heuristic Failure Modes](/kb/03-attribution-clustering/caution-change-address-heuristic-failure-modes), [Handover Reports Must Be Replicable](/kb/05-evidence-legal/principle-replicable-handover-reports), Confirmation Bias and Misleading Data, [Fact Witness vs Expert Witness](/kb/05-evidence-legal/principle-fact-witness-vs-expert-witness)

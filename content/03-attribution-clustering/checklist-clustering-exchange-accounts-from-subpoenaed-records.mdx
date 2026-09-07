@@ -1,0 +1,32 @@
+# Clustering Exchange Accounts From Subpoenaed Records
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+On-chain clustering stops at the exchange door. Once you have records under legal process, a second and often stronger clustering exercise opens up on the *account* data, and it links accounts that share no on-chain relationship at all. The indicators below are the ones that carried weight in two DOJ forfeiture complaints. No single one is sufficient. Their value is cumulative, and the write-up should present them as a combination rather than a list of separate proofs.
+
+## Components
+Work through these against the returned records.
+
+- **IP address overlap.** The strongest single indicator. Record how many accounts a given IP touched and how many accounts each account shares an IP with. In the OKX matter, 132 of 144 accounts were accessed by at least one IP that also accessed two or more others in the set, and one IP reached five separate accounts.
+- **Access-log timing correlation.** Two accounts accessed from the same IP within minutes, immediately followed by a transfer between them, indicates one person looking at both sides of a transaction. Pull the access log and the transaction log and align them on a single timeline.
+- **Device and browser identifiers.** Exchange-proprietary IDs that persist across sessions (Binance's "BNC" ID is the example in the record) show that accounts were accessed from the same device and browser at least once.
+- **Registration timing.** Accounts created within minutes, hours, or a day of each other, particularly from a shared IP.
+- **Email naming convention.** A mechanical pattern across accounts. In the OKX matter, iCloud addresses formed from a short letter string followed by the registrant's ten-digit mobile number.
+- **KYC photograph forensics.** Read the photographs, not just the names on them. Look for: a shooting angle and framing indicating a third-party photographer rather than a selfie (no extended arm, subject's eyes closed, subject against a wall); the same room, furniture, artwork, or equipment recurring across unrelated registrants; subjects seated next to one another; visible employer branding such as a lanyard or badge; and the same identity document reused across accounts with different photographs.
+- **Identity-document jurisdiction against access jurisdiction.** A systematic mismatch is a strong compound signal. In the OKX matter every account was opened on Vietnamese identity documents while nearly all access came from Philippine IPs, which is consistent with foreign labour inside a scam compound.
+- **Shared transaction counterparties.** Accounts sending to and receiving from the same external addresses. FATF treats repeated transfers to the same counterparty by more than one person, or from one IP, as a money-laundering red flag.
+- **Deposit-source composition.** The proportion of inbound value arriving from other accounts at the same exchange rather than from the chain. A high figure means the funds are being layered off-ledger. Compare the figure across accounts; near-identical ratios are themselves a link.
+- **Activity profile against declared account type.** A personal account carrying institutional volume, a dormant account that bursts, or an account whose counterparty count is inconsistent with personal use.
+
+## When to use
+After legal process returns exchange records, and before writing the attribution section of a report. Also when scoping a request: this list is effectively the specification for what to ask a VASP for. See VASP Records: What to Request.
+
+## Avoid when
+Attributing *culpability* rather than *control*. These indicators establish that accounts were operated by the same hand. They do not establish that the named registrant is that hand, and the two complaints are explicit about the difference: a registrant whose KYC photograph suggests duress, or who was recruited into a compound, is more likely a trafficking victim than a principal. In the Binance matter the government assessed the holder of one linked account as "likely a victim who was forced to provide his information." Say what the records show about control and stop there. See Public Attribution Carries Legal Risk.
+
+## Example
+The Binance complaint links Subject Account 1 to a second account through six independent threads at once: registration one day apart, registration from the same Bangkok IP, 257 access-log entries where the same IP appears in both accounts' logs, shared BNC device identifiers, similar deposit-source composition (63% and 60% from other Binance accounts), and one sequence where both accounts were accessed from the same IP within minutes and a 750,000 USDT transfer between them followed immediately. Any one of those is arguable. Together they are not.
+
+## Related
+[Gas-Funding Analysis to Cluster Controlled Addresses](/kb/03-attribution-clustering/tactic-gas-funding-analysis-to-cluster-controlled-addresses), VASP KYC Correlation, [Advanced Attribution Techniques](/kb/03-attribution-clustering/checklist-advanced-attribution-techniques), [Off-Chain Behavioral Red-Flag Checklist](/kb/04-laundering-obfuscation/checklist-offchain-behavioral-red-flags), [Synthetic / Shell KYC Onboarding](/kb/04-laundering-obfuscation/concept-synthetic-shell-kyc), [Money Mule Networks](/kb/04-laundering-obfuscation/concept-money-mule-networks), VASP Records: What to Request, Compelling VASP Disclosure Through Legal Process, [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), A Single Indicator Is a Lead, Not Proof, Multiple Attribution Sources, Public Attribution Carries Legal Risk, The Forfeiture-Complaint Tracing Narrative, Combined Timelines: Turning Tracing Into Attribution

@@ -110,6 +110,7 @@ export const BRAND = {
   links: {
     github: 'https://github.com/TrxTr4c3r/TrxTr4c3r',
     x: 'https://x.com/TrxTr4c3r',
+    substack: 'https://trxtr4c3r.substack.com',
     kb: '/kb',
     email: 'https://x.com/TrxTr4c3r',
   },

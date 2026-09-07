@@ -1,0 +1,26 @@
+# Impersonation Scams and the Crypto-Kiosk On-Ramp
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
+
+## Core idea
+A family of scams whose defining move is not a fake investment but a fake authority. The victim already holds fiat in a bank, and the scammer's whole job is converting it into crypto under their own control. That conversion happens one of two ways: the victim feeds cash into a crypto kiosk, or the scammer walks the victim through opening a legitimate VASP account in the victim's own name that the scammer then controls. Both leave a KYC-collecting on-ramp in the middle of the flow, which is the investigative opening.
+
+## Components
+- The pretext, which varies while the mechanic stays the same. Recurring forms in the source:
+  - A police officer calling about a missed jury duty date and an arrest warrant that clears on payment of an administrative fee at a kiosk.
+  - An IRS agent calling about a tax error that must be paid immediately to avoid arrest.
+  - An attorney calling about a grandchild at fault in a car accident who needs bail, a settlement, or representation, paid at once by kiosk.
+  - A district manager calling a fast-food store, telling staff an unannounced corporate audit is inbound and the till must be emptied into a kiosk to pass it.
+  - A bank representative warning that a dishonest employee is targeting the victim's account, so the victim should withdraw everything and deposit it into a kiosk to protect it and catch the insider.
+- Two on-ramp mechanics: the crypto kiosk, and a VASP account created in the victim's name but operated by the scammer.
+- What this means for the investigation. The on-ramp is a regulated business that collected identity data and holds records, so the kiosk operator or the VASP is a subpoena target, not just a waypoint. The receipt is usually the only artifact the victim has, and it names the operator and the deposit address.
+- The attribution trap. An account in the victim's name is not evidence the victim benefited. In this typology the account holder and the beneficiary are deliberately different people, and the KYC record points at the victim. Read account ownership as a claim to be tested, not an answer.
+
+## When to use
+At intake, when the loss started as cash or a bank balance rather than as crypto the victim already held, and when the reported trigger was an authority figure creating urgency.
+
+## Example
+An elderly victim withdraws savings after a call from a supposed bank investigator and deposits the cash across three kiosk visits. The receipts give three deposit addresses and the kiosk brand; the operator holds camera footage, the phone number used at the machine, and its own KYC record, all of which sit off chain and outlive most of the on-chain trail.
+
+## Related
+[Crypto Crime Typology Catalogue](/kb/06-casework-method/checklist-crypto-crime-typology-catalogue), [Identify the Predicate Typology First](/kb/06-casework-method/principle-identify-predicate-typology-first), [Victim Artifact Intake: Getting the Starting Point Right](/kb/06-casework-method/checklist-victim-artifact-intake), [Identifying Cryptocurrency in the Field](/kb/05-evidence-legal/checklist-identifying-crypto-in-the-field), [VASP Records: What to Request and What Exists](/kb/05-evidence-legal/checklist-vasp-records-what-to-request), [Synthetic / Shell KYC Onboarding](/kb/04-laundering-obfuscation/concept-synthetic-shell-kyc), [Off-Chain Behavioral Red-Flag Checklist](/kb/04-laundering-obfuscation/checklist-offchain-behavioral-red-flags), [Five Intake Red Flags](/kb/06-casework-method/checklist-five-intake-red-flags)

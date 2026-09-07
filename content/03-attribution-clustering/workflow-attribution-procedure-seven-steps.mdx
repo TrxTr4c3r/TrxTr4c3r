@@ -1,0 +1,38 @@
+# Attribution Procedure (Seven Steps)
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`workflow`</span>
+
+## Core idea
+Seven steps from an attribution target to a rated, reasoned assessment. Two things make it different from informal attribution work: contradictory information gets its own recorded place rather than being dropped, and "Insufficient Information" is an available answer. Confidence reflects the quality of the evidence, never the seriousness of the suspected conduct. Budget 30 to 90 minutes.
+
+## Components
+1. **Define the target.** What exactly is being assessed: a wallet address, a transaction, an exchange account, a contract, an organisation, an individual, a domain, a social profile. Assign the operational identifier.
+2. **Review blockchain evidence.** Wallet activity, transaction history, counterparties, exchange exposure, contract interactions, cross-chain activity, fund flow. Document observable facts only.
+3. **Correlate additional information.** Case records, internal investigative information, public business information, organisational records, exchange communications, other lawfully obtained evidence. Record what supports and what contradicts.
+4. **Evaluate attribution indicators.** Repeated association with the same entity, publicly disclosed addresses, consistent naming conventions, documented exchange interactions, repeated use across independent sources, technical infrastructure correlations, consistent behavioural patterns. Each indicator carries its source.
+5. **Assess evidence quality.** Is it independently verifiable? Are multiple independent sources available? Does anything conflict? Are there significant gaps? Is more corroboration needed? Document the limitations.
+6. **Assign a confidence rating** from the scale below, with the rationale recorded.
+7. **Identify recommended actions.** Further OSINT, continue tracing, review additional wallets, review contract activity, seek organisational records, prepare a management summary, refer for further action, or close the assessment.
+
+**The confidence scale.**
+| Level | Operational standard |
+|---|---|
+| Confirmed | Authoritative or independently verified evidence establishes the attribution |
+| High | Multiple reliable, independent sources strongly support it; contradictory information is minimal or reasonably explained |
+| Moderate | Reasonably supported, but meaningful gaps or unresolved questions remain; corroborate before relying on it for significant decisions |
+| Low | Limited indicators suggest a possible association; evidence is incomplete, inconsistent, or weak. Treat as preliminary |
+| Insufficient Information | The available information does not support a meaningful assessment. Do not advance a conclusion |
+
+**Six factors to weigh before rating:** source reliability (authoritative, verifiable, current?), corroboration (multiple independent sources?), consistency (do chain findings align with the rest?), contradictory evidence (identified and addressed?), completeness (would the gaps change the answer?), reproducibility (could another investigator reach the same conclusion from your documentation?).
+
+## When to use
+After wallet analysis and tracing are done, and again whenever new evidence lands, because attribution is a continuous assessment rather than a one-time verdict.
+
+## Avoid when
+This procedure does not establish legal ownership or identity, and blockchain activity alone generally does not establish control. The pitfalls: treating an address as proof of identity, ignoring contradictory information, relying on a single source, assigning High without independent corroboration, and failing to document the basis for the rating. A well-documented Moderate is stronger than an unsupported High. If you cannot explain why you chose a level, the evidence probably does not support it.
+
+## Example
+A hub address is publicly labelled by one analytics platform as belonging to a named service. That is one source, and a label is not an independently verified disclosure. Step 5 records that no second source corroborates it and the platform's labelling methodology is not visible. The rating lands at Low, with the recommended action being an exchange records request rather than publication of the name.
+
+## Related
+[Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), [Attribution Indicator Categories and Relative Evidentiary Value](/kb/03-attribution-clustering/reference-attribution-indicator-categories-and-evidentiary-value), [Crypto Address Attribution Process](/kb/03-attribution-clustering/workflow-crypto-address-attribution-process), [Never Trust a Single Source of Attribution](/kb/03-attribution-clustering/principle-multiple-attribution-sources), [The Analysis Standard: Four-Block Write-Up](/kb/05-evidence-legal/framework-the-analysis-standard-four-block-write-up), [Glass Box Attribution](/kb/05-evidence-legal/concept-glass-box-attribution), [Court-Tested Attribution Evidence Types](/kb/05-evidence-legal/framework-court-tested-attribution-evidence-types), [Confirmation Bias and Misleading On-Chain Data](/kb/03-attribution-clustering/caution-confirmation-bias-misleading-data), [The Risk of Public Attribution](/kb/05-evidence-legal/caution-public-attribution-legal-risk)

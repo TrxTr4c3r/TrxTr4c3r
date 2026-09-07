@@ -1,0 +1,31 @@
+# Protocol Housekeeping vs Incident
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+A treasury address emptying itself in several large transactions has the exact visual shape of an exploit, and most of the time it is scheduled protocol plumbing. The way to tell them apart is **arithmetic**, not vibes. Automated operations produce clean, repeating numbers: round percentages of the remaining balance, a fixed block cadence, a terminal balance of exactly zero, and one destination. Attacker-driven drains almost never do all four.
+
+## When to use
+Before escalating any large outbound movement from a bridge, protocol, exchange or treasury address. Run this first, because calling routine housekeeping an incident is a credibility-destroying error, and the check costs minutes.
+
+## Components
+The four tells, in the order they are cheapest to check:
+
+- **One destination, or many?** Count distinct receiving addresses across the whole drain. Protocol migrations converge on a single successor address. Exploits fan out fast, because the attacker is already thinking about laundering.
+- **Is the cadence a fixed block interval?** Convert each transaction's timestamp to a block height on the protocol's own chain and diff them. A constant delta (720 blocks, 43,200 blocks, whatever it is) means a scheduler. Human-driven activity clusters irregularly and accelerates under pressure.
+- **Are the amounts round percentages of the remaining balance?** Compute in the smallest unit, never in decimal display values. Do each transfer as a fraction of the balance immediately before it. Hitting 20.000000%, 40.000000%, 60.000000% is a parameter table, not a person. Attackers take what they can reach, which produces arbitrary fractions.
+- **Does the balance land on exactly zero?** A scheduler is designed to terminate cleanly. Exploits leave dust, leave value they could not unlock, or stop when the hole is patched.
+
+Supporting checks when the four are ambiguous:
+- **Read the memo, calldata or method.** Internal operations are usually self-labelled (`MIGRATE`, `consolidate`, `rebalance`). Free evidence.
+- **Look for the mirror image earlier in the address's life.** A vault that was *funded* by the same kind of transaction it is now *sending* is doing a lifecycle, not dying.
+- **Check the counterparty's scale.** If the destination has years of history and enormous throughput, it is infrastructure, not a fresh attacker wallet.
+
+## Avoid when
+Do not let a clean pattern alone exonerate a movement. An insider with scheduler access can imitate all four tells, and some exploits abuse a legitimate migration function so the transaction genuinely *is* a migration, just to the wrong destination. The tells establish "this is an automated operation", and you still owe the separate question of whether the **destination** is the legitimate one. Confirm the successor address against the protocol's own state or documentation before you close the ticket.
+
+## Example
+Bitcoin address `bc1q3wap0eync35cmemdk3rcp800a8m5uyrqu2g4d8` emptied 339.93277531 BTC in five transactions over four and a half hours, which reads as an incident at a glance. All four tells fired: one destination for every tranche (`bc1qqefsjm654cdw94ejj8g4s49w7z8te75vdw7m4p`), memo heights spaced exactly 720 blocks apart, amounts of exactly 20%, 40%, 60%, 80% and 100% of the balance remaining before each, and a final balance of precisely zero. It was a routine THORChain vault churn.
+
+## Related
+[THORChain Vault Churn and Asgard Migration](/kb/02-tracing/concept-thorchain-vault-churn-and-asgard-migration), [Understand the Protocol Before You Conclude](/kb/02-tracing/principle-understand-the-protocol-before-you-conclude), [THORChain Memo Grammar on Bitcoin](/kb/02-tracing/reference-thorchain-memo-grammar-on-bitcoin), [Confirmation Bias and Misleading On-Chain Data](/kb/03-attribution-clustering/caution-confirmation-bias-misleading-data), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Intake Triage Checklist](/kb/06-casework-method/checklist-intake-triage-checklist)

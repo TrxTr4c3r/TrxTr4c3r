@@ -1,0 +1,30 @@
+# Wallet Review Procedure
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`workflow`</span>
+
+## Core idea
+Eight steps for working a single wallet address, ending in a documented preliminary risk rating rather than a conclusion about who owns it. The procedure exists to stop the two failures that dominate wallet work: starting analysis before the network is confirmed, and finishing analysis with an ownership claim the evidence does not carry. Budget 20 to 60 minutes per wallet.
+
+## Components
+1. **Verify the wallet.** Confirm the address was copied accurately, identify the network, confirm the format is consistent with that network, and record the wallet under a standardised ID (W-001). If the network cannot be confirmed, suspend the analysis. Do not proceed on a guess.
+2. **Establish context.** Why is this wallet relevant? Record the source of the address, the date obtained, the associated complaint or intelligence, and the related evidence, subject, and victim IDs.
+3. **Conduct the initial review.** Record observable characteristics: first and most recent activity, current balance where visible, historical balance trend, inbound and outbound transaction counts, total volume, tokens held, contract interactions. Observations only.
+4. **Review transaction activity.** Look for what carries investigative significance: large transfers, rapid movement, repeated transfers, self-transfers, dust, consolidation, distribution, cross-chain activity, dApp interaction, bridge interaction. Flag what needs a second look.
+5. **Review counterparties.** Identify the significant ones: known services, exchanges and VASPs, DeFi protocols, payment processors, contracts, NFT marketplaces, and other wallets already in the case.
+6. **Assess potential risk indicators.** Sanctioned-entity interaction, exposure to known illicit infrastructure, mixer exposure, high-volume rapid transfers, structuring behaviour, privacy-enhancing patterns, chain hopping, newly created wallets used immediately before large transfers. One or more indicators does not establish illicit activity.
+7. **Document findings.** Facts observed, supporting evidence, investigative leads, outstanding questions, recommended follow-up. Keep observed fact separate from assessment.
+8. **Assign a preliminary risk rating.** Low, Moderate, Elevated, High, or Critical, with the rationale recorded. Revisit it when new information arrives.
+
+**Documentation standard per wallet:** wallet ID, network, source of the address, date reviewed, investigator, explorer or explorers used, related evidence IDs, related transaction IDs, supporting screenshots or exports, and the outstanding investigative questions.
+
+## When to use
+After preservation is complete and one or more addresses have been identified for review. It is the per-address unit of work that feeds a trace, not a substitute for one.
+
+## Avoid when
+Public chain data does not identify who controls an address, and this procedure does not attempt to. The pitfalls: assuming ownership from activity, reviewing only recent transactions and missing the history, ignoring contract and dApp interactions, leaving limitations undocumented, and recording conclusions the evidence does not support. A wallet is an investigative lead, not a suspect.
+
+## Example
+An address supplied by a victim is confirmed on Base rather than Ethereum at step 1, which changes the explorer. Step 3 shows first activity three days before the victim's transfer and no prior history, which is a fresh-wallet observation worth recording. Step 5 shows the only significant counterparty is a single downstream address. Step 6 notes the fresh-wallet-before-large-transfer indicator. Step 8 rates it Elevated on flow shape and wallet age, with the rationale that no attribution has been attempted yet.
+
+## Related
+[Blockchain Explorer Review Procedure](/kb/02-tracing/workflow-blockchain-explorer-review-procedure), [Wallet Type Identification Matrix](/kb/00-fundamentals/reference-wallet-type-identification-matrix), [Transaction Tracing Decision Tree and Endpoint Classification](/kb/02-tracing/workflow-transaction-tracing-decision-tree-and-endpoint-classification), [The Analysis Standard: Four-Block Write-Up](/kb/05-evidence-legal/framework-the-analysis-standard-four-block-write-up), [Cryptocurrency Address Format Recognition Matrix](/kb/00-fundamentals/reference-address-format-recognition-matrix), [Wallet Clustering and Heuristics](/kb/03-attribution-clustering/concept-wallet-clustering-and-heuristics), [Time-and-Value Analysis](/kb/02-tracing/tactic-time-and-value-analysis), [Attribution Procedure (Seven Steps)](/kb/03-attribution-clustering/workflow-attribution-procedure-seven-steps)

@@ -1,0 +1,35 @@
+# VASP Types and What Each Interaction Means
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`reference`</span>
+
+## Core idea
+Identifying a VASP answers where the assets went. It does not answer who controlled them. Six service types turn up in casework, and the useful distinction inside each is service-controlled infrastructure versus customer-controlled addresses, because only the second is a step toward a person and only the first explains most of the volume you will see.
+
+## Components
+**Service types.**
+| Type | Function | Consideration |
+|---|---|---|
+| Centralised exchange | Trading and custody | May be a trace endpoint or the transition between self-custody and custodial control |
+| Hosted wallet provider | Custodial wallet management | Chain activity alone does not identify the account holder |
+| Broker | Facilitates purchases and sales | Document the service and the related transaction activity |
+| Payment processor | Merchant payment services | Review the payment flow and the participating wallets |
+| OTC desk | Large-volume trades | Significant movement can occur outside exchange order books |
+| Stablecoin issuer | Issues and manages stablecoins | Context on token issuance and redemption |
+
+**What each observed interaction means.** A deposit to an exchange means assets entered custodial control, so keep reviewing the movement that preceded it. A withdrawal from an exchange means assets left custodial control, so keep tracing the destination. Repeated deposits suggest recurring use of the service. Repeated withdrawals suggest continued movement or trading. An exchange hot wallet is service-controlled, not a user's. A deposit address is usually tied to customer account funding, but ownership still needs corroboration.
+
+**Record whenever a VASP is identified:** service name, blockchain network, wallet addresses, transaction hashes, assets involved, date and time in UTC, explorer used, related evidence IDs, and which worksheets were updated.
+
+**Five questions.** Is the wallet associated with a VASP, which shapes attribution strategy? Is the interaction inbound or outbound, which establishes direction? Does tracing continue past the VASP, which decides whether more public analysis is possible? Are multiple VASPs involved, which signals more complex movement? Has every relevant transaction been documented?
+
+## When to use
+The moment a trace touches something that looks like a service, and before deciding a trace has ended.
+
+## Avoid when
+The pitfalls: assuming an exchange wallet belongs to the customer, ending the trace as soon as a VASP is identified, failing to record which network the interaction happened on, recording an exchange name with no addresses or hashes attached, and treating a publicly applied wallet label as conclusive without corroboration. A VASP interaction rarely closes an investigation, it usually opens the next phase.
+
+## Example
+A trace reaches an address that a graph tool labels with an exchange name. The correct write-up records the label as an unverified tool attribution, records the full address and hash, notes whether the address behaves like a hot wallet (high volume, many counterparties) or a deposit address (inbound from one source, outbound to one internal address), and then treats the deposit-address reading as the basis for a records request rather than as an identification of the depositor.
+
+## Related
+[Attribution Procedure (Seven Steps)](/kb/03-attribution-clustering/workflow-attribution-procedure-seven-steps), [Transaction Tracing Decision Tree and Endpoint Classification](/kb/02-tracing/workflow-transaction-tracing-decision-tree-and-endpoint-classification), [Wallet Type Identification Matrix](/kb/00-fundamentals/reference-wallet-type-identification-matrix), [Service Choke-Points: What Each Service Type Can Give You](/kb/02-tracing/framework-service-choke-points-what-each-can-give-you), [Exchange / VASP KYC Correlation](/kb/03-attribution-clustering/tactic-vasp-kyc-correlation), [VASP Records: What to Request and What Exists](/kb/05-evidence-legal/checklist-vasp-records-what-to-request), [Compelling VASP Disclosure: The Legal-Process Ladder](/kb/05-evidence-legal/framework-compelling-vasp-disclosure-legal-process), [Nested Services / Omnibus Wallets](/kb/04-laundering-obfuscation/concept-nested-services-omnibus-wallets), [Exchange Tiers and the Escalation Clock](/kb/06-casework-method/tactic-exchange-tiers-and-the-escalation-clock)

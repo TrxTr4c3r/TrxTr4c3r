@@ -1,0 +1,32 @@
+# Exchange Pass-Through Detection by One-to-One Deposit and Withdrawal Matching
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+When an exchange account receives a run of deposits and pushes out an **equal number of withdrawals within minutes, all to a single destination address**, the account is not being traded on. It is a hop. The exchange has been inserted into the path for one reason: deposits and withdrawals are not linked on the public ledger, so the connection can only be re-established with the exchange's own records. Recognising the shape tells you two things at once, that the trace does not end here, and that you need legal process to continue it.
+
+The signature is the *matching*, not the speed. Fast in-and-out alone is common. Deposits and withdrawals in equal count, within minutes, converging on one address is the pattern that has no innocent reading.
+
+## Components
+What to record when you see it, because each element does work in the write-up.
+
+- **The deposit address.** The exchange-assigned address the funds arrived at. Full value, never truncated.
+- **The count and total of deposits**, and the window they arrived in.
+- **The count of withdrawals** and the interval between each deposit and its corresponding withdrawal.
+- **The single destination address** the withdrawals converge on. Full value.
+- **The account identifier** (UID or user ID), which is what a subpoena or MLAT request will be served against.
+- **The tracing convention applied across the gap** and where it lands. The chain is broken at the exchange, so the link from deposit to withdrawal is an inference from the exchange's records or from the matching itself, not an on-chain fact. Label it accordingly.
+
+## When to use
+Any time a trace reaches a known exchange deposit address and you are deciding whether the funds cashed out there or passed through. Also when reviewing an exchange account's activity supplied under legal process, where the deposit-to-withdrawal ratio is the fastest read on what the account was for.
+
+## Avoid when
+The account shows genuine trading: partial withdrawals, holding periods, conversions between assets, balances that persist. A high-volume account that is also a real trading account will show the pass-through shape in places without the whole account being a laundering layer. Also be careful with consolidation-then-single-withdrawal, which is ordinary exchange behaviour for a user cashing out, and with the exchange's own hot-wallet housekeeping.
+
+## Example
+From the 225M complaint, three accounts showing the identical shape. OKX UID 382863414143418999 received deposits totalling approximately 361,000 USDT into deposit address 0x7f2de657ab21f269ea8e37eea1a9245af6d2e669 between 18 and 19 March 2023, and "conducted an equal number of withdrawals within minutes of the deposits, all to address 0x517adbbe7ebd0a2096f11fbaa5ed2988844a8d73." OKX UID 382867630484239151 received nearly 123,000 USDT into 0x3d60b144585958fcf0887ec7f3e0fa9eaeacb82a on 4 January 2023, with an equal number of same-day withdrawals to 0x517adbbe7ebd0a2096f11fbaa5ed2988844a8d73, the same destination. OKX UID 389726439408283934 received over 106,000 USDT into 0xb7306f55e4832b3e687784784cd163519084c0dc on 21 May 2023, with an equal number of same-day withdrawals to 0xe8b4b6bee0f6b913b847a7b850cc02bbde30d506.
+
+The complaint states the purpose plainly: the accounts were used "to help break the publicly visible flow of funds on the blockchain, requiring law enforcement to have to seek records from the exchange to determine the connection between deposits and withdrawals."
+
+## Related
+[Articulating No Legitimate Economic Purpose](/kb/05-evidence-legal/tactic-articulating-no-legitimate-economic-purpose), The Forfeiture-Complaint Tracing Narrative, [Exchange-Internal Transfers as Off-Chain Layering](/kb/04-laundering-obfuscation/concept-exchange-internal-transfers-as-off-chain-layering), VASP Records: What to Request, Compelling VASP Disclosure Through Legal Process, Service Choke Points: What Each Can Give You, [Transaction Tracing Decision Tree and Endpoint Classification](/kb/02-tracing/workflow-transaction-tracing-decision-tree-and-endpoint-classification), [On-Chain Laundering Pattern Catalogue](/kb/04-laundering-obfuscation/checklist-onchain-laundering-pattern-catalogue), Asset-Tracing Methodologies for Commingled Funds, Nested Services and Omnibus Wallets, [VASP Types and What Each Interaction Means](/kb/03-attribution-clustering/reference-vasp-types-and-what-each-interaction-means)

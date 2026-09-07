@@ -1,0 +1,24 @@
+# Blockchain as Evidence Custody Infrastructure
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
+
+## Core idea
+There are two entirely separate things called "blockchain forensics" and conflating them causes confusion. One is the forensics *of* a blockchain: tracing funds, clustering addresses, attributing wallets. That is what most of this knowledge base is about. The other is using a blockchain *for* forensics: putting the chain of custody itself on a distributed ledger so that every acquisition, access, transfer, and analysis step is recorded in a record nobody can retroactively alter. This note is about the second, so that the term does not ambush you in a paper, a vendor pitch, or an interview.
+
+## Components
+**The proposition.** Evidence integrity currently depends on institutional trust plus a hash: the custody log says the file was not altered, and you trust the organisation that keeps the log. A ledger-based custody trail replaces the trust with cryptographic verifiability. Every custody event is a transaction, so the log is append-only, timestamped, and auditable by anyone with read access, including opposing counsel.
+
+**What the proposed designs share.** A systematic review of 46 papers found around 30 distinct frameworks (B-CoC, Block-DEF, ForensiBlock, MF-Ledger, LEChain, IoTFC, NyaYa and others), and despite very different architectures they converge on the same components: a permissioned or private ledger holding evidence metadata and hashes rather than the evidence itself, off-chain or IPFS storage for the actual artifacts, and smart contracts to automate custody transfer, access control, and audit logging. The recurring extras are anomaly detection on the custody trail, multi-stakeholder access control so police, labs, prosecutors, and courts each get scoped permissions, and end-to-end scope covering collection by victims and witnesses through to presentation at trial.
+
+**Why it matters to a practitioner even if you never build one.** The immutability argument is the same argument you already make about on-chain evidence, pointed at your own working papers. It also explains the node-level-backup framing that appears in the literature: because every full node holds a complete copy of the ledger, discrepancies between nodes are themselves a tamper signal, and the redundancy means the record survives the loss or compromise of individual nodes.
+
+**The honest state of the field.** The review's own conclusion is that the literature is long on conceptual designs and short on real-world evaluation. Most proposals lack technical implementation detail and empirical performance data. Four practical obstacles recur: a framework built for one blockchain platform does not transfer to another; implementation costs (hardware, software, expertise) put these systems out of reach of smaller agencies; the designs are frequently too complex for the practitioners expected to operate them; and none of it is standardised, so there is no interoperability between systems or agencies.
+
+## When to use
+When reading blockchain forensics literature, assessing an evidence-management product that claims ledger-backed custody, or answering an interview question that turns out to be about the other meaning of the phrase.
+
+## Avoid when
+Do not mistake this for a tracing capability. A ledger-backed custody system says nothing about whether the analysis it holds is any good, and immutability cuts both ways: a wrong entry, once written, cannot be corrected in place. The same property that makes the record trustworthy makes it unforgiving, which is the mirror image of the problem the review notes about on-chain evidence generally, where immutability prevents the deletion of fraudulent records as well as legitimate ones.
+
+## Related
+[Forensic Standards and Legal Instruments for Crypto Cases](/kb/05-evidence-legal/reference-forensic-standards-and-legal-instruments-for-crypto-cases), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), The Blockchain as an Immutable Ledger, Preserve the Analysis, Not Just the Finding, [Glass Box Attribution](/kb/05-evidence-legal/concept-glass-box-attribution), [The Integrated On-Chain and Off-Chain Forensic Framework](/kb/06-casework-method/framework-integrated-onchain-offchain-forensic-framework)
