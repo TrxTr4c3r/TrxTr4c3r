@@ -1,15 +1,19 @@
 # Casework
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>investigations · published as completed</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>investigations · series · data</span>
 
-Real investigations, traced end to end and written so someone can act on them. Every claim carries a confidence level, and every artifact is logged with a hash and a timestamp. Identities are a matter for legal process, so nothing here names a person. What you get is the money, the method, and the walls.
+Three things live here, and they run at different speeds.
+
+**Cases** are full investigations under the complete method: scoped, traced, evidenced, and written so someone can act on them. **THE LAST HOP** is a running public series that takes one reported scam site per episode and follows the money until it stops. **Scam Address Labels** is the dataset both produce, given away free.
+
+Every claim carries a confidence level, no on-chain figure is published unless an explorer confirmed it, and nothing here names a person. Identities are a matter for legal process.
 
 <div className="case-grid">
-  <a className="case-card" href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/kb/casework/hinkal-drain/'}>
-    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>CASE-2026-002 · ETH → BTC · ~$797K</div>
-    <div style={{ fontSize: 20, fontWeight: 700, margin: '10px 0 6px' }}>The Hinkal Liquidity-Pool Drain</div>
-    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>Traced through a mixer and across chains to an exchange cash-out. Both ends hit privacy walls; both had a door.</div>
-    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>read the case ›</div>
+  <a className="case-card" href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/kb/casework/cases/'}>
+    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>FULL INVESTIGATIONS</div>
+    <div style={{ fontSize: 20, fontWeight: 700, margin: '10px 0 6px' }}>Cases</div>
+    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>The slow ones. Traced end to end with a confidence level on every claim and an evidence log behind it.</div>
+    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>browse the cases ›</div>
   </a>
   <a className="case-card" href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/kb/casework/last-hop/'}>
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>SERIES · 2 EPISODES · PUBLIC TRACES</div>
@@ -18,13 +22,9 @@ Real investigations, traced end to end and written so someone can act on them. E
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>see the series ›</div>
   </a>
   <a className="case-card" href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/kb/casework/address-labels/'}>
-    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>DATASET · 25 ADDRESSES · FREE</div>
+    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>DATASET · FREE</div>
     <div style={{ fontSize: 20, fontWeight: 700, margin: '10px 0 6px' }}>Scam Address Labels</div>
-    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>Every address from every trace, in CSV and JSON, each row linked to the write-up that documents it. Take it and screen against it.</div>
+    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>The deposit addresses reported scam sites hand out, in CSV and JSON, each row linked to the write-up that documents it.</div>
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>get the data ›</div>
   </a>
 </div>
-
-## The series and the dataset
-
-Alongside full cases, [THE LAST HOP](/kb/casework/last-hop/) runs a faster public trace on a reported scam site and scores how badly the money was laundered. Every address either produces goes into [Scam Address Labels](/kb/casework/address-labels/), which is free, and which exists because vendor label coverage of small scam sites is poor and manual labels are worth something.

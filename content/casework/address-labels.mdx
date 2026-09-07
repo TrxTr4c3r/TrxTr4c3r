@@ -1,14 +1,16 @@
 # Scam Address Labels
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>25 addresses · 3 chains · free to use</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>4 deposit addresses · 3 chains · free to use</span>
 
-Manually curated address labels for reported scam sites, traced one at a time and published free.
-Every label comes from a documented trace with a public write-up behind it, linked in each section.
-Nothing here is machine generated and nothing here is bought in.
+**Deposit addresses that reported scam platforms hand out, and nothing else.** Each one was captured from
+the site's own deposit screen, then verified on a block explorer. Where the address links directly to a
+known service, that link is recorded too, because that is the part an AML team can act on.
+
+Every row carries the write-up that documents it, so you can check the work.
 
 <div className="case-grid">
   <a className="case-card" href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/labels/labels.csv'} download>
-    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>CSV · 25 ROWS</div>
+    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>CSV · 4 ROWS</div>
     <div style={{ fontSize: 20, fontWeight: 700, margin: '10px 0 6px' }}>labels.csv</div>
     <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>For a spreadsheet or a screening-list import.</div>
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>download ›</div>
@@ -21,69 +23,68 @@ Nothing here is machine generated and nothing here is bought in.
   </a>
 </div>
 
+## Scope, deliberately narrow
+
+**In:** the address a reported scam platform published as its deposit address, and a direct link from that
+address to a known service.
+
+**Out:** cash-out addresses, intermediate collectors, exchange hot wallets, and anything a trace merely
+passed through. Those live in the write-ups where they have their context. A screening list full of
+counterparties is noise, and noise is what makes a label set useless.
+
+**Never in, on principle:** addresses that *paid* a collector. Those people may be victims, and publishing
+a victim's address as a scam address would be both wrong and harmful.
+
 ## What a row means, and what it does not
 
-**A row means** this address appeared in a trace of a site that a named source reported as a scam, in the
-role stated, and the linked write-up shows the transactions.
+**A row means** a site that a named source reported as a scam published this address to take money, and
+the linked write-up shows what arrived.
 
-**A row does not mean** the address is sanctioned, that its owner has been identified, or that any named
+**A row does not mean** the address is sanctioned, that its owner has been identified, or that a named
 platform has done anything wrong.
 
-Several addresses here are **exchange deposit addresses**. That is a finding about the scam operator, who
-chose to collect into an account at a regulated venue. It is not a finding about the exchange. An exchange
-receiving a deposit is an exchange receiving a deposit.
+Some of these deposit addresses **are themselves exchange deposit addresses**. That is a finding about the
+scam operator, who chose to collect straight into an account at a regulated venue. It is not a finding
+about the exchange. An exchange receiving a deposit is an exchange receiving a deposit.
 
 ### If one of these is yours
 
-If an address in this set belongs to your platform, it is worth your AML team taking a look. You hold the
-account records and I do not, so you are the only ones who can establish what sits behind a deposit
-address that a reported scam site was handing out. Take it as a free lead rather than an allegation.
+If an address here belongs to your platform, it is worth your AML team taking a look. You hold the account
+records and I do not, so you are the only ones who can establish what sits behind a deposit address a
+reported scam site was handing out. Take it as a free lead rather than an allegation.
 
 The linked write-up carries the full transaction set, exact amounts and UTC timestamps, so there should be
 nothing to reconstruct.
 
-## THE LAST HOP #002
+## proderivfxt[.]com
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>proderivfxt[.]com · reported by scambuster.fr · 7 addresses</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>THE LAST HOP #002 · reported by scambuster.fr · 3 deposit addresses</span>
 
 [Read the full trace ›](https://trxtr4c3r.substack.com/p/the-last-hop-002-they-skipped-the)
 
-| Address | Chain | Role | Attribution |
+| Address | Chain | Received | Links to |
 |---|---|---|---|
-| `0x88c3d62860d59a51fa43adf84a20c040606ed3d6` | ethereum | deposit address | Bybit deposit address per Etherscan and Arkham <br /><em>vendor label, unverified</em> |
-| `1AvNHAYFJAbm6vQGvX7qy8VdzUTWm5LL62` | bitcoin | deposit address | none |
-| `TSCcYez4hGLiDRna3kQXiwF6SbU6BX4GcL` | tron | deposit address | Bybit deposit address per Arkham and Tronscan <br /><em>vendor label, unverified</em> |
-| `0x18e296053cbdf986196903e889b7dca7a73882f6` | ethereum | last hop | Bybit hot wallet per Etherscan and Arkham <br /><em>vendor label, unverified</em> |
-| `0xa1abfa21f80ecf401bd41365adbb6fef6fefdf09` | ethereum | last hop | Bybit hot wallet per Etherscan and Arkham <br /><em>vendor label, unverified</em> |
-| `0xf89d7b9c864f589bbf53a82105107622b35eaa40` | ethereum | last hop | Bybit hot wallet per Etherscan and Arkham <br /><em>vendor label, unverified</em> |
-| `TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa` | tron | last hop | Bybit hot wallet per Arkham and Tronscan <br /><em>vendor label, unverified</em> |
+| `1AvNHAYFJAbm6vQGvX7qy8VdzUTWm5LL62` | bitcoin | 0 BTC, zero transactions ever | nothing |
+| `0x88c3d62860d59a51fa43adf84a20c040606ed3d6` | ethereum | 24083.271289 USDT; 2.553457859091488910 ETH | **Bybit** |
+| `TSCcYez4hGLiDRna3kQXiwF6SbU6BX4GcL` | tron | 210.000000 USDT | **Bybit** |
 
-## THE LAST HOP #001
+**`1AvNHAYFJAbm6vQGvX7qy8VdzUTWm5LL62`** none. The address has never been used, so nothing can be said about what it is
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>a1cryptotradings[.]com · reported by scambuster.fr · 18 addresses</span>
+**`0x88c3d62860d59a51fa43adf84a20c040606ed3d6`** the deposit address is itself an exchange deposit address: Etherscan labels it "Bybit: Deposit Address" and its Funded by field reads "Bybit: Deposit Funder". Arkham agrees. Corroborated on chain by seven gas top-ups from the exchange funder and a sweep to an exchange hot wallet after each deposit No raw block explorer carries entity labels, so this link is a vendor attribution and cannot be verified the way an amount can.
+
+**`TSCcYez4hGLiDRna3kQXiwF6SbU6BX4GcL`** the deposit address is itself an exchange deposit address per Arkham and Tronscan. Corroborated on chain by a 20.000000 TRX gas delivery from the exchange funder followed by a sweep 3 minutes 3 seconds later No raw block explorer carries entity labels, so this link is a vendor attribution and cannot be verified the way an amount can.
+
+## a1cryptotradings[.]com
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>THE LAST HOP #001 · reported by scambuster.fr · 1 deposit address</span>
 
 [Read the full trace ›](https://trxtr4c3r.substack.com/p/the-fake-trading-platform-that-gave)
 
-| Address | Chain | Role | Attribution |
+| Address | Chain | Received | Links to |
 |---|---|---|---|
-| `bc1qk078dgjfkrxu6upw749krxp5j8v8rws0hf8d3m` | bitcoin | deposit address | none |
-| `bc1q9ukttq2pkqn5x9nf6866dyajntfl7avnhv5q96` | bitcoin | sibling collector | none |
-| `14SdWrZ7e49sitF4yEuk5VR1kq9EumSEdW` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `156QVizQWrv4xAmcGJktvTcR3coahMdwpQ` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `16aECdvaW7TQCwc1obRTJxDrSWzcwtqNTx` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `16UjdftYmkBdGVCN2qtkpXGghTQc8W9Der` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `19Zwj4N7zbw3teEbCt92fqTyLPVWCFP3As` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1B6YF7rQaYDHAtE82AGofhemPoqPhfGAs8` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1CQVNUtjD4M9PqEfeZEDRc1Hkdv5QRLRh4` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1CR8Uj58Pxt7MMACotd5EK9bQFvbRD3UvP` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1DiVoFsvzxxxiB2N3ug6BExSks5FQoQ2NY` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1FUUqhYm4w21HdnNdjmHe1PZTNmGbRjx5k` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1G4WamxFCKcyUy7x5RSkXWAwpKjhEmB3Ej` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1Kk6oZnu8JL9mibeEgUxytUxyCQ3S96U4H` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1LQH1ipZxjZ7cYtJaJ8FreG1ZjVkyFvjwu` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1Lu5bBf9661hHQArm2JcfLjhowTE6UmaHU` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1NgGTwNRwpnRTyG5imR2QoP7pQiWUUxhgR` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
-| `1PghkdBQL1tHBouqcU7moq3XMAEBYSnwjB` | bitcoin | last hop | CoinCola per Arkham <br /><em>vendor label, unverified</em> |
+| `bc1qk078dgjfkrxu6upw749krxp5j8v8rws0hf8d3m` | bitcoin | 0.01254526 BTC external inflow | **CoinCola** |
+
+**`bc1qk078dgjfkrxu6upw749krxp5j8v8rws0hf8d3m`** the deposit address forwarded to addresses Arkham attributes to CoinCola, one hop out No raw block explorer carries entity labels, so this link is a vendor attribution and cannot be verified the way an amount can.
 
 ## Schema
 
@@ -91,18 +92,16 @@ nothing to reconstruct.
 |---|---|
 | `address` | full length, never abbreviated |
 | `chain` | bitcoin, ethereum, tron |
-| `role` | `deposit address` published by the site, `last hop` where the trace ended, `sibling collector` |
-| `attribution` | the entity a vendor tool assigns, and which tool said so |
-| `attribution_confidence` | always "vendor label, unverified" where an entity is named. No raw block explorer carries entity labels, so an attribution cannot be verified the way an amount can |
+| `role` | always `deposit address`. See Scope above |
+| `scam_domain` | the reported site, defanged. Never a live link |
+| `reported_by` | who reported the site. The credit belongs to them |
+| `linked_platform` | a known service this address links directly to, so far: Bybit, CoinCola. Empty where there is no link |
+| `link_basis` | exactly how the link was established, so you can disagree with it |
+| `link_confidence` | `vendor label, unverified` wherever a platform is named. Amounts verify against an explorer; entity names do not |
 | `first_seen` / `last_seen` | UTC, from an explorer API, never read off a screen |
 | `total_received` | exact, at full precision, main units only |
-| `reported_domain` | defanged. Never a live link |
-| `reported_by` | who reported the site. The credit belongs to them |
 | `post_url` | the public write-up. Check the work |
 | `tag` | `#verified` means explorer-checked with hash, block and exact value on record |
-
-**Payer addresses are deliberately excluded.** People who sent money to a collector may well be victims,
-and publishing a victim's address as a scam address would be both wrong and harmful.
 
 ## Method
 

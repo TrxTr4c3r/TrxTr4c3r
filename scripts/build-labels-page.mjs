@@ -1,6 +1,10 @@
 // Re-runnable: datasets/scam-address-labels/labels.csv -> content/casework/address-labels.mdx
 // Also copies the raw csv/json into public/labels/ so the page can offer them as downloads.
 // Run after adding rows to the dataset. Never hand-edit address-labels.mdx.
+//
+// SCOPE (set 2026-09-07): the dataset holds deposit addresses published BY a reported scam
+// platform, and any direct link from that address to a known service. Nothing else. No cash-out
+// addresses, no intermediate collectors, no payer addresses.
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -9,7 +13,6 @@ const SRC = path.resolve(ROOT, '../datasets/scam-address-labels')
 const OUT = path.resolve(ROOT, 'content/casework/address-labels.mdx')
 const PUB = path.resolve(ROOT, 'public/labels')
 
-// minimal RFC4180-ish parser: our fields can contain commas inside quotes
 function parseCsv(text) {
   const rows = []
   let row = [], field = '', q = false
@@ -32,80 +35,91 @@ function parseCsv(text) {
 
 const rows = parseCsv(fs.readFileSync(path.join(SRC, 'labels.csv'), 'utf8'))
 
-// group by episode, newest episode first
-const byEpisode = new Map()
+const bySite = new Map()
 for (const r of rows) {
-  if (!byEpisode.has(r.episode)) byEpisode.set(r.episode, [])
-  byEpisode.get(r.episode).push(r)
+  if (!bySite.has(r.scam_domain)) bySite.set(r.scam_domain, [])
+  bySite.get(r.scam_domain).push(r)
 }
-const episodes = [...byEpisode.keys()].sort().reverse()
+const sites = [...bySite.keys()].sort((a, b) => {
+  const ea = bySite.get(a)[0].episode, eb = bySite.get(b)[0].episode
+  return eb.localeCompare(ea)
+})
 
 const chains = [...new Set(rows.map(r => r.chain))].sort()
+const linked = [...new Set(rows.map(r => r.linked_platform).filter(Boolean))].sort()
 const mono = "{{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}"
-
-const ROLE_ORDER = { 'deposit address': 0, 'sibling collector': 1, 'last hop': 2 }
+const card = (kicker, title, body, cta, href) => `  <a className="case-card" href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '${href}'} download>
+    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>${kicker}</div>
+    <div style={{ fontSize: 20, fontWeight: 700, margin: '10px 0 6px' }}>${title}</div>
+    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>${body}</div>
+    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>${cta}</div>
+  </a>`
 
 let out = `# Scam Address Labels
 
-<span style=${mono}>${rows.length} addresses · ${chains.length} chains · free to use</span>
+<span style=${mono}>${rows.length} deposit addresses · ${chains.length} chains · free to use</span>
 
-Manually curated address labels for reported scam sites, traced one at a time and published free.
-Every label comes from a documented trace with a public write-up behind it, linked in each section.
-Nothing here is machine generated and nothing here is bought in.
+**Deposit addresses that reported scam platforms hand out, and nothing else.** Each one was captured from
+the site's own deposit screen, then verified on a block explorer. Where the address links directly to a
+known service, that link is recorded too, because that is the part an AML team can act on.
+
+Every row carries the write-up that documents it, so you can check the work.
 
 <div className="case-grid">
-  <a className="case-card" href="${'${BASE}'}/labels/labels.csv" download>
-    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>CSV · ${rows.length} ROWS</div>
-    <div style={{ fontSize: 20, fontWeight: 700, margin: '10px 0 6px' }}>labels.csv</div>
-    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>For a spreadsheet or a screening-list import.</div>
-    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>download ›</div>
-  </a>
-  <a className="case-card" href="${'${BASE}'}/labels/labels.json" download>
-    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>JSON · FULL SCHEMA</div>
-    <div style={{ fontSize: 20, fontWeight: 700, margin: '10px 0 6px' }}>labels.json</div>
-    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>Every field, including first and last seen and exact amounts.</div>
-    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>download ›</div>
-  </a>
+${card(`CSV · ${rows.length} ROWS`, 'labels.csv', 'For a spreadsheet or a screening-list import.', 'download ›', '/labels/labels.csv')}
+${card('JSON · FULL SCHEMA', 'labels.json', 'Every field, including first and last seen and exact amounts.', 'download ›', '/labels/labels.json')}
 </div>
+
+## Scope, deliberately narrow
+
+**In:** the address a reported scam platform published as its deposit address, and a direct link from that
+address to a known service.
+
+**Out:** cash-out addresses, intermediate collectors, exchange hot wallets, and anything a trace merely
+passed through. Those live in the write-ups where they have their context. A screening list full of
+counterparties is noise, and noise is what makes a label set useless.
+
+**Never in, on principle:** addresses that *paid* a collector. Those people may be victims, and publishing
+a victim's address as a scam address would be both wrong and harmful.
 
 ## What a row means, and what it does not
 
-**A row means** this address appeared in a trace of a site that a named source reported as a scam, in the
-role stated, and the linked write-up shows the transactions.
+**A row means** a site that a named source reported as a scam published this address to take money, and
+the linked write-up shows what arrived.
 
-**A row does not mean** the address is sanctioned, that its owner has been identified, or that any named
+**A row does not mean** the address is sanctioned, that its owner has been identified, or that a named
 platform has done anything wrong.
 
-Several addresses here are **exchange deposit addresses**. That is a finding about the scam operator, who
-chose to collect into an account at a regulated venue. It is not a finding about the exchange. An exchange
-receiving a deposit is an exchange receiving a deposit.
+Some of these deposit addresses **are themselves exchange deposit addresses**. That is a finding about the
+scam operator, who chose to collect straight into an account at a regulated venue. It is not a finding
+about the exchange. An exchange receiving a deposit is an exchange receiving a deposit.
 
 ### If one of these is yours
 
-If an address in this set belongs to your platform, it is worth your AML team taking a look. You hold the
-account records and I do not, so you are the only ones who can establish what sits behind a deposit
-address that a reported scam site was handing out. Take it as a free lead rather than an allegation.
+If an address here belongs to your platform, it is worth your AML team taking a look. You hold the account
+records and I do not, so you are the only ones who can establish what sits behind a deposit address a
+reported scam site was handing out. Take it as a free lead rather than an allegation.
 
 The linked write-up carries the full transaction set, exact amounts and UTC timestamps, so there should be
 nothing to reconstruct.
 
 `
 
-for (const ep of episodes) {
-  const set = byEpisode.get(ep).slice().sort((a, b) =>
-    (ROLE_ORDER[a.role] ?? 9) - (ROLE_ORDER[b.role] ?? 9) || a.address.localeCompare(b.address))
+for (const site of sites) {
+  const set = bySite.get(site).slice().sort((a, b) => a.chain.localeCompare(b.chain))
   const first = set[0]
-  out += `## ${ep}\n\n`
-  out += `<span style=${mono}>${first.reported_domain} · reported by ${first.reported_by} · ${set.length} addresses</span>\n\n`
+  out += `## ${site}\n\n`
+  out += `<span style=${mono}>${first.episode} · reported by ${first.reported_by} · ${set.length} deposit ${set.length === 1 ? 'address' : 'addresses'}</span>\n\n`
   out += `[Read the full trace ›](${first.post_url})\n\n`
-  out += `| Address | Chain | Role | Attribution |\n|---|---|---|---|\n`
+  out += `| Address | Chain | Received | Links to |\n|---|---|---|---|\n`
   for (const r of set) {
-    const attr = r.attribution === 'none'
-      ? 'none'
-      : `${r.attribution} <br /><em>vendor label, unverified</em>`
-    out += `| \`${r.address}\` | ${r.chain} | ${r.role} | ${attr} |\n`
+    const plat = r.linked_platform ? `**${r.linked_platform}**` : 'nothing'
+    out += `| \`${r.address}\` | ${r.chain} | ${r.total_received || 'not recorded'} | ${plat} |\n`
   }
   out += `\n`
+  for (const r of set) {
+    out += `**\`${r.address}\`** ${r.link_basis}${r.link_confidence === 'vendor label, unverified' ? ' No raw block explorer carries entity labels, so this link is a vendor attribution and cannot be verified the way an amount can.' : ''}\n\n`
+  }
 }
 
 out += `## Schema
@@ -114,18 +128,16 @@ out += `## Schema
 |---|---|
 | \`address\` | full length, never abbreviated |
 | \`chain\` | ${chains.join(', ')} |
-| \`role\` | \`deposit address\` published by the site, \`last hop\` where the trace ended, \`sibling collector\` |
-| \`attribution\` | the entity a vendor tool assigns, and which tool said so |
-| \`attribution_confidence\` | always "vendor label, unverified" where an entity is named. No raw block explorer carries entity labels, so an attribution cannot be verified the way an amount can |
+| \`role\` | always \`deposit address\`. See Scope above |
+| \`scam_domain\` | the reported site, defanged. Never a live link |
+| \`reported_by\` | who reported the site. The credit belongs to them |
+| \`linked_platform\` | a known service this address links directly to${linked.length ? `, so far: ${linked.join(', ')}` : ''}. Empty where there is no link |
+| \`link_basis\` | exactly how the link was established, so you can disagree with it |
+| \`link_confidence\` | \`vendor label, unverified\` wherever a platform is named. Amounts verify against an explorer; entity names do not |
 | \`first_seen\` / \`last_seen\` | UTC, from an explorer API, never read off a screen |
 | \`total_received\` | exact, at full precision, main units only |
-| \`reported_domain\` | defanged. Never a live link |
-| \`reported_by\` | who reported the site. The credit belongs to them |
 | \`post_url\` | the public write-up. Check the work |
 | \`tag\` | \`#verified\` means explorer-checked with hash, block and exact value on record |
-
-**Payer addresses are deliberately excluded.** People who sent money to a collector may well be victims,
-and publishing a victim's address as a scam address would be both wrong and harmful.
 
 ## Method
 
@@ -143,18 +155,10 @@ Found an error, or want a row removed with cause? Raise it on the write-up linke
 Corrections get made in public and dated.
 `
 
-// BASE placeholder -> runtime basePath expression
-out = out.replace(/\$\{BASE\}/g, "' + (process.env.NEXT_PUBLIC_BASE_PATH || '') + '")
-out = out.replace(/href="' \+ \(process\.env\.NEXT_PUBLIC_BASE_PATH \|\| ''\) \+ '(\/labels\/[a-z.]+)"/g,
-  (_, p) => `href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '${p}'}`)
-
 fs.mkdirSync(path.dirname(OUT), { recursive: true })
 fs.writeFileSync(OUT, out, 'utf8')
-
 fs.mkdirSync(PUB, { recursive: true })
-for (const f of ['labels.csv', 'labels.json']) {
-  fs.copyFileSync(path.join(SRC, f), path.join(PUB, f))
-}
+for (const f of ['labels.csv', 'labels.json']) fs.copyFileSync(path.join(SRC, f), path.join(PUB, f))
 
-console.log(`labels page: ${rows.length} rows, ${episodes.length} episodes -> content/casework/address-labels.mdx`)
-console.log(`raw files copied to public/labels/`)
+console.log(`labels page: ${rows.length} deposit addresses across ${sites.length} sites -> content/casework/address-labels.mdx`)
+console.log('raw files copied to public/labels/')
