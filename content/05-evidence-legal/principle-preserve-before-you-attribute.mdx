@@ -1,0 +1,24 @@
+# Preserve Before You Attribute
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`principle`</span>
+
+## Core idea
+When traced funds land at an address that looks exchange-linked and you cannot identify the account holder, the next step is preservation, not naming. Preserve the transaction path, prepare or submit the exchange preservation request, and record that account-holder identity remains unknown pending records. Preservation and attribution answer different questions and clear different evidentiary bars, and only one of them expires.
+
+## When to use
+The moment a trace reaches a hosted service, a deposit address, or any custodial choke-point, and identity is still open. Which is most of the time.
+
+## Avoid when
+Never invert the order under pressure from a client, a victim or a stakeholder who wants a name today. The name can be established later from records. The records cannot be recovered later if nobody asked for them to be held.
+
+## Components
+- Preserve the transaction path first: full hashes, full addresses, chain identifier, token contract, timestamps in UTC, amounts, status.
+- Send or prepare the preservation request against the service, naming the records and the activity that justifies the request.
+- Write the identity gap down explicitly. "Account-holder identity unknown pending records" is a finding, and it is a stronger one than a guess.
+- Let attribution follow the records. Legal process, exchange returns, or corroborating OSINT close the gap; a label on a screenshot does not.
+
+## Example
+A fraud wallet sends funds onward to an address an explorer labels as exchange-associated. The tempting move is to write the exchange and the presumed account holder into the findings. The correct move is to preserve the path, get the preservation request in, and record the exposure with its confidence level and its limitation. The report says service exposure was identified and identity is unresolved, which survives review. Naming the holder on the strength of the label would not.
+
+## Related
+[Common Crypto Investigation Failure Modes](/kb/06-casework-method/checklist-common-crypto-investigation-failure-modes), [Escalation Decision Matrix and Triggers](/kb/06-casework-method/framework-escalation-decision-matrix), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Evidence Preservation Procedure](/kb/05-evidence-legal/workflow-evidence-preservation-procedure), Compelling VASP Disclosure the Legal-Process Ladder, VASP Records What to Request and What Exists, [Time-Decay of Crypto Evidence](/kb/05-evidence-legal/caution-time-decay-of-crypto-evidence), Public Attribution Legal Risk

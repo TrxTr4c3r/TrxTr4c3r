@@ -3,22 +3,45 @@
 <span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
 
 ## Core idea
-A four-tier scale for rating how strongly an address is attributed to an entity, ranging from Confirmed down to Possible. It governs what may be reported as attribution and what must not.
+The single confidence vocabulary used everywhere in this workspace: **Confirmed, High, Moderate, Low, Insufficient Information.** It rates how strongly an address is attributed to an entity, and it governs what may be reported as attribution and what must not. Confidence reflects the quality of the evidence, never the seriousness of the suspected conduct. A scale used inconsistently is worse than no scale, because the reader cannot tell whether a change in wording signals a change in evidence. One vocabulary, every case file, every report, every public post.
 
 ## Components
-- Confirmed: KYC record or first-party admission.
-- High confidence: multiple independent sources.
-- Probable: single strong indicator.
-- Possible: circumstantial; do not publish as attribution.
+| Level | Operational standard |
+|---|---|
+| Confirmed | Authoritative or independently verified evidence establishes the attribution. KYC record, first-party admission, official response |
+| High | Multiple reliable, independent sources strongly support it; contradictory information is minimal or reasonably explained |
+| Moderate | Reasonably supported, but meaningful gaps or unresolved questions remain; corroborate before relying on it for significant decisions |
+| Low | Limited indicators suggest a possible association; evidence is incomplete, inconsistent, or weak. Treat as preliminary. Do not publish as attribution |
+| Insufficient Information | The available information does not support a meaningful assessment. Do not advance a conclusion. This is a legitimate result and it must be stated rather than filled in |
+
+**Why this ladder and not a likelihood ladder.** ICD 203, the US intelligence community analytic standard, expresses analytic confidence as high, moderate or low, tied to the quality and quantity of sourcing, and separates it from *likelihood*, the probability the thing is true. It prohibits combining a confidence level and a likelihood term in the same sentence. The retired scale mixed four registers in one ladder: Confirmed is a fact status, High confidence is a confidence level, Probable and Possible are estimative-probability words, and Unknown is an absence. That is the seam an opposing expert opens on cross-examination. This ladder stays in one register the whole way down and carries an explicit null at the bottom.
+
+**Per-term misuse guidance.** Each tier has a characteristic way of being abused:
+- Confirmed, misused for identity when only wallet behaviour is known. Behaviour is not a KYC record.
+- High and Moderate, misused when the supporting indicators are asserted but never listed. Name them or drop the tier.
+- Low, misused as a final conclusion. It is a lead that needs corroboration, not an answer.
+- Insufficient Information, misused by omission. Gaps get filled with speculation instead of being labelled.
+
+**Confidence is not provenance.** This scale rates an analytical conclusion. The Gate 0 tags (`#verified`, `#unverified`, `#estimated`, `#reported`) rate where a single data point came from and whether an explorer confirmed it. They are different axes and both are required: a figure can be `#verified` on-chain while the conclusion drawn from it rates Moderate. Never substitute one for the other.
+
+**Translation table.** Anything arriving in another vocabulary gets translated on the way in and reported in this one on the way out.
+
+| Retired internal scale | External four-term ladder | Report as |
+|---|---|---|
+| Confirmed | Confirmed | Confirmed |
+| High confidence | Likely | High |
+| Probable | Likely | Moderate |
+| Possible | Possible | Low |
+| Unknown | Unknown | Insufficient Information |
 
 ## When to use
-When labelling and reporting the strength of any address-to-entity attribution.
+When labelling and reporting the strength of any address-to-entity attribution, and when auditing a report for consistent confidence language before it goes out. The rating procedure and the six factors to weigh before assigning a level are in Attribution Procedure (Seven Steps), which carries this same scale.
 
 ## Avoid when
-Never publish possible-level (circumstantial) attribution as though it were confirmed.
+Never publish Low-level (circumstantial) attribution as though it were Confirmed. Never let the absence of a tier imply confidence: an unlabelled claim reads as asserted fact. Never assign High without independent corroboration. A well-documented Moderate is stronger than an unsupported High, and if you cannot explain why you chose a level, the evidence probably does not support it.
 
 ## Example
-A wallet linked to an entity only by a shared counterparty rates "Possible" and must not be published as attribution; a KYC record from an exchange rates "Confirmed."
+A wallet linked to an entity only by a shared counterparty rates **Low** and must not be published as attribution. A KYC record from an exchange rates **Confirmed**. Where an explorer label is the only support for a service attribution and the label source and date cannot be established, the honest tier is **Insufficient Information**, recorded alongside the exposure itself.
 
 ## Related
-[Crypto Address Attribution Process](/kb/03-attribution-clustering/workflow-crypto-address-attribution-process), [Source Reliability Grading (NATO STANAG 2511)](/kb/01-osint/framework-source-reliability-grading-nato-stanag-2511), [Court-Tested Attribution Evidence Types](/kb/05-evidence-legal/framework-court-tested-attribution-evidence-types)
+[Attribution Procedure (Seven Steps)](/kb/03-attribution-clustering/workflow-attribution-procedure-seven-steps), [Crypto Address Attribution Process](/kb/03-attribution-clustering/workflow-crypto-address-attribution-process), [Source Reliability Grading (NATO STANAG 2511)](/kb/01-osint/framework-source-reliability-grading-nato-stanag-2511), [Court-Tested Attribution Evidence Types](/kb/05-evidence-legal/framework-court-tested-attribution-evidence-types), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [Calibrate Your Testimony Language](/kb/05-evidence-legal/tactic-calibrate-testimony-language), [Common Crypto Investigation Failure Modes](/kb/06-casework-method/checklist-common-crypto-investigation-failure-modes), [Preserve Before You Attribute](/kb/05-evidence-legal/principle-preserve-before-you-attribute), [The Analysis Standard: Four-Block Write-Up](/kb/05-evidence-legal/framework-the-analysis-standard-four-block-write-up)

@@ -1,0 +1,38 @@
+# Post-Seizure Custody and Disposal of Seized Crypto
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+Once the value is in the state's wallet the case acquires a second problem: the asset moves in price while the proceedings run, and whichever way it moves someone can argue the authority got it wrong. There are only two positions available, and the defensible move is to decide the rule before the case rather than the outcome after it.
+
+## Components
+
+**The two positions**
+- *Hold until the final order.* The asset is available to return intact if the defendant is acquitted. The cost is carrying the custody and security risk for the length of the proceedings, and exposure to a fall in price.
+- *Convert to fiat now, or within a short fixed window.* Removes the security burden and fixes the number. The cost is that an acquitted defendant is reimbursed in currency, and if the asset rose in the meantime the state absorbs the argument.
+
+**Three ways to take the decision out of the moment**
+- Put the question to the prior owner in writing and record the answer. This is the Netherlands practice GAFILAT cites. If the asset is later returned, the state is released from liability for the change in value because the holder chose.
+- Fix the conversion window in regulation or written policy in advance, for example three days, so the decision is a rule rather than a market judgement by an official.
+- Let the court decide on a reasoned application, which is what happened in the Slovenian case study below.
+
+**Executing a sale.** Directly, by public auction, or through a licensed VASP, aiming to maximise value. Where the authority has no reliable cybersecurity capability of its own, the same VASP can be given custody as well as the sale.
+
+**Where the asset is retained**
+- Cold storage. A hardware wallet, a wallet on a machine that never connects, or a paper wallet.
+- Multi-signature, so a single compromised key cannot move the funds.
+- Passwords, seed phrases, private keys, PINs and addresses held by one named officer, one folder per seized asset, on an encrypted removable drive kept offline and produced only when the competent authority needs to move the value.
+
+**Assets a state may decline to sell.** Some jurisdictions will not liquidate assets they judge to have no legitimate market use, privacy coins being the example given. Those need a permanent secure storage answer rather than a disposal answer.
+
+## When to use
+Immediately after a seizure transfer confirms, and earlier than that when drafting the policy or the standard operating procedure that will govern it.
+
+## Avoid when
+Do not let the decision drift while the price moves. Drift is the one option with no defence, because whatever happens the file will show the authority had a choice and did not exercise it.
+
+## Example
+Slovenia, from the OSCE case study. Investigators transferred 34.07755074 BTC out of the defendants' wallet during examination of seized iPhones and iPads into a newly created wallet, then produced a paper wallet with the public and private keys printed on separate sheets. The public key went to the court; the private key was held in a protected environment at the police. The defendant later applied to have the bitcoin sold, arguing a real fear of a fall in value. The court agreed, ordered the sale through a licensed exchange, and the proceeds of 210,404.10 EUR went to the court's sub-account, with 306,841.09 EUR confiscated in total.
+
+## Related
+[Preparing and Executing a Crypto Seizure Transfer](/kb/05-evidence-legal/checklist-preparing-and-executing-a-crypto-seizure-transfer), A Self-Custodied Wallet Cannot Be Frozen, Only Moved, Seizing Crypto: Devices, VASP Accounts, and the Agency Wallet, [Post-Seizure Monitoring Periods by Asset Type](/kb/06-casework-method/checklist-post-seizure-monitoring-periods), [Post-Hack Appreciation and the Valuation Date](/kb/05-evidence-legal/concept-post-hack-appreciation-and-the-valuation-date), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Four Parallel Recovery Avenues](/kb/05-evidence-legal/framework-four-parallel-recovery-avenues), [Recovery Jurisdictions and Crypto Case Law](/kb/05-evidence-legal/reference-recovery-jurisdictions-and-crypto-case-law)

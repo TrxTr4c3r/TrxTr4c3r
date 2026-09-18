@@ -1,0 +1,32 @@
+# Illicit vs Licit Transaction Behaviour Profile
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+Addresses used to move criminal proceeds behave differently in aggregate from addresses used to hold an investment, and the differences are measurable from the chain alone. This is a triage and prioritisation signal for deciding which of many candidate addresses to work first. It is not an attribution method and it does not survive contact with a single address considered on its own.
+
+## Components
+The tendencies the source reports, all population-level:
+- **More transactions, smaller amounts.** Proceeds are moved; investments are held.
+- **Repeat counterparties.** Illicit users transact with the same interlocutors more often, because the counterparties are suppliers, buyers, mules and services rather than a market.
+- **Shorter holding periods.** The source reads this as consistent with an intention to avoid seizure. Value that sits still is value that can be taken.
+- **A denser transaction web.** Illicit actors are more tightly interconnected through cross-transactions than licit users are, which is what makes community detection over the graph productive here and sterile elsewhere.
+- **Obfuscation service usage raises the prior.** Mixer or CoinJoin activity, chain hopping, and atomic swaps all shift the probability, without in themselves establishing anything.
+
+Four ways the source applies it:
+- Track transactions out of the hot wallets of known illicit markets and mine the resulting customer address set.
+- Segment addresses by these behavioural differences rather than working the whole set uniformly.
+- Explore the network topology to identify communities of users from the transactions between them.
+- Cross-reference against dark web forum material naming addresses, pseudonyms and nicknames.
+
+## When to use
+When you have more candidate addresses than you can work and need an order of attack. Also when scoping a cluster, where an address whose behaviour looks like custody rather than movement is more likely to be a service or an investor than an operator.
+
+## Avoid when
+Never as evidence about an individual. A high-frequency, low-value, repeat-counterparty pattern also describes a small merchant, a trading bot, a payroll wallet and a faucet. This is exactly the situation Single Indicator Is a Lead, Not Proof is written for, and the underlying study is a statistical estimate over a historical Bitcoin dataset, not a classifier you can point at an address today. It belongs in the analytical reasoning that directs work, not in a findings section.
+
+## Example
+A trace produces 60 downstream addresses. Sorting them by transaction count against average value and holding period puts a small group of high-frequency, low-value, repeat-counterparty addresses at the top. Those get worked first, and the long-dormant high-value ones are triaged as likely custody. The sort was a work-allocation decision, and nothing about it appears in the report as a finding.
+
+## Related
+Single Indicator Is a Lead, Not Proof, [Wallet Clustering and Heuristics](/kb/03-attribution-clustering/concept-wallet-clustering-and-heuristics), [Transaction Graph Analysis (TGA)](/kb/02-tracing/tactic-transaction-graph-analysis), [Consolidation Addresses and Tiered Intermediary Groups](/kb/02-tracing/tactic-consolidation-addresses-and-tiered-intermediary-groups), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), [Confirmation Bias and Misleading On-Chain Data](/kb/03-attribution-clustering/caution-confirmation-bias-misleading-data), [Temporal / Timing Correlation Analysis](/kb/02-tracing/tactic-temporal-timing-correlation), [Attribution Indicator Categories and Relative Evidentiary Value](/kb/03-attribution-clustering/reference-attribution-indicator-categories-and-evidentiary-value), [Darknet Market & OSINT Correlation](/kb/01-osint/tactic-darknet-market-osint-correlation), [Initial Deposit Addresses and the Sole-Purpose Inference](/kb/04-laundering-obfuscation/concept-initial-deposit-addresses-and-the-sole-purpose-inference), [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing)

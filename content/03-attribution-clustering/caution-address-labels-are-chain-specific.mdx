@@ -1,0 +1,21 @@
+# Address Labels Are Chain-Specific
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`</span>
+
+## Core idea
+The same 20-byte address exists on every EVM chain, but its meaning does not travel with it. An address that is a Binance hot wallet on Ethereum mainnet is almost always a different entity, or simply unused, on BSC, Polygon, Arbitrum, or Base. Carrying a mainnet label onto another chain therefore does two kinds of damage at once: it brands an unrelated address as an exchange, mixer, or bridge, and it ends a trace at an address that has nothing to do with the case. Apply a curated label only on the chain it was curated for.
+
+## Components
+- Ethereum mainnet is chainid 1. A landmark or label table built for chainid 1 is valid only there.
+- On any other chain, require a fresh nametag hit from that chain's own explorer before assigning a role.
+- If no label resolves on that chain, leave the address unclassified and record it as a gap. An unresolved address is an honest gap; a borrowed label is a false finding.
+- Two distinct failure modes follow from getting this wrong: false attribution of an innocent address, and a premature stop that hides the rest of the flow.
+
+## When to use
+Whenever a trace crosses chains, and whenever a label, tag, or landmark table is applied to an address on a chain other than the one the label came from. Also when reusing a label list or an entity table across a multi-chain case.
+
+## Example
+A trace follows funds from Ethereum onto Base and meets an address that appears in a mainnet exchange landmark table. Treated as an exchange, the branch would stop. Checked against Base's own labels, no attribution resolves, so the address stays unclassified, the gap is recorded, and the trace continues.
+
+## Related
+[Self-Verified Contract Names Can Forge a Trace-Stopping Label](/kb/03-attribution-clustering/caution-self-verified-contract-name-label-spoofing), [Verify a Landmark Address Before You Trust It](/kb/03-attribution-clustering/checklist-verify-a-landmark-address-before-you-trust-it), [EVM Multi-Chain Tracing Essentials](/kb/02-tracing/checklist-evm-multi-chain-tracing-essentials), Cross-Chain Correlation Edge Cases and Failure Modes, [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels)

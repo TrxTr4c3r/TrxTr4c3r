@@ -61,7 +61,7 @@ Run this in order. It terminates in a named service or a named unknown.
 | Synapse | Liquidity pool | **`kappa` (bytes32)** | Synapse explorer | Deterministic |
 | Hop | Liquidity pool | **`transferId`** | Hop explorer | Deterministic |
 | Celer cBridge | Liquidity pool | **`transferId` (keccak256)** | cBridge status API | Deterministic |
-| FixedFloat, ChangeNOW and peers | Custodial no-KYC swap | **Off-chain order id only** | The service's order-lookup API | Probable via amount and timing, or the order id |
+| FixedFloat, ChangeNOW and peers | Custodial no-KYC swap | **Off-chain order id only** | The service's order-lookup API | Moderate via amount and timing, or the order id |
 | Monero | Ring signatures, RingCT | **None.** Boundary only | Exchange records, view key | On-chain dead end |
 | Zcash | Shielded pools | **`valueBalance`** at the t and z boundary | Blockchair, Nighthawk explorer | Boundary correlation |
 | Dash PrivateSend | CoinJoin | Equal-denomination mix transaction | Blockchair Dash | Bounded |

@@ -1,0 +1,24 @@
+# The Mixer Returning-Customer Number
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+Several mixing services issue each customer a private identifier, usually called a returning-customer number or forward code, so that on a later visit the service can avoid paying that customer back coins it previously received from them. The purpose is quality control for the launderer. The side effect is that the mixer hands the customer a durable string tying them to a named service, and that string can end up in a notebook, a text file, a password manager, an email, or a chat log.
+
+## Components
+- **Why the number exists.** A mixer that returns a customer their own tainted coins has failed at the one thing it sells. Tracking a repeat customer across visits is the only way to exclude their earlier deposits from their later payouts, so services that care about output quality issue an identifier and ask for it on return.
+- **What finding one gets you.** It is direct evidence that the person used a mixing service, which is an intent-relevant fact rather than a mere on-chain pattern. It usually identifies *which* service, because the format and the accompanying instructions are service-specific. Knowing the service means you know its fee structure, its typical delay, its payout denominations and whether it has been seized or had its logs recovered, all of which feed the on-chain analysis.
+- **Where it turns up.** Treat it as a search term during device examination and during any OSINT pass. It behaves like a credential: stored where the subject stores credentials, and reused.
+- **What to search for.** The service name plus the words used around the identifier, the identifier format itself once you have seen one example, and adjacent artifacts such as the mixer's onion address, its published PGP key, or a bookmarked deposit page.
+
+## When to use
+During examination of a seized device or an account lawfully obtained, when a trace has hit a mixer and you need to establish the subject's connection to it. Also at the intelligence stage, when deciding whether the far side of a mixer is worth pursuing at all.
+
+## Avoid when
+Do not treat the number as a key to the mixer's records. Most services keep nothing, and those that do are not going to answer you. The number evidences use and identifies the service, and Mixer Operators Are Identified Off-Chain remains the realistic route to anything held server side. Note also that the underlying research is from 2018 and describes the custodial mixer market of that era. A smart-contract pool has no customer relationship and therefore no equivalent artifact.
+
+## Example
+A device examination returns nothing from the wallet software, but a plain text file in a documents folder holds a short alphanumeric string beside a service name. The string is the returning-customer code. It establishes that the subject used that specific service, dates the use through the file timestamps, and narrows the chain analysis to that mixer's known deposit addresses and payout behaviour.
+
+## Related
+[Mixer Operators Are Identified Off-Chain](/kb/04-laundering-obfuscation/mixers/principle-mixer-operators-are-identified-off-chain), [Mixers and Tumblers](/kb/04-laundering-obfuscation/mixers/definition-mixers-and-tumblers), [Types of Mixers and Tumblers](/kb/04-laundering-obfuscation/mixers/concept-types-of-mixers-and-tumblers), [How Mixers Process Funds](/kb/04-laundering-obfuscation/mixers/workflow-how-mixers-process-funds), Mixers Make Funds Harder to Find, Not Invisible, [Custodial Mixer Feature Landscape (2025 Survey)](/kb/04-laundering-obfuscation/mixers/reference-custodial-mixer-feature-landscape-2025), Filter Mixer Withdrawals by Denomination, Not USD, [Crypto Artifacts on a Seized Device](/kb/05-evidence-legal/checklist-crypto-artifacts-on-a-seized-device), [How Blockchain Analysis Detects Mixing Activity](/kb/04-laundering-obfuscation/mixers/checklist-blockchain-analysis-mixing-detection), [What Mixers Hide and How Blockchain Analysis Uncovers It](/kb/04-laundering-obfuscation/mixers/framework-what-mixers-hide-how-analysis-uncovers)

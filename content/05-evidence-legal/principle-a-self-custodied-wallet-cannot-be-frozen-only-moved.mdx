@@ -1,0 +1,27 @@
+# A Self-Custodied Wallet Cannot Be Frozen, Only Moved
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`principle`</span>
+
+## Core idea
+For a decentralised asset held in a wallet the target controls, there is no intermediary to serve, so freezing is not available as a measure. Anyone holding a copy of the private key can move the funds irrevocably, from anywhere, including while the target sits in custody. The only securing measure that actually secures anything is a transfer of the value to an address the authority controls. Until that transfer confirms, nothing has been seized.
+
+## Components
+- **Copies, not possession, are what matter.** A private key is a number. It can exist in unlimited copies, in different formats, in different places, held by different people. Obtaining one copy removes nobody else's.
+- **Seizing the container is not seizing the value.** Both sources say this in almost identical words. Taking the computer, taking the hardware wallet, taking the paper wallet, or imaging the disk and copying the `wallet.dat` file leaves the value exactly where it was and still reachable by anyone else with the key or the seed phrase.
+- **Confirmed transactions are irreversible.** Once the target's transfer confirms there is no recall, no chargeback, and no intermediary to reverse it. This is why the measure is a race rather than a filing.
+- **Two exceptions, both of which restore an intermediary.** Where one exists, serve it and freezing works normally:
+  - *Centralised virtual assets*, which answer to an administrator who issues the asset, sets the rules, and keeps the ledger. A court order to that administrator freezes or seizes.
+  - *Custodial wallets and VASP-held balances*, where the provider holds the key on the customer's behalf. Serve the provider, exactly as you would a bank.
+- **This is why the destination address has to exist before the search does.** See Preparing and Executing a Crypto Seizure Transfer. There is no version of this where you seize first and work out the mechanics afterwards.
+
+## When to use
+At the point a case moves from tracing to enforcement, and whenever anyone in the chain treats "we have his laptop" or "we have his ledger device" as the end of the asset-recovery problem.
+
+## Avoid when
+Do not read this as authority to move funds. The transfer needs the legal instrument first, and the instrument has to name the destination address. Moving value without it is not a seizure, it is a transfer by a police officer.
+
+## Example
+GAFILAT's framing: as long as the cryptocurrency sits in the suspect's wallet, even with the suspect in custody, any third party with the key can irrevocably transfer it. The corollary is that a freezing order served on nobody is an order that cannot be executed, and the file will show a securing measure that secured nothing.
+
+## Related
+Seizing Crypto: Devices, VASP Accounts, and the Agency Wallet, [Preparing and Executing a Crypto Seizure Transfer](/kb/05-evidence-legal/checklist-preparing-and-executing-a-crypto-seizure-transfer), [Freezable vs Non-Freezable Crypto Assets](/kb/06-casework-method/concept-freezable-vs-non-freezable-assets), Issuer Freeze Mechanisms: Blacklist, Wipe, and Protocol-Level Blocking, [Five Steps to Obtain Control Over Crypto](/kb/06-casework-method/framework-five-steps-to-obtain-control-over-crypto), [Post-Seizure Custody and Disposal of Seized Crypto](/kb/05-evidence-legal/framework-post-seizure-custody-and-disposal-of-seized-crypto), [Crypto Artifacts on a Seized Device](/kb/05-evidence-legal/checklist-crypto-artifacts-on-a-seized-device), [Identifying Cryptocurrency in the Field](/kb/05-evidence-legal/checklist-identifying-crypto-in-the-field), [Time-Decay of Crypto Evidence](/kb/05-evidence-legal/caution-time-decay-of-crypto-evidence), [Freeze Circumvention Techniques and Countermeasures](/kb/06-casework-method/checklist-freeze-circumvention-techniques-and-countermeasures)

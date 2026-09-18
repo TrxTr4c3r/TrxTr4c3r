@@ -1,0 +1,71 @@
+# Common Crypto Investigation Failure Modes
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+Most crypto investigations that fail do not fail on the tracing. They fail on the record. A technically correct trace loses its value when the investigator cannot show how it was performed, what was preserved, or where assumptions entered the analysis. Run this list as a pre-mortem at case opening and again before the report leaves your hands: nearly every entry is clerical, cheap to prevent, and expensive to discover late.
+
+## Components
+
+**Intake and preservation**
+- Starting analysis before preservation, so volatile content (live domains, chats, dashboards, social channels) is altered or gone by the time anyone looks.
+- Failing to preserve victim-facing evidence before the scam site disappears.
+- Ignoring victim communications, which carry intent, coercion, payment instructions and the fraud narrative.
+- Waiting too long to identify service exposure or to submit a preservation request.
+
+**Data and network handling**
+- Recording a wallet address with no network identifier or token contract beside it.
+- Confusing chain versions of the same asset, USDT on Tron against USDT on Ethereum being the standard trap.
+- Using the wrong explorer for the hash or address.
+- Recording only a shortened transaction hash.
+- Confusing native coin transfers with token transfers or contract events.
+- Forgetting that token decimals change the displayed amount.
+- Mixing UTC, local time and exchange time zones without documenting the conversion.
+- Running a command or query without saving the output or recording the endpoint used.
+- Publishing API keys or internal endpoints inside screenshots and exhibits.
+
+**Analysis and attribution**
+- Treating a tool label, a cluster, or an OSINT claim as confirmed identity.
+- Overreliance on automated analytics labels without manual validation.
+- Ignoring contradictory evidence because it weakens the preferred theory.
+- Treating shared infrastructure (IP, CDN, registrar, template) as proof of common control rather than as a lead.
+- Working a single chain and missing stablecoin, bridge, DEX or cross-chain movement.
+- Collecting facts without building a transaction timeline or case narrative.
+
+**Reporting**
+- Mixing observed fact and analytical inference in the same sentence with no confidence language.
+- Overstating attribution on the strength of labels, clustering or OSINT alone.
+- Omitting transaction hashes, source URLs, timestamps, tool names or screenshot references from a finding.
+- Omitting limitations such as missing exchange records, mixer exposure, privacy coin use, or unsupported labels.
+- Using inconsistent terminology for the same wallet, service, victim or transaction.
+- Stating sanctions, criminal or legal conclusions that sit outside the investigator's role.
+- Including a chart or exhibit with no explanation of what it shows or which evidence supports it.
+- Writing recommendations that do not connect to the findings.
+
+**Coordination**
+- Sending a request with no transaction hashes, timestamps, network identifiers or asset details.
+- Asking an exchange to freeze funds without showing the transaction path or the urgency.
+- Failing to preserve screenshots and exports before sending the request.
+- Not logging submission date, portal, ticket number, contact and response.
+- Sending personal data or victim material beyond what the request needs.
+
+**Ethics and OSINT**
+- Overcollecting personal data because it happens to be publicly visible.
+- Submitting sensitive URLs or files to public scanners, exposing victim data or credentials.
+- Failing to preserve the original page before analysis.
+- No source-date discipline, so tool results and web pages cannot be evaluated later.
+- Failing to document how evidence was obtained, stored or modified.
+
+**Capability**
+- Learning tracing tools while neglecting report writing and evidence indexing.
+- Never practising on mock scenarios before a high-pressure live case.
+- Keeping no learning log of tools, cases, mistakes and skills.
+
+## When to use
+At case opening as a pre-mortem, and again as the last pass before a report or an external request goes out. Also useful as a review lens on someone else's work product.
+
+## Example
+A trace is correct end to end. The report cites an aggregation address with no chain identifier, the exchange label came from a tool screenshot with no capture date, and the phrase "this wallet belongs to the scammer" appears in the findings. The analysis is sound and the report is not defensible, because a reviewer cannot tell which chain was traced, whether the label was current, or what evidence supports the ownership claim.
+
+## Related
+[Escalation Decision Matrix and Triggers](/kb/06-casework-method/framework-escalation-decision-matrix), [Preserve Before You Attribute](/kb/05-evidence-legal/principle-preserve-before-you-attribute), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), Preserve the Analysis Not Just the Finding, [Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Known Weaknesses to Disclose in a Forensic Report](/kb/05-evidence-legal/checklist-known-weaknesses-to-disclose-in-a-forensic-report), Investigator OPSEC

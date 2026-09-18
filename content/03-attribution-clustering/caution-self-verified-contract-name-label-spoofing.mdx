@@ -1,0 +1,21 @@
+# Self-Verified Contract Names Can Forge a Trace-Stopping Label
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`caution`</span>
+
+## Core idea
+The ContractName on a verified contract is chosen by whoever submitted the verification, so it is attacker-controlled. Nothing checks the name against the entity it claims to be. Anyone can deploy a contract and verify it as "Binance: Hot Wallet 14". An investigator or an automated tracer that reads that name as identity will assign an exchange role to the attacker's own address and stop the branch there, which is precisely the outcome the attacker wants: the trace ends inside their own infrastructure and the case file records a false exit to a CEX. Identity comes from the explorer's curated nametag, never from the name embedded in verified source.
+
+## Components
+- ContractName: a field in the verified-source submission. Set by the verifier, not derived from the chain, and subject to no ownership or uniqueness check against the name claimed.
+- Curated nametag: maintained by the explorer rather than the deployer. This is the attributable label.
+- The damage: a forged exchange, mixer, or bridge label satisfies a legitimate stop condition, so the trace halts early and the false endpoint is written down as evidence.
+- Permitted use: ContractName may be recorded as corroborating context after identity is established by other means. It is never sufficient on its own to assign a role or halt a branch.
+
+## When to use
+Any time a contract's displayed name is what tells you to stop, or what assigns an entity role. The risk is highest in automated or agent-driven tracing, where a name match can end a branch with no human reading it.
+
+## Example
+Etherscan's own tracing reference refuses to treat ContractName as a landmark for this reason, noting that anyone can verify a contract under the name "Binance: Hot Wallet 14" and thereby stop a trace at their own address and have it labelled as a CEX deposit. The same logic applies to any name that implies a service: a mixer pool, a bridge, or a router.
+
+## Related
+[Address Poisoning Attack](/kb/03-attribution-clustering/caution-address-poisoning), [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing), [Verify a Landmark Address Before You Trust It](/kb/03-attribution-clustering/checklist-verify-a-landmark-address-before-you-trust-it), [Address Labels Are Chain-Specific](/kb/03-attribution-clustering/caution-address-labels-are-chain-specific), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), Multiple Attribution Sources, EVM Proxies: Read the Right Source

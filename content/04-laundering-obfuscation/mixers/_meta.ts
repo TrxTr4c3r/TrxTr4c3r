@@ -13,6 +13,7 @@ export default {
   "tactic-identify-zk-shielded-pool-withdrawal-onchain": "Identify a zk Shielded-Pool Withdrawal On-Chain (transact + Groth16 proof + Nullified)",
   "tactic-mixer-peel-chain-signatures": "Mixer-Operated Peel Chain Signatures",
   "tactic-mixing-obfuscation-techniques": "Mixing Obfuscation Techniques",
+  "tactic-mixer-returning-customer-number": "The Mixer Returning-Customer Number",
   "checklist-institutional-best-practices-for-mixers": "Best Practices for Institutions Handling Mixer Risk",
   "checklist-blockchain-analysis-mixing-detection": "How Blockchain Analysis Detects Mixing Activity",
   "checklist-mixing-activity-red-flags": "Mixing Activity Red Flags",

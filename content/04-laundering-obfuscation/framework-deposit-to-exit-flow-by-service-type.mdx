@@ -19,7 +19,7 @@ mixer normally pays out on the SAME chain to a DIFFERENT wallet.
 - Where it ends up: a **fresh wallet B the attacker controls**: SAME chain, NO on-chain link back to A.
 - How to find the exit address: no followable edge. Enumerate the pool's withdrawals **filtered by
   denomination**, then correlate on **timing + relayer + gas + address-reuse convergence**. Result is
-  `#probable` at best (a probabilistic demix, not a cryptographic break).
+  `#moderate` at best (a probabilistic demix, not a cryptographic break).
 
 **2. Cross-chain bridge (TRAIL CONTINUES)**
 - Deposit address: wallet A sends to the **bridge contract** on chain A; the call encodes a destination
@@ -64,7 +64,7 @@ exit "on the same address" hides on whichever chain you didn't check.
 
 ## Example
 CASE-2026-002 (Hinkal): ~400 ETH went into Tornado's 10/100 ETH pools; the exit (~410 ETH on a fresh wallet)
-was found only by denomination + timing + reuse convergence (`#probable`), never by following the deposit
+was found only by denomination + timing + reuse convergence (`#moderate`), never by following the deposit
 wallet. Contrast the same case's THORChain/bridge leg, where the destination could be read straight out of the
 deposit transaction and confirmed by value + timing.
 

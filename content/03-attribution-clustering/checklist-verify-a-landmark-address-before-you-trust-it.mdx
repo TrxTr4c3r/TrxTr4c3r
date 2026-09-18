@@ -1,0 +1,26 @@
+# Verify a Landmark Address Before You Trust It
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+A landmark address (an exchange hot wallet, a mixer pool, a bridge) does two heavy things at once: it assigns an entity role and it usually ends a branch. For a sanctioned entity it also carries a sanctions implication into a document that reads as explorer-grounded evidence. A wrong landmark therefore brands an innocent address and kills a live trace. So verify before you trust, and never add or edit a landmark entry from memory.
+
+## Components
+1. Curated nametag first. Require an explorer nametag hit for identity. A deployer-chosen ContractName is not identity (see Self-Verified Contract Names Can Forge a Trace-Stopping Label).
+2. Liveness. Confirm the address is real and active: eth_getCode for a contract, a balance or nonce read for an EOA.
+3. Call any on-chain property that proves identity. Where a contract exposes a value that only the real thing would return, read it and check it against the label. Tornado Cash ETH pools expose denomination() (selector 0x8bca6d16), and the returned wei has to equal the denomination the label claims. The Tornado Router and Proxy expose no denomination(), so absence there is expected rather than suspicious.
+4. Structural sanity. Tornado has exactly four ETH pools, at 0.1, 1, 10 and 100 ETH. There is no 1000 ETH pool, so an entry claiming one is wrong on its face.
+5. Chain scope. A label holds only on the chain it was curated for (see Address Labels Are Chain-Specific).
+6. If it cannot be verified, it does not go in. Leave the address unclassified, record the gap, and let normal classification handle it.
+
+## When to use
+Before adding a row to any local landmark or label table, and at the moment a labelled address is about to stop a trace or enter a report as an identified entity.
+
+## Example
+A branch reaches a contract whose verified name reads like a Tornado pool. Calling denomination() returns a value that matches no Tornado pool, so the name is decoration rather than identity: the address stays unclassified and the branch continues.
+
+## Avoid when
+Nothing here replaces the explorer as the source of record for values (see the Gate 0 rule in investigations/docs/investigation-sop.md). Items 3 and 4 are reproduced from Etherscan's reference file and have not yet been independently checked against the chain in this workspace, so treat them as unverified method until confirmed.
+
+## Related
+[Self-Verified Contract Names Can Forge a Trace-Stopping Label](/kb/03-attribution-clustering/caution-self-verified-contract-name-label-spoofing), [Address Labels Are Chain-Specific](/kb/03-attribution-clustering/caution-address-labels-are-chain-specific), [Know When to Stop Tracing](/kb/02-tracing/checklist-when-to-stop-tracing), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), Multiple Attribution Sources, Mixers, Bridges and Privacy Services 2026, Single Indicator Is a Lead Not Proof

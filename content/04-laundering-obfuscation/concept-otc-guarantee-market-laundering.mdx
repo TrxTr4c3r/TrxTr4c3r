@@ -5,6 +5,26 @@
 ## Core idea
 Routes funds through informal P2P brokers or Telegram-based 'guarantee' marketplaces that consolidate many small criminal deposits into large stablecoin blocks for cash-out, often within minutes.
 
+## Components
+**A guarantee market is not a darknet market with a different name.** The structural difference determines what you can collect and where the choke points are.
+
+| | Regular darknet market | Guarantee market |
+|---|---|---|
+| What it is | A catalogue. The platform lists the goods | A service. The platform brokers the deal |
+| Where the deal happens | On the platform, in its own listings | Peer to peer, on forums and Telegram channels |
+| Who holds the money | The platform, through its own escrow | A neutral third-party guarantor |
+| What the platform sells | Access to vendors and products | Trust between two strangers |
+| On a dispute | Platform support and its own rules | Arbitration by the guarantor |
+| What you can seize | A server, a database, listings, vendor accounts | A Telegram channel, and the deal history lives with the parties |
+
+The guarantor model is what makes these markets hard to kill. There is much less to raid, and the counterparties can reconstitute the same trust arrangement in a new channel within days.
+
+**Scale.** The Henry Jackson Society report puts Haowang Guarantee and Xinbi Guarantee together at roughly 57bn USD, about 87 percent of the flow across the twelve largest darknet marketplaces in its dataset. Xinbi was created in 2023 and reached roughly 8bn USD within two years. For comparison it puts Hydra, the largest conventional darknet market, at a peak of about 5.2bn USD in 2022. The guarantee model now carries an order of magnitude more value than the catalogue model it grew out of.
+
+**Ban resistance.** Telegram removed Huione Guarantee from the platform. The report describes the operation as continuing rather than stopping: allegedly merging with other guarantee markets and onboarding its vendors elsewhere. A deplatforming displaces a guarantee market; it does not dismantle one. Assume continuity of the counterparties across a name change and look for the same guarantor behaviour in the successor channel.
+
+**Why USDT on TRON dominates here.** Settlement is in a stable unit with low fees and fast finality, which is what a broker consolidating many small deposits into one large block actually needs. That asset choice is also the one place a guarantee market has a party who can be asked to freeze. See Issuer Freeze Mechanisms.
+
 ## When to use
 Rapid, high-value stablecoin transfers to wallets with no retail trading history, tied to known broker clusters.
 
@@ -12,4 +32,4 @@ Rapid, high-value stablecoin transfers to wallets with no retail trading history
 In 2025, Chinese-language underground networks alone were estimated to process roughly $16.1B via OTC brokers and guarantee markets that clear large stablecoin transfers in minutes.
 
 ## Related
-[On-Chain Laundering Pattern Catalogue](/kb/04-laundering-obfuscation/checklist-onchain-laundering-pattern-catalogue), Single Indicator Is a Lead, Not Proof
+[On-Chain Laundering Pattern Catalogue](/kb/04-laundering-obfuscation/checklist-onchain-laundering-pattern-catalogue), Single Indicator Is a Lead, Not Proof, [Nested Services / Omnibus Wallets](/kb/04-laundering-obfuscation/concept-nested-services-omnibus-wallets), [Money Mule Networks](/kb/04-laundering-obfuscation/concept-money-mule-networks), [Darknet Market & OSINT Correlation](/kb/01-osint/tactic-darknet-market-osint-correlation), [Crypto Crime Typology Catalogue](/kb/06-casework-method/checklist-crypto-crime-typology-catalogue), [Enforcement Outcome Rates by Crypto Typology](/kb/06-casework-method/reference-enforcement-outcome-rates-by-crypto-typology), Issuer Freeze Mechanisms: Blacklist, Wipe, and Protocol-Level Blocking, [Approaching a VASP Can Tip Off the Target](/kb/06-casework-method/caution-approaching-a-vasp-can-tip-off-the-target)

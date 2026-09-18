@@ -9,7 +9,7 @@ Clustering groups multiple addresses likely controlled by the same entity; heuri
 Stage 3 of an investigation, after on-chain tracing, when a subject appears to use many addresses (e.g. 80-200) to layer or obscure activity and you need to establish they are one entity. Address reuse is a strong clustering signal and indicates poor OPSEC on the subject's part.
 
 ## Avoid when
-Do not apply CIOH to CoinJoin transactions, they deliberately pool inputs from unrelated parties to defeat CIOH, so identify and exclude them or your cluster analysis may be challenged. Change address heuristics depend on wallet-software behaviour, so document your assumptions explicitly and be explicit about confidence ("probable" vs "certain").
+Do not apply CIOH to CoinJoin transactions, they deliberately pool inputs from unrelated parties to defeat CIOH, so identify and exclude them or your cluster analysis may be challenged. Change address heuristics depend on wallet-software behaviour, so document your assumptions explicitly and be explicit about confidence (Moderate vs Confirmed, per the canonical scale).
 
 ## Example
 CIOH is the most legally tested heuristic, cited in the original Bitcoin whitepaper and accepted in United States v. Ulbricht (2015); it was central to the Silk Road prosecution, where clustering revealed many addresses as a single controller.

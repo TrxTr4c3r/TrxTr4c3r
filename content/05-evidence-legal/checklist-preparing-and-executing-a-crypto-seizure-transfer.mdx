@@ -1,0 +1,49 @@
+# Preparing and Executing a Crypto Seizure Transfer
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+The seizure itself is one irreversible transaction, typed under time pressure, in someone's house, with the target watching. Everything that makes it succeed happens beforehand. This is the preparation and execution sequence both source guides converge on.
+
+## Components
+
+**Before the warrant is applied for**
+- Establish which assets are in play and which wallet types hold them. Each chain needs its own destination address, because an asset can only be sent to an address on its own chain. Generate one per asset type.
+- Watch the target's pattern: when devices are in use, how the known addresses behave. The window you want is the device unlocked and the wallet open.
+- Expect two-factor authentication, and where the law allows it, arrange access to the biometrics that open the device.
+- Get the authority to seize, and get it before any search that might turn up a wallet. Ask for it to cover: all data storage media on the premises, examination of a device found unlocked and active, and isolation of everyone present from the internet and from outside contact until the transfer completes.
+
+**Preparing the destination**
+- Generate the key pair on a machine with no internet connection, in a controlled environment, following a written step-by-step procedure.
+- Check the new public address on a block explorer and confirm it has no history. An address with prior activity is not a clean destination.
+- Move the public key only to the field laptop. The private key never travels to the scene.
+- Use one address per suspect per asset per seizure. Do not reuse.
+- Encode the destination as a QR code in advance. Typing a 42-character address at a kitchen table is where the loss happens.
+- Decide who pays the network fee and what it will be, before you are standing there.
+
+**At the scene**
+- If the wallet is open and unlocked, work from that. Keep the device powered and awake. A device that locks or powers down re-encrypts, and you may not get back in.
+- One wallet can hold many addresses, sometimes across several assets. Go through every tab before you conclude you have found everything.
+- If the wallet is locked and the password is not recoverable, seize the device under normal digital-evidence procedure and pursue the password separately. Where access is never obtained, the blockchain record still fixes the amounts, which supports seizure of substitute assets of equivalent value.
+
+**The transfer**
+- Verify the destination address against the prepared QR or record, using the four-eyes principle: a second person checks it independently. This protects the officers as much as the funds.
+- Use the wallet's sweep function to move the entire balance rather than a typed amount.
+- Set the highest authorised fee so miners include it in the next block.
+- Never write the private key or the seed phrase into the seizure minutes or the report. The document circulates; the key must not.
+
+**After**
+- Log the transfer as an exhibit: hash, block, exact value, full destination address, time and timezone.
+- Re-check the emptied address periodically. Payments sent to it after the seizure still arrive, and they are still proceeds.
+
+## When to use
+From the moment a case looks likely to reach enforcement. The preparation steps have no cost if the seizure never happens and no substitute if it does.
+
+## Avoid when
+None of this substitutes for the legal instrument, and the instrument should name the destination address. If your jurisdiction's order does not, raise it before the search rather than after.
+
+## Example
+GAFILAT's sequence: keys generated offline, the public address checked against the chain for prior history, only the public key carried to the premises, the seizure executed with the sweep function at maximum fee to a QR-encoded address verified by a second officer, the private key never recorded in the minutes, and the emptied address monitored afterwards for late arrivals.
+
+## Related
+A Self-Custodied Wallet Cannot Be Frozen, Only Moved, Seizing Crypto: Devices, VASP Accounts, and the Agency Wallet, [Five Steps to Obtain Control Over Crypto](/kb/06-casework-method/framework-five-steps-to-obtain-control-over-crypto), [Post-Seizure Custody and Disposal of Seized Crypto](/kb/05-evidence-legal/framework-post-seizure-custody-and-disposal-of-seized-crypto), [Identifying Cryptocurrency in the Field](/kb/05-evidence-legal/checklist-identifying-crypto-in-the-field), [Crypto Artifacts on a Seized Device](/kb/05-evidence-legal/checklist-crypto-artifacts-on-a-seized-device), [Custody Log: The Six Questions](/kb/05-evidence-legal/checklist-custody-log-the-six-questions), [Chain of Custody by Evidence Type](/kb/05-evidence-legal/checklist-chain-of-custody-by-evidence-type), [Five Evidence Preservation Principles](/kb/05-evidence-legal/framework-five-evidence-preservation-principles), [Post-Seizure Monitoring Periods by Asset Type](/kb/06-casework-method/checklist-post-seizure-monitoring-periods), [Address Poisoning Attack](/kb/03-attribution-clustering/caution-address-poisoning)

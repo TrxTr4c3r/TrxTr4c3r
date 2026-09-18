@@ -1,0 +1,27 @@
+# Working a Crypto ATM as a Physical Pivot
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+A crypto ATM is the one piece of laundering infrastructure that has a street address. It cannot be hosted offshore, rotated through a domain-generation algorithm, or run from a jurisdiction that will not answer. That makes it the most productive pivot available in cases that touch cash, and it is why this is the typology with the highest enforcement success rate.
+
+## Components
+- **Locate the machines.** Coin ATM Radar maps kiosks by area and operator. If the target is known to operate in a particular area and to use kiosks, you can enumerate the candidate machines before you have a single transaction.
+- **Fix a date and time.** Physical surveillance of a machine, or camera coverage nearby, puts the target at a specific kiosk at a specific moment. That timestamp is the pivot: hand it to the operator and you get the transaction back, including the destination address, the asset, and the amount. From there the trace runs forward on chain.
+- **Collect the surrounding physical evidence.** CCTV in the vicinity or pointed at the machine, the phone number used at the kiosk, and the operator's own KYC record. This material sits off chain and outlives most of the on-chain trail.
+- **The operator is a VASP.** Kiosk operators fall within the FATF definition, so they hold customer information and are a subpoena target rather than a waypoint. GAFILAT notes that in practice ATM operators tend to be less compliant than other VASPs with due-diligence and reporting obligations, which is itself a line of enquiry.
+- **Test compliance on site.** The physical machine can be tested directly. The Henry Jackson Society report cites the Herocoin case, where investigators deposited 14,500 USD at an ATM without any identity check or currency transaction report being filed. Non-compliance established this way is evidence against the operator, not just context.
+- **Expect structuring.** GAFILAT's Operation Glutons case describes deposits split into batches under 1,000 EUR, spread across different machines in different locations on the same day, totalling roughly 200,000 EUR a month. One machine's records is a fragment. Enumerate the cluster of machines in the area and ask for the set.
+- **Compliant operators are still used.** The report notes an Australian syndicate moving roughly 30m USD through regulated ATMs, and victims of impersonation scams routinely feed cash into fully compliant kiosks. A licensed operator is not a reason to skip the request, it is a reason to expect the request to be answered.
+
+## When to use
+Any case where value entered or left as physical cash: impersonation and authority scams, local drug proceeds, mule networks, and any trace that terminates at an address with no exchange exposure but a cash-shaped inflow pattern.
+
+## Avoid when
+Surveillance and any approach to the operator are overt steps with tipping-off consequences, and both need the appropriate authority. See Approaching a VASP Can Tip Off the Target. And a kiosk receipt records what the victim was told, not what settled on chain: verify every address and amount on an explorer before it enters the case file.
+
+## Example
+A victim has three receipts and no other artifact. The receipts name the operator and give the deposit addresses, Coin ATM Radar confirms which machines the operator runs in that area, and a records request scoped to those machines over the relevant fortnight returns the full set of deposits, the phone number used at the keypad, and camera stills. The on-chain trace starts from verified addresses and the off-chain identification starts from a phone number.
+
+## Related
+[Impersonation Scams and the Crypto-Kiosk On-Ramp](/kb/06-casework-method/concept-impersonation-and-kiosk-onramp-scams), [Victim Artifact Intake: Getting the Starting Point Right](/kb/06-casework-method/checklist-victim-artifact-intake), [VASP Records: What to Request and What Exists](/kb/05-evidence-legal/checklist-vasp-records-what-to-request), [Service Choke-Points: What Each Service Type Can Give You](/kb/02-tracing/framework-service-choke-points-what-each-can-give-you), [Approaching a VASP Can Tip Off the Target](/kb/06-casework-method/caution-approaching-a-vasp-can-tip-off-the-target), [Structuring / Smurfing](/kb/04-laundering-obfuscation/concept-structuring-smurfing), [Enforcement Outcome Rates by Crypto Typology](/kb/06-casework-method/reference-enforcement-outcome-rates-by-crypto-typology), [Identifying Cryptocurrency in the Field](/kb/05-evidence-legal/checklist-identifying-crypto-in-the-field), [OSINT-to-On-Chain Pivots: Five Shapes](/kb/01-osint/framework-osint-to-on-chain-pivots-five-shapes), [Money Mule Networks](/kb/04-laundering-obfuscation/concept-money-mule-networks)

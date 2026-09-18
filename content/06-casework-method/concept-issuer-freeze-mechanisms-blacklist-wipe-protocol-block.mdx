@@ -1,0 +1,26 @@
+# Issuer Freeze Mechanisms: Blacklist, Wipe, and Protocol-Level Blocking
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`concept`</span>
+
+## Core idea
+"The issuer can freeze it" covers three different powers with three different outcomes for the victim. Knowing which one applies to the asset in front of you tells you who to ask, what you can realistically get back, and whether a freeze returns the value or only immobilises it.
+
+## Components
+- **Blacklist, which freezes in place.** The token contract carries a function that marks an address as blocked, after which the balance cannot move. The value still sits at the target's address. It is denied to the offender, which stops the laundering, but it is not yet returned to anyone. This is the baseline capability on the major centralised stablecoins.
+- **Wipe and reassign, which can restore value.** A stronger power written into some contracts. The report describes Tether as able to reset balances and effectively destroy or reclaim them, and names `blacklist(address)` and `wipeFrozenAddress(address)` on the USDC contract, with Circle able to freeze, wipe and reassign. Where this exists, a freeze can become a return rather than a stalemate, which changes what is worth asking for.
+- **Protocol-level blocking, which is chain-wide rather than token-level.** The report describes the BNB chain as carrying code that can block specific wallets at the protocol level, so a blacklisted wallet cannot move BNB or other assets on that chain. Different party, wider effect, and it reaches assets that have no issuer of their own.
+- **Which assets have a party to serve.** Of the fifteen instruments the report tables, USDT, USDC and BNB are the ones it identifies as carrying seize, freeze or blacklist capability. Assets with no such party, and privacy coins in particular, have no equivalent route. Read Table 6 as a starting point and verify the current contract yourself rather than relying on a published table.
+- **The coordination layer.** Speed matters more than the mechanism. The report credits the T3 Financial Crime Unit, a TRM, TRON and Tether initiative, with freezing around 300m USD in its first year working with law enforcement in 23 jurisdictions, and associates TRON joining it with a drop of roughly 6bn USD in illicit volume on that chain. The channel is already catalogued under Freezing, Blacklisting & Recovery in the tooling catalogue.
+- **A freeze is not a seizure.** A blacklisted balance is immobilised, not in anyone's custody. Getting it to the victim still needs the legal route. See Four Parallel Recovery Avenues.
+
+## When to use
+In the first hours of a theft, when deciding which of the stolen assets can actually be stopped and who to contact for each. Also at scoping, where the asset mix determines whether freezing is a realistic objective at all.
+
+## Avoid when
+Do not infer capability from the asset's reputation. Verify the deployed contract and the issuer's current published policy before telling a victim their funds can be recovered. Contract powers change, issuers differ on whether they will exercise them without a court order, and a published comparison table is a lead rather than an answer. Note also that the report's own table rates control concentration on some decentralised assets in ways that sit awkwardly with how those assets are usually described, which is another reason to check the contract rather than the table.
+
+## Example
+A theft splits into USDT on TRON and native ETH. The USDT half has a named issuer with a blacklist function and a fast coordination channel, so it is worth an immediate approach. The ETH half has neither, so the only realistic intervention point is the exchange where it eventually lands, and the response priority for that half is monitoring rather than freezing.
+
+## Related
+[Freezable vs Non-Freezable Crypto Assets](/kb/06-casework-method/concept-freezable-vs-non-freezable-assets), A Self-Custodied Wallet Cannot Be Frozen, Only Moved, [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Freeze Circumvention Techniques and Countermeasures](/kb/06-casework-method/checklist-freeze-circumvention-techniques-and-countermeasures), PI Response Priority: Freeze, Monitor, Predict, OSINT, [The First 24 Hours of a Crypto Theft](/kb/06-casework-method/checklist-first-24-hours-of-a-crypto-theft), [Four Parallel Recovery Avenues](/kb/05-evidence-legal/framework-four-parallel-recovery-avenues), [Service Choke-Points: What Each Service Type Can Give You](/kb/02-tracing/framework-service-choke-points-what-each-can-give-you), Working with Law Enforcement: Capacity, Speed, and Cross-Sector Coalitions, [Monero Is the Practical Ceiling of On-Chain Attribution](/kb/04-laundering-obfuscation/caution-monero-is-the-practical-ceiling-of-on-chain-attribution)
