@@ -14,25 +14,49 @@ Full write-ups live on Substack. The addresses from every episode are collected 
   <a className="case-card" href="https://trxtr4c3r.substack.com/p/the-last-hop-002-they-skipped-the">
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>#002 · ETHEREUM + TRON · 0/10 GRADE F</div>
     <div style={{ fontSize: 20, fontWeight: 700, margin: '10px 0 6px' }}>They skipped the laundering and went straight to the till</div>
-    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>proderivfxt[.]com collected 24,083.271289 USDT and 2.553457859091488910 ETH from 11 senders, into an address an explorer labels as an exchange deposit address. The final deposit was swept 19 minutes 36 seconds after it landed. Its Bitcoin address has never received anything at all.</div>
+    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>proderivfxt[.]com published an address that received 24,083.271289 USDT and 2.553457859091488910 ETH from 11 senders, and that an explorer labels as an exchange deposit address. The final deposit was swept 19 minutes 36 seconds after it landed. The Bitcoin address it published has never received anything at all.</div>
+    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#8fa596', marginTop: 12 }}>CONTROL: NOT ESTABLISHED</div>
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>read the episode ›</div>
   </a>
   <a className="case-card" href="https://trxtr4c3r.substack.com/p/the-fake-trading-platform-that-gave">
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>#001 · BITCOIN · 1/10 GRADE F</div>
     <div style={{ fontSize: 20, fontWeight: 700, margin: '10px 0 6px' }}>The fake trading platform that gave itself away</div>
-    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>a1cryptotradings[.]com took 0.01254526 BTC and split it across 16 addresses at a single cash-out venue. A New York street address filed under the wrong country, and a dashboard branded as a different company.</div>
+    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>a1cryptotradings[.]com published an address that received 0.01254526 BTC, which then split across 16 addresses at a single cash-out venue. A New York street address filed under the wrong country, and a dashboard branded as a different company.</div>
+    <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#8fa596', marginTop: 12 }}>CONTROL: CIRCUMSTANTIAL</div>
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>read the episode ›</div>
   </a>
 </div>
 
 ## The scoreboard so far
 
-| # | Site | Chain | Ending | Score | Badge |
-|---|---|---|---|---|---|
-| 002 | proderivfxt[.]com | Ethereum, Tron | a service with KYC, at hop one | **0/10** F | STRAIGHT TO CEX |
-| 001 | a1cryptotradings[.]com | Bitcoin | a service with KYC | **1/10** F | STRAIGHT TO CEX |
+| # | Site | Chain | Ending | Score | Badge | Control |
+|---|---|---|---|---|---|---|
+| 002 | proderivfxt[.]com | Ethereum, Tron | a service with KYC, at hop one | **0/10** F | STRAIGHT TO CEX | not established |
+| 001 | a1cryptotradings[.]com | Bitcoin | a service with KYC | **1/10** F | STRAIGHT TO CEX | circumstantial |
 
-Two episodes, two operations that put victim money straight into an account at a regulated exchange. Across both, the running average on **trail break is 0.0**: not one mixer, not one bridge, not one swap. The sophistication goes into the website. Almost none of it goes in behind the deposit button.
+Two episodes, two published deposit addresses whose money went straight into an account at a regulated exchange. Across both, the running average on **trail break is 0.0**: not one mixer, not one bridge, not one swap. The sophistication goes into the website. Almost none of it goes in behind the deposit button.
+
+Read the **Control** column before you take a score at face value. It is explained below.
+
+## Published is not controlled
+
+A site printing an address on its deposit screen proves one thing: that the site published it. It does not prove the operation holds the key, and it does not prove that money arriving there is victim money.
+
+I tested that directly on a separate case. A fake trading platform handed over six deposit addresses across six chains, in a live chat with its own operator, which is about as good as provenance gets short of a confession. I traced all six. **Not one was operator-controlled.** Three had never been used at all. Three belonged to uninvolved third parties, including somebody's ordinary account at a regulated exchange, whose normal activity would read as collection volume to anyone who assumed the site owned the address.
+
+So a fake platform publishing an address it does not hold is documented behaviour, not a theory. Every episode above now carries a control label, and so does every row of the [Scam Address Labels](/kb/casework/address-labels/) set:
+
+| Label | What it means |
+|---|---|
+| **not established** | the site published the address, and nothing else about who holds it is known |
+| **circumstantial** | on-chain behaviour points at the operation setting the address up. Still short of proof |
+| **confirmed** | control demonstrated, for example a co-spend on a UTXO chain |
+
+Nothing on-chain changes. Every amount, timestamp and hash in both episodes was read off a block explorer and stands. What changes is the sentence underneath them: an amount that arrived at a published address is a fact about that address, not proof of whose money it was. Episode 002 is the one this bites hardest, because both of its funded rails are exchange deposit addresses, and an exchange deposit address belongs to an account holder nobody has identified.
+
+From episode 003 the control question gets answered before the trace is scored, by asking the operator for payment instructions directly rather than reading them off a deposit screen. One reply settles it.
+
+**If you screen against this data**, treat a hit as a lead to check against your own account records. If a row matches one of your customers, the innocent explanation is live: a scam site can print a stranger's deposit address on its payment page, and that customer has done nothing.
 
 ## Why this is not casework
 

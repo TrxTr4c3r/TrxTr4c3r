@@ -1,14 +1,16 @@
 {
   "name": "TrxTr4c3r scam site deposit addresses",
   "scope": "Deposit addresses published by reported scam platforms, and any direct link from that address to a known service. Nothing else.",
-  "version": "0.2.0",
-  "updated": "2026-09-07",
+  "version": "0.3.0",
+  "updated": "2026-09-18",
   "count": 4,
   "labels": [
     {
       "address": "0x88c3d62860d59a51fa43adf84a20c040606ed3d6",
       "chain": "ethereum",
       "role": "deposit address",
+      "control_status": "not established",
+      "control_basis": "published on the site's deposit screen (E004) and nothing beyond that. The address is itself an exchange deposit address, so it belongs to an account holder, and no evidence identifies that holder as the operator rather than an unconnected customer. The 24,083.271289 USDT inbound may be a third party's own account flow. No payment instructions have been obtained from the operator to test it",
       "scam_domain": "proderivfxt[.]com",
       "reported_by": "scambuster.fr",
       "linked_platform": "Bybit",
@@ -26,6 +28,8 @@
       "address": "TSCcYez4hGLiDRna3kQXiwF6SbU6BX4GcL",
       "chain": "tron",
       "role": "deposit address",
+      "control_status": "not established",
+      "control_basis": "published on the site's deposit screen (E003). Exchange deposit behaviour identifies the address type, not the account holder. Same open question as the Ethereum rail on the same site",
       "scam_domain": "proderivfxt[.]com",
       "reported_by": "scambuster.fr",
       "linked_platform": "Bybit",
@@ -43,6 +47,8 @@
       "address": "1AvNHAYFJAbm6vQGvX7qy8VdzUTWm5LL62",
       "chain": "bitcoin",
       "role": "deposit address",
+      "control_status": "not established",
+      "control_basis": "published on the site's deposit screen (E005) and never used. An address with zero transactions carries no control evidence in either direction",
       "scam_domain": "proderivfxt[.]com",
       "reported_by": "scambuster.fr",
       "linked_platform": "",
@@ -60,6 +66,8 @@
       "address": "bc1qk078dgjfkrxu6upw749krxp5j8v8rws0hf8d3m",
       "chain": "bitcoin",
       "role": "deposit address",
+      "control_status": "circumstantial",
+      "control_basis": "published on the logged-in deposit screen (E002). The sibling collector bc1q9ukttq2pkqn5x9nf6866dyajntfl7avnhv5q96 funded this address's first UTXO and the address route-tested to CoinCola 7 minutes 27 seconds later, which is how an address the operation set up behaves. Co-spend test closed negative and definitive: 17 spends, all single-input, so common-input ownership can never be established here",
       "scam_domain": "a1cryptotradings[.]com",
       "reported_by": "scambuster.fr",
       "linked_platform": "CoinCola",
@@ -73,5 +81,6 @@
       "tag": "#verified",
       "added": "2026-09-07"
     }
-  ]
+  ],
+  "control_note": "A row records that a reported scam site PUBLISHED this address. It does not record that the site's operator controls it. CASE-2026-008 traced six published deposit addresses across six chains and found none operator-controlled: three never used, three belonging to uninvolved third parties. Read control_status on every row before acting on one."
 }

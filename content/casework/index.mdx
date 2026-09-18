@@ -8,6 +8,8 @@ Three things live here, and they run at different speeds.
 
 Every claim carries a confidence level, no on-chain figure is published unless an explorer confirmed it, and nothing here names a person. Identities are a matter for legal process.
 
+That extends to who holds an address. A scam site publishing a deposit address proves the site published it, not that the operator controls it, so every episode and every dataset row carries a separate **control label**. [Why that distinction exists](/kb/casework/last-hop/).
+
 <div className="case-grid">
   <a className="case-card" href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/kb/casework/cases/'}>
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>FULL INVESTIGATIONS</div>
@@ -24,7 +26,7 @@ Every claim carries a confidence level, no on-chain figure is published unless a
   <a className="case-card" href={(process.env.NEXT_PUBLIC_BASE_PATH || '') + '/kb/casework/address-labels/'}>
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 12, letterSpacing: '0.05em', color: '#4CFF7A' }}>DATASET · FREE</div>
     <div style={{ fontSize: 20, fontWeight: 700, margin: '10px 0 6px' }}>Scam Address Labels</div>
-    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>The deposit addresses reported scam sites hand out, in CSV and JSON, each row linked to the write-up that documents it.</div>
+    <div style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.82 }}>The deposit addresses reported scam sites hand out, in CSV and JSON, each row carrying a control label and linked to the write-up that documents it.</div>
     <div style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, color: '#4CFF7A', marginTop: 14 }}>get the data ›</div>
   </a>
 </div>
