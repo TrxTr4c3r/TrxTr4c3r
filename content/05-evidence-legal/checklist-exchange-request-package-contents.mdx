@@ -1,0 +1,45 @@
+# The Exchange Request Package: What You Send
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`checklist`</span>
+
+## Core idea
+There are two halves to a records request and most investigators only learn one. The other note covers what the exchange **holds**. This one covers what you **send**, and it is the half that decides whether you get an answer. A request arrives at a compliance desk that handles hundreds of these. It is triaged on whether the reader can identify the transaction without doing any work. Seven elements do that. Miss one and the request goes to the slow queue or comes back asking for it.
+
+## Components
+
+**The seven elements of a request package.**
+1. **Case reference number and your contact information.** Give them something to quote back and a route to reach you.
+2. **A brief case summary and the suspected typology.** Three to six sentences. Suspected, not established.
+3. **The on-chain nexus in full:** blockchain network, asset, wallet address, transaction hash, amount, and timestamp.
+4. **Screenshots or a transaction table** showing the relevant flow, preserved and hashed before the request went out.
+5. **The requested records or action,** stated plainly: preservation, freeze review, or legal-process instructions.
+6. **A statement of urgency,** where funds are moving, victims are at continuing risk, or sanctions indicators exist.
+7. **Your legal authority or the status of pending legal process,** where applicable.
+
+**Name the network or the request fails.** A deposit address with no chain identifier beside it is ambiguous. USDT on Tron and USDT on Ethereum are different assets on different networks, and confusing them is the standard trap. Give the network and the token contract address for every asset you name.
+
+**Never assume the exchange can find the case from an address alone.** The same address may receive many deposits, and it may be part of a larger service wallet structure rather than a customer deposit address. You supply the transaction that identifies the event.
+
+**Eight ways the package fails.** Each of these is preventable and each one costs a round trip:
+- No transaction hashes, timestamps, network identifiers, or asset details.
+- Chain versions of the same asset confused.
+- A freeze asked for without showing the transaction path or the urgency that justifies it.
+- Identity or criminal conduct overstated before records or corroboration support it.
+- Screenshots and exports not preserved before the request was sent.
+- Submission date, portal, ticket number, contact, and response not logged.
+- Personal data or sensitive victim material sent beyond the purpose of the request.
+- Escalation delayed while funds move, sanctions indicators sit unactioned, or a victim stays in contact with the operator.
+
+**Log the send.** The tracker fields that make a request recoverable later: case ID, partner name, partner type, request purpose, submission date, contact or portal, ticket number, transaction hash, network, wallet address, asset, amount, records requested, legal-process status, urgency, response date, follow-up date, outcome, next action. A request with no ticket number and no follow-up date is one you will forget you made.
+
+## When to use
+Drafting anything outbound to an exchange, fintech, payment processor, wallet provider, or crypto ATM operator. Preservation request, records request, freeze review, or abuse report.
+
+## Avoid when
+Do not use the package as a substitute for authority. Knowing what to put in the letter does not entitle you to what you are asking for, and disclosure is gated behind legal process nearly everywhere. Follow agency policy or your prosecutor's direction on the instrument first. Tailor to the recipient too: a package built for law enforcement sent to a compliance desk asks for things that desk cannot give.
+
+## Example
+A trace ends at a Tron deposit address. The request names the network and the token contract, carries the full 64-hex funding hash and the full deposit address with a role label, gives the exact on-chain amount and a UTC timestamp, attaches the preserved explorer capture, asks only for preservation of five named record categories, states that funds moved onward within 20 minutes so login and device records are the volatile part, and records that no legal process is yet served but counsel is preparing a civil subpoena. The compliance analyst can action it without writing back. The version that says "please preserve records for the wallet ending b8b3" cannot be actioned at all.
+
+## Related
+[VASP Records: What to Request and What Exists](/kb/05-evidence-legal/checklist-vasp-records-what-to-request), [Compelling VASP Disclosure: The Legal-Process Ladder](/kb/05-evidence-legal/framework-compelling-vasp-disclosure-legal-process), [Preserve Before You Attribute](/kb/05-evidence-legal/principle-preserve-before-you-attribute), [Partner Routing: What Each Recipient Actually Needs](/kb/05-evidence-legal/framework-partner-routing-what-each-recipient-needs), [Escalation Decision Matrix and Triggers](/kb/06-casework-method/framework-escalation-decision-matrix), [Time-Decay of Crypto Evidence](/kb/05-evidence-legal/caution-time-decay-of-crypto-evidence), [Approaching a VASP Can Tip Off the Target](/kb/06-casework-method/caution-approaching-a-vasp-can-tip-off-the-target), [Freezing Funds with an Exchange Email](/kb/06-casework-method/tactic-exchange-freeze-email), [Common Crypto Investigation Failure Modes](/kb/06-casework-method/checklist-common-crypto-investigation-failure-modes), [Exchange Tiers and the Escalation Clock](/kb/06-casework-method/tactic-exchange-tiers-and-the-escalation-clock)

@@ -1,0 +1,54 @@
+# The FinCEN SAR Narrative Structure
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+The SAR narrative is the only free-text field on the form, and it is where a filing either becomes usable to an investigator or becomes noise. FinCEN's structure is fixed and unglamorous: five essential elements (who, what, when, where, why), plus method of operation (how), arranged as introduction, body, conclusion, written chronologically in plain prose. The element filers underdeliver on is **why**, because a red flag list is not an explanation. The narrative has to say why the activity is unusual **for this customer**, measured against that customer's own profile and against what similar customers normally do.
+
+## Components
+
+**The five essential elements, plus how.**
+- **Who** conducted the activity. Beyond the structured suspect fields: occupation, position or title, the nature of the business, the relationship to the institution and its length. Every party where more than one is involved, and the relationships among them. Other known addresses, post office boxes, apartment numbers, and identification numbers not given elsewhere (passport, alien registration, driver's licence). Where the subject is unidentified, say so.
+- **What** instruments or mechanisms were used. Wires, trade instruments, correspondent accounts, structuring, shell companies, stored value, money orders, cards, digital currency business services, and the channel used to initiate (internet, phone, mail, courier, remote dial-up). Always state source of funds and application of funds. Identify every affected account at the institution, and where known, accounts at other institutions with their names and locations.
+- **When** it took place. The date first noticed and the duration. Individual dates and amounts in the narrative, not only the aggregate.
+- **Where** it took place. Offices involved and their addresses. Any foreign jurisdiction, with the institution, address and account numbers affiliated.
+- **Why** the institution considers it suspicious. Describe the business first, then explain as fully as possible why the activity is unusual for this customer given the products offered and the expected activity of similar customers.
+- **How** it was conducted. The modus operandi, described concisely and logically, connecting linked behaviours: structured deposits matched against outbound wires, with dates, destinations, amounts, accounts, frequency and beneficiaries.
+
+**The three-part shape.**
+- *Introduction:* the purpose and a general description of the suspected violation, naming the typology up front. Dates and reasons for any prior SAR on the subject or related subjects. Any OFAC sanctioned-country, SDN or other government list nexus. The institution's internal investigation number. A summary of the red flags that triggered the review, placed here or in the conclusion but not both.
+- *Body:* the five elements as continuous narrative. Relevant facts about every party, specific description of accounts and transactions in chronological order by date and amount, larger volumes broken into credits and debits, transactor and beneficiary detail including institutions and jurisdictions, observed relationships among transactors, and any factual observations or incriminating statements.
+- *Conclusion:* follow-up action by the institution (closure, restriction, continued monitoring), other contacts and their phone numbers, a general description of additional information available on request, and any law enforcement personnel already engaged.
+
+**The CVC layer (FIN-2019-A003).** For convertible virtual currency matters, FinCEN names seven information elements as particularly helpful to law enforcement, and asks that all pertinent available information appear in both the form and the narrative:
+1. Virtual currency wallet addresses.
+2. Account information.
+3. Transaction details, including the virtual currency transaction hash and originator and recipient information.
+4. Relevant transaction history.
+5. Available login information, including IP addresses.
+6. Mobile device information, such as device IMEI.
+7. Information obtained from analysis of the customer's public online profile and communications.
+
+The advisory also asks filers to carry the key term **`CVC FIN-2019-A003`** in the narrative and in **SAR field 2, "Filing Institution Note to FinCEN."** It encourages 314(b) information sharing between institutions when assessing suspiciousness and when filing.
+
+**Mechanics that trip filings.** The narrative is a free-text field limited to 17,000 characters on FinCEN Form 111, filed through BSA E-Filing. Do not insert tables, spreadsheets, or embedded objects: they do not survive ingest. Do not write "see attached" and do not attach supporting documentation. Retain supporting documentation in institution records for five years and produce it when law enforcement asks.
+
+**Timing.** File no later than 30 calendar days after initial detection of facts that may constitute a basis for filing. Where no subject was identified at detection, filing may be delayed a further 30 days to identify one, and in no case more than 60 days after initial detection.
+
+**Caveat on the source.** The 2003 guidance predates Form 111 and names retired forms and the IRS Detroit Computing Center. The narrative discipline it sets out is current and is carried forward in FFIEC Appendix L; the form mechanics around it are not. Take the structure from the 2003 document and the field mechanics from the current filing instructions.
+
+## When to use
+Drafting or reviewing a SAR narrative. Also the right answer to the interview question "what makes a strong SAR narrative," and the backbone of any SAR-drafting support offered as a service.
+
+## Avoid when
+This is the US BSA regime only. A UK SAR goes to the NCA under the Proceeds of Crime Act 2002 on a different form with different glossary codes and a Defence Against Money Laundering mechanism that has no FinCEN equivalent. Jurisdictions filing through goAML differ again. Do not reshape this structure into another regime's filing.
+
+The analyst drafts and recommends; the BSA Officer or MLRO decides, signs and files. And a SAR and its existence are confidential under 31 U.S.C. 5318(g)(2), so none of it reaches the subject, a victim, a counterparty, or any public-facing content.
+
+## Example
+Weak: "Customer received multiple crypto deposits and sent them out quickly. This appears suspicious. Filing SAR." It carries no dates, no amounts, no addresses, no customer profile, and no reason the activity is unusual for this customer.
+
+Strong: the narrative names pig-butchering investment fraud in the first line with the key term `CVC FIN-2019-A003`, gives the customer's stated occupation and the account's two-year history of small retail activity, lists each deposit by date and exact amount with the full wallet addresses and full transaction hashes and the network each sits on, records the login IP addresses and the device identifier, states that the aggregate over eleven days was forty times the customer's prior monthly average and inconsistent with the stated purpose at onboarding, describes the onward consolidation and the conversion, and closes with the account restriction and the contact for follow-up.
+
+## Related
+[Handover Reports Must Be Replicable](/kb/05-evidence-legal/principle-replicable-handover-reports), [Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [Rewrite a Finding Into Calibrated Report Language](/kb/05-evidence-legal/tactic-rewrite-a-finding-into-calibrated-report-language), [Partner Routing: What Each Recipient Actually Needs](/kb/05-evidence-legal/framework-partner-routing-what-each-recipient-needs), [Escalation Decision Matrix and Triggers](/kb/06-casework-method/framework-escalation-decision-matrix), [OSINT Investigator's Toolkit - Full Tool Catalogue](/kb/07-tooling/osint-investigators-toolkit-catalogue), [Articulating No Legitimate Economic Purpose](/kb/05-evidence-legal/tactic-articulating-no-legitimate-economic-purpose), [Financial Crime Typology Indicator Matrix](/kb/04-laundering-obfuscation/reference-financial-crime-typology-indicator-matrix), [Crypto Investigation Acronyms & Bodies](/kb/00-fundamentals/definition-crypto-investigation-acronyms)

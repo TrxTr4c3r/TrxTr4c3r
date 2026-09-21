@@ -1,0 +1,39 @@
+# The Compliance Referral Report Structure
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+A short report written for someone who has to decide something this week. Eight sections, each doing one job, sized for an internal compliance review, an exchange referral, a fraud escalation, or a civil investigative matter where a full forensic report is more than the decision requires. It orients a decision-maker in the first paragraph and ends with actions tied to evidence. The whole point is decision support, not storytelling.
+
+## Components
+
+| Section | Job | Contents |
+|---|---|---|
+| **Executive summary** | Orient the decision-maker immediately | Incident type, loss amount, key wallets, current fund location, urgency, recommended action |
+| **Scope and methodology** | Say what was reviewed and how | Data sources, tools, date range, networks, validation steps, limitations |
+| **Scheme or incident overview** | Describe how the activity operated | Victim contact, payment instructions, fake platform, extortion demand, typology indicators |
+| **Blockchain findings** | Present the movement of value | Wallets, hashes, amounts, assets, timestamps, service exposure, flow narrative |
+| **OSINT findings** | Add context and corroboration | Domains, usernames, emails, social profiles, infrastructure, public complaints |
+| **Red flags and typology assessment** | Connect evidence to known patterns | Observed indicators, confidence level, comparable typology, limitations |
+| **Recommendations** | Turn findings into action | Preservation, freeze review, legal process, SAR or STR support, referral, monitoring |
+| **Attachments and exhibits** | Support reproducibility | Screenshots, exports, timelines, flow charts, evidence index, source list |
+
+**Recommendations flow from findings or they do not belong.** Funds touched a centralised exchange, so recommend preservation or a records request. Victim contact is ongoing, so recommend preserving communications and coordinating a contact strategy. Sanctions indicators exist, so recommend escalation to compliance leadership or counsel. Avoid "continue monitoring" unless the report says what is being monitored and why. The six categories worth recommending: SAR or STR support and internal escalation; exchange preservation, freeze review, or legal-process preparation; law enforcement, FIU, regulator, or counsel referral; victim support and ongoing-contact preservation; monitoring of residual wallets, domains, channels, or exposure points; threat-intelligence sharing where policy permits.
+
+**Exhibits carry a label, date, source, description, and the finding they support.** If a screenshot supports a key claim, the report identifies it and explains what it shows. Include enough for a reviewer to verify the key findings without drowning them in raw data.
+
+**The handoff minimum.** Whatever the shape, a report is not handoff-ready until it carries: an executive summary with confidence level and recommended action; scope and limitations including what was **not** reviewed; observed facts with sources cited; analytical inferences labelled as such with confidence; a timeline covering victim, blockchain, OSINT, preservation and escalation events; exhibits with evidence hashes; and recommendations.
+
+**How this sits against the workspace's two report structures.** `investigations/docs/reporting-standards.md` defines two: the IOC recovery report for a victim, client or insurer, and the tracing report in forfeiture structure for law enforcement, a prosecutor, a regulator or a court. This eight-section shape is neither. It is the shorter compliance and referral report, written for an internal reviewer or a service's compliance desk, and it is the right size when the output is a decision rather than a record that must survive adversarial challenge. Where a matter will end in court, write the tracing report instead. Where it ends in an escalation, this is enough.
+
+## When to use
+Internal compliance review, exchange or platform referral, fraud escalation, a civil matter at the triage stage, or any report whose reader has a decision to make and a queue to get through.
+
+## Avoid when
+Do not use it where the report must withstand an adversarial challenge, where volume defeats enumeration, or where paragraph-level citation will be needed. That is the tracing report's job. And do not stretch it: the moment the blockchain findings section needs per-account tracing blocks and a gas-funding analysis, you are writing the other document.
+
+## Example
+Traced funds from a fake trading platform reach a deposit address at a regulated exchange. The report runs four pages: executive summary naming the loss, the deposit address in full and the recommendation to preserve; scope stating two chains, the tools used, the date range, and that no legal process is served; scheme overview covering the lure and the deposit instructions; blockchain findings as a flow narrative with full hashes; OSINT findings on the domain and its reused support email with confidence stated; red flags against the pig-butchering typology; recommendations naming preservation first and a counsel referral second; and an exhibit index of eight hashed captures. The compliance desk can act on it the same day.
+
+## Related
+[Six Characteristics of a Court-Credible Forensic Report](/kb/05-evidence-legal/framework-court-credible-forensic-report-six-characteristics), [The Forfeiture-Complaint Tracing Narrative (DOJ Civil Forfeiture Structure)](/kb/05-evidence-legal/framework-forfeiture-complaint-tracing-narrative), [The Analysis Standard: Four-Block Write-Up](/kb/05-evidence-legal/framework-the-analysis-standard-four-block-write-up), [Rewrite a Finding Into Calibrated Report Language](/kb/05-evidence-legal/tactic-rewrite-a-finding-into-calibrated-report-language), [Handover Reports Must Be Replicable](/kb/05-evidence-legal/principle-replicable-handover-reports), [Known Weaknesses to Disclose in a Forensic Report](/kb/05-evidence-legal/checklist-known-weaknesses-to-disclose-in-a-forensic-report), [Partner Routing: What Each Recipient Actually Needs](/kb/05-evidence-legal/framework-partner-routing-what-each-recipient-needs), [The Exchange Request Package: What You Send](/kb/05-evidence-legal/checklist-exchange-request-package-contents), [Escalation Decision Matrix and Triggers](/kb/06-casework-method/framework-escalation-decision-matrix), Preserve the Analysis, Not Just the Finding

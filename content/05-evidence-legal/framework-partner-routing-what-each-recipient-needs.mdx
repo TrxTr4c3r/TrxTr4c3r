@@ -1,0 +1,36 @@
+# Partner Routing: What Each Recipient Actually Needs
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`framework`</span>
+
+## Core idea
+Crypto evidence is fragmented by design. The chain shows where value moved, the exchange knows who holds the account, the victim holds the communications, OSINT reveals the infrastructure, law enforcement holds compulsory process, and the regulator holds the market-conduct question. No single partner can act on all of it, and sending one identical packet to all of them is the most common coordination failure. Identify the partner who can act, then send the slice they can act on, with a consistent evidentiary core underneath.
+
+## Components
+
+| Partner | What they can actually use | What they do with it |
+|---|---|---|
+| **Law enforcement** | Victim impact, wallet flows, transaction timeline, suspect identifiers, communications, exchange exposure | Case triage, investigative leads, legal process, seizure or recovery support |
+| **Exchange or fintech** | Network, transaction hashes, addresses, timestamps, amount, account identifiers, the scope of what to preserve | Records preservation, account review, freeze evaluation, KYC and log production after legal process |
+| **FIU or internal compliance** | Typology summary, red flags, transaction narrative, counterparties, sanctions screening, the risk rationale | SAR or STR support, internal escalation, ongoing monitoring |
+| **Regulator** | Investor harm, platform representations, securities or commodity indicators, compliance failures, evidence index | Market integrity, investor protection, enforcement review |
+| **Counsel** | Facts, evidence, risk, jurisdiction, the records you want, urgency, limitations | Legal process, preservation strategy, privilege review, civil or criminal referral decisions |
+
+**Route by case objective, not by instinct.** A victim complaint goes to a reporting portal. A ransomware event needs counsel and law enforcement before any payment decision. A suspicious-activity matter supports SAR or STR escalation. A securities-fraud pattern needs regulator awareness. A sanctions indicator is an immediate compliance escalation and is not a judgement call.
+
+**The evidentiary core stays constant.** Full addresses, full hashes, named networks, exact amounts, UTC timestamps, confidence levels, and stated limitations travel in every version. What changes is the framing and the ask, not the facts. A package that tells one partner a different story than another is the thing opposing counsel will find.
+
+**Share lawfully and narrowly.** Do not send unnecessary personal data, private victim materials, privileged communications, or sensitive investigative detail without authority. When sharing indicators with industry, a concise package works: addresses, hashes, domains, usernames, screenshots, source dates, typology, confidence level, contact.
+
+**Sanctions screening happens early, not at the end.** In a ransomware or extortion matter especially, payment exposure carries legal and compliance risk that has to be surfaced before any decision, not discovered after one.
+
+## When to use
+The moment a case produces something actionable and you are deciding where it goes. Also at scoping, to set realistic expectations about which partner can deliver which outcome.
+
+## Avoid when
+Do not route around your own authority or policy. Contacting a regulator or a foreign FIU directly may be someone else's call in your organisation. And do not treat the matrix as permission: it says what a partner can use, not that you are the person entitled to send it.
+
+## Example
+A trace on a fake investment platform produces four outputs at once. The exchange gets the deposit address, the funding hash, the network, the timestamp and a preservation scope, and nothing about the victim beyond initials. Counsel gets the full picture with jurisdiction, urgency and the records sought, so the civil subpoena can be drafted. The internal compliance team gets the typology, the red flags and the risk rationale for the SAR decision. Law enforcement gets victim impact, the flow timeline and the exchange exposure. Four packages, one set of verified facts underneath, no partner receiving material they have no use for.
+
+## Related
+[The Exchange Request Package: What You Send](/kb/05-evidence-legal/checklist-exchange-request-package-contents), [VASP Records: What to Request and What Exists](/kb/05-evidence-legal/checklist-vasp-records-what-to-request), [Compelling VASP Disclosure: The Legal-Process Ladder](/kb/05-evidence-legal/framework-compelling-vasp-disclosure-legal-process), [Escalation Decision Matrix and Triggers](/kb/06-casework-method/framework-escalation-decision-matrix), Working with Law Enforcement: Capacity, Speed, and Cross-Sector Coalitions, [OSINT Investigator's Toolkit - Full Tool Catalogue](/kb/07-tooling/osint-investigators-toolkit-catalogue), [The FinCEN SAR Narrative Structure](/kb/05-evidence-legal/framework-fincen-sar-narrative-structure), [Approaching a VASP Can Tip Off the Target](/kb/06-casework-method/caution-approaching-a-vasp-can-tip-off-the-target), [Common Crypto Investigation Failure Modes](/kb/06-casework-method/checklist-common-crypto-investigation-failure-modes)

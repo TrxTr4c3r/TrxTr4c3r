@@ -1,0 +1,45 @@
+# Rewrite a Finding Into Calibrated Report Language
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>`tactic`</span>
+
+## Core idea
+Most reports that fail do not fail on the trace. They fail one sentence at a time, where an investigator writes what they believe instead of what they observed. The fix is mechanical and it fits in a single move: take the claim you want to make, name the observation underneath it, then rebuild the sentence so the observation is the subject and the conclusion carries a confidence level. "This wallet belongs to the scammer" becomes "blockchain analysis indicates this wallet likely operated as an aggregation point for victim deposits, based on repeated transaction convergence, timing correlation, and observed exchange exposure." The first overclaims identity. The second is defensible, and it is more useful, because it hands the reader the evidence.
+
+## Components
+
+**The four questions every finding answers.** What was observed. What does it likely mean. How confident are we. What evidence supports it. A sentence missing any of the four is not finished.
+
+**The rewrite table.**
+
+| Observed fact | Analytical inference | Better report language |
+|---|---|---|
+| Wallet received 47 USDT deposits from unrelated victim wallets | The wallet may be an aggregation wallet | The wallet appears likely to function as an aggregation point based on repeated victim-source deposits |
+| Funds moved to an exchange-labelled address | Possible off-ramp exposure exists | The transaction path shows possible centralised exchange exposure; records may exist with the service provider |
+| A domain reused the same support email as two prior scam complaints | Possible infrastructure linkage | The repeated support email provides a possible OSINT link between the domains; further corroboration is required |
+| A wallet interacted with a mixer contract after receiving theft proceeds | The actor may be obscuring fund origin | Mixer exposure reduces tracing certainty and is consistent with layering behaviour |
+
+**Weak against strong, the same finding.**
+- Weak: "The scammer cashed out at the exchange."
+- Strong: "The traced funds moved to an address labelled by [source and tool] as exchange-linked. This creates possible off-ramp exposure and may support a preservation or records request."
+
+**Avoid the legal conclusion.** Not "the subject laundered funds" but "the funds moved through a sequence consistent with layering, including rapid wallet hops, DEX swaps, and mixer exposure." Conclusions of law belong to people whose role includes drawing them.
+
+**Blockchain findings are a narrative, not a list of hashes.** The reader needs the movement of value: where funds originated, where they went, which assets changed, which services were touched, and what the pattern suggests. Each finding carries network, asset, full transaction hash, timestamp, exact amount, sender, recipient, service exposure, and confidence level, and it says why the movement matters to the case.
+
+**OSINT findings state relevance, not existence.** Listing a domain, a username or a handle is not a finding. A finding identifies the source, the capture date, the observed content, the connection to the case, and the confidence level. Where a link is weak, say it is weak. Where a page is volatile, reference the screenshot or the archive.
+
+**Keep the vocabulary stable.** If one section says "likely" and another says "confirmed" for the same finding, the reader cannot tell whether the evidence changed or the writer did. Define the confidence terms once and hold them across the document.
+
+## When to use
+Every findings paragraph, every case note, every handover summary. It is fastest as a review pass: read your own draft hunting for any sentence that asserts identity, intent, or a legal conclusion, and rewrite each one through the table.
+
+## Avoid when
+Calibration is not hedging. "It is possible that the funds may potentially have moved" says nothing and reads as evasion. State the observation flatly and let the confidence level do the qualifying work. And do not downgrade a genuinely confirmed fact into "likely" out of caution: a transaction on a public ledger, verified against an explorer, is a fact and should be written as one.
+
+## Example
+Draft: "Wallet B is the scammer's cash-out wallet and the funds were laundered through a mixer before hitting Binance."
+
+Rewritten: "Between 4 and 18 March 2026, Wallet B received 23 USDT transfers from addresses identified in victim complaints, totalling 184,000.00 USDT. Within 30 minutes of receipt, the majority was forwarded to a single downstream address. The pattern is consistent with aggregation behaviour. The controller of Wallet B is not established. Subsequent transfers show possible exchange exposure requiring preservation review, and interaction with a mixer contract at [full address] reduces tracing certainty beyond that point. Confidence: moderate."
+
+## Related
+[Separate On-Chain Fact from Analytical Inference](/kb/05-evidence-legal/principle-separate-on-chain-fact-from-inference), [The Analysis Standard: Four-Block Write-Up](/kb/05-evidence-legal/framework-the-analysis-standard-four-block-write-up), [Attribution Confidence Levels](/kb/03-attribution-clustering/framework-attribution-confidence-levels), [Calibrate Your Testimony Language](/kb/05-evidence-legal/tactic-calibrate-testimony-language), [Anchor Every Finding With a Temporal Qualifier](/kb/05-evidence-legal/tactic-anchor-findings-with-temporal-qualifiers), [Six Characteristics of a Court-Credible Forensic Report](/kb/05-evidence-legal/framework-court-credible-forensic-report-six-characteristics), [The Compliance Referral Report Structure](/kb/05-evidence-legal/framework-compliance-referral-report-structure), [Known Weaknesses to Disclose in a Forensic Report](/kb/05-evidence-legal/checklist-known-weaknesses-to-disclose-in-a-forensic-report), [Common Crypto Investigation Failure Modes](/kb/06-casework-method/checklist-common-crypto-investigation-failure-modes), [The Risk of Public Attribution](/kb/05-evidence-legal/caution-public-attribution-legal-risk)
