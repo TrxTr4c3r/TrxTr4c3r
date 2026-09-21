@@ -211,15 +211,21 @@ function renderNote(n) {
   let body = n.body.replace(
     /(##\s*Related\s*\n+)([\s\S]*?)(\n##\s|\s*$)/,
     (full, head, content, tail) => {
-      const linked = content
-        .split(',')
+      // Split on the middle-dot separator, NOT on commas: many note titles
+      // legitimately contain commas ("Single Indicator Is a Lead, Not Proof"),
+      // and a comma split shreds them so they can never resolve to a link.
+      // Comma fallback covers any note not yet migrated to the separator.
+      const parts = content.includes('·')
+        ? content.split('·')
+        : content.split(',')
+      const linked = parts
         .map((s) => s.trim())
         .filter(Boolean)
         .map((t) => {
           const r = titleMap.get(t.toLowerCase())
           return r ? `[${deDashTitle(t)}](${r})` : deDashTitle(t)
         })
-      return `${head}${linked.join(', ')}${tail}`
+      return `${head}${linked.join(' · ')}${tail}`
     },
   )
 
