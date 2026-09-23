@@ -1,6 +1,6 @@
 # Scam Address Labels
 
-<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>4 deposit addresses · 3 chains · free to use</span>
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>7 deposit addresses · 3 chains · free to use</span>
 
 **Deposit addresses that reported scam platforms hand out, and nothing else.** Each one was captured from
 the site's own deposit screen, then verified on a block explorer. Where the address links directly to a
@@ -91,6 +91,35 @@ reported scam site was handing out. Take it as a free lead rather than an allega
 The linked write-up carries the full transaction set, exact amounts and UTC timestamps, so there should be
 nothing to reconstruct.
 
+## afiliatemktplc[.]live
+
+<span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>THE LAST HOP #003 · reported by scambuster.fr · 3 deposit addresses</span>
+
+[Read the full trace ›](https://trxtr4c3r.substack.com/p/i-found-a-scam-site-that-was-two)
+
+**Read this row set before you screen against it.** The domain was registered on 2026-09-20. Every
+transaction on all three of these addresses happened **before that date**, so none of the money on them
+came from anyone using this site. The site is two days old and has taken nothing through the rails it
+publishes. All three are `not established` and a hit here is a lead about a published address, nothing more.
+
+| Address | Chain | Received | Links to | Control |
+|---|---|---|---|---|
+| `15hGjv1tTUoty2MGPzzYLhJkF2QahoYGaA` | bitcoin | 0.07903100 BTC gross across 110 transactions, balance zero | **Bybit** | `not established` |
+| `TXyrzj428kRbC2rpay1NZEyFVdPAB4pD4y` | tron | 103.000000 USDT in and out on 2026-09-14 | **Bybit** | `not established` |
+| `0x9c6b30ecfe4f136785b7554c9cf18e476d0e33e0` | ethereum | 50.000000 USDC and 5.000000 USDT, lifetime | **Bybit** | `not established` |
+
+**`15hGjv1tTUoty2MGPzzYLhJkF2QahoYGaA`** labelled a Bybit deposit address by Arkham, MetaSleuth and Breadcrumbs. Three vendors in one ecosystem agreeing is not independent corroboration. Also the checkout address on the site's own NFT store, so a purchase and an account deposit collect to the same place. First transaction 2024-08-04T07:41:47Z, last 2026-08-22T23:10:00Z. The 0.07903100 BTC figure is gross and, on a UTXO chain, includes change returning from the address's own spends, so it is not an inflow figure.
+
+Control: **not established**. A live operator, asked how to pay, pointed back at the deposit screen and called it "your trading account wallet address", which is the only pointer toward operator control. The chain runs the other way: this address has over two years of history predating the site, which is not how an address the operation set up behaves.
+
+**`TXyrzj428kRbC2rpay1NZEyFVdPAB4pD4y`** labelled a Bybit deposit address by Arkham and MetaSleuth. Its last sweep went to `TU4vEruvZwLLkSfV9bNw12EJTPvNr7Pvaa`, the same Tron address episode 002 reached. Last transaction 2026-09-14T23:20:03Z, six days before the domain existed.
+
+Control: **not established**. Same basis as the Bitcoin rail on this site.
+
+**`0x9c6b30ecfe4f136785b7554c9cf18e476d0e33e0`** Etherscan carries the public name tag "Bybit: Deposit Address" on this address, and Arkham, MetaSleuth and Breadcrumbs agree. Served for both the ETH and the USDT-ERC20 rail. Its native transaction count is **zero**: it has never sent anything and has never paid a gas fee. Last genuine transfer 2026-07-07T18:30:35Z, 75 days before the domain existed.
+
+Control: **not established**. Same basis as the Bitcoin rail on this site.
+
 ## proderivfxt[.]com
 
 <span style={{ fontFamily: 'var(--font-space-mono), monospace', fontSize: 13, opacity: 0.7 }}>THE LAST HOP #002 · reported by scambuster.fr · 3 deposit addresses</span>
@@ -107,11 +136,11 @@ nothing to reconstruct.
 
 Control: **not established**. published on the site's deposit screen (E005) and never used. An address with zero transactions carries no control evidence in either direction
 
-**`0x88c3d62860d59a51fa43adf84a20c040606ed3d6`** the deposit address is itself an exchange deposit address: Etherscan labels it "Bybit: Deposit Address" and its Funded by field reads "Bybit: Deposit Funder". Arkham agrees. Corroborated on chain by seven gas top-ups from the exchange funder and a sweep to an exchange hot wallet after each deposit No raw block explorer carries entity labels, so this link is a vendor attribution and cannot be verified the way an amount can.
+**`0x88c3d62860d59a51fa43adf84a20c040606ed3d6`** the deposit address is itself an exchange deposit address: Etherscan labels it "Bybit: Deposit Address" and its Funded by field reads "Bybit: Deposit Funder". Arkham agrees. Corroborated on chain by seven gas top-ups from the exchange funder and a sweep to an exchange hot wallet after each deposit Entity labels are attribution, not something the chain states, so a link like this cannot be verified the way an amount can. Some explorers do publish their own name tags, and where one does it is said so explicitly below.
 
 Control: **not established**. published on the site's deposit screen (E004) and nothing beyond that. The address is itself an exchange deposit address, so it belongs to an account holder, and no evidence identifies that holder as the operator rather than an unconnected customer. The 24,083.271289 USDT inbound may be a third party's own account flow. No payment instructions have been obtained from the operator to test it
 
-**`TSCcYez4hGLiDRna3kQXiwF6SbU6BX4GcL`** the deposit address is itself an exchange deposit address per Arkham and Tronscan. Corroborated on chain by a 20.000000 TRX gas delivery from the exchange funder followed by a sweep 3 minutes 3 seconds later No raw block explorer carries entity labels, so this link is a vendor attribution and cannot be verified the way an amount can.
+**`TSCcYez4hGLiDRna3kQXiwF6SbU6BX4GcL`** the deposit address is itself an exchange deposit address per Arkham and Tronscan. Corroborated on chain by a 20.000000 TRX gas delivery from the exchange funder followed by a sweep 3 minutes 3 seconds later Entity labels are attribution, not something the chain states, so a link like this cannot be verified the way an amount can. Some explorers do publish their own name tags, and where one does it is said so explicitly below.
 
 Control: **not established**. published on the site's deposit screen (E003). Exchange deposit behaviour identifies the address type, not the account holder. Same open question as the Ethereum rail on the same site
 
@@ -125,7 +154,7 @@ Control: **not established**. published on the site's deposit screen (E003). Exc
 |---|---|---|---|---|
 | `bc1qk078dgjfkrxu6upw749krxp5j8v8rws0hf8d3m` | bitcoin | 0.01254526 BTC external inflow | **CoinCola** | `circumstantial` |
 
-**`bc1qk078dgjfkrxu6upw749krxp5j8v8rws0hf8d3m`** the deposit address forwarded to addresses Arkham attributes to CoinCola, one hop out No raw block explorer carries entity labels, so this link is a vendor attribution and cannot be verified the way an amount can.
+**`bc1qk078dgjfkrxu6upw749krxp5j8v8rws0hf8d3m`** the deposit address forwarded to addresses Arkham attributes to CoinCola, one hop out Entity labels are attribution, not something the chain states, so a link like this cannot be verified the way an amount can. Some explorers do publish their own name tags, and where one does it is said so explicitly below.
 
 Control: **circumstantial**. published on the logged-in deposit screen (E002). The sibling collector bc1q9ukttq2pkqn5x9nf6866dyajntfl7avnhv5q96 funded this address's first UTXO and the address route-tested to CoinCola 7 minutes 27 seconds later, which is how an address the operation set up behaves. Co-spend test closed negative and definitive: 17 spends, all single-input, so common-input ownership can never be established here
 
